@@ -1,2 +1,3 @@
 # ETH-FSM
-An EVM-based Finite State Machine implementation
+## Finite State Machines for Ethereum
+

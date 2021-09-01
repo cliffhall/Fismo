@@ -1,0 +1,45 @@
+{
+  "name": "ETH-FSM",
+  "version": "0.1.0",
+  "description": "Ethereum Finite State Machine",
+  "author": "Cliff Hall",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cliffhall/ETH-FSM.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cliffhall/ETH-FSM/issues"
+  },
+  "homepage": "https://github.com/cliffhall/ETH-FSM",
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "fsm",
+    "solidity"
+  ],
+  "scripts": {
+    "build": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "fsm:deploy:local": "npx hardhat run --network hardhat scripts/deploy-fsm.js",
+    "fsm:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy-fsm.js >> logs/deploy.fsm.poly.test.txt",
+    "fsm:deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy-fsm.js >> logs/deploy.fsm.poly.main.txt",
+    "fsm:deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy-fsm.js >> logs/deploy.fsm.eth.test.txt",
+    "fsm:deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy-fsm.js >> logs/deploy.fsm.eth.main.txt"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.0"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^2.1.5",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "chai": "^4.2.0",
+    "eip55": "^2.1.0",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.4.5",
+    "hardhat": "^2.6.1",
+    "hardhat-gas-reporter": "^1.0.4",
+    "solidity-coverage": "^0.7.16"
+  }
+}
