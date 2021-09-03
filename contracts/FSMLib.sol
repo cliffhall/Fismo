@@ -22,8 +22,9 @@ library FSMLib {
         // Maps machine id to a machine struct
         mapping(bytes32 => FSMTypes.Machine) machines;
 
-        // Maps machine id to a current state id
-        mapping(bytes23 => bytes32) machineStates;
+        // Maps a user's wallet address to a mapping of FSM id to current state
+        //      wallet  => ( fsm id => current state id )
+        mapping(address => mapping(bytes32 => bytes32)) userStates;
 
     }
 
@@ -37,6 +38,12 @@ library FSMLib {
         assembly {
             fsms.slot := position
         }
+    }
+
+    function setUserState(address _user, bytes32 _fsmId, bytes32 _currentState) internal {
+        FSMStorage fsms = fsmStorage();
+
+        fsms[_user][_fsmId] = _currentState;
     }
 
 }

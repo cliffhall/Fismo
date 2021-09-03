@@ -3,7 +3,7 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const nameToId = require("../util/name-hasher");
+const {nameToId, validateName, validateId} = require("../util/name-utils");
 
 class Machine {
 
@@ -52,7 +52,7 @@ class Machine {
         try {
             valid = (
                 typeof name === "string" &&
-                !string.includes(' ')
+                validateName(name)
             );
         } catch (e) {}
         return valid;
@@ -64,12 +64,11 @@ class Machine {
      */
     idIsValid() {
         let valid = false;
-        let {name} = this;
-        let {id} = this;
+        let {name, id} = this;
         try {
             valid = (
                 this.nameIsValid() &&
-                id === nameToId(name)
+                validateId(name,id)
             );
         } catch (e) {}
         return valid;
@@ -85,7 +84,7 @@ class Machine {
         try {
             valid = (
                 typeof initialStateName === "string" &&
-                !string.includes(' ')
+                validateName(initialStateName)
             );
         } catch (e) {}
         return valid;
@@ -97,12 +96,11 @@ class Machine {
      */
     initialStateIdIsValid() {
         let valid = false;
-        let {initialStateName} = this;
-        let {initialStateId} = this;
+        let {initialStateName, initialStateId} = this;
         try {
             valid = (
                 this.initialStateNameIsValid() &&
-                initialStateId === nameToId(initialStateName)
+                validateId(initialStateName,initialStateId)
             );
         } catch (e) {}
         return valid;

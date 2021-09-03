@@ -3,17 +3,16 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const nameToId = require("../util/name-hasher");
-const State = require("./Transition");
+const {nameToId, validateName, validateId} = require("../util/name-utils");
+const State = require("./State");
 
 class Transition {
 
-    constructor (name, transitions, exitGuarded, enterGuarded) {
-        this.name = name;
-        this.id = nameToId(name);
-        this.transitions = transitions || [];
-        this.enterGuarded = enterGuarded;
-        this.exitGuarded = exitGuarded;
+    constructor (actionName, targetStateName) {
+        this.actionName = actionName;
+        this.actionId = nameToId(actionName);
+        this.targetStateName = targetStateName;
+        this.targetStateId = nameToId(targetStateName);
     }
 
     /**
@@ -44,79 +43,69 @@ class Transition {
     }
 
     /**
-     * Is this Transition instance's name field valid?
+     * Is this Transition instance's actionName field valid?
      * @returns {boolean}
      */
-    nameIsValid() {
+    actionNameIsValid() {
         let valid = false;
-        let {name} = this;
+        let {actionName} = this;
         try {
             valid = (
-                typeof name === "string" &&
-                !string.includes(' ')
+                typeof actionName === "string" &&
+                validateName(actionName)
             );
         } catch (e) {}
         return valid;
     }
 
     /**
-     * Is this Transition instance's id field valid?
+     * Is this Transition instance's actionId field valid?
      * @returns {boolean}
      */
-    idIsValid() {
+    actionIdIsValid() {
         let valid = false;
-        let {name} = this;
-        let {id} = this;
+        let {actionName, actionId} = this;
         try {
             valid = (
                 this.nameIsValid() &&
-                id === nameToId(name)
+                validateId(actionName, actionId)
             );
         } catch (e) {}
         return valid;
     }
 
     /**
-     * Is this Transition instance's transitions collection valid?
+     * Is this Transition instance's targetStateName field valid?
      * @returns {boolean}
      */
-    transitionsIsValid() {
+    targetStateNameIsValid() {
         let valid = false;
-        let {transitions} = this;
+        let {targetStateName} = this;
         try {
             valid = (
-                Array.isArray(transitions) &&
-                transitions.reduce( (prev, transition) => prev && transition.isValid(), true )
+                typeof targetStateName === "string" &&
+                validateName(targetStateName)
             );
         } catch (e) {}
         return valid;
-    };
+    }
 
     /**
-     * Is this Transition instance's enterGuarded field valid?
+     * Is this Transition instance's targetStateId field valid?
      * @returns {boolean}
      */
-    enterGuardedIsValid() {
+    targetStateIdIsValid() {
         let valid = false;
-        let {enterGuarded} = this;
+        let {targetStateName, targetStateId} = this;
         try {
-            valid = typeof enterGuarded === 'boolean'
+            valid = (
+                this.nameIsValid() &&
+                validateId(targetStateName, targetStateId)
+            );
         } catch (e) {}
         return valid;
     }
 
-    /**
-     * Is this Transition instance's exitGuarded field valid?
-     * @returns {boolean}
-     */
-    exitGuardedIsValid() {
-        let valid = false;
-        let {exitGuarded} = this;
-        try {
-            valid = typeof exitGuarded === 'boolean'
-        } catch (e) {}
-        return valid;
-    }
 
     /**
      * Is this Transition instance valid?
@@ -124,11 +113,10 @@ class Transition {
      */
     isValid() {
         return (
-            this.nameIsValid() &&
-            this.idIsValid() &&
-            this.transitionsIsValid() &&
-            this.enterGuardedIsValid() &&
-            this.exitGuardedIsValid()
+            this.actionNameIsValid() &&
+            this.actionIdIsValid() &&
+            this.targetStateNameIsValid() &&
+            this.targetStateIdIsValid()
         );
     };
 

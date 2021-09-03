@@ -37,6 +37,12 @@ import { FSMTypes } from "./domain/FSMTypes.sol";
  */
 contract FSMProxy is FSMTypes {
 
+    modifier onlyActionIntiator() {
+        FSMLib.FSMStorage storage fsms = FSMLib.fsmStorage();
+        require(msg.sender == fsms.actionInitiator, "Only action initiator may call");
+        _;
+    }
+
     constructor(address _actionInitiator) {
         FSMLib.FSMStorage storage fsms = FSMLib.fsmStorage();
         fsms.actionInitiator = _actionInitiator;
@@ -45,14 +51,20 @@ contract FSMProxy is FSMTypes {
     /**
      * Invoke an action on a configured FSM
      *
-     * @param _target - the name of the target FSM
-     * @param _action - the name of the action to invoke
+     * @param _fsmId - the id of the target FSM
+     * @param _actionId - the id of the action to invoke
      */
-    function invokeAction(bytes32 _fsmId, bytes32 _actionId) external {
-
+    function invokeAction(bytes32 _fsmId, bytes32 _actionId)
+    onlyActionIntiator
+    external {
+        FSMLib.FSMStorage storage fsms = FSMLib.fsmStorage();
     }
 
-    function addMachine(bytes32 _fsmId, Machine _fsm) external {
+    function addMachine(Machine _fsm) external {
+
+        FSMLib.FSMStorage storage fsms = FSMLib.fsmStorage();
+        require(_fsm.id == keccak256(_fsm.name), "Machine ID is invalid");
+        require(fsms.machines(_fsm.id) == 0, "Machine with that ID already exists");
 
     }
 

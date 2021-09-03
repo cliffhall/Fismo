@@ -16,32 +16,32 @@ contract FSMTypes {
     }
 
     struct Machine {
-        bytes32 id;
-        bytes32 initialStateId;
         string name;
         string initialStateName;
+        bytes32 id;
+        bytes32 initialStateId;
         State[] states;
     }
 
     struct State {
-        bytes32 id;          // keccak256 hash of name
         string name;         // must not contain spaces
+        bytes32 id;          // keccak256 hash of name
         bool exitGuarded;    // is there an exit guard?
         bool enterGuarded;   // is there an enter guard?
         Transition[] transitions;
     }
 
     struct Action {
-        bytes32 id;
         string name;
         string target;
+        bytes32 id;
     }
 
     struct Transition {
-        bytes32 actionId;
-        bytes32 targetStateId;
         string actionName;
         string targetStateName;
+        bytes32 actionId;
+        bytes32 targetStateId;
     }
 
 }
