@@ -4,10 +4,13 @@
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 const {nameToId, validateName, validateId} = require("../util/name-utils");
+const eip55 = require("eip55");
 
 class Machine {
 
-    constructor (name, initialStateName, states) {
+    constructor (uri, owner, name, initialStateName, states) {
+        this.uri = uri;
+        this.owner = eip55.encode(owner);
         this.name = name;
         this.id = nameToId(name);
         this.initialStateName = initialStateName;
@@ -40,6 +43,22 @@ class Machine {
      */
     toString() {
         return JSON.stringify(this);
+    }
+
+    /**
+     * Is this Machine instance's owner field valid?
+     * Must be a eip55 compliant Ethereum address
+     * @returns {boolean}
+     */
+    ownerIsValid() {
+        let valid = false;
+        let {owner} = this;
+        try {
+            valid = (
+                eip55.verify(owner)
+            );
+        } catch (e) {}
+        return valid;
     }
 
     /**

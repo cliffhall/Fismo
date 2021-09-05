@@ -8,12 +8,13 @@ const Transition = require("./Transition");
 
 class State {
 
-    constructor (name, transitions, exitGuarded, enterGuarded) {
+    constructor (name, transitions, exitGuarded, enterGuarded, description) {
         this.name = name;
         this.id = nameToId(name);
         this.transitions = transitions || [];
         this.enterGuarded = enterGuarded;
         this.exitGuarded = exitGuarded;
+        this.description = description;
     }
 
     /**
@@ -113,6 +114,21 @@ class State {
         let {exitGuarded} = this;
         try {
             valid = typeof exitGuarded === 'boolean'
+        } catch (e) {}
+        return valid;
+    }
+
+    /**
+     * Is this State instance's description field valid?
+     * @returns {boolean}
+     */
+    descriptionIsValid() {
+        let valid = false;
+        let {description} = this;
+        try {
+            valid = (
+                typeof description === "string"
+            );
         } catch (e) {}
         return valid;
     }

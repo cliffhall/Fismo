@@ -1,31 +1,31 @@
 {
-  "name": "ETH-FSM",
+  "name": "Fismo",
   "version": "0.1.0",
-  "description": "Ethereum Finite State Machine",
+  "description": "Fismo: A framework for multiuser Finite State Machines on Ethereum",
   "author": "Cliff Hall",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cliffhall/ETH-FSM.git"
+    "url": "https://github.com/cliffhall/Fismo.git"
   },
   "bugs": {
-    "url": "https://github.com/cliffhall/ETH-FSM/issues"
+    "url": "https://github.com/cliffhall/Fismo/issues"
   },
-  "homepage": "https://github.com/cliffhall/ETH-FSM",
+  "homepage": "https://github.com/cliffhall/Fismo",
   "keywords": [
     "blockchain",
     "ethereum",
-    "fsm",
+    "fismo",
     "solidity"
   ],
   "scripts": {
     "build": "npx hardhat compile",
     "test": "npx hardhat test",
-    "fsm:deploy:local": "npx hardhat run --network hardhat scripts/deploy-fsm.js",
-    "fsm:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy-fsm.js >> logs/deploy.fsm.poly.test.txt",
-    "fsm:deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy-fsm.js >> logs/deploy.fsm.poly.main.txt",
-    "fsm:deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy-fsm.js >> logs/deploy.fsm.eth.test.txt",
-    "fsm:deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy-fsm.js >> logs/deploy.fsm.eth.main.txt"
+    "fismo:deploy:local": "npx hardhat run --network hardhat scripts/deploy-fismo.js",
+    "fismo:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy-fismo.js >> logs/deploy.fismo.poly.test.txt",
+    "fismo:deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy-fismo.js >> logs/deploy.fismo.poly.main.txt",
+    "fismo:deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy-fismo.js >> logs/deploy.fismo.eth.test.txt",
+    "fismo:deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy-fismo.js >> logs/deploy.fismo.eth.main.txt"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.0"
@@ -38,7 +38,7 @@
     "eip55": "^2.1.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.5",
-    "hardhat": "^2.6.1",
+    "hardhat": "^2.6.2",
     "hardhat-gas-reporter": "^1.0.4",
     "solidity-coverage": "^0.7.16"
   }
