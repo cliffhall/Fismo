@@ -1,3 +1,2 @@
-# ETH-FSM
-## Finite State Machines for Ethereum
-
+# Fismo
+## An Solidity contract framework for multiuser Finite State Machines
