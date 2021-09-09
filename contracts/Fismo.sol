@@ -3,8 +3,6 @@ pragma solidity ^0.8.0;
 
 import { FismoLib } from "./FismoLib.sol";
 import { FismoBase } from "./FismoBase.sol";
-import { FismoTypes } from "./domain/FismoTypes.sol";
-import { StringUtils } from "./utils/StringUtils.sol";
 
 /**
  * @title Fismo

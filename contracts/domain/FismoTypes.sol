@@ -12,7 +12,7 @@ contract FismoTypes {
 
     enum Guard {
         Enter,
-        Exit
+        Exits
     }
 
     struct Machine {
@@ -32,14 +32,9 @@ contract FismoTypes {
         Transition[] transitions; // all of the valid transitions from this state
     }
 
-    struct Action {
-        bytes4 id;                // keccak256 hash of Action name
-        string name;              // Action name. no spaces, only a-z, A-Z, 0-9, and _
-        bytes4 targetStateId;     // keccak256 hash of state to transition to
-    }
-
     struct Transition {
         bytes4 actionId;          // keccak256 hash of action name
+        string actionName;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
         bytes4 targetStateId;     // keccak256 hash of target state name
     }
 

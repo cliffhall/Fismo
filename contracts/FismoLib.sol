@@ -12,7 +12,7 @@ import { FismoTypes } from "./domain/FismoTypes.sol";
  */
 library FismoLib {
 
-    bytes4 internal constant FISMO_SLOT = keccak256("fismo.storage.slot");
+    bytes32 internal constant FISMO_SLOT = keccak256("fismo.storage.slot");
 
     struct FismoSlot {
 
@@ -46,18 +46,29 @@ library FismoLib {
     /**
      * @notice Get the FSM Storage slot
      *
-     * @return fismoSlot - FSM storage slot cast to fismoSlot
+     * @return fismoStorageSlot - Fismo storage slot
      */
     function fismoSlot()
     internal
     pure
-    returns (FismoSlot storage fismoSlot) {
-        bytes4 position = FISMO_SLOT;
+    returns (FismoSlot storage fismoStorageSlot) {
+        bytes32 position = FISMO_SLOT;
         assembly {
-            fismoSlot.slot := position
+            fismoStorageSlot.slot := position
         }
     }
 
+    /**
+     * @notice Hash a name into a bytes4 id
+     *
+     */
+    function nameToId(string memory _name)
+    public
+    pure
+    returns
+    (bytes4 id) {
+        id = bytes4(keccak256(bytes(_name)));
+    }
 
     /**
      * @notice Get a machine by id
@@ -97,13 +108,13 @@ library FismoLib {
         FismoTypes.Machine storage machine = getMachine(_machineId);
 
         // Get index of state in machine's states array
-        uint256 index = fismoSlot().stateIndex[_machineId][_state.id];
+        uint256 index = fismoSlot().stateIndex[_machineId][_stateId];
 
         // Get the state
         state = machine.states[index];
 
         // Make sure state exists
-        require(state.id == _state.id, "No such state");
+        require(state.id == _stateId, "No such state");
     }
 
     /**
@@ -121,7 +132,7 @@ library FismoLib {
 
         // Push user's current location onto their history stack
         fismoSlot().userHistory[_user].push(
-            FismoTypes.Location(_machineId, _stateId)
+            FismoTypes.Position(_machineId, _stateId)
         );
     }
 
@@ -131,7 +142,7 @@ library FismoLib {
      * @param _user - the address of the user
      * @param _machineId - the address of the user
      *
-     * @return stateId - the user's current state in the given machine
+     * @return state - the user's current state in the given machine
      */
     function getUserState(address _user, bytes4 _machineId)
     internal
@@ -143,9 +154,11 @@ library FismoLib {
         // Get that state's index in the machine's states array
         uint256 index = fismoSlot().stateIndex[_machineId][currentStateId];
 
+        // Get the machine
+        FismoTypes.Machine storage machine = getMachine(_machineId);
+
         // Return the state struct
         state = machine.states[index];
-
     }
 
     /**
@@ -162,8 +175,7 @@ library FismoLib {
 
         // Return the last position on the stack
         bytes4 none = 0;
-        position = (stack.length) ? history[history.length-1] : Position(none,none);
-
+        position = (history.length > 0) ? history[history.length-1] : FismoTypes.Position(none, none);
     }
 
     /**
@@ -177,7 +189,6 @@ library FismoLib {
     {
         // Get the user's position history
         history = fismoSlot().userHistory[_user];
-
     }
 
     /**
@@ -186,7 +197,7 @@ library FismoLib {
      * @param _machineName - the name of the machine
      * @param _stateName - the name of the state
      */
-    function getGuardSelector(string storage _machineName, string storage _stateName, FismoTypes.Guard _guard)
+    function getGuardSelector(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
     internal
     returns (bytes4 guardSelector)
     {
@@ -203,45 +214,52 @@ library FismoLib {
         );
 
         // Return th hashed function selector
-        guardSelector = keccak256(guardSignature);
+        guardSelector = FismoLib.nameToId(guardSignature);
     }
 
     /**
      * @notice update
      */
-    function updateStateGuards(FismoTypes.State state)
+    function updateStateGuards(FismoTypes.Machine memory _machine, FismoTypes.State memory _state)
     internal
     {
         // Map deterministic enter guard function selector to implementation
-        if (state.enterGuarded) {
+        if (_state.enterGuarded) {
 
-            // determine enter guard function signature for state
-            // N.B. machineName_enter_stateName(address _user)
-            string memory enterGuardName = strConcat(
-                strConcat(
-                    strConcat(_machine.name,"_enter_"),
-                    state.name
-                ),
-                "(address _user)"
-            );
+            // determine exit guard function signature for state
+            // Ex. keccak256 hash of: machineName_exit_stateName(address _user)
+            bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Enter);
 
-            // Map the entrance guard function selector to the address of the guard logic implementation for this state
-            fismoSlot().guardLogic[keccak256(enterGuardName)] = state.guardLogic;
+            // Map the enter guard function selector to the address of the guard logic implementation for this state
+            fismoSlot().guardLogic[exitGuardSelector] = _state.guardLogic;
 
         }
 
         // Map deterministic exit guard function selector to implementation
-        if (state.exitGuarded) {
+        if (_state.exitGuarded) {
 
             // determine exit guard function signature for state
             // Ex. keccak256 hash of: machineName_exit_stateName(address _user)
-            bytes4 exitGuardSelector = getGuardSelector(_machine.name, state.name, Guard.Exit);
+            bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Exit);
 
             // Map the exit guard function selector to the address of the guard logic implementation for this state
-            fismoSlot().guardLogic[exitGuardSelector] = state.guardLogic;
+            fismoSlot().guardLogic[exitGuardSelector] = _state.guardLogic;
 
         }
 
+    }
+
+    /**
+ * @notice Concatenate two strings
+ * @param _a the first string
+ * @param _b the second string
+ * @return result the concatenation of `_a` and `_b`
+ */
+    function strConcat(string memory _a, string memory _b)
+    internal
+    pure
+    returns(string memory result) {
+        result = string(abi.encodePacked(bytes(_a), bytes(_b)));
     }
 
 }
