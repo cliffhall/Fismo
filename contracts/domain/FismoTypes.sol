@@ -12,7 +12,7 @@ contract FismoTypes {
 
     enum Guard {
         Enter,
-        Exits
+        Exit
     }
 
     struct Machine {

@@ -81,6 +81,7 @@ library FismoLib {
      */
     function getMachine(bytes4 _machineId)
     public
+    view
     returns (FismoTypes.Machine storage machine)
     {
         // Get the machine
@@ -102,13 +103,14 @@ library FismoLib {
      */
     function getState(bytes4 _machineId, bytes4 _stateId)
     public
+    view
     returns (FismoTypes.State storage state) {
 
         // Get the machine
         FismoTypes.Machine storage machine = getMachine(_machineId);
 
         // Get index of state in machine's states array
-        uint256 index = fismoSlot().stateIndex[_machineId][_stateId];
+        uint256 index = getStateIndex(_machineId, _stateId);
 
         // Get the state
         state = machine.states[index];
@@ -118,103 +120,58 @@ library FismoLib {
     }
 
     /**
-     * @notice Set the current state for a given user in a given machine.
+     * @notice Map a state's index in machine's states array
      *
-     * @param _user - the address of the user
      * @param _machineId - the id of the machine
-     * @param _stateId - the id of the new state within the given machine
+     * @param _stateId - the id of the state within the given machine
+     * @param _index - the index of the state within the array
      */
-    function setUserState(address _user, bytes4 _machineId, bytes4 _stateId)
+    function mapStateIndex(bytes4 _machineId, bytes4 _stateId, uint256 _index)
     internal
     {
-        // Store the user's new state in the given machine
-        fismoSlot().userState[_user][_machineId] = _stateId;
-
-        // Push user's current location onto their history stack
-        fismoSlot().userHistory[_user].push(
-            FismoTypes.Position(_machineId, _stateId)
-        );
+        // Add mapping: machine id => state id => states array index
+        fismoSlot().stateIndex[_machineId][_stateId] = _index;
     }
 
     /**
-     * @notice Set the current state for a given user in a given machine.
+     * @notice Get a state's index in machine's states array
      *
-     * @param _user - the address of the user
-     * @param _machineId - the address of the user
-     *
-     * @return state - the user's current state in the given machine
+     * @param _machineId - the id of the machine
+     * @param _stateId - the id of the state within the given machine
      */
-    function getUserState(address _user, bytes4 _machineId)
+    function getStateIndex(bytes4 _machineId, bytes4 _stateId)
     internal
-    returns (FismoTypes.State storage state)
+    view
+    returns(uint256 index)
     {
-        // Get the current state of user in given FSM
-        bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
-
-        // Get that state's index in the machine's states array
-        uint256 index = fismoSlot().stateIndex[_machineId][currentStateId];
-
-        // Get the machine
-        FismoTypes.Machine storage machine = getMachine(_machineId);
-
-        // Return the state struct
-        state = machine.states[index];
+        index = fismoSlot().stateIndex[_machineId][_stateId];
     }
 
     /**
-     * @notice Get the last known machine and state ids for a given user
-     *
-     * @param _user - the address of the user
-     */
-    function getLastPosition(address _user)
-    internal
-    returns (FismoTypes.Position memory position)
-    {
-        // Get the user's position history
-        FismoTypes.Position[] storage history = fismoSlot().userHistory[_user];
-
-        // Return the last position on the stack
-        bytes4 none = 0;
-        position = (history.length > 0) ? history[history.length-1] : FismoTypes.Position(none, none);
-    }
-
-    /**
-     * @notice Get the entire position history for a given user
-     *
-     * @param _user - the address of the user
-     */
-    function getPositionHistory(address _user)
-    internal
-    returns (FismoTypes.Position[] storage history)
-    {
-        // Get the user's position history
-        history = fismoSlot().userHistory[_user];
-    }
-
-    /**
-     * @notice Get the function selector for an enter or exit guard guard
-     *
-     * @param _machineName - the name of the machine
-     * @param _stateName - the name of the state
-     */
+ * @notice Get the function selector for an enter or exit guard guard
+ *
+ * @param _machineName - the name of the machine
+ * @param _stateName - the name of the state
+ */
     function getGuardSelector(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
     internal
+    pure
     returns (bytes4 guardSelector)
     {
         // Compute unique function signature, e.g., machineName_exit_stateName(address _user)
         string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_enter_" : "_exit_";
         string memory guardSignature = strConcat(
 
-            // function name
+        // function name
             strConcat(strConcat(_machineName, guardType), _stateName),
 
-            // Arguments
+        // Arguments
             "(address _user)"
 
         );
 
         // Return th hashed function selector
-        guardSelector = FismoLib.nameToId(guardSignature);
+        guardSelector = nameToId(guardSignature);
     }
 
     /**
@@ -250,11 +207,88 @@ library FismoLib {
     }
 
     /**
- * @notice Concatenate two strings
- * @param _a the first string
- * @param _b the second string
- * @return result the concatenation of `_a` and `_b`
+ * @notice Set the current state for a given user in a given machine.
+ *
+ * @param _user - the address of the user
+ * @param _machineId - the id of the machine
+ * @param _stateId - the id of the state within the given machine
  */
+    function setUserState(address _user, bytes4 _machineId, bytes4 _stateId)
+    internal
+    {
+        // Store the user's new state in the given machine
+        fismoSlot().userState[_user][_machineId] = _stateId;
+
+        // Push user's current location onto their history stack
+        fismoSlot().userHistory[_user].push(
+            FismoTypes.Position(_machineId, _stateId)
+        );
+    }
+
+    /**
+     * @notice Set the current state for a given user in a given machine.
+     *
+     * @param _user - the address of the user
+     * @param _machineId - the address of the user
+     *
+     * @return state - the user's current state in the given machine
+     */
+    function getUserState(address _user, bytes4 _machineId)
+    internal
+    view
+    returns (FismoTypes.State storage state)
+    {
+        // Get the current state of user in given FSM
+        bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
+
+        // Get that state's index in the machine's states array
+        uint256 index = fismoSlot().stateIndex[_machineId][currentStateId];
+
+        // Get the machine
+        FismoTypes.Machine storage machine = getMachine(_machineId);
+
+        // Return the state struct
+        state = machine.states[index];
+    }
+
+    /**
+     * @notice Get the last known machine and state ids for a given user
+     *
+     * @param _user - the address of the user
+     */
+    function getLastPosition(address _user)
+    internal
+    view
+    returns (FismoTypes.Position memory position)
+    {
+        // Get the user's position history
+        FismoTypes.Position[] storage history = fismoSlot().userHistory[_user];
+
+        // Return the last position on the stack
+        bytes4 none = 0;
+        position = (history.length > 0) ? history[history.length-1] : FismoTypes.Position(none, none);
+    }
+
+    /**
+     * @notice Get the entire position history for a given user
+     *
+     * @param _user - the address of the user
+     */
+    function getPositionHistory(address _user)
+    internal
+    view
+    returns (FismoTypes.Position[] storage history)
+    {
+        // Get the user's position history
+        history = fismoSlot().userHistory[_user];
+    }
+
+    /**
+     * @notice Concatenate two strings
+     * @param _a the first string
+     * @param _b the second string
+     * @return result the concatenation of `_a` and `_b`
+     */
     function strConcat(string memory _a, string memory _b)
     internal
     pure

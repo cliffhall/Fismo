@@ -63,21 +63,21 @@ contract FismoBase is FismoTypes  {
         // Make sure action is valid for given state
         require(transition.actionId == _actionId, "No such action");
 
-        // if there is exit logic, call it
+        // if there is exit guard logic, call it
         if (state.exitGuarded) {
-
+            // TODO: Call exit guard
         }
 
-        // if there is enter logic, call it
-        if (state.exitGuarded) {
-
+        // if there is enter guard logic, call it
+        if (state.enterGuarded) {
+            // TODO: call enter guard
         }
 
         // if we made it this far, set the new state
         FismoLib.setUserState(_user, _machineId, _actionId);
 
         // emit events
-
+        emit ActionSuccess(_user, _machineId, _actionId);
     }
 
     /**
@@ -95,20 +95,30 @@ contract FismoBase is FismoTypes  {
         // Make sure machine id is valid
         require(_machine.id == FismoLib.nameToId(_machine.name), "Machine ID is invalid");
 
+        // Get the machine's storage location
+        Machine storage machine = fismoSlot.machine[_machine.id];
+
         // Make sure machine doesn't already exist
-        require(fismoSlot.machine[_machine.id] == 0, "Machine with that ID already exists");
+        require(machine.id != _machine.id, "Machine with that ID already exists");
 
         // Store the machine
-        fismoSlot.machine[_machine.id] = _machine;
+        machine.id = _machine.id;
+        machine.initialStateId = _machine.initialStateId;
+        machine.name = _machine.name;
+        machine.uri = _machine.uri;
 
-        // Map the machine's states
-        for (uint32 i = 0; i < _machine.states.length; i++) {
+        // Store and map the machine's states
+        //
+        // Struct arrays cannot be copied from memory to storage,
+        // so states must be added to the machine individually
+        uint256 length = _machine.states.length;
+        for (uint256 i = 0; i < length; i+=1) {
 
-            // Get the state
+            // Get the state from memory
             State memory state = _machine.states[i];
 
-            // Make sure machine id is valid
-            require(state.id == FismoLib.nameToId(state.name), "State ID is invalid");
+            // Store the state
+            addState(_machine.id, state);
 
             // Map state id to index of state in machine's states array
             fismoSlot.stateIndex[_machine.id][_machine.states[i].id] = i;
@@ -116,6 +126,7 @@ contract FismoBase is FismoTypes  {
             // Determine the state guard
             FismoLib.updateStateGuards(_machine, state);
         }
+
     }
 
     /**
@@ -124,24 +135,24 @@ contract FismoBase is FismoTypes  {
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
      */
-    function addState(bytes4 _machineId, State calldata _state)
-    external
+    function addState(bytes4 _machineId, State memory _state)
+    public
     onlyOwner
     {
-        // Get the storage slot
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
+        // Make sure state id is valid
+        require(_state.id == FismoLib.nameToId(_state.name), "State ID is invalid");
 
-        // Get the machine
+        // Get the machine's storage location
         Machine storage machine = FismoLib.getMachine(_machineId);
 
-        // Push the state onto the machine's states array
-        machine.states.push(_state);
+        // Get the new state's storage location
+        uint256 index = machine.states.length;
 
         // Map state id to index of state in machine's states array
-        fismoSlot.stateIndex[_machineId][_state.id] = machine.states.length - 1;
+        FismoLib.mapStateIndex(_machineId, _state.id, index);
 
-        // Index the the state guard logic
-        FismoLib.updateStateGuards(machine, _state);
+        // Store the new state in the machine's states array
+        storeState(machine, _state, index);
     }
 
     /**
@@ -158,24 +169,57 @@ contract FismoBase is FismoTypes  {
      * @param _state - the state to update
      */
     function updateState(bytes4 _machineId, State memory _state)
-    external
+    public
     onlyOwner
     {
-        // Get the storage slot
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-
         // Get the machine
         Machine storage machine = FismoLib.getMachine(_machineId);
 
         // Make sure state exists
-        uint256 index = fismoSlot.stateIndex[_machineId][_state.id];
-        require(machine.states[index].id == _state.id);
+        uint256 index = FismoLib.getStateIndex(_machineId, _state.id);
+        require(machine.states[index].id == _state.id, "State does not exist");
 
         // Overwrite the state in the machine's states array
-        machine.states[index] = _state;
+        storeState(machine, _state, index);
+    }
 
-        // Index the the state guard logic
-        FismoLib.updateStateGuards(machine, _state);
+    /**
+     * @notice Store a state
+     *
+     * Shared by addState and updateState
+     *
+     * @param _machine - the machine's storage location
+     * @param _state - the state's storage location
+     * @param _index - the state's index within the machine's states array
+     */
+    function storeState(Machine storage _machine, State memory _state, uint256 _index)
+    internal
+    {
+        // Overwrite the state in the machine's states array
+        State storage state = _machine.states[_index];
+        state.id = _state.id;
+        state.name = _state.name;
+        state.exitGuarded = _state.exitGuarded;
+        state.enterGuarded = _state.enterGuarded;
+        state.guardLogic = _state.guardLogic;
+
+        // Store the state's transitions
+        //
+        // Struct arrays cannot be copied from memory to storage,
+        // so transitions must be added to the state individually
+        uint256 length = _state.transitions.length;
+        for (uint256 i = 0; i < length; i+=1) {
+
+            // Get the transition from memory
+            Transition memory transition = _state.transitions[i];
+
+            // Store the transition
+            addTransition(_machine.id, _state.id, transition);
+
+        }
+
+        // Update the the state guards
+        FismoLib.updateStateGuards(_machine, _state);
     }
 
     /**
@@ -185,18 +229,21 @@ contract FismoBase is FismoTypes  {
      * @param _stateId - the id of the state
      * @param _transition - the transition to add to the state
      */
-    function addTransition(bytes4 _machineId, bytes4 _stateId, Transition calldata _transition)
-    external
+    function addTransition(bytes4 _machineId, bytes4 _stateId, Transition memory _transition)
+    public
     onlyOwner
     {
-        // Get the machine
-        Machine storage machine = FismoLib.getMachine(_machineId);
-
         // Get the state
         State storage state = FismoLib.getState(_machineId, _stateId);
 
-        // Add the transition
-        state.transitions.push(_transition);
+        // Get the new transition's storage location
+        uint256 index = state.transitions.length;
+
+        // Overwrite the state in the machine's states array
+        Transition storage transition = state.transitions[index];
+        transition.actionId = _transition.actionId;
+        transition.actionName = _transition.actionName;
+        transition.targetStateId = _transition.targetStateId;
 
     }
 

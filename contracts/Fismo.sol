@@ -51,10 +51,7 @@ contract Fismo is FismoBase {
     }
 
     /**
-     * Fallback function. Called when the specified function doesn't exist
-     *
-     * Find facet for function that is called and execute the
-     * function if a facet is found and returns any value.
+     * Invoke deterministic guard logic
      */
     fallback() external payable {
 
@@ -65,7 +62,7 @@ contract Fismo is FismoBase {
         address implementation = fismoSlot.guardLogic[msg.sig];
         require(implementation != address(0), "Guard logic implementation does not exist");
 
-        // Invoke the function with delagatecall
+        // Invoke guard with delagatecall
         assembly {
             calldatacopy(0, 0, calldatasize())
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
@@ -81,7 +78,11 @@ contract Fismo is FismoBase {
 
     }
 
-    /// Contract can receive ETH
+    // TODO: Evaluate whether to allow contract to receive ETH
+    //
+    // Guards can receive and/or send ETH as users to passes into or out of a given state?
+    //
+    // Do we also need an ownerOnly drain() function in case ETH gets stuck?
     receive() external payable {}
 
 }
