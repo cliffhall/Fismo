@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const Transition = require("../../scripts/domain/Transition");
-const nameToId = require("../util/name-hasher");
+const { nameToId } = require("../../scripts/util/name-utils");
 
 /**
  *  Test the Transition domain object
@@ -10,40 +10,28 @@ const nameToId = require("../util/name-hasher");
 describe("Transition", function() {
 
     // Suite-wide scope
-    let accounts, token;
-    let actionName, targetStateName, actionId, targetStateId;
+    let transition, object, dehydrated, rehydrated, clone;
+    let actionId, targetStateId, actionName, targetStateName;
 
     before( async function () {
 
-        // Make accounts available
-        accounts = await ethers.getSigners();
-        creator = accounts[0].address;
+        actionName = "Disappear in a Puff of Smoke";
+        targetStateName = "Inside_Puff_of_Smoke";
+        actionId = nameToId(actionName);
+        targetStateId = nameToId(targetStateName);
 
     });
 
     context("Constructor", async function () {
 
-        beforeEach( async function () {
-
-            // Required constructor params
-            royaltyPercentage = "1500"; // 15%
-            isPhysical = true;
-            id = "0";
-            supply = "25";
-            uri = "ipfs://QmXBB6qm5vopwJ6ddxb1mEr1Pp87AHd3BUgVbsipCf9hWU";
-
-        });
-
         it("Should allow creation of valid, fully populated Transition instance", async function () {
 
-            token = new Transition(creator, royaltyPercentage, isPhysical, id, supply, uri);
-            expect(token.creatorIsValid()).is.true;
-            expect(token.royaltyPercentageIsValid()).is.true;
-            expect(token.isPhysicalIsValid()).is.true;
-            expect(token.idIsValid()).is.true;
-            expect(token.supplyIsValid()).is.true;
-            expect(token.uriIsValid()).is.true;
-            expect(token.isValid()).is.true;
+            transition = new Transition(actionId, targetStateId, actionName, targetStateName);
+            expect(transition.actionIdIsValid(), "Invalid actionId").is.true;
+            expect(transition.targetStateIdIsValid(), "Invalid targetStateId").is.true;
+            expect(transition.actionNameIsValid(), "Invalid actionName").is.true;
+            expect(transition.targetStateNameIsValid(), "Invalid targetStateName").is.true;
+            expect(transition.isValid()).is.true;
 
         });
 
@@ -51,244 +39,191 @@ describe("Transition", function() {
 
     context("Field validations", async function () {
 
-        beforeEach( async function () {
+        before( async function () {
 
-            // Required constructor params
-            royaltyPercentage = "1500"; // 15%
-            isPhysical = true;
-            id = "0";
-            supply = "25";
-            uri = "ipfs://QmXBB6qm5vopwJ6ddxb1mEr1Pp87AHd3BUgVbsipCf9hWU";
-
-            // Create a valid token, then set fields in tests directly
-            token = new Transition(creator, royaltyPercentage, isPhysical, id, supply, uri);
-            expect(token.isValid()).is.true;
-        });
-
-        it("Always present, creator must be a string representation of an EIP-55 compliant address", async function() {
-
-            // Invalid field value
-            token.creator = "0xASFADF";
-            expect(token.creatorIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Invalid field value
-            token.creator = "zedzdeadbaby";
-            expect(token.creatorIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Valid field value
-            token.creator = accounts[0].address;
-            expect(token.creatorIsValid()).is.true;
-            expect(token.isValid()).is.true;
-
-            // Valid field value
-            token.creator = "0x7777788200B672A42421017F65EDE4Fc759564C8";
-            expect(token.creatorIsValid()).is.true;
-            expect(token.isValid()).is.true;
+            transition = new Transition(actionId, targetStateId, actionName, targetStateName);
 
         });
 
-        it("Always present, royaltyPercentage must be the string representation of a positive BigNumber", async function() {
+        it("Always present, actionId must be a bytes4 kecckak hash of the actionName", async function() {
 
             // Invalid field value
-            token.royaltyPercentage = 12;
-            expect(token.royaltyPercentageIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.actionId = 12;
+            expect(transition.actionIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Invalid field value
-            token.royaltyPercentage = "zedzdeadbaby";
-            expect(token.royaltyPercentageIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.actionId = "zedzdeadbaby";
+            expect(transition.actionIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Invalid field values
-            token.royaltyPercentage = "0"; // 0%
-            expect(token.royaltyPercentageIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.actionId = "0";
+            expect(transition.actionIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
+
+            // Valid field value
+            transition.actionId = nameToId(actionName);
+            expect(transition.actionIdIsValid()).is.true;
+            expect(transition.isValid()).is.true;
+
+        });
+
+        it("Always present, targetStateId must be a bytes4 kecckak hash of the targetStateName", async function() {
+
+            // Invalid field value
+            transition.targetStateId = 12;
+            expect(transition.targetStateIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
+
+            // Invalid field value
+            transition.targetStateId = "zedzdeadbaby";
+            expect(transition.targetStateIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Invalid field values
-            token.royaltyPercentage = "10001"; // 100.01%
-            expect(token.royaltyPercentageIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.targetStateId = "0";
+            expect(transition.targetStateIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Valid field value
-            token.royaltyPercentage = "126";
-            expect(token.royaltyPercentageIsValid()).is.true;
-            expect(token.isValid()).is.true;
+            transition.targetStateId = nameToId(targetStateName);
+            expect(transition.targetStateIdIsValid()).is.true;
+            expect(transition.isValid()).is.true;
 
         });
 
-        it("Always present, isPhysical must be a boolean", async function() {
+        it("Always present, actionName must contain only characters: a-z, A-Z, 0-9, _, and space", async function() {
 
             // Invalid field value
-            token.isPhysical = "0xASFADF";
-            expect(token.isPhysicalIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.actionName = 12;
+            expect(transition.actionNameIsValid()).is.false;
 
             // Invalid field value
-            token.isPhysical = "zedzdeadbaby";
-            expect(token.isPhysicalIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Invalid field value
-            token.isPhysical = accounts[0].address;
-            expect(token.isPhysicalIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.actionName = "zedz-dead-baby";
+            expect(transition.actionNameIsValid()).is.false;
 
             // Valid field value
-            token.isPhysical = true;
-            expect(token.isPhysicalIsValid()).is.true;
-            expect(token.isValid()).is.true;
+            transition.actionName = "l";
+            expect(transition.actionNameIsValid()).is.true;
+
+            // Valid field values
+            transition.actionName = "0";
+            expect(transition.actionNameIsValid()).is.true;
+
+            // Valid field value
+            transition.actionName = "Disappear in a Puff of Smoke";
+            expect(transition.actionNameIsValid()).is.true;
 
         });
 
-        it("Always present, id must be the string representation of a BigNumber", async function() {
+        it("Always present, targetStateName must start with a letter and contain only characters: a-z, A-Z, 0-9, and _", async function() {
 
             // Invalid field value
-            token.id = 12;
-            expect(token.idIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Invalid field value
-            token.id = "zedzdeadbaby";
-            expect(token.idIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Valid field value
-            token.id = "0";
-            expect(token.idIsValid()).is.true;
-            expect(token.isValid()).is.true;
-
-            // Valid field value
-            token.id = "126";
-            expect(token.idIsValid()).is.true;
-            expect(token.isValid()).is.true;
-
-        });
-
-        it("Always present, supply must be the string representation of a positive BigNumber", async function() {
-
-            // Invalid field value
-            token.supply = 12;
-            expect(token.supplyIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Invalid field value
-            token.supply = "zedzdeadbaby";
-            expect(token.supplyIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.targetStateName = 12;
+            expect(transition.targetStateNameIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Invalid field values
-            token.supply = "0";
-            expect(token.supplyIsValid()).is.false;
-            expect(token.isValid()).is.false;
-
-            // Valid field value
-            token.supply = "126";
-            expect(token.supplyIsValid()).is.true;
-            expect(token.isValid()).is.true;
-
-        });
-
-        it("Always present, uri must be a non-empty string", async function() {
+            transition.targetStateName = "0";
+            expect(transition.targetStateNameIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Invalid field value
-            token.uri = 12;
-            expect(token.uriIsValid()).is.false;
-            expect(token.isValid()).is.false;
+            transition.targetStateName = "zedz-dead-baby";
+            expect(transition.targetStateNameIsValid()).is.false;
+            expect(transition.isValid()).is.false;
 
             // Valid field value
-            token.uri = "zedzdeadbaby";
-            expect(token.uriIsValid()).is.true;
-            expect(token.isValid()).is.true;
+            transition.targetStateName = "l";
+            expect(transition.targetStateNameIsValid()).is.true;
 
             // Valid field value
-            token.uri = "https://ipfs.io/ipfs/QmXBB6qm5vopwJ6ddxb1mEr1Pp87AHd3BUgVbsipCf9hWU";
-            expect(token.uriIsValid()).is.true;
-            expect(token.isValid()).is.true;
+            transition.targetStateNameIsValid = "Inside_Puff_of_Smoke";
+            expect(transition.actionNameIsValid()).is.true;
 
         });
 
-    })
+    });
 
     context("Utility functions", async function () {
 
-        beforeEach( async function () {
+        context("Static", async function () {
 
-            // Required constructor params
-            royaltyPercentage = "1500"; // 15%
-            isPhysical = true;
-            id = "0";
-            supply = "25";
-            uri = "ipfs://QmXBB6qm5vopwJ6ddxb1mEr1Pp87AHd3BUgVbsipCf9hWU";
+            before( async function () {
 
-            // Create a valid token, then set fields in tests directly
-            token = new Transition(creator, royaltyPercentage, isPhysical, id, supply, uri);
-            expect(token.isValid()).is.true;
+                transition = new Transition(actionId, targetStateId, actionName, targetStateName);
+                object = { actionId, targetStateId, actionName, targetStateName };
 
-        })
+            });
 
-        it("Transition.fromObject() should return a Transition instance with the same values as the given plain object", async function() {
+            it("Transition.fromObject() should return a Transition instance with the same values as the given plain object", async function () {
 
-            // Get plain object
-            const object = {
-                creator, royaltyPercentage, isPhysical, id, supply, uri
-            }
+                // Promote to instance
+                const promoted = Transition.fromObject(object);
 
-            // Promote to instance
-            const promoted = Transition.fromObject(object);
+                // Is a Transition instance
+                expect(promoted instanceof Transition).is.true;
 
-            // Is a Transition instance
-            expect(promoted instanceof Transition).is.true;
+                // Key values all match
+                for (const [key, value] of Object.entries(transition)) {
+                    expect(JSON.stringify(promoted[key]) === JSON.stringify(value)).is.true;
+                }
 
-            // Key values all match
-            for (const [key, value] of Object.entries(token)) {
-                expect(JSON.stringify(promoted[key]) === JSON.stringify(value)).is.true;
-            }
+            });
 
         });
 
-        it("instance.toString() should return a JSON string representation of the Transition instance", async function() {
+        context("Instance", async function () {
 
-            const dehydrated = token.toString();
-            const rehydrated = JSON.parse(dehydrated);
+            before( async function () {
 
-            for (const [key, value] of Object.entries(token)) {
-                expect(JSON.stringify(rehydrated[key]) === JSON.stringify(value)).is.true;
-            }
+                transition = new Transition(actionId, targetStateId, actionName, targetStateName);
+
+            });
+
+            it("instance.toString() should return a JSON string representation of the Transition instance", async function() {
+
+                dehydrated = transition.toString();
+                rehydrated = JSON.parse(dehydrated);
+
+                for (const [key, value] of Object.entries(transition)) {
+                    expect(JSON.stringify(rehydrated[key]) === JSON.stringify(value)).is.true;
+                }
+
+            });
+
+            it("instance.clone() should return another Transition instance with the same property values", async function() {
+
+                // Get plain object
+                clone = transition.clone();
+
+                // Is an Transition instance
+                expect(clone instanceof Transition).is.true;
+
+                // Key values all match
+                for (const [key, value] of Object.entries(transition)) {
+                    expect(JSON.stringify(clone[key]) === JSON.stringify(value)).is.true;
+                }
+
+            });
+
+            it("instance.toObject() should return a plain object representation of the Transition instance", async function() {
+
+                // Get plain object
+                object = transition.toObject();
+
+                // Not an Transition instance
+                expect(object instanceof Transition).is.false;
+
+                // Key values all match
+                for (const [key, value] of Object.entries(transition)) {
+                    expect(JSON.stringify(object[key]) === JSON.stringify(value)).is.true;
+                }
+
+            });
 
         });
-
-        it("instance.clone() should return another Transition instance with the same property values", async function() {
-
-            // Get plain object
-            const clone = token.clone();
-
-            // Is an Transition instance
-            expect(clone instanceof Transition).is.true;
-
-            // Key values all match
-            for (const [key, value] of Object.entries(token)) {
-                expect(JSON.stringify(clone[key]) === JSON.stringify(value)).is.true;
-            }
-
-        });
-
-        it("instance.toObject() should return a plain object representation of the Transition instance", async function() {
-
-            // Get plain object
-            const object = token.toObject();
-
-            // Not an Transition instance
-            expect(object instanceof Transition).is.false;
-
-            // Key values all match
-            for (const [key, value] of Object.entries(token)) {
-                expect(JSON.stringify(object[key]) === JSON.stringify(value)).is.true;
-            }
-
-        });
-
-    })
+    });
 
 });

@@ -21,11 +21,11 @@
   "scripts": {
     "build": "npx hardhat compile",
     "test": "npx hardhat test",
-    "fismo:deploy:local": "npx hardhat run --network hardhat scripts/deploy-fismo.js",
-    "fismo:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy-fismo.js >> logs/deploy.fismo.poly.test.txt",
-    "fismo:deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy-fismo.js >> logs/deploy.fismo.poly.main.txt",
-    "fismo:deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy-fismo.js >> logs/deploy.fismo.eth.test.txt",
-    "fismo:deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy-fismo.js >> logs/deploy.fismo.eth.main.txt"
+    "fismo:deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",
+    "fismo:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
+    "fismo:deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.main.txt",
+    "fismo:deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.txt",
+    "fismo:deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.main.txt"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.0"

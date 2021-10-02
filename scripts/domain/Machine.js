@@ -3,7 +3,7 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const {nameToId, validateName, validateId} = require("../util/name-utils");
+const {nameToId, validateNameLax, validateNameStrict, validateId} = require("../util/name-utils");
 const eip55 = require("eip55");
 
 class Machine {
@@ -70,8 +70,10 @@ class Machine {
         let {name} = this;
         try {
             valid = (
+                name !== null &&
+                typeof name !== 'undefined' &&
                 typeof name === "string" &&
-                validateName(name)
+                validateNameLax(name)
             );
         } catch (e) {}
         return valid;
@@ -102,8 +104,10 @@ class Machine {
         let {initialStateName} = this;
         try {
             valid = (
+                initialStateName !== null &&
+                typeof initialStateName !== 'undefined' &&
                 typeof initialStateName === "string" &&
-                validateName(initialStateName)
+                validateNameStrict(initialStateName)
             );
         } catch (e) {}
         return valid;

@@ -22,40 +22,54 @@ library FismoLib {
         // Address of the action initiator contract
         address actionInitiator;
 
+        // Maps a deterministic guard function selector to an implementation address
+        mapping(bytes4 => address) guardLogic;
+
         // Maps machine id to a machine struct
         //      machine id => Machine struct
         mapping(bytes4 => FismoTypes.Machine) machine;
 
-        // Maps a machine id to a mapping of state id to index of state in machine's states array
-        //      machine id  => ( state id => state index )
+        // Maps a machine id to a mapping of a state id to the index of that state in the machine's states array
+        //  machine id =>     ( state id => state index )
         mapping(bytes4 => mapping(bytes4 => uint256)) stateIndex;
 
-        // Maps a wallet address to a an array of Position structs
-        //      machine id  => ( state id => state index )
-        mapping(address => FismoTypes.Position[]) userHistory;
-
-        // Maps a wallet address to a mapping of machine id to user's current state in that machine
-        //      wallet  => ( machine id => current state id )
+        // Maps a user's address to a mapping of a machine id to the user's current state in that machine
+        //  user wallet =>   ( machine id => current state id )
         mapping(address => mapping(bytes4 => bytes4)) userState;
 
-        // Maps a deterministic guard function selector to an implementation address
-        mapping(bytes4 => address) guardLogic;
+        // Maps a user's address to a an array of Position structs, accumulated over time
+        //  user wallet => array of Positions
+        mapping(address => FismoTypes.Position[]) userHistory;
 
     }
 
     /**
-     * @notice Get the FSM Storage slot
+     * @notice Get the Fismo storage slot
      *
-     * @return fismoStorageSlot - Fismo storage slot
+     * @return fismoStorage - Fismo storage slot
      */
     function fismoSlot()
     internal
     pure
-    returns (FismoSlot storage fismoStorageSlot) {
+    returns (FismoSlot storage fismoStorage)
+    {
         bytes32 position = FISMO_SLOT;
         assembly {
-            fismoStorageSlot.slot := position
+            fismoStorage.slot := position
         }
+    }
+
+    /**
+     * @notice Configure approved access
+     *
+     * @param _owner - the contract owner
+     * @param _actionInitiator - the approved action initiator address
+     */
+    function configureAccess(address _owner, address _actionInitiator)
+    internal
+    {
+        fismoSlot().actionInitiator = _actionInitiator;
+        fismoSlot().owner = _owner;
     }
 
     /**
@@ -63,10 +77,11 @@ library FismoLib {
      *
      */
     function nameToId(string memory _name)
-    public
+    internal
     pure
     returns
-    (bytes4 id) {
+    (bytes4 id)
+    {
         id = bytes4(keccak256(bytes(_name)));
     }
 
@@ -80,7 +95,7 @@ library FismoLib {
      * @return machine - the machine configuration
      */
     function getMachine(bytes4 _machineId)
-    public
+    internal
     view
     returns (FismoTypes.Machine storage machine)
     {
@@ -102,7 +117,7 @@ library FismoLib {
      * @return state - the state definition
      */
     function getState(bytes4 _machineId, bytes4 _stateId)
-    public
+    internal
     view
     returns (FismoTypes.State storage state) {
 
@@ -148,24 +163,24 @@ library FismoLib {
     }
 
     /**
- * @notice Get the function selector for an enter or exit guard guard
- *
- * @param _machineName - the name of the machine
- * @param _stateName - the name of the state
- */
+     * @notice Get the function selector for an enter or exit guard guard
+     *
+     * @param _machineName - the name of the machine
+     * @param _stateName - the name of the state
+     */
     function getGuardSelector(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
     internal
     pure
     returns (bytes4 guardSelector)
     {
-        // Compute unique function signature, e.g., machineName_exit_stateName(address _user)
-        string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_enter_" : "_exit_";
+        // Compute unique function signature, e.g., MachineName_StateName_Exit(address _user)
+        string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_Enter" : "_Exit";
         string memory guardSignature = strConcat(
 
-        // function name
-            strConcat(strConcat(_machineName, guardType), _stateName),
+            // function name
+            strConcat(strConcat(_machineName, _stateName), guardType),
 
-        // Arguments
+            // Arguments
             "(address _user)"
 
         );
@@ -175,44 +190,34 @@ library FismoLib {
     }
 
     /**
-     * @notice update
+     * @notice Update state guards
+     *
      */
     function updateStateGuards(FismoTypes.Machine memory _machine, FismoTypes.State memory _state)
     internal
     {
-        // Map deterministic enter guard function selector to implementation
-        if (_state.enterGuarded) {
+        // determine enter guard function signature for state
+        // Ex. keccak256 hash of: machineName_enter_stateName(address _user)
+        bytes4 enterGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Enter);
 
-            // determine exit guard function signature for state
-            // Ex. keccak256 hash of: machineName_exit_stateName(address _user)
-            bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Enter);
+        // Map the enter guard function selector to the address of the guard logic implementation for this state
+        fismoSlot().guardLogic[enterGuardSelector] = (_state.enterGuarded) ? _state.guardLogic : address(0);
 
-            // Map the enter guard function selector to the address of the guard logic implementation for this state
-            fismoSlot().guardLogic[exitGuardSelector] = _state.guardLogic;
+        // determine exit guard function signature for state
+        // Ex. keccak256 hash of: machineName_exit_stateName(address _user)
+        bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Exit);
 
-        }
-
-        // Map deterministic exit guard function selector to implementation
-        if (_state.exitGuarded) {
-
-            // determine exit guard function signature for state
-            // Ex. keccak256 hash of: machineName_exit_stateName(address _user)
-            bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Exit);
-
-            // Map the exit guard function selector to the address of the guard logic implementation for this state
-            fismoSlot().guardLogic[exitGuardSelector] = _state.guardLogic;
-
-        }
-
+        // Map the exit guard function selector to the address of the guard logic implementation for this state
+        fismoSlot().guardLogic[exitGuardSelector] = (_state.exitGuarded) ?  _state.guardLogic : address(0);
     }
 
     /**
- * @notice Set the current state for a given user in a given machine.
- *
- * @param _user - the address of the user
- * @param _machineId - the id of the machine
- * @param _stateId - the id of the state within the given machine
- */
+     * @notice Set the current state for a given user in a given machine.
+     *
+     * @param _user - the address of the user
+     * @param _machineId - the id of the machine
+     * @param _stateId - the id of the state within the given machine
+     */
     function setUserState(address _user, bytes4 _machineId, bytes4 _stateId)
     internal
     {
@@ -292,7 +297,8 @@ library FismoLib {
     function strConcat(string memory _a, string memory _b)
     internal
     pure
-    returns(string memory result) {
+    returns(string memory result)
+    {
         result = string(abi.encodePacked(bytes(_a), bytes(_b)));
     }
 

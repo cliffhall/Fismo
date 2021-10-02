@@ -3,7 +3,7 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const {nameToId, validateName, validateId} = require("../util/name-utils");
+const {nameToId, validateNameLax, validateNameStrict, validateId} = require("../util/name-utils");
 const Transition = require("./Transition");
 
 class State {
@@ -53,8 +53,10 @@ class State {
         let {name} = this;
         try {
             valid = (
+                name !== null &&
+                typeof name !== 'undefined' &&
                 typeof name === "string" &&
-                validateName(name)
+                validateNameStrict(name)
             );
         } catch (e) {}
         return valid;

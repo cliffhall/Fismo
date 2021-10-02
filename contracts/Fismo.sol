@@ -44,10 +44,8 @@ import { FismoBase } from "./FismoBase.sol";
  */
 contract Fismo is FismoBase {
 
-    constructor(address _actionInitiator, address _owner) {
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-        fismoSlot.actionInitiator = _actionInitiator;
-        fismoSlot.owner = _owner;
+    constructor(address _owner, address _actionInitiator) payable {
+        FismoLib.configureAccess( _owner, _actionInitiator);
     }
 
     /**
@@ -55,11 +53,8 @@ contract Fismo is FismoBase {
      */
     fallback() external payable {
 
-        // Get the storage slot
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-
         // Make sure the implementation exists
-        address implementation = fismoSlot.guardLogic[msg.sig];
+        address implementation = fismoSlot().guardLogic[msg.sig];
         require(implementation != address(0), "Guard logic implementation does not exist");
 
         // Invoke guard with delagatecall
@@ -77,12 +72,5 @@ contract Fismo is FismoBase {
         }
 
     }
-
-    // TODO: Evaluate whether to allow contract to receive ETH
-    //
-    // Guards can receive and/or send ETH as users to passes into or out of a given state?
-    //
-    // Do we also need an ownerOnly drain() function in case ETH gets stuck?
-    receive() external payable {}
 
 }

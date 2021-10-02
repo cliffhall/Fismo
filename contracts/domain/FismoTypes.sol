@@ -25,7 +25,7 @@ contract FismoTypes {
 
     struct State {
         bytes4 id;                // keccak256 hash of state name
-        string name;              // name of state. no spaces, only a-z, A-Z, 0-9, and _
+        string name;              // name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _
         bool exitGuarded;         // is there an exit guard?
         bool enterGuarded;        // is there an enter guard?
         address guardLogic;       // address of guard logic contract
@@ -34,8 +34,9 @@ contract FismoTypes {
 
     struct Transition {
         bytes4 actionId;          // keccak256 hash of action name
-        string actionName;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
         bytes4 targetStateId;     // keccak256 hash of target state name
+        string actionName;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
+        string targetStateName;   // Target State name. begin with letter, no spaces, a-z, A-Z, 0-9, and _
     }
 
     struct Position {

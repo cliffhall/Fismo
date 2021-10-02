@@ -16,15 +16,26 @@ contract FismoBase is FismoTypes  {
     event ActionSuccess(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId);
 
     modifier onlyOwner() {
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-        require(msg.sender == fismoSlot.owner, "Only owner may call");
+        require(msg.sender == fismoSlot().owner, "Only owner may call");
         _;
     }
 
     modifier onlyActionInitiator() {
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-        require(msg.sender == fismoSlot.actionInitiator, "Only action initiator may call");
+        require(msg.sender == fismoSlot().actionInitiator, "Only action initiator may call");
         _;
+    }
+
+    /**
+     * @notice Get the Fismo storage slot
+     *
+     * @return fismoStorageSlot - Fismo storage slot
+     */
+    function fismoSlot()
+    internal
+    pure
+    returns (FismoLib.FismoSlot storage)
+    {
+        return FismoLib.fismoSlot();
     }
 
     /**
@@ -37,11 +48,8 @@ contract FismoBase is FismoTypes  {
     external
     onlyActionInitiator
     {
-        // Get the storage slot
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-
         // Get the machine
-        Machine storage machine = fismoSlot.machine[_machineId];
+        Machine storage machine = fismoSlot().machine[_machineId];
 
         // Make sure the machine exists
         require(machine.id == _machineId, "Machine does not exist.");
@@ -89,14 +97,11 @@ contract FismoBase is FismoTypes  {
     external
     onlyOwner
     {
-        // Get the storage slot
-        FismoLib.FismoSlot storage fismoSlot = FismoLib.fismoSlot();
-
         // Make sure machine id is valid
         require(_machine.id == FismoLib.nameToId(_machine.name), "Machine ID is invalid");
 
         // Get the machine's storage location
-        Machine storage machine = fismoSlot.machine[_machine.id];
+        Machine storage machine = fismoSlot().machine[_machine.id];
 
         // Make sure machine doesn't already exist
         require(machine.id != _machine.id, "Machine with that ID already exists");
@@ -121,7 +126,7 @@ contract FismoBase is FismoTypes  {
             addState(_machine.id, state);
 
             // Map state id to index of state in machine's states array
-            fismoSlot.stateIndex[_machine.id][_machine.states[i].id] = i;
+            fismoSlot().stateIndex[_machine.id][_machine.states[i].id] = i;
 
             // Determine the state guard
             FismoLib.updateStateGuards(_machine, state);

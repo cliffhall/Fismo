@@ -1,8 +1,8 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
-const {deployGuardedFsm} = require("./util/deploy-guarded-fsm");
-const {delay, deploymentComplete, verifyOnEtherscan} = require("./util/report-verify-deployments");
-const environments = require('../environments');
+const {deployGuardedFismo} = require("./deploy-guarded-fismo");
+const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify-deployments");
+const environments = require('../../environments');
 const network = hre.network.name;
 const gasLimit = environments.gasLimit;
 
@@ -20,14 +20,14 @@ async function main() {
 
     // Report header
     const divider = "-".repeat(80);
-    console.log(`${divider}\n💥 FSM Proxy Deployer\n${divider}`);
+    console.log(`${divider}\n💥 Fismo Deployer\n${divider}`);
     console.log(`⛓ Network: ${network}\n📅 ${new Date()}`);
     console.log("🔱 Deployer account: ", deployer ? deployer.address : "not found" && process.exit() );
     console.log(divider);
 
-    [cannon, proxy, proxyArgs] = await deployGuardedFSM(deployer.address, gasLimit);
-    deploymentComplete('FSM', fsm.address, [], contracts);
-    deploymentComplete('NiftyCannonProxy', proxy.address, proxyArgs, contracts);
+    [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, deployer.address, gasLimit);
+    deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
+    guards.forEach(guard => deploymentComplete(guard.name, guard.contract.address, [], contracts));
 
     // Bail now if deploying locally
     if (hre.network.name === 'hardhat') process.exit();

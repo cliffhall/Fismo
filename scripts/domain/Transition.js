@@ -3,27 +3,25 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const {nameToId, validateName, validateId} = require("../util/name-utils");
-const State = require("./State");
+const { validateId, validateNameStrict, validateNameLax } = require("../util/name-utils");
 
 class Transition {
 
-    constructor (actionName, targetStateName) {
+    constructor (actionId, targetStateId, actionName, targetStateName) {
+        this.actionId = actionId;
+        this.targetStateId = targetStateId;
         this.actionName = actionName;
-        this.actionId = nameToId(actionName);
         this.targetStateName = targetStateName;
-        this.targetStateId = nameToId(targetStateName);
     }
 
     /**
-     * Get a new Transition instance from a database representation
+     * Get a new Transition instance from an object representation
      * @param o
      * @returns {Transition}
      */
     static fromObject(o) {
-        const {name, exitGuarded, enterGuarded} = o;
-        let transitions = o.transitions ? o.transitions.map(transition => Transition.fromObject(transition)) : undefined;
-        return new Transition(name, transitions, exitGuarded, enterGuarded) ;
+        const {actionId, targetStateId, actionName, targetStateName} = o;
+        return new Transition(actionId, targetStateId, actionName, targetStateName) ;
     }
 
     /**
@@ -43,48 +41,15 @@ class Transition {
     }
 
     /**
-     * Is this Transition instance's actionName field valid?
-     * @returns {boolean}
-     */
-    actionNameIsValid() {
-        let valid = false;
-        let {actionName} = this;
-        try {
-            valid = (
-                typeof actionName === "string" &&
-                validateName(actionName)
-            );
-        } catch (e) {}
-        return valid;
-    }
-
-    /**
      * Is this Transition instance's actionId field valid?
      * @returns {boolean}
      */
     actionIdIsValid() {
         let valid = false;
-        let {actionName, actionId} = this;
+        let { actionName, actionId } = this;
         try {
             valid = (
-                this.nameIsValid() &&
                 validateId(actionName, actionId)
-            );
-        } catch (e) {}
-        return valid;
-    }
-
-    /**
-     * Is this Transition instance's targetStateName field valid?
-     * @returns {boolean}
-     */
-    targetStateNameIsValid() {
-        let valid = false;
-        let {targetStateName} = this;
-        try {
-            valid = (
-                typeof targetStateName === "string" &&
-                validateName(targetStateName)
             );
         } catch (e) {}
         return valid;
@@ -99,13 +64,47 @@ class Transition {
         let {targetStateName, targetStateId} = this;
         try {
             valid = (
-                this.nameIsValid() &&
                 validateId(targetStateName, targetStateId)
             );
         } catch (e) {}
         return valid;
     }
 
+    /**
+     * Is this Transition instance's actionName field valid?
+     * @returns {boolean}
+     */
+    actionNameIsValid() {
+        let valid = false;
+        let { actionName } = this;
+        try {
+            valid = (
+                actionName !== null &&
+                typeof actionName !== 'undefined' &&
+                typeof actionName === "string" &&
+                validateNameLax(actionName)
+            );
+        } catch (e) {}
+        return valid;
+    }
+
+    /**
+     * Is this Transition instance's targetStateName field valid?
+     * @returns {boolean}
+     */
+    targetStateNameIsValid() {
+        let valid = false;
+        let { targetStateName } = this;
+        try {
+            valid = (
+                targetStateName !== null &&
+                typeof targetStateName !== 'undefined' &&
+                typeof targetStateName === "string" &&
+                validateNameStrict(targetStateName)
+            );
+        } catch (e) {}
+        return valid;
+    }
 
     /**
      * Is this Transition instance valid?
@@ -113,10 +112,10 @@ class Transition {
      */
     isValid() {
         return (
-            this.actionNameIsValid() &&
             this.actionIdIsValid() &&
-            this.targetStateNameIsValid() &&
-            this.targetStateIdIsValid()
+            this.targetStateIdIsValid() &&
+            this.actionNameIsValid() &&
+            this.targetStateNameIsValid()
         );
     };
 
@@ -134,5 +133,5 @@ class Transition {
 if (NODE) {
     module.exports = Transition;
 } else {
-    window.Ticket = Transition;
+    window.Transition = Transition;
 }

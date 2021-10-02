@@ -5,10 +5,10 @@
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 class Guard {}
 
-Guard.EXIT = 0;
-Guard.ENTER = 1;
+Guard.ENTER = 0;
+Guard.EXIT = 1;
 
-Guard.Modes = [Guard.EXIT, Guard.ENTER];
+Guard.Modes = [Guard.ENTER, Guard.EXIT];
 
 // Export
 if (NODE) {
