@@ -73,4 +73,15 @@ contract Fismo is FismoBase {
 
     }
 
+    /**
+     * @notice Contract accepts ETH.
+     *
+     * Guards can receive and/or send ETH as users pass from state to state.
+     * E.g.,Paying to get into an exclusive club, that only allows you in if you're
+     * in a certain state in a certain machine. And into VIP area if you're in a
+     * different state in that machine.
+     *
+     * TODO: Also needs an ownerOnly drain() method.
+     */
+    receive() external payable {}
 }

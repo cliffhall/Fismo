@@ -13,22 +13,29 @@ const ethers = hre.ethers;
  */
 async function deployTransitionGuards(gasLimit) {
 
-    // Guard contracts to deploy
-    const GuardName1 = "MockEnterGuard";
-    const EnterGuard = await ethers.getContractFactory(GuardName1);
-    const enterGuard = await EnterGuard.deploy({gasLimit});
-    await enterGuard.deployed();
-    const guard1 = { name: GuardName1, contract: enterGuard };
+    // Guard contracts to deploy for mock NightClub machine
 
-    // Deploy an Exit Guard
-    const GuardName2 = "MockExitGuard";
-    const ExitGuard = await ethers.getContractFactory(GuardName2);
-    const exitGuard = await ExitGuard.deploy({gasLimit});
-    await exitGuard.deployed();
-    const guard2 = { name: GuardName2, contract: exitGuard };
+    const GuardName1 = "CabGuards";
+    const CabGuards = await ethers.getContractFactory(GuardName1);
+    const cabGuards = await CabGuards.deploy({gasLimit});
+    await cabGuards.deployed();
+    const CabStateGuards = { name: GuardName1, contract: cabGuards };
+
+    const GuardName2 = "StreetGuards";
+    const StreetGuards = await ethers.getContractFactory(GuardName2);
+    const streetGuards = await StreetGuards.deploy({gasLimit});
+    await streetGuards.deployed();
+    const StreetStateGuards = { name: GuardName2, contract: streetGuards };
+
+    const GuardName3 = "VIPLoungeGuards";
+    const VIPLoungeGuards = await ethers.getContractFactory(GuardName3);
+    const vipLoungeGuards = await VIPLoungeGuards.deploy({gasLimit});
+    await vipLoungeGuards.deployed();
+    const VIPLoungeStateGuards = { name: GuardName3, contract: vipLoungeGuards };
+
 
     // Return array of guard objects with name and contract members
-    const guards = [guard1, guard2];
+    const guards = [CabStateGuards, StreetStateGuards, VIPLoungeStateGuards];
     return guards;
 
 }
