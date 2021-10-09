@@ -163,30 +163,66 @@ library FismoLib {
     }
 
     /**
+     * @notice Get the function signature for an enter or exit guard guard
+     *
+     * @param _machineName - the name of the machine, e.g., `NightClub`
+     * @param _stateName - the name of the state, e.g., `VIP_Lounge`
+     * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     * @return guardSignature - a string representation of the function signature
+     * e.g.,
+     * `Nightclub_VIP_Lounge_Enter(address _user, string memory priorStateName)`
+     */
+    function getGuardSignature(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
+    internal
+    pure
+    returns (string memory guardSignature) {
+        string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_Enter" : "_Exit";
+        string memory functionName = strConcat(strConcat(_machineName, _stateName), guardType);
+        string memory functionParams = strConcat(
+            "(address _user, string ",
+            (_guard == FismoTypes.Guard.Enter)
+            ? "_priorStateName)"
+            : "_nextStateName)"
+        );
+
+        guardSignature = strConcat(functionName, functionParams);
+    }
+
+    /**
      * @notice Get the function selector for an enter or exit guard guard
      *
      * @param _machineName - the name of the machine
      * @param _stateName - the name of the state
+     * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     * @return guardSelector - the function selector, e.g., `0x23b872dd`
      */
     function getGuardSelector(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
     internal
     pure
     returns (bytes4 guardSelector)
     {
-        // Compute unique function signature, e.g., MachineName_StateName_Exit(address _user)
-        string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_Enter" : "_Exit";
-        string memory guardSignature = strConcat(
+        // Get the signature
+        string memory guardSignature = getGuardSignature(_machineName, _stateName, _guard);
 
-            // function name
-            strConcat(strConcat(_machineName, _stateName), guardType),
-
-            // Arguments
-            "(address _user)"
-
-        );
-
-        // Return th hashed function selector
+        // Return the hashed function selector
         guardSelector = nameToId(guardSignature);
+    }
+
+    /**
+     * @notice Get the implementation address for a given guard selector
+     *
+     * Reverts if guard logic implementation is not defined
+     *
+     * @param _functionSelector - the keck
+     * @return guardAddress - the address of the guard logic implementation contract
+     */
+    function getGuardAddress(bytes4 _functionSelector)
+    internal
+    view
+    returns (address guardAddress)
+    {
+        guardAddress = fismoSlot().guardLogic[_functionSelector];
+        require(guardAddress != address(0), "Guard logic implementation does not exist");
     }
 
     /**

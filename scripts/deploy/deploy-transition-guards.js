@@ -13,7 +13,7 @@ const ethers = hre.ethers;
  */
 async function deployTransitionGuards(gasLimit) {
 
-    // Guard contracts to deploy for mock NightClub machine
+    // Guard contracts to deploy for example NightClub machine
 
     const GuardName1 = "CabGuards";
     const CabGuards = await ethers.getContractFactory(GuardName1);

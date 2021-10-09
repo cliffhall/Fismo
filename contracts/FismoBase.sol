@@ -3,17 +3,14 @@ pragma solidity ^0.8.0;
 
 import { FismoLib } from "./FismoLib.sol";
 import { FismoTypes } from "./domain/FismoTypes.sol";
+import { FismoEvents } from "./domain/FismoEvents.sol";
 
 /**
  * @title FismoBase
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoBase is FismoTypes  {
-
-    event StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed oldState);
-    event StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId);
-    event ActionSuccess(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId);
+contract FismoBase is FismoTypes, FismoEvents  {
 
     modifier onlyOwner() {
         require(msg.sender == fismoSlot().owner, "Only owner may call");
@@ -46,7 +43,9 @@ contract FismoBase is FismoTypes  {
      */
     function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
     external
+    override
     onlyActionInitiator
+    returns(ActionResponse memory response)
     {
         // Get the machine
         Machine storage machine = fismoSlot().machine[_machineId];
@@ -71,21 +70,82 @@ contract FismoBase is FismoTypes  {
         // Make sure action is valid for given state
         require(transition.actionId == _actionId, "No such action");
 
+        // Get the next state
+        State storage nextState = FismoLib.getState(_machineId, transition.targetStateId);
+
+        // Create the action response
+        response.machineName = machine.name;
+        response.priorStateName = state.name;
+        response.nextStateName = nextState.name;
+        response.actionName = transition.actionName;
+
         // if there is exit guard logic, call it
         if (state.exitGuarded) {
-            // TODO: Call exit guard
+
+            // Get the function selector
+            bytes4 selector = FismoLib.getGuardSelector(machine.name, state.name, Guard.Exit);
+
+            // Make sure the logic implementation exists
+            address guardAddress = FismoLib.getGuardAddress(selector);
+
+            // Make the call and decode the response
+            bytes memory exitResponse = callGuard(guardAddress, selector, _user, nextState.name);
+            response.exitMessage = abi.decode(exitResponse, (string));
+
         }
 
-        // if there is enter guard logic, call it
-        if (state.enterGuarded) {
-            // TODO: call enter guard
+        // if there is enter guard logic on the next state, call it
+        if (nextState.enterGuarded) {
+
+            // Get the function selector
+            bytes4 selector = FismoLib.getGuardSelector(machine.name, nextState.name, Guard.Enter);
+
+            // Make sure the logic implementation exists
+            address guardAddress = FismoLib.getGuardAddress(selector);
+
+            // Make the call and decode the response
+            bytes memory enterResponse = callGuard(guardAddress, selector, _user, state.name);
+            response.enterMessage = abi.decode(enterResponse, (string));
         }
 
         // if we made it this far, set the new state
         FismoLib.setUserState(_user, _machineId, _actionId);
 
         // emit events
-        emit ActionSuccess(_user, _machineId, _actionId);
+        emit ActionSuccess(_user, _machineId, _actionId, response);
+
+    }
+
+    /**
+     * @notice Make a delegatecall to the specified guard function
+     *
+     * @param _guardAddress - the address of the guard logic implementation
+     * @param _functionSelector - the bytes4-truncated keccak256 hash of the function signature
+     * @param _user - the user address the call is being invoked for
+     * @param _deltaStateName - the name of the next or previous state, depending on enter/exit
+     */
+    function callGuard(
+        address _guardAddress,
+        bytes4 _functionSelector,
+        address _user,
+        string memory _deltaStateName
+    )
+    internal
+    returns(bytes memory)
+    {
+        // Encode the signature and arguments
+        bytes memory functionCall = abi.encodeWithSelector(
+            _functionSelector,
+            _user,
+            _deltaStateName
+        );
+
+        // Make the function call
+        (bool success, bytes memory response) = _guardAddress.delegatecall(functionCall);
+        require(success, 'Call failed');
+
+        // Return the guard's response
+        return response;
     }
 
     /**
@@ -95,6 +155,7 @@ contract FismoBase is FismoTypes  {
      */
     function addMachine(Machine memory _machine)
     external
+    override
     onlyOwner
     {
         // Make sure machine id is valid
@@ -142,6 +203,7 @@ contract FismoBase is FismoTypes  {
      */
     function addState(bytes4 _machineId, State memory _state)
     public
+    override
     onlyOwner
     {
         // Make sure state id is valid
@@ -175,6 +237,7 @@ contract FismoBase is FismoTypes  {
      */
     function updateState(bytes4 _machineId, State memory _state)
     public
+    override
     onlyOwner
     {
         // Get the machine
@@ -236,6 +299,7 @@ contract FismoBase is FismoTypes  {
      */
     function addTransition(bytes4 _machineId, bytes4 _stateId, Transition memory _transition)
     public
+    override
     onlyOwner
     {
         // Get the state
