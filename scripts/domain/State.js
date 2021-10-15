@@ -3,17 +3,19 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const {nameToId, validateNameLax, validateNameStrict, validateId} = require("../util/name-utils");
+const {nameToId, validateNameStrict, validateId} = require("../util/name-utils");
 const Transition = require("./Transition");
+const eip55 = require("eip55");
 
 class State {
 
-    constructor (name, transitions, exitGuarded, enterGuarded, description) {
+constructor (name, exitGuarded, enterGuarded, transitions, guardLogic, description) {
         this.name = name;
         this.id = nameToId(name);
-        this.transitions = transitions || [];
         this.enterGuarded = enterGuarded;
         this.exitGuarded = exitGuarded;
+        this.transitions = transitions || [];
+        this.guardLogic = guardLogic ? eip55.encode(guardLogic) : undefined;
         this.description = description;
     }
 
@@ -23,9 +25,9 @@ class State {
      * @returns {State}
      */
     static fromObject(o) {
-        const {name, exitGuarded, enterGuarded} = o;
+        const {name, exitGuarded, enterGuarded, guardLogic, description} = o;
         let transitions = o.transitions ? o.transitions.map(transition => Transition.fromObject(transition)) : undefined;
-        return new State(name, transitions, exitGuarded, enterGuarded) ;
+        return new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
     }
 
     /**
@@ -53,10 +55,28 @@ class State {
         let {name} = this;
         try {
             valid = (
-                name !== null &&
-                typeof name !== 'undefined' &&
                 typeof name === "string" &&
                 validateNameStrict(name)
+            );
+        } catch (e) {}
+        return valid;
+    }
+
+    /**
+     * Is this State instance's name field valid?
+     * If present, must be a eip55 compliant Ethereum address
+     * @returns {boolean}
+     */
+    guardLogicIsValid() {
+        let valid = false;
+        let {guardLogic} = this;
+        try {
+            valid = (
+                typeof guardLogic === 'string' &&
+                eip55.verify(eip55.encode(guardLogic))
+            ) || (
+                guardLogic === null ||
+                typeof guardLogic === 'undefined'
             );
         } catch (e) {}
         return valid;
@@ -129,7 +149,11 @@ class State {
         let {description} = this;
         try {
             valid = (
-                typeof description === "string"
+                typeof description === "string" &&
+                description.length >= 1
+            ) || (
+                description === null ||
+                typeof description === 'undefined'
             );
         } catch (e) {}
         return valid;
@@ -141,11 +165,13 @@ class State {
      */
     isValid() {
         return (
-            this.nameIsValid() &&
             this.idIsValid() &&
-            this.transitionsIsValid() &&
+            this.nameIsValid() &&
             this.enterGuardedIsValid() &&
-            this.exitGuardedIsValid()
+            this.exitGuardedIsValid() &&
+            this.transitionsIsValid() &&
+            this.guardLogicIsValid() &&
+            this.descriptionIsValid()
         );
     };
 

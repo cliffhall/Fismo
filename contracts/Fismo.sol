@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import { FismoLib } from "./FismoLib.sol";
 import { FismoBase } from "./FismoBase.sol";
-import { IFismo } from "./interfaces/IFismo.sol";
 
 /**
  * @title Fismo
@@ -43,7 +42,7 @@ import { IFismo } from "./interfaces/IFismo.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract Fismo is IFismo, FismoBase {
+contract Fismo is FismoBase {
 
     constructor(address _owner, address _actionInitiator) payable {
         FismoLib.configureAccess( _owner, _actionInitiator);

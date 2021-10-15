@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const State = require("../../scripts/domain/State");
+const Transition = require("../../scripts/domain/Transition");
 const { nameToId } = require("../../scripts/util/name-utils");
 
 /**
@@ -11,14 +12,20 @@ describe("State", function() {
 
     // Suite-wide scope
     let state, object, dehydrated, rehydrated, clone;
-    let actionId, targetStateId, actionName, targetStateName;
+    let name, guardLogic, transitions, exitGuarded, enterGuarded, description;
 
-    before( async function () {
+    beforeEach( async function () {
 
-        actionName = "Disappear in a Puff of Smoke";
-        targetStateName = "Inside_Puff_of_Smoke";
-        actionId = nameToId(actionName);
-        targetStateId = nameToId(targetStateName);
+        // Locked state of a door that can be unlocked with a key and locked without a key
+        name = "Locked";
+        exitGuarded = true;
+        enterGuarded = false;
+        transitions = [
+            new Transition("Unlock", "Unlocked"),
+            new Transition("Batter", "Broken")
+        ];
+        guardLogic = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
+        description = "The door is locked.";
 
     });
 
@@ -26,11 +33,15 @@ describe("State", function() {
 
         it("Should allow creation of valid, fully populated State instance", async function () {
 
-            state = new State(actionId, targetStateId, actionName, targetStateName);
-            expect(state.actionIdIsValid(), "Invalid actionId").is.true;
-            expect(state.targetStateIdIsValid(), "Invalid targetStateId").is.true;
-            expect(state.actionNameIsValid(), "Invalid actionName").is.true;
-            expect(state.targetStateNameIsValid(), "Invalid targetStateName").is.true;
+            state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
+
+            expect(state.nameIsValid(), "Invalid name").is.true;
+            expect(state.idIsValid(), "Invalid id").is.true;
+            expect(state.guardLogicIsValid(), "Invalid guard logic address").is.true;
+            expect(state.transitionsIsValid(), "Invalid transitions array").is.true;
+            expect(state.exitGuardedIsValid(), "Invalid exit guarded flag").is.true;
+            expect(state.enterGuardedIsValid(), "Invalid enter guarded flag").is.true;
+            expect(state.descriptionIsValid(), "Invalid description").is.true;
             expect(state.isValid()).is.true;
 
         });
@@ -39,108 +50,192 @@ describe("State", function() {
 
     context("Field validations", async function () {
 
-        before( async function () {
+        beforeEach( async function () {
 
-            state = new State(actionId, targetStateId, actionName, targetStateName);
-
-        });
-
-        it("Always present, actionId must be a bytes4 kecckak hash of the actionName", async function() {
-
-            // Invalid field value
-            state.actionId = 12;
-            expect(state.actionIdIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Invalid field value
-            state.actionId = "zedzdeadbaby";
-            expect(state.actionIdIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Invalid field values
-            state.actionId = "0";
-            expect(state.actionIdIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Valid field value
-            state.actionId = nameToId(actionName);
-            expect(state.actionIdIsValid()).is.true;
-            expect(state.isValid()).is.true;
+            state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
 
         });
 
-        it("Always present, targetStateId must be a bytes4 kecckak hash of the targetStateName", async function() {
+        it("Always present, name must contain only characters: a-z, A-Z, 0-9, and _", async function() {
 
             // Invalid field value
-            state.targetStateId = 12;
-            expect(state.targetStateIdIsValid()).is.false;
-            expect(state.isValid()).is.false;
+            state.name = 12;
+            expect(state.nameIsValid()).is.false;
 
             // Invalid field value
-            state.targetStateId = "zedzdeadbaby";
-            expect(state.targetStateIdIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Invalid field values
-            state.targetStateId = "0";
-            expect(state.targetStateIdIsValid()).is.false;
-            expect(state.isValid()).is.false;
+            state.name = "zedz-dead-baby";
+            expect(state.nameIsValid()).is.false;
 
             // Valid field value
-            state.targetStateId = nameToId(targetStateName);
-            expect(state.targetStateIdIsValid()).is.true;
-            expect(state.isValid()).is.true;
-
-        });
-
-        it("Always present, actionName must contain only characters: a-z, A-Z, 0-9, _, and space", async function() {
-
-            // Invalid field value
-            state.actionName = 12;
-            expect(state.actionNameIsValid()).is.false;
-
-            // Invalid field value
-            state.actionName = "zedz-dead-baby";
-            expect(state.actionNameIsValid()).is.false;
-
-            // Valid field value
-            state.actionName = "l";
-            expect(state.actionNameIsValid()).is.true;
+            state.name = "l";
+            expect(state.nameIsValid()).is.true;
 
             // Valid field values
-            state.actionName = "0";
-            expect(state.actionNameIsValid()).is.true;
+            state.name = "0";
+            expect(state.nameIsValid()).is.false;
 
             // Valid field value
-            state.actionName = "Disappear in a Puff of Smoke";
-            expect(state.actionNameIsValid()).is.true;
+            state.name = "Lair_of_Dragon";
+            expect(state.nameIsValid()).is.true;
 
         });
 
-        it("Always present, targetStateName must start with a letter and contain only characters: a-z, A-Z, 0-9, and _", async function() {
+        it("Always present, exitGuarded must be a boolean", async function() {
 
             // Invalid field value
-            state.targetStateName = 12;
-            expect(state.targetStateNameIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Invalid field values
-            state.targetStateName = "0";
-            expect(state.targetStateNameIsValid()).is.false;
+            state.exitGuarded = "0xASFADF";
+            expect(state.exitGuardedIsValid()).is.false;
             expect(state.isValid()).is.false;
 
             // Invalid field value
-            state.targetStateName = "zedz-dead-baby";
-            expect(state.targetStateNameIsValid()).is.false;
+            state.exitGuarded = "zedzdeadbaby";
+            expect(state.exitGuardedIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.exitGuarded = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            expect(state.exitGuardedIsValid()).is.false;
             expect(state.isValid()).is.false;
 
             // Valid field value
-            state.targetStateName = "l";
-            expect(state.targetStateNameIsValid()).is.true;
+            state.exitGuarded = true;
+            expect(state.exitGuardedIsValid()).is.true;
 
             // Valid field value
-            state.targetStateNameIsValid = "Inside_Puff_of_Smoke";
-            expect(state.actionNameIsValid()).is.true;
+            state.exitGuarded = false;
+            expect(state.exitGuardedIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+        });
+
+        it("Always present, enterGuarded must be a boolean", async function() {
+
+            // Invalid field value
+            state.enterGuarded = "0xASFADF";
+            expect(state.enterGuardedIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.enterGuarded = "zedzdeadbaby";
+            expect(state.enterGuardedIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.enterGuarded = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            expect(state.enterGuardedIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Valid field value
+            state.enterGuarded = true;
+            expect(state.enterGuardedIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.enterGuarded = false;
+            expect(state.enterGuardedIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+        });
+
+        it("Always present, transitions must be an array, containing zero or more Transition instances", async function() {
+
+            // Invalid field value
+            state.transitions = "0xASFADF";
+            expect(state.transitionsIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.transitions = "zedzdeadbaby";
+            expect(state.transitionsIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.transitions = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            expect(state.transitionsIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Valid field value
+            state.transitions = transitions;
+            expect(state.transitionsIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.transitions = transitions;
+            expect(state.transitionsIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+        });
+
+        it("If present, guardLogic must be a string representation of an EIP-55 compliant address", async function() {
+
+            // Invalid field value
+            state.guardLogic = "0xASFADF";
+            expect(state.guardLogicIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.guardLogic = "zedzdeadbaby";
+            expect(state.guardLogicIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Valid field value
+            state.guardLogic = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            expect(state.guardLogicIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.guardLogic = null;
+            expect(state.guardLogicIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.guardLogic = undefined;
+            expect(state.guardLogicIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+        });
+
+        it("If present, description must be a string", async function() {
+
+            // Invalid field value
+            state.description = 12;
+            expect(state.descriptionIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.description = false;
+            expect(state.descriptionIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.description = new Date();
+            expect(state.descriptionIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Valid field value
+            state.description = "zedzdeadbaby";
+            expect(state.descriptionIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.description = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            expect(state.descriptionIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.description = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            expect(state.descriptionIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.description = null;
+            expect(state.descriptionIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+            // Valid field value
+            state.description = undefined;
+            expect(state.descriptionIsValid()).is.true;
+            expect(state.isValid()).is.true;
 
         });
 
@@ -150,10 +245,10 @@ describe("State", function() {
 
         context("Static", async function () {
 
-            before( async function () {
+            beforeEach( async function () {
 
-                state = new State(actionId, targetStateId, actionName, targetStateName);
-                object = { actionId, targetStateId, actionName, targetStateName };
+                state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
+                object = { name,  transitions, exitGuarded, enterGuarded, guardLogic, description };
 
             });
 
@@ -176,9 +271,9 @@ describe("State", function() {
 
         context("Instance", async function () {
 
-            before( async function () {
+            beforeEach( async function () {
 
-                state = new State(actionId, targetStateId, actionName, targetStateName);
+                state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
 
             });
 

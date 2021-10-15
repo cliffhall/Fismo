@@ -13,12 +13,10 @@ describe("Transition", function() {
     let transition, object, dehydrated, rehydrated, clone;
     let actionId, targetStateId, actionName, targetStateName;
 
-    before( async function () {
+    beforeEach( async function () {
 
         actionName = "Disappear in a Puff of Smoke";
         targetStateName = "Inside_Puff_of_Smoke";
-        actionId = nameToId(actionName);
-        targetStateId = nameToId(targetStateName);
 
     });
 
@@ -26,7 +24,7 @@ describe("Transition", function() {
 
         it("Should allow creation of valid, fully populated Transition instance", async function () {
 
-            transition = new Transition(actionId, targetStateId, actionName, targetStateName);
+            transition = new Transition(actionName, targetStateName);
             expect(transition.actionIdIsValid(), "Invalid actionId").is.true;
             expect(transition.targetStateIdIsValid(), "Invalid targetStateId").is.true;
             expect(transition.actionNameIsValid(), "Invalid actionName").is.true;
@@ -39,9 +37,9 @@ describe("Transition", function() {
 
     context("Field validations", async function () {
 
-        before( async function () {
+        beforeEach( async function () {
 
-            transition = new Transition(actionId, targetStateId, actionName, targetStateName);
+            transition = new Transition(actionName, targetStateName);
 
         });
 
@@ -69,30 +67,6 @@ describe("Transition", function() {
 
         });
 
-        it("Always present, targetStateId must be a bytes4 kecckak hash of the targetStateName", async function() {
-
-            // Invalid field value
-            transition.targetStateId = 12;
-            expect(transition.targetStateIdIsValid()).is.false;
-            expect(transition.isValid()).is.false;
-
-            // Invalid field value
-            transition.targetStateId = "zedzdeadbaby";
-            expect(transition.targetStateIdIsValid()).is.false;
-            expect(transition.isValid()).is.false;
-
-            // Invalid field values
-            transition.targetStateId = "0";
-            expect(transition.targetStateIdIsValid()).is.false;
-            expect(transition.isValid()).is.false;
-
-            // Valid field value
-            transition.targetStateId = nameToId(targetStateName);
-            expect(transition.targetStateIdIsValid()).is.true;
-            expect(transition.isValid()).is.true;
-
-        });
-
         it("Always present, actionName must contain only characters: a-z, A-Z, 0-9, _, and space", async function() {
 
             // Invalid field value
@@ -114,6 +88,30 @@ describe("Transition", function() {
             // Valid field value
             transition.actionName = "Disappear in a Puff of Smoke";
             expect(transition.actionNameIsValid()).is.true;
+
+        });
+
+        it("Always present, targetStateId must be a bytes4 kecckak hash of the targetStateName", async function() {
+
+            // Invalid field value
+            transition.targetStateId = 12;
+            expect(transition.targetStateIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
+
+            // Invalid field value
+            transition.targetStateId = "zedzdeadbaby";
+            expect(transition.targetStateIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
+
+            // Invalid field values
+            transition.targetStateId = "0";
+            expect(transition.targetStateIdIsValid()).is.false;
+            expect(transition.isValid()).is.false;
+
+            // Valid field value
+            transition.targetStateId = nameToId(targetStateName);
+            expect(transition.targetStateIdIsValid()).is.true;
+            expect(transition.isValid()).is.true;
 
         });
 
@@ -150,10 +148,10 @@ describe("Transition", function() {
 
         context("Static", async function () {
 
-            before( async function () {
+            beforeEach( async function () {
 
-                transition = new Transition(actionId, targetStateId, actionName, targetStateName);
-                object = { actionId, targetStateId, actionName, targetStateName };
+                transition = new Transition(actionName, targetStateName);
+                object = { actionName, targetStateName };
 
             });
 
@@ -176,9 +174,9 @@ describe("Transition", function() {
 
         context("Instance", async function () {
 
-            before( async function () {
+            beforeEach( async function () {
 
-                transition = new Transition(actionId, targetStateId, actionName, targetStateName);
+                transition = new Transition(actionName, targetStateName);
 
             });
 

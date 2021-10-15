@@ -3,15 +3,15 @@
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const { validateId, validateNameStrict, validateNameLax } = require("../util/name-utils");
+const { validateId, validateNameStrict, validateNameLax, nameToId} = require("../util/name-utils");
 
 class Transition {
 
-    constructor (actionId, targetStateId, actionName, targetStateName) {
-        this.actionId = actionId;
-        this.targetStateId = targetStateId;
+    constructor (actionName, targetStateName) {
         this.actionName = actionName;
         this.targetStateName = targetStateName;
+        this.actionId = nameToId(actionName);
+        this.targetStateId = nameToId(targetStateName);
     }
 
     /**
@@ -20,8 +20,8 @@ class Transition {
      * @returns {Transition}
      */
     static fromObject(o) {
-        const {actionId, targetStateId, actionName, targetStateName} = o;
-        return new Transition(actionId, targetStateId, actionName, targetStateName) ;
+        const {actionName, targetStateName} = o;
+        return new Transition(actionName, targetStateName);
     }
 
     /**

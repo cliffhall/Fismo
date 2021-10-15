@@ -22,7 +22,7 @@ interface IFismo {
      */
     function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
     external
-    returns(string[] memory responses);
+    returns(FismoTypes.ActionResponse memory response);
 
     /**
      * @notice Add a new Machine

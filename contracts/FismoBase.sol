@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { FismoLib } from "./FismoLib.sol";
+import { IFismo } from "./interfaces/IFismo.sol";
 import { FismoTypes } from "./domain/FismoTypes.sol";
 import { FismoEvents } from "./domain/FismoEvents.sol";
 
@@ -10,7 +11,7 @@ import { FismoEvents } from "./domain/FismoEvents.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoBase is FismoTypes, FismoEvents  {
+contract FismoBase is IFismo, FismoTypes, FismoEvents  {
 
     modifier onlyOwner() {
         require(msg.sender == fismoSlot().owner, "Only owner may call");
@@ -112,7 +113,7 @@ contract FismoBase is FismoTypes, FismoEvents  {
         FismoLib.setUserState(_user, _machineId, _actionId);
 
         // emit events
-        emit ActionSuccess(_user, _machineId, _actionId, response);
+        emit Transitioned(_user, _machineId, _actionId, response);
 
     }
 

@@ -14,28 +14,30 @@ const ethers = hre.ethers;
 async function deployTransitionGuards(gasLimit) {
 
     // Guard contracts to deploy for example NightClub machine
+    let guardNames = [
+        "BarGuards",
+        "CabGuards",
+        "DancefloorGuards",
+        "RestroomGuards",
+        "StreetGuards",
+        "VIPLoungeGuards"
+    ];
 
-    const GuardName1 = "CabGuards";
-    const CabGuards = await ethers.getContractFactory(GuardName1);
-    const cabGuards = await CabGuards.deploy({gasLimit});
-    await cabGuards.deployed();
-    const CabStateGuards = { name: GuardName1, contract: cabGuards };
+    // Deployed guard contracts
+    let guards = [];
 
-    const GuardName2 = "StreetGuards";
-    const StreetGuards = await ethers.getContractFactory(GuardName2);
-    const streetGuards = await StreetGuards.deploy({gasLimit});
-    await streetGuards.deployed();
-    const StreetStateGuards = { name: GuardName2, contract: streetGuards };
+    // Deploy all the guards
+    while (guardNames.length) {
 
-    const GuardName3 = "VIPLoungeGuards";
-    const VIPLoungeGuards = await ethers.getContractFactory(GuardName3);
-    const vipLoungeGuards = await VIPLoungeGuards.deploy({gasLimit});
-    await vipLoungeGuards.deployed();
-    const VIPLoungeStateGuards = { name: GuardName3, contract: vipLoungeGuards };
+        let guardName = guardNames.shift();
+        let GuardContractFactory = await ethers.getContractFactory(guardName);
+        const guardContract = await GuardContractFactory.deploy({gasLimit});
+        await guardContract.deployed();
+        guards.push( {name: guardName, contract: guardContract} );
 
+    }
 
     // Return array of guard objects with name and contract members
-    const guards = [CabStateGuards, StreetStateGuards, VIPLoungeStateGuards];
     return guards;
 
 }
