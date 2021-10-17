@@ -11,7 +11,7 @@ describe("Transition", function() {
 
     // Suite-wide scope
     let transition, object, dehydrated, rehydrated, clone;
-    let actionId, targetStateId, actionName, targetStateName;
+    let actionName, targetStateName;
 
     beforeEach( async function () {
 
@@ -135,10 +135,12 @@ describe("Transition", function() {
             // Valid field value
             transition.targetStateName = "l";
             expect(transition.targetStateNameIsValid()).is.true;
+            expect(transition.isValid()).is.false;
 
             // Valid field value
             transition.targetStateNameIsValid = "Inside_Puff_of_Smoke";
             expect(transition.actionNameIsValid()).is.true;
+            expect(transition.isValid()).is.false;
 
         });
 

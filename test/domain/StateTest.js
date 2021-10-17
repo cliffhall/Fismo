@@ -56,27 +56,56 @@ describe("State", function() {
 
         });
 
+        it("Always present, id must be a bytes4 kecckak hash of the name", async function() {
+
+            // Invalid field value
+            state.id = 12;
+            expect(state.idIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field value
+            state.id = "zedzdeadbaby";
+            expect(state.idIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Invalid field values
+            state.id = "0";
+            expect(state.idIsValid()).is.false;
+            expect(state.isValid()).is.false;
+
+            // Valid field value
+            state.id = nameToId(name);
+            expect(state.idIsValid()).is.true;
+            expect(state.isValid()).is.true;
+
+        });
+
         it("Always present, name must contain only characters: a-z, A-Z, 0-9, and _", async function() {
 
             // Invalid field value
             state.name = 12;
             expect(state.nameIsValid()).is.false;
+            expect(state.isValid()).is.false;
 
             // Invalid field value
             state.name = "zedz-dead-baby";
             expect(state.nameIsValid()).is.false;
+            expect(state.isValid()).is.false;
 
-            // Valid field value
+            // Invalid field value
             state.name = "l";
             expect(state.nameIsValid()).is.true;
+            expect(state.isValid()).is.false;
 
             // Valid field values
             state.name = "0";
             expect(state.nameIsValid()).is.false;
+            expect(state.isValid()).is.false;
 
             // Valid field value
             state.name = "Lair_of_Dragon";
             expect(state.nameIsValid()).is.true;
+            expect(state.isValid()).is.false;
 
         });
 

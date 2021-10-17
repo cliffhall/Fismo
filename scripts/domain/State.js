@@ -9,7 +9,18 @@ const eip55 = require("eip55");
 
 class State {
 
-constructor (name, exitGuarded, enterGuarded, transitions, guardLogic, description) {
+    /*
+        struct State {
+            bytes4 id;                // keccak256 hash of state name
+            string name;              // name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _
+            bool exitGuarded;         // is there an exit guard?
+            bool enterGuarded;        // is there an enter guard?
+            address guardLogic;       // address of guard logic contract
+            Transition[] transitions; // all of the valid transitions from this state
+        }
+    */
+
+    constructor (name, exitGuarded, enterGuarded, transitions, guardLogic, description) {
         this.name = name;
         this.id = nameToId(name);
         this.enterGuarded = enterGuarded;
