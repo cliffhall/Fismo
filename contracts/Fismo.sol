@@ -20,8 +20,8 @@ import { FismoBase } from "./FismoBase.sol";
  *   - Whether proxied guard logic exists for entering the next state
  *
  * - Initiates state transitions when actions are invoked
- *   - All action invocations must come from the configured action initiator contract
- *   - Action initiator contract manages which roles can trigger which actions
+ *   - All action invocations must come from the configured Catalyst contract
+ *   - Catalyst contract manages which roles can trigger which actions
  *
  * - Emits events upon...
  *   - A user's state changed in some machine
@@ -44,8 +44,8 @@ import { FismoBase } from "./FismoBase.sol";
  */
 contract Fismo is FismoBase {
 
-    constructor(address _owner, address _actionInitiator) payable {
-        FismoLib.configureAccess( _owner, _actionInitiator);
+    constructor(address _owner, address _catalyst) payable {
+        FismoLib.configureAccess( _owner, _catalyst);
     }
 
 }

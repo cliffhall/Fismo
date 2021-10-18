@@ -15,7 +15,7 @@ interface IFismo {
     /**
      * Invoke an action on a configured FSM
      *
-     * Reverts if caller is not the ActionInitiator contract
+     * Reverts if caller is not the Catalyst contract
      *
      * @param _machineId - the id of the target FSM
      * @param _actionId - the id of the action to invoke

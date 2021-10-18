@@ -19,8 +19,8 @@ library FismoLib {
         // Address of the contract owner
         address owner;
 
-        // Address of the action initiator contract
-        address actionInitiator;
+        // Address of the catalyst contract
+        address catalyst;
 
         // Maps a deterministic guard function selector to an implementation address
         mapping(bytes4 => address) guardLogic;
@@ -63,12 +63,12 @@ library FismoLib {
      * @notice Configure approved access
      *
      * @param _owner - the contract owner
-     * @param _actionInitiator - the approved action initiator address
+     * @param _catalyst - the approved catalyst address
      */
-    function configureAccess(address _owner, address _actionInitiator)
+    function configureAccess(address _owner, address _catalyst)
     internal
     {
-        fismoSlot().actionInitiator = _actionInitiator;
+        fismoSlot().catalyst = _catalyst;
         fismoSlot().owner = _owner;
     }
 

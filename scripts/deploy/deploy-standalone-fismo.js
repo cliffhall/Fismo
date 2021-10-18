@@ -8,17 +8,17 @@ const {deployTransitionGuards} = require("./deploy-transition-guards")
  * Reused between deployment script and unit tests for consistency
  *
  * @param owner - the owner address
- * @param actionInitiator - the actionInitiator address
+ * @param catalyst - the catalyst address
  * @param gasLimit - gasLimit for transactions
  *
  * @returns {Promise<(*|*|*)[]>}
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-async function deployStandaloneFismo(owner, actionInitiator, gasLimit) {
+async function deployStandaloneFismo(owner, catalyst, gasLimit) {
 
     // Deploy Fismo
-    const fismoArgs = [owner, actionInitiator]
+    const fismoArgs = [owner, catalyst]
     const Fismo = await ethers.getContractFactory("Fismo");
     const fismo = await Fismo.deploy(...fismoArgs, {gasLimit});
     await fismo.deployed();

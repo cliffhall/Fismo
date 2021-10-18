@@ -18,8 +18,8 @@ contract FismoBase is IFismo, FismoTypes, FismoEvents  {
         _;
     }
 
-    modifier onlyActionInitiator() {
-        require(msg.sender == fismoSlot().actionInitiator, "Only action initiator may call");
+    modifier onlyCatalyst() {
+        require(msg.sender == fismoSlot().catalyst, "Only catalyst may call");
         _;
     }
 
@@ -45,7 +45,7 @@ contract FismoBase is IFismo, FismoTypes, FismoEvents  {
     function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
     external
     override
-    onlyActionInitiator
+    onlyCatalyst
     returns(ActionResponse memory response)
     {
         // Get the machine
