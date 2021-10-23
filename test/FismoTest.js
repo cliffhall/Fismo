@@ -1,9 +1,13 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
+const environments = require('../environments');
+const gasLimit = environments.gasLimit;
+
 const { expect } = require("chai");
 const Machine = require("../scripts/domain/Machine");
 const State = require("../scripts/domain/State");
 const Transition = require("../scripts/domain/Transition");
+const { InterfaceIds } = require('../scripts/constants/supported-interfaces.js');
 const { deployGuardedFismo } = require('../scripts/deploy/deploy-guarded-fismo.js');
 
 /**
@@ -14,7 +18,7 @@ const { deployGuardedFismo } = require('../scripts/deploy/deploy-guarded-fismo.j
 describe("Fismo", function() {
 
     // Common vars
-    let accounts, owner;
+    let accounts, deployer;
     let fismo, catalyst;
 
     beforeEach( async function () {
@@ -24,7 +28,7 @@ describe("Fismo", function() {
         deployer = accounts[0];
 
         // Deploy the Diamond
-        [fismo, fismoArgs, guards] = await deployGuardedFismo();
+        [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, deployer.address, gasLimit);
 
     });
 
@@ -47,13 +51,13 @@ describe("Fismo", function() {
 
             it("should indicate support for IFismo interface", async function () {
 
-                // Current interfaceId for IERC1155Receiver
+                // Current interfaceId for IFismo
                 support = await fismo.supportsInterface(InterfaceIds.IFismo);
 
                 // Test
                 await expect(
                     support,
-                    "IFixmo interface not supported"
+                    "IFismo interface not supported"
                 ).is.true;
 
             });

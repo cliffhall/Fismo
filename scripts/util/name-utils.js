@@ -3,6 +3,7 @@ const keccak256 = ethers.utils.keccak256;
 const toUtf8Bytes = ethers.utils.toUtf8Bytes;
 const hexDataSlice = ethers.utils.hexDataSlice;
 
+// Convert any string to a bytes4-truncated, keccak256 hash
 function nameToId(name) {
     const hash = keccak256(toUtf8Bytes(name))
     return hexDataSlice(hash, 0, 4);

@@ -6,7 +6,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
 /**
  * @title IFismo
  *
- * Interface for the Fismo contract
+ * Interface for Fismo implementations
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -17,6 +17,7 @@ interface IFismo {
      *
      * Reverts if caller is not the Catalyst contract
      *
+     * @param _user - the address of the user
      * @param _machineId - the id of the target FSM
      * @param _actionId - the id of the action to invoke
      */
