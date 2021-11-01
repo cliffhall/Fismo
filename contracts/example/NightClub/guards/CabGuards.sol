@@ -21,7 +21,7 @@ contract CabGuards is NightClubGuardBase {
         if (compare(priorStateName, STREET)) {
             message = "Crawling into the cab, you mumble your address to the driver then collapse in a heap on the backseat.";
         } else if (compare(priorStateName, HOME)) {
-            message = "\"To the club, with all speed!\" you say. \"And take me through the park. You know how I love the park.";
+            message = "\"To the club with all speed, good sir!\" you say to the driver. \"And take me through the park; you know how I love the park.";
         }
     }
 

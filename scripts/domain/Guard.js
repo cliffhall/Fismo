@@ -14,5 +14,8 @@ Guard.Modes = [Guard.ENTER, Guard.EXIT];
 if (NODE) {
     module.exports = Guard;
 } else {
-    window.Mode = Guard;
+    if (window) {
+        if (!window.Fismo) window.Fismo = {};
+        window.Fismo.Guard = Guard;
+    }
 }

@@ -32,7 +32,7 @@ contract FoyerGuards is NightClubGuardBase {
     }
 
     // Exit the Foyer
-    // Valid next states: Street, Dancefloor, VIP Lounge, Bar,  and Restroom
+    // Valid next states: Street, Dancefloor, VIP Lounge, Bar, and Restroom
     function Nightclub_Foyer_Exit(address _user, string memory nextStateName)
     external
     pure

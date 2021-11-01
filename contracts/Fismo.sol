@@ -131,7 +131,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         response.machineName = machine.name;
         response.priorStateName = state.name;
         response.nextStateName = nextState.name;
-        response.actionName = transition.actionName;
+        response.action = transition.action;
 
         // if there is exit guard logic, call it
         if (state.exitGuarded) {
@@ -365,7 +365,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Overwrite the state in the machine's states array
         Transition storage transition = state.transitions[index];
         transition.actionId = _transition.actionId;
-        transition.actionName = _transition.actionName;
+        transition.action = _transition.action;
         transition.targetStateId = _transition.targetStateId;
 
     }

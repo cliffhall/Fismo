@@ -11,15 +11,15 @@ class Transition {
         struct Transition {
             bytes4 actionId;          // keccak256 hash of action name
             bytes4 targetStateId;     // keccak256 hash of target state name
-            string actionName;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
+            string action;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
             string targetStateName;   // Target State name. begin with letter, no spaces, a-z, A-Z, 0-9, and _
         }
     */
 
-    constructor (actionName, targetStateName) {
-        this.actionName = actionName;
+    constructor (action, targetStateName) {
+        this.action = action;
         this.targetStateName = targetStateName;
-        this.actionId = nameToId(actionName);
+        this.actionId = nameToId(action);
         this.targetStateId = nameToId(targetStateName);
     }
 
@@ -29,8 +29,8 @@ class Transition {
      * @returns {Transition}
      */
     static fromObject(o) {
-        const {actionName, targetStateName} = o;
-        return new Transition(actionName, targetStateName);
+        const {action, targetStateName} = o;
+        return new Transition(action, targetStateName);
     }
 
     /**
@@ -50,15 +50,23 @@ class Transition {
     }
 
     /**
+     * Clone this Transition
+     * @returns {Transition}
+     */
+    clone () {
+        return Transition.fromObject(this.toObject());
+    }
+
+    /**
      * Is this Transition instance's actionId field valid?
      * @returns {boolean}
      */
     actionIdIsValid() {
         let valid = false;
-        let { actionName, actionId } = this;
+        let { action, actionId } = this;
         try {
             valid = (
-                validateId(actionName, actionId)
+                validateId(action, actionId)
             );
         } catch (e) {}
         return valid;
@@ -80,18 +88,18 @@ class Transition {
     }
 
     /**
-     * Is this Transition instance's actionName field valid?
+     * Is this Transition instance's action field valid?
      * @returns {boolean}
      */
-    actionNameIsValid() {
+    actionIsValid() {
         let valid = false;
-        let { actionName } = this;
+        let { action } = this;
         try {
             valid = (
-                actionName !== null &&
-                typeof actionName !== 'undefined' &&
-                typeof actionName === "string" &&
-                validateNameLax(actionName)
+                action !== null &&
+                typeof action !== 'undefined' &&
+                typeof action === "string" &&
+                validateNameLax(action)
             );
         } catch (e) {}
         return valid;
@@ -123,18 +131,10 @@ class Transition {
         return (
             this.actionIdIsValid() &&
             this.targetStateIdIsValid() &&
-            this.actionNameIsValid() &&
+            this.actionIsValid() &&
             this.targetStateNameIsValid()
         );
     };
-
-    /**
-     * Clone this Transition
-     * @returns {Transition}
-     */
-    clone () {
-       return Transition.fromObject(this.toObject());
-    }
 
 }
 
@@ -142,5 +142,8 @@ class Transition {
 if (NODE) {
     module.exports = Transition;
 } else {
-    window.Transition = Transition;
+    if (window) {
+        if (!window.Fismo) window.Fismo = {};
+        window.Fismo.Transition = Transition;
+    }
 }

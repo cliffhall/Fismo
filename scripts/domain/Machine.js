@@ -54,6 +54,14 @@ class Machine {
     }
 
     /**
+     * Clone this Machine
+     * @returns {Machine}
+     */
+    clone () {
+        return Machine.fromObject(this.toObject());
+    }
+
+    /**
      * Is this Machine instance's name field valid?
      * @returns {boolean}
      */
@@ -154,13 +162,6 @@ class Machine {
         );
     };
 
-    /**
-     * Clone this Machine
-     * @returns {Machine}
-     */
-    clone () {
-       return Machine.fromObject(this.toObject());
-    }
 
 }
 
@@ -168,5 +169,8 @@ class Machine {
 if (NODE) {
     module.exports = Machine;
 } else {
-    window.Volley = Machine;
+    if (window) {
+        if (!window.Fismo) window.Fismo = {};
+        window.Fismo.Machine = Machine;
+    }
 }

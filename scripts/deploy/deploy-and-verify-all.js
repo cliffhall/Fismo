@@ -25,6 +25,7 @@ async function main() {
     console.log("🔱 Deployer account: ", deployer ? deployer.address : "not found" && process.exit() );
     console.log(divider);
 
+    // Deploy Fismo and the Guard contracts
     [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, deployer.address, gasLimit);
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
     guards.forEach(guard => deploymentComplete(guard.name, guard.contract.address, [], contracts));

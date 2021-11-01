@@ -18,6 +18,7 @@ async function deployTransitionGuards(gasLimit) {
         "BarGuards",
         "CabGuards",
         "DancefloorGuards",
+        "FoyerGuards",
         "RestroomGuards",
         "StreetGuards",
         "VIPLoungeGuards"

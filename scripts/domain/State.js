@@ -58,6 +58,14 @@ class State {
     }
 
     /**
+     * Clone this State
+     * @returns {State}
+     */
+    clone () {
+        return State.fromObject(this.toObject());
+    }
+
+    /**
      * Is this State instance's name field valid?
      * @returns {boolean}
      */
@@ -186,19 +194,14 @@ class State {
         );
     };
 
-    /**
-     * Clone this State
-     * @returns {State}
-     */
-    clone () {
-       return State.fromObject(this.toObject());
-    }
-
 }
 
 // Export
 if (NODE) {
     module.exports = State;
 } else {
-    window.Ticket = State;
+    if (window) {
+        if (!window.Fismo) window.Fismo = {};
+        window.Fismo.State = State;
+    }
 }

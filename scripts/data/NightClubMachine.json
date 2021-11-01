@@ -1,0 +1,213 @@
+{
+  "name": "NightClub",
+  "id": "0xf1b3092a",
+  "initialStateId": "",
+  "states": [
+    {
+      "name": "Bar",
+      "id": "0xc1620375",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Boogie down",
+          "actionId": "0x4f17fd5a",
+          "targetStateName": "Dancefloor",
+          "targetStateId": "0x3da68dd9"
+        },
+        {
+          "action": "Head out",
+          "actionId": "0x942dd27b",
+          "targetStateName": "Foyer",
+          "targetStateId": "0x15040bee"
+        },
+        {
+          "action": "Freshen up",
+          "actionId": "0x3fa89cdc",
+          "targetStateName": "Restroom",
+          "targetStateId": "0x2f61f990"
+        },
+        {
+          "action": "Go chill with the fabulous people",
+          "actionId": "0x5dfbf4c2",
+          "targetStateName": "VIP_Lounge",
+          "targetStateId": "0x63c298a2"
+        }
+      ]
+    },
+    {
+      "name": "Cab",
+      "id": "0x1f5e07f1",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Get out of the cab",
+          "actionId": "0x08b50e17",
+          "targetStateName": "Street",
+          "targetStateId": "0xe071b98e"
+        },
+        {
+          "action": "Home again",
+          "actionId": "0x3fa89cdc",
+          "targetStateName": "Home",
+          "targetStateId": "0x13728da8"
+        }
+      ]
+    },
+    {
+      "name": "Dancefloor",
+      "id": "0x3da68dd9",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Grab a drink",
+          "actionId": "0x4b809029",
+          "targetStateName": "Bar",
+          "targetStateId": "0x15040bee"
+        },
+        {
+          "action": "Head out",
+          "actionId": "0x942dd27b",
+          "targetStateName": "Foyer",
+          "targetStateId": "0x15040bee"
+        },
+        {
+          "action": "Freshen up",
+          "actionId": "0x3fa89cdc",
+          "targetStateName": "Restroom",
+          "targetStateId": "0x2f61f990"
+        },
+        {
+          "action": "Go chill with the fabulous people",
+          "actionId": "0x5dfbf4c2",
+          "targetStateName": "VIP_Lounge",
+          "targetStateId": "0x63c298a2"
+        }
+      ]
+    },
+    {
+      "name": "Foyer",
+      "id": "0x15040bee",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Boogie down",
+          "actionId": "0x4f17fd5a",
+          "targetStateName": "Dancefloor",
+          "targetStateId": "0x3da68dd9"
+        },
+        {
+          "action": "Hit the road",
+          "actionId": "0xe137ce54",
+          "targetStateName": "Street",
+          "targetStateId": "0xe071b98e"
+        },
+        {
+          "action": "Grab a drink",
+          "actionId": "0x4b809029",
+          "targetStateName": "Bar",
+          "targetStateId": "0x15040bee"
+        },
+        {
+          "action": "Freshen up",
+          "actionId": "0x3fa89cdc",
+          "targetStateName": "Restroom",
+          "targetStateId": "0x2f61f990"
+        },
+        {
+          "action": "Go chill with the fabulous people",
+          "actionId": "0x5dfbf4c2",
+          "targetStateName": "VIP_Lounge",
+          "targetStateId": "0x63c298a2"
+        }
+      ]
+    },
+    {
+      "name": "Restroom",
+      "id": "0x2f61f990",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Boogie down",
+          "actionId": "0x4f17fd5a",
+          "targetStateName": "Dancefloor",
+          "targetStateId": "0x3da68dd9"
+        },
+        {
+          "action": "Hit the road",
+          "actionId": "0xe137ce54",
+          "targetStateName": "Street",
+          "targetStateId": "0xe071b98e"
+        },
+        {
+          "action": "Grab a drink",
+          "actionId": "0x4b809029",
+          "targetStateName": "Bar",
+          "targetStateId": "0x15040bee"
+        },
+        {
+          "action": "Go chill with the fabulous people",
+          "actionId": "0x5dfbf4c2",
+          "targetStateName": "VIP_Lounge",
+          "targetStateId": "0x63c298a2"
+        }
+      ]
+    },
+    {
+      "name": "Street",
+      "id": "0xe071b98e",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Hail a cab",
+          "actionId": "0xc8d60a91",
+          "targetStateName": "Cab",
+          "targetStateId": "0x1f5e07f1"
+        },
+        {
+          "action": "Enter the club",
+          "actionId": "0x6ee19ffe",
+          "targetStateName": "Foyer",
+          "targetStateId": "0x15040bee"
+        }
+      ]
+    },
+    {
+      "name": "VIP_Lounge",
+      "id": "0x63c298a2",
+      "enterGuarded": true,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Boogie down",
+          "actionId": "0x4f17fd5a",
+          "targetStateName": "Dancefloor",
+          "targetStateId": "0x3da68dd9"
+        },
+        {
+          "action": "Hit the road",
+          "actionId": "0xe137ce54",
+          "targetStateName": "Street",
+          "targetStateId": "0xe071b98e"
+        },
+        {
+          "action": "Grab a drink",
+          "actionId": "0x4b809029",
+          "targetStateName": "Bar",
+          "targetStateId": "0x15040bee"
+        },
+        {
+          "action": "Freshen up",
+          "actionId": "0x3fa89cdc",
+          "targetStateName": "Restroom",
+          "targetStateId": "0x2f61f990"
+        }
+      ]
+    }
+  ]
+}
