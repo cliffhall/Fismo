@@ -13,7 +13,7 @@ contract RestroomGuards is NightClubGuardBase {
 
     // Enter the Restroom
     // Valid prior states: Dancefloor, Bar, VIP Lounge, and Foyer
-    function Nightclub_Restroom_Enter(address _user, string memory priorStateName)
+    function NightClub_Restroom_Enter(address _user, string memory priorStateName)
     external
     pure
     returns(string memory message)
@@ -31,7 +31,7 @@ contract RestroomGuards is NightClubGuardBase {
 
     // Exit the Restroom
     // Valid next states: Dancefloor, Bar, VIP Lounge, and Foyer
-    function Nightclub_Restroom_Exit(address _user, string memory nextStateName)
+    function NightClub_Restroom_Exit(address _user, string memory nextStateName)
     external
     pure
     returns(string memory message)

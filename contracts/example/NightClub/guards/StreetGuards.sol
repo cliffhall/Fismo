@@ -13,7 +13,7 @@ contract StreetGuards is NightClubGuardBase {
 
     // Enter the Street
     // Valid prior states: Foyer and Cab
-    function Nightclub_Street_Enter(address _user, string memory priorStateName)
+    function NightClub_Street_Enter(address _user, string memory priorStateName)
     external
     pure
     returns(string memory message)
@@ -27,7 +27,7 @@ contract StreetGuards is NightClubGuardBase {
 
     // Exit the Street
     // Valid next states: Foyer and Cab
-    function Nightclub_Street_Exit(address _user, string memory nextStateName)
+    function NightClub_Street_Exit(address _user, string memory nextStateName)
     external
     pure
     returns(string memory message)

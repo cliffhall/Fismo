@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 /**
  * @title NightClubConstants
  *
- * @notice Constants used by the NightClubConstants example
+ * @notice Constants used by the NightClub example
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */

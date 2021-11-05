@@ -13,7 +13,7 @@ contract BarGuards is NightClubGuardBase {
 
     // Enter the Bar
     // Valid prior states: Restroom, Dancefloor, VIP Lounge, and Foyer
-    function Nightclub_Bar_Enter(address _user, string memory priorStateName)
+    function NightClub_Bar_Enter(address _user, string memory priorStateName)
     external
     pure
     returns(string memory message)
@@ -31,7 +31,7 @@ contract BarGuards is NightClubGuardBase {
 
     // Exit the Bar
     // Valid next states: Restroom, Dancefloor, VIP Lounge, and Foyer
-    function Nightclub_Bar_Exit(address _user, string memory nextStateName)
+    function NightClub_Bar_Exit(address _user, string memory nextStateName)
     external
     pure
     returns(string memory message)

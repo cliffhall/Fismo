@@ -1,4 +1,4 @@
-{
+const NightClub = {
   "name": "NightClub",
   "id": "0xf1b3092a",
   "initialStateId": "0x13728da8",
@@ -224,4 +224,64 @@
       ]
     }
   ]
+}
+const StopWatch = {
+  "name": "StopWatch",
+  "id": "0x1c1346e3",
+  "initialStateId": "0xce5ceceb",
+  "states": [
+    {
+      "name": "Ready",
+      "id": "0xce5ceceb",
+      "enterGuarded": true,
+      "exitGuarded": false,
+      "transitions": [
+        {
+          "action": "Start",
+          "actionId": "0x71b29014",
+          "targetStateName": "Running",
+          "targetStateId": "0xf4042adf"
+        }
+      ]
+    },
+    {
+      "name": "Running",
+      "id": "0xf4042adf",
+      "enterGuarded": false,
+      "exitGuarded": false,
+      "transitions": [
+        {
+          "action": "Stop",
+          "actionId": "0xfcf321a0",
+          "targetStateName": "Paused",
+          "targetStateId": "0x0eeb5248"
+        },
+      ]
+    },
+    {
+      "name": "Paused",
+      "id": "0x0eeb5248",
+      "enterGuarded": false,
+      "exitGuarded": false,
+      "transitions": [
+        {
+          "action": "Start",
+          "actionId": "0x71b29014",
+          "targetStateName": "Running",
+          "targetStateId": "0xf4042adf"
+        },
+        {
+          "action": "Reset",
+          "actionId": "0xaa51a4a1",
+          "targetStateName": "Ready",
+          "targetStateId": "0xce5ceceb"
+        }
+      ]
+    },
+  ]
+}
+
+exports = {
+  NightClub,
+  StopWatch
 }
