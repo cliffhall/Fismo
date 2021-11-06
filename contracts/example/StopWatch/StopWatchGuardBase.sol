@@ -29,7 +29,7 @@ contract StopWatchGuardBase {
     /**
      * @notice Get the StopWatch machine's storage slot
      *
-     * @return StopWatchStorage - StopWatch storage slot
+     * @return stopWatchStorage - StopWatch storage slot
      */
     function stopWatchSlot()
     internal
@@ -41,4 +41,17 @@ contract StopWatchGuardBase {
             stopWatchStorage.slot := position
         }
     }
+
+    /**
+     * @notice Compare two strings
+     */
+    function compare(string memory a, string memory b)
+    internal
+    pure
+    returns
+    (bool)
+    {
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
+    }
+
 }

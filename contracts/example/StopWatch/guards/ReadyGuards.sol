@@ -14,14 +14,15 @@ contract ReadyGuards is StopWatchGuardBase {
     // Events
     event StopWatchReset(address indexed user);
 
+    // Initial state
     // Valid prior states: Paused
     function StopWatch_Ready_Enter(address _user, string memory priorStateName)
     external
-    pure
     returns(string memory message)
     {
         delete stopWatchSlot().userTime[_user];
-        if (priorStateName == PAUSED) emit StopWatchReset(_user);
+        if (compare(priorStateName, PAUSED)) emit StopWatchReset(_user);
+        message = READY;
     }
 
 }

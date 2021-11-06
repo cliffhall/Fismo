@@ -17,11 +17,11 @@ contract PausedGuards is StopWatchGuardBase {
     // Valid prior states: Running
     function StopWatch_Paused_Enter(address _user, string memory priorStateName)
     external
-    pure
     returns(string memory message)
     {
         stopWatchSlot().userTime[_user] = block.timestamp;
         emit StopWatchPaused(_user, block.timestamp);
+        message = PAUSED;
     }
 
 }

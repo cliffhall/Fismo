@@ -4,9 +4,6 @@ const environments = require('../environments');
 const gasLimit = environments.gasLimit;
 
 const { expect } = require("chai");
-const Machine = require("../scripts/domain/Machine");
-const State = require("../scripts/domain/State");
-const Transition = require("../scripts/domain/Transition");
 const { InterfaceIds } = require('../scripts/constants/supported-interfaces.js');
 const { deployGuardedFismo } = require('../scripts/deploy/deploy-guarded-fismo.js');
 
@@ -65,6 +62,5 @@ describe("Fismo", function() {
         });
 
     });
-
 
 });
