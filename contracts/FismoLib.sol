@@ -170,7 +170,7 @@ library FismoLib {
      * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
      * @return guardSignature - a string representation of the function signature
      * e.g.,
-     * `Nightclub_VIP_Lounge_Enter(address _user, string memory priorStateName)`
+     * `Nightclub_VIP_Lounge_Enter(address _user, string memory _priorStateName)`
      */
     function getGuardSignature(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
     internal
@@ -281,6 +281,7 @@ library FismoLib {
     {
         // Get the current state of user in given FSM
         bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
+        if (currentStateId == bytes4(0)) currentStateId = fismoSlot().machine[_machineId].initialStateId;
 
         // Get that state's index in the machine's states array
         uint256 index = fismoSlot().stateIndex[_machineId][currentStateId];

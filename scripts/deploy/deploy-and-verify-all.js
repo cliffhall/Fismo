@@ -1,10 +1,10 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
+const network = hre.network.name;
+const environments = require('../../environments');
+const gasLimit = environments.gasLimit;
 const {deployGuardedFismo} = require("./deploy-guarded-fismo");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify-deployments");
-const environments = require('../../environments');
-const network = hre.network.name;
-const gasLimit = environments.gasLimit;
 
 async function main() {
 
@@ -28,7 +28,7 @@ async function main() {
     // Deploy Fismo and the Guard contracts
     [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, deployer.address, gasLimit);
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
-    guards.forEach(guard => deploymentComplete(guard.name, guard.contract.address, [], contracts));
+    guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
 
     // Bail now if deploying locally
     if (hre.network.name === 'hardhat') process.exit();

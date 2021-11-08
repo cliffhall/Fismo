@@ -1,6 +1,8 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
 
+const {NightClub, StopWatch} = require("../constants/example-machines");
+
 /**
  * Deploy state transition guards
  *
@@ -13,33 +15,29 @@ const ethers = hre.ethers;
  */
 async function deployTransitionGuards(gasLimit) {
 
-    // Guard contracts to deploy for example NightClub machine
-    let guardNames = [
-        "BarGuards",
-        "CabGuards",
-        "DancefloorGuards",
-        "FoyerGuards",
-        "RestroomGuards",
-        "StreetGuards",
-        "VIPLoungeGuards"
+    // Guard contracts
+    let guards = [
+        ...NightClub.guards,
+        ...StopWatch.guards
     ];
 
     // Deployed guard contracts
-    let guards = [];
+    let deployedGuards = [];
 
     // Deploy all the guards
-    while (guardNames.length) {
+    while (guards.length) {
 
-        let guardName = guardNames.shift();
-        let GuardContractFactory = await ethers.getContractFactory(guardName);
+        let guard = guards.shift();
+        let GuardContractFactory = await ethers.getContractFactory(guard.contractName);
         const guardContract = await GuardContractFactory.deploy({gasLimit});
         await guardContract.deployed();
-        guards.push( {name: guardName, contract: guardContract} );
+        guard.contract = guardContract;
+        deployedGuards.push(guard);
 
     }
 
-    // Return array of guard objects with name and contract members
-    return guards;
+    // Return array of guard objects with state, contractName, and contract members
+    return deployedGuards;
 
 }
 

@@ -1,4 +1,4 @@
-const NightClub = {
+const NightClubMachine = {
   "name": "NightClub",
   "id": "0xf1b3092a",
   "initialStateId": "0x13728da8",
@@ -224,8 +224,8 @@ const NightClub = {
       ]
     }
   ]
-}
-const StopWatch = {
+};
+const StopWatchMachine = {
   "name": "StopWatch",
   "id": "0x1c1346e3",
   "initialStateId": "0xce5ceceb",
@@ -234,7 +234,7 @@ const StopWatch = {
       "name": "Ready",
       "id": "0xce5ceceb",
       "enterGuarded": true,
-      "exitGuarded": false,
+      "exitGuarded": true,
       "transitions": [
         {
           "action": "Start",
@@ -279,9 +279,26 @@ const StopWatch = {
       ]
     },
   ]
-}
+};
 
-exports = {
-  NightClub,
-  StopWatch
+exports.NightClub = {
+    machine: NightClubMachine,
+    catalyst: "NightClubCatalyst",
+    guards: [
+      {states: ["Bar"], contractName: "BarGuards"},
+      {states: ["Cab"], contractName: "CabGuards"},
+      {states: ["Dancefloor"], contractName: "DancefloorGuards"},
+      {states: ["Foyer"], contractName: "FoyerGuards"},
+      {states: ["Restroom"], contractName: "RestroomGuards"},
+      {states: ["Street"], contractName: "StreetGuards"},
+      {states: ["VIP_Lounge"], contractName: "VIPLoungeGuards"},
+    ],
+};
+
+exports.StopWatch = {
+    machine: StopWatchMachine,
+    catalyst: "StopWatchCatalyst",
+    guards: [
+      {states: ["Ready", "Running", "Paused"], contractName: "StopWatchGuards"},
+    ]
 }

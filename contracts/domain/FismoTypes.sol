@@ -16,6 +16,7 @@ contract FismoTypes {
     }
 
     struct Machine {
+        // TODO add catalyst address for this machine
         bytes4 id;                // keccak256 hash of machine name
         bytes4 initialStateId;    // keccak256 hash of initial state
         string name;              // name of machine
@@ -46,8 +47,8 @@ contract FismoTypes {
 
     struct ActionResponse {
         string machineName;        // name of machine
-        string priorStateName;     // name of prior state
-        string nextStateName;      // name of new state
+        string _priorStateName;     // name of prior state
+        string _nextStateName;      // name of new state
         string action;         // name of action that triggered the transition
         string exitMessage;        // response from the prior state's exit guard
         string enterMessage;       // response from the new state's enter guard
