@@ -41,15 +41,15 @@ contract FismoTypes {
     struct Transition {
         bytes4 actionId;          // keccak256 hash of action name
         bytes4 targetStateId;     // keccak256 hash of target state name
-        string action;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
+        string action;            // Action name. no spaces, only a-z, A-Z, 0-9, and _
         string targetStateName;   // Target State name. begin with letter, no spaces, a-z, A-Z, 0-9, and _
     }
 
     struct ActionResponse {
         string machineName;        // name of machine
-        string _priorStateName;     // name of prior state
-        string _nextStateName;      // name of new state
-        string action;         // name of action that triggered the transition
+        string priorStateName;     // name of prior state
+        string nextStateName;      // name of new state
+        string action;             // name of action that triggered the transition
         string exitMessage;        // response from the prior state's exit guard
         string enterMessage;       // response from the new state's enter guard
     }

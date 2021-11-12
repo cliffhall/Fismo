@@ -27,15 +27,14 @@ import { FismoEvents } from "./domain/FismoEvents.sol";
  *   - Catalyst contract manages which roles can trigger which actions
  *
  * - Emits events upon...
- *   - A user's state changed in some machine
- *   - A user is about to exit a state
- *   - A user is about to enter a state
+ *   - A user has entered a state in some machine
+ *   - A user has exited a state in some machine
  *   - A machine is created
  *   - A machine is modified
  *   - A state's guard logic contract is changed
  *
  * - Reverts if...
- *   - a configured entrance guard returns false
+ *   - a configured enter guard returns false
  *   - a configured exit guard returns false
  *
  * - Delegates to an implementation...
@@ -67,13 +66,14 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      *
      * @param _interfaceId - the sighash of the given interface
      */
-    function supportsInterface(bytes4 _interfaceId) external view returns (bool) {
-
+    function supportsInterface(bytes4 _interfaceId) external
+    pure
+    returns (bool)
+    {
         return (
             _interfaceId == type(IERC165).interfaceId ||
             _interfaceId == type(IFismo).interfaceId
         ) ;
-
     }
 
     /**
@@ -102,10 +102,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     returns(ActionResponse memory response)
     {
         // Get the machine
-        Machine storage machine = fismoSlot().machine[_machineId];
-
-        // Make sure the machine exists
-        require(machine.id == _machineId, "Machine does not exist.");
+        Machine storage machine = FismoLib.getMachine(_machineId);
 
         // Get the user's current state in the machine
         State storage state = FismoLib.getUserState(_user, _machineId);
@@ -129,37 +126,18 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
         // Create the action response
         response.machineName = machine.name;
-        response._priorStateName = state.name;
-        response._nextStateName = nextState.name;
+        response.priorStateName = state.name;
+        response.nextStateName = nextState.name;
         response.action = transition.action;
 
-        // if there is exit guard logic, call it
+        // if there is exit guard logic for the current state, call it
         if (state.exitGuarded) {
-
-            // Get the function selector
-            bytes4 selector = FismoLib.getGuardSelector(machine.name, state.name, Guard.Exit);
-
-            // Make sure the logic implementation exists
-            address guardAddress = FismoLib.getGuardAddress(selector);
-
-            // Make the call and decode the response
-            bytes memory exitResponse = callGuard(guardAddress, selector, _user, nextState.name);
-            response.exitMessage = abi.decode(exitResponse, (string));
-
+            response.exitMessage = challengeGuard(_user, machine.name, state.name, Guard.Exit);
         }
 
-        // if there is enter guard logic on the next state, call it
+        // if there is enter guard logic for the next state, call it
         if (nextState.enterGuarded) {
-
-            // Get the function selector
-            bytes4 selector = FismoLib.getGuardSelector(machine.name, nextState.name, Guard.Enter);
-
-            // Make sure the logic implementation exists
-            address guardAddress = FismoLib.getGuardAddress(selector);
-
-            // Make the call and decode the response
-            bytes memory enterResponse = callGuard(guardAddress, selector, _user, state.name);
-            response.enterMessage = abi.decode(enterResponse, (string));
+            response.enterMessage = challengeGuard(_user, machine.name, nextState.name, Guard.Enter);
         }
 
         // if we made it this far, set the new state
@@ -173,33 +151,46 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     /**
      * @notice Make a delegatecall to the specified guard function
      *
-     * @param _guardAddress - the address of the guard logic implementation
-     * @param _functionSelector - the bytes4-truncated keccak256 hash of the function signature
+     * Reverts if
+     * - Guard logic decides to
+     * - delegatecall attempt fails
+     *
      * @param _user - the user address the call is being invoked for
-     * @param _deltaStateName - the name of the next or previous state, depending on enter/exit
+     * @param _machineName - the name of the machine
+     * @param _stateName - the name of the state
+     * @param _guard - the guard type (enter/exit) See: {FismoTypes.Guard}
      */
-    function callGuard(
-        address _guardAddress,
-        bytes4 _functionSelector,
+    function challengeGuard(
         address _user,
-        string memory _deltaStateName
+        string memory _machineName,
+        string memory _stateName,
+        FismoTypes.Guard _guard
     )
     internal
-    returns(bytes memory)
+    returns (string memory guardMessage)
     {
+        // Get the function selector
+        bytes4 selector = FismoLib.getGuardSelector(_machineName, _stateName, _guard);
+
+        // Make sure the logic implementation exists
+        address guardAddress = FismoLib.getGuardAddress(selector);
+
         // Encode the signature and arguments
-        bytes memory functionCall = abi.encodeWithSelector(
-            _functionSelector,
+        bytes memory challenge = abi.encodeWithSelector(
+            selector,
             _user,
-            _deltaStateName
+            _stateName
         );
 
-        // Make the function call
-        (bool success, bytes memory response) = _guardAddress.delegatecall(functionCall);
+        // Challenge the guard
+        (bool success, bytes memory response) = guardAddress.delegatecall(challenge);
+
+        // Revert if not successful
         require(success, 'Call failed');
 
-        // Return the guard's response
-        return response;
+        // Return the guard message
+        guardMessage = abi.decode(response, (string));
+
     }
 
     /**
@@ -241,7 +232,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
             addState(_machine.id, state);
 
             // Map state id to index of state in machine's states array
-            fismoSlot().stateIndex[_machine.id][_machine.states[i].id] = i;
+            FismoLib.mapStateIndex(_machine.id, _machine.states[i].id, i);
 
             // Determine the state guard
             FismoLib.updateStateGuards(_machine, state);

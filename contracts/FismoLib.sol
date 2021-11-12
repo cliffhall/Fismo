@@ -281,10 +281,10 @@ library FismoLib {
     {
         // Get the current state of user in given FSM
         bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
-        if (currentStateId == bytes4(0)) currentStateId = fismoSlot().machine[_machineId].initialStateId;
+        if (currentStateId == bytes4(0)) currentStateId = getMachine(_machineId).initialStateId;
 
         // Get that state's index in the machine's states array
-        uint256 index = fismoSlot().stateIndex[_machineId][currentStateId];
+        uint256 index = getStateIndex(_machineId, currentStateId);
 
         // Get the machine
         FismoTypes.Machine storage machine = getMachine(_machineId);
