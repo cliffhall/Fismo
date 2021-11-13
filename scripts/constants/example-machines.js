@@ -283,7 +283,7 @@ const StopWatchMachine = {
 
 exports.NightClub = {
     machine: NightClubMachine,
-    catalyst: "NightClubCatalyst",
+    operator: "NightClubOperator",
     guards: [
       {states: ["Bar"], contractName: "BarGuards"},
       {states: ["Cab"], contractName: "CabGuards"},
@@ -297,7 +297,7 @@ exports.NightClub = {
 
 exports.StopWatch = {
     machine: StopWatchMachine,
-    catalyst: "StopWatchCatalyst",
+    operator: "StopWatchOperator",
     guards: [
       {states: ["Ready", "Running", "Paused"], contractName: "StopWatchGuards"},
     ]

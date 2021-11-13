@@ -7,9 +7,9 @@ import { NightClubConstants } from "./NightClubConstants.sol";
 import { FismoTypes } from "../../domain/FismoTypes.sol";
 
 /**
- * @title NightClubCatalyst
+ * @title NightClubOperator
  *
- * N.B. This is only an example a few ways that a Catalyst can control access
+ * N.B. This is only an example a few ways that a Operator can control access
  * to Fismo machines.
  *
  * In this example, the user is either
@@ -18,7 +18,7 @@ import { FismoTypes } from "../../domain/FismoTypes.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract NightClubCatalyst is NightClubConstants, AccessControl {
+contract NightClubOperator is NightClubConstants, AccessControl {
 
     IFismo internal fismo;
 
@@ -28,7 +28,7 @@ contract NightClubCatalyst is NightClubConstants, AccessControl {
      * Grants ADMIN role to deployer.
      * Sets ADMIN as role admin for all other roles.
      */
-    constructor(address _fismo) public {
+    constructor(address _fismo) {
         fismo = IFismo(_fismo);
         _setupRole(ADMIN, msg.sender);
         _setRoleAdmin(ADMIN, ADMIN);
@@ -40,7 +40,7 @@ contract NightClubCatalyst is NightClubConstants, AccessControl {
      *
      * Reverts if caller does not have the VIP role.
      *
-     * @param _machineId - the id of the target FSM
+     * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
      */
     function invokeActionVIP(bytes4 _machineId, bytes4 _actionId)
@@ -51,11 +51,11 @@ contract NightClubCatalyst is NightClubConstants, AccessControl {
     }
 
     /**
-     * Invoke an action on a configured FSM
+     * Invoke an action on a configured machine
      *
      * Reverts if caller hasn't sent the fee
      *
-     * @param _machineId - the id of the target FSM
+     * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
      */
     function invokeActionPleb(bytes4 _machineId, bytes4 _actionId)

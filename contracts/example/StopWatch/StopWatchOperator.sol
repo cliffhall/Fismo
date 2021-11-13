@@ -5,13 +5,13 @@ import { IFismo } from "../../interfaces/IFismo.sol";
 import { FismoTypes } from "../../domain/FismoTypes.sol";
 
 /**
- * @title StopWatchCatalyst
+ * @title StopWatchOperator
  *
  * In this most basic example, anyone can initiate actions
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract StopWatchCatalyst {
+contract StopWatchOperator {
 
     IFismo internal fismo;
 
@@ -20,15 +20,17 @@ contract StopWatchCatalyst {
      *
      * @param _fismo - address of the Fismo contract
      */
-    constructor(address _fismo) public {
+    constructor(address _fismo) {
         fismo = IFismo(_fismo);
     }
 
     /**
      * Invoke a Fismo action
      *
-     * @param _machineId - the id of the target FSM
+     * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
+     *
+     * @return response - the response message. see {FismoTypes.ActionResponse}
      */
     function invokeAction(bytes4 _machineId, bytes4 _actionId)
     external

@@ -23,8 +23,8 @@ import { FismoEvents } from "./domain/FismoEvents.sol";
  *   - Whether proxied guard logic exists for entering the next state
  *
  * - Initiates state transitions when actions are invoked
- *   - All action invocations must come from the configured Catalyst contract
- *   - Catalyst contract manages which roles can trigger which actions
+ *   - All action invocations must come from the configured operator contract
+ *   - operator contract manages which roles can trigger which actions
  *
  * - Emits events upon...
  *   - A user has entered a state in some machine
@@ -46,9 +46,8 @@ import { FismoEvents } from "./domain/FismoEvents.sol";
  */
 contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
-    // TODO: Catalyst is 1-to-1 with Fismo. Should it be per machine?
-    constructor(address _owner, address _catalyst) public payable {
-        FismoLib.configureAccess( _owner, _catalyst);
+    constructor(address _owner) payable {
+        FismoLib.setOwner( _owner);
     }
 
     modifier onlyOwner() {
@@ -56,8 +55,9 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         _;
     }
 
-    modifier onlyCatalyst() {
-        require(msg.sender == fismoSlot().catalyst, "Only catalyst may call");
+    modifier onlyOperator(bytes4 _machineId) {
+        Machine storage machine = FismoLib.getMachine(_machineId);
+        require(msg.sender == machine.operator, "Only operator may call");
         _;
     }
 
@@ -90,15 +90,16 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     }
 
     /**
-     * Invoke an action on a configured FSM
+     * Invoke an action on a configured machine
      *
-     * @param _machineId - the id of the target FSM
+     * @param _user - the wallet address of the user invoking the action
+     * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
      */
     function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
     external
     override
-    onlyCatalyst
+    onlyOperator(_machineId)
     returns(ActionResponse memory response)
     {
         // Get the machine
@@ -132,12 +133,12 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
         // if there is exit guard logic for the current state, call it
         if (state.exitGuarded) {
-            response.exitMessage = challengeGuard(_user, machine.name, state.name, Guard.Exit);
+            response.exitMessage = guardTransition(_user, machine.name, state.name, Guard.Exit);
         }
 
         // if there is enter guard logic for the next state, call it
         if (nextState.enterGuarded) {
-            response.enterMessage = challengeGuard(_user, machine.name, nextState.name, Guard.Enter);
+            response.enterMessage = guardTransition(_user, machine.name, nextState.name, Guard.Enter);
         }
 
         // if we made it this far, set the new state
@@ -152,15 +153,17 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      * @notice Make a delegatecall to the specified guard function
      *
      * Reverts if
-     * - Guard logic decides to
+     * - Guard logic decides to disallow transition
      * - delegatecall attempt fails
      *
      * @param _user - the user address the call is being invoked for
      * @param _machineName - the name of the machine
      * @param _stateName - the name of the state
      * @param _guard - the guard type (enter/exit) See: {FismoTypes.Guard}
+     *
+     * @return guardMessage - the message (if any) returned from the guard
      */
-    function challengeGuard(
+    function guardTransition(
         address _user,
         string memory _machineName,
         string memory _stateName,
@@ -196,15 +199,24 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     /**
      * @notice Add a new Machine
      *
+     * Reverts if
+     * - operator address is zero
+     * - machine id is not valid
+     * - machine id already exists
+     *
      * @param _machine - the machine definition to add
+     * @param _operator - the operator address for this machine
      */
-    function addMachine(Machine memory _machine)
+    function addMachine(Machine memory _machine, address _operator)
     external
     override
     onlyOwner
     {
+        // Make sure operator address is not the black hole
+        require(_operator != address(0), "Invalid operator address");
+
         // Make sure machine id is valid
-        require(_machine.id == FismoLib.nameToId(_machine.name), "Machine ID is invalid");
+        require(_machine.id == FismoLib.nameToId(_machine.name), "Invalid machine ID");
 
         // Get the machine's storage location
         Machine storage machine = fismoSlot().machine[_machine.id];
@@ -213,6 +225,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         require(machine.id != _machine.id, "Machine already exists");
 
         // Store the machine
+        machine.operator = _operator;
         machine.id = _machine.id;
         machine.initialStateId = _machine.initialStateId;
         machine.name = _machine.name;
@@ -243,6 +256,10 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     /**
      * @notice Add a state to an existing Machine
      *
+     * Reverts if
+     * - state id is invalid
+     * - machine does not exist
+     *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
      */
@@ -271,6 +288,10 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      * @notice Update an existing state to an existing machine
      *
      * State name / id cannot be changed.
+     *
+     * Reverts if:
+     * - state does not exist
+     * - machine does not exist
      *
      * Use this if:
      * - adding more than one transition

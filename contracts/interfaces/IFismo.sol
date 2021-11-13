@@ -13,12 +13,12 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
 interface IFismo {
 
     /**
-     * Invoke an action on a configured FSM
+     * Invoke an action on a configured machine
      *
-     * Reverts if caller is not the Catalyst contract
+     * Reverts if caller is not the machine's operator contract
      *
      * @param _user - the address of the user
-     * @param _machineId - the id of the target FSM
+     * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
      */
     function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
@@ -29,8 +29,9 @@ interface IFismo {
      * @notice Add a new Machine
      *
      * @param _machine - the machine definition to add
+     * @param _operator - the operator address for this machine
      */
-    function addMachine(FismoTypes.Machine memory _machine)
+    function addMachine(FismoTypes.Machine memory _machine, address _operator)
     external;
 
     /**

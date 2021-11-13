@@ -3,8 +3,10 @@ const gasLimit = environments.gasLimit;
 const hre = require("hardhat");
 const ethers = hre.ethers;
 const network = hre.network.name;
-const {deployGuardedFismo} = require("./deploy-guarded-fismo");
+const {deployStandaloneFismo} = require("./deploy-fismo");
+const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify-deployments");
+const {NightClub, StopWatch} = require("../constants/example-machines");
 
 async function main() {
 
@@ -20,15 +22,23 @@ async function main() {
 
     // Report header
     const divider = "-".repeat(80);
-    console.log(`${divider}\n💥 Fismo Deployer\n${divider}`);
-    console.log(`⛓ Network: ${network}\n📅 ${new Date()}`);
+    console.log(`${divider}\n💥 Deploy Fismo and Examples\n${divider}`);
+    console.log(`⛓  Network: ${network}\n📅 ${new Date()}`);
     console.log("🔱 Deployer account: ", deployer ? deployer.address : "not found" && process.exit() );
     console.log(divider);
 
-    // Deploy Fismo and the Guard contracts
-    [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, deployer.address, gasLimit);
+    // Deploy Fismo
+    [fismo, fismoArgs] = await deployStandaloneFismo(deployer.address, gasLimit);
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
-    guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
+
+    // Deploy examples
+    const examples = [NightClub, StopWatch];
+    for (const example of examples) {
+        console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
+        [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+        deploymentComplete(example.operator, fismo.address, operatorArgs, contracts);
+        guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
+    }
 
     // Bail now if deploying locally
     if (hre.network.name === 'hardhat') process.exit();

@@ -16,7 +16,7 @@ contract FismoTypes {
     }
 
     struct Machine {
-        // TODO add catalyst address for this machine
+        address operator;         // address of approved operator contract
         bytes4 id;                // keccak256 hash of machine name
         bytes4 initialStateId;    // keccak256 hash of initial state
         string name;              // name of machine

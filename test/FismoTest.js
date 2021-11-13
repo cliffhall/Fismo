@@ -16,7 +16,7 @@ describe("Fismo", function() {
 
     // Common vars
     let accounts, deployer;
-    let fismo, catalyst;
+    let fismo;
 
     beforeEach( async function () {
 
@@ -24,8 +24,42 @@ describe("Fismo", function() {
         accounts = await ethers.getSigners();
         deployer = accounts[0];
 
-        // Deploy the Diamond
-        [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, deployer.address, gasLimit);
+        // Deploy Fismo
+        [fismo, fismoArgs, guards] = await deployGuardedFismo(deployer.address, gasLimit);
+
+    });
+
+    context("Configuration", async function () {
+
+        context("supportsInterface()", async function () {
+
+            it("should indicate support for ERC-165 interface", async function () {
+
+                // See https://eips.ethereum.org/EIPS/eip-165#how-a-contract-will-publish-the-interfaces-it-implements
+                support = await fismo.supportsInterface(InterfaceIds.IERC165);
+
+                // Test
+                await expect(
+                    support,
+                    "ERC-165 interface not supported"
+                ).is.true;
+
+            });
+
+            it("should indicate support for IFismo interface", async function () {
+
+                // Current interfaceId for IFismo
+                support = await fismo.supportsInterface(InterfaceIds.IFismo);
+
+                // Test
+                await expect(
+                    support,
+                    "IFismo interface not supported"
+                ).is.true;
+
+            });
+
+        });
 
     });
 
@@ -62,5 +96,6 @@ describe("Fismo", function() {
         });
 
     });
+
 
 });

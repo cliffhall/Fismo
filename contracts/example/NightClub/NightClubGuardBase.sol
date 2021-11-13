@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/IAccessControl.sol";
 import { NightClubLib } from "./NightClubLib.sol";
 import { NightClubConstants } from "./NightClubConstants.sol";
-import "./NightClubCatalyst.sol";
+import "./NightClubOperator.sol";
 
 /**
  * @notice Base functions for guards
@@ -22,7 +22,7 @@ contract NightClubGuardBase is NightClubConstants {
     view
     returns (bool)
     {
-        // N.B. msg.sender is NightClubCatalyst, which implements IAccessControl
+        // N.B. msg.sender is NightClubOperator, which implements IAccessControl
         return IAccessControl(msg.sender).hasRole(VIP, _user);
     }
 

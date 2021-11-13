@@ -6,7 +6,7 @@ import { FismoTypes } from "./domain/FismoTypes.sol";
 /**
  * @title FismoLib
  *
- * @notice FSM configuration storage
+ * @notice Fismo configuration storage
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -18,9 +18,6 @@ library FismoLib {
 
         // Address of the contract owner
         address owner;
-
-        // Address of the catalyst contract
-        address catalyst;
 
         // Maps a deterministic guard function selector to an implementation address
         mapping(bytes4 => address) guardLogic;
@@ -63,12 +60,10 @@ library FismoLib {
      * @notice Configure approved access
      *
      * @param _owner - the contract owner
-     * @param _catalyst - the approved catalyst address
      */
-    function configureAccess(address _owner, address _catalyst)
+    function setOwner(address _owner)
     internal
     {
-        fismoSlot().catalyst = _catalyst;
         fismoSlot().owner = _owner;
     }
 
@@ -153,6 +148,8 @@ library FismoLib {
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state within the given machine
+     *
+     * @return index - the state's index in the machine's states array
      */
     function getStateIndex(bytes4 _machineId, bytes4 _stateId)
     internal
@@ -165,12 +162,14 @@ library FismoLib {
     /**
      * @notice Get the function signature for an enter or exit guard guard
      *
+     * e.g.,
+     * `NightClub_VIP_Lounge_Enter(address _user, string memory _priorStateName)`
+     *
      * @param _machineName - the name of the machine, e.g., `NightClub`
      * @param _stateName - the name of the state, e.g., `VIP_Lounge`
      * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     *
      * @return guardSignature - a string representation of the function signature
-     * e.g.,
-     * `Nightclub_VIP_Lounge_Enter(address _user, string memory _priorStateName)`
      */
     function getGuardSignature(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
     internal
@@ -194,6 +193,7 @@ library FismoLib {
      * @param _machineName - the name of the machine
      * @param _stateName - the name of the state
      * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     *
      * @return guardSelector - the function selector, e.g., `0x23b872dd`
      */
     function getGuardSelector(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
@@ -226,21 +226,23 @@ library FismoLib {
     }
 
     /**
-     * @notice Update state guards
+     * @notice Update the guard function selector mappings for given state
      *
+     * @param _machine - the machine. see {FismoTypes.Machine}
+     * @param _state - the state. see {FismoTypes.State}
      */
     function updateStateGuards(FismoTypes.Machine memory _machine, FismoTypes.State memory _state)
     internal
     {
         // determine enter guard function signature for state
-        // Ex. keccak256 hash of: machineName_enter_stateName(address _user)
+        // Ex. keccak256 hash of: MachineName_StateName_Enter(address _user)
         bytes4 enterGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Enter);
 
         // Map the enter guard function selector to the address of the guard logic implementation for this state
         fismoSlot().guardLogic[enterGuardSelector] = (_state.enterGuarded) ? _state.guardLogic : address(0);
 
         // determine exit guard function signature for state
-        // Ex. keccak256 hash of: machineName_exit_stateName(address _user)
+        // Ex. keccak256 hash of: MachineName_StateName_Exit(address _user)
         bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, FismoTypes.Guard.Exit);
 
         // Map the exit guard function selector to the address of the guard logic implementation for this state
@@ -279,7 +281,7 @@ library FismoLib {
     view
     returns (FismoTypes.State storage state)
     {
-        // Get the current state of user in given FSM
+        // Get the current state of user in given machine
         bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
         if (currentStateId == bytes4(0)) currentStateId = getMachine(_machineId).initialStateId;
 

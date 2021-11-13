@@ -20,14 +20,14 @@
   ],
   "scripts": {
     "build": "npx hardhat compile",
-    "lint": "solhint 'contracts/**/*.sol'",
     "test": "npx hardhat test",
+    "lint": "solhint 'contracts/**/*.sol'",
     "size": "npx hardhat size-contracts",
-    "fismo:deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",
-    "fismo:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
-    "fismo:deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.main.txt",
-    "fismo:deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.txt",
-    "fismo:deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.main.txt"
+    "deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",
+    "deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
+    "deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.main.txt",
+    "deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.txt",
+    "deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.main.txt"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.0"
@@ -43,7 +43,7 @@
     "hardhat": "^2.6.4",
     "hardhat-contract-sizer": "^2.1.1",
     "hardhat-gas-reporter": "^1.0.4",
-    "solhint": "^3.3.6",
-    "solidity-coverage": "^0.7.16"
+    "solidity-coverage": "^0.7.16",
+    "solhint": "^3.3.6"
   }
 }
