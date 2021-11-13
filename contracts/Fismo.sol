@@ -47,7 +47,7 @@ import { FismoEvents } from "./domain/FismoEvents.sol";
 contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
     // TODO: Catalyst is 1-to-1 with Fismo. Should it be per machine?
-    constructor(address _owner, address _catalyst) payable {
+    constructor(address _owner, address _catalyst) public payable {
         FismoLib.configureAccess( _owner, _catalyst);
     }
 
@@ -186,7 +186,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         (bool success, bytes memory response) = guardAddress.delegatecall(challenge);
 
         // Revert if not successful
-        require(success, 'Call failed');
+        require(success, "Guard call failed");
 
         // Return the guard message
         guardMessage = abi.decode(response, (string));
@@ -210,7 +210,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         Machine storage machine = fismoSlot().machine[_machine.id];
 
         // Make sure machine doesn't already exist
-        require(machine.id != _machine.id, "Machine with that ID already exists");
+        require(machine.id != _machine.id, "Machine already exists");
 
         // Store the machine
         machine.id = _machine.id;

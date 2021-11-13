@@ -28,7 +28,7 @@ contract NightClubCatalyst is NightClubConstants, AccessControl {
      * Grants ADMIN role to deployer.
      * Sets ADMIN as role admin for all other roles.
      */
-    constructor(address _fismo) {
+    constructor(address _fismo) public {
         fismo = IFismo(_fismo);
         _setupRole(ADMIN, msg.sender);
         _setRoleAdmin(ADMIN, ADMIN);

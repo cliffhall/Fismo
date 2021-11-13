@@ -18,13 +18,13 @@ contract NightClubConstants {
     uint256 internal constant DOOR_FEE = 0.005 ether;
 
     // States
-    string constant HOME = "Home";
-    string constant CAB = "Cab";
-    string constant STREET = "Street";
-    string constant FOYER = "Foyer";
-    string constant BAR = "Bar";
-    string constant DANCEFLOOR = "Dancefloor";
-    string constant RESTROOM = "Restroom";
-    string constant VIP_LOUNGE = "VIP_Lounge";
+    string private constant HOME = "Home";
+    string private constant CAB = "Cab";
+    string private constant STREET = "Street";
+    string private constant FOYER = "Foyer";
+    string private constant BAR = "Bar";
+    string private constant DANCEFLOOR = "Dancefloor";
+    string private constant RESTROOM = "Restroom";
+    string private constant VIP_LOUNGE = "VIP_Lounge";
 
 }

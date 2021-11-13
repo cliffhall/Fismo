@@ -1,0 +1,12 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "max-line-length": "off",
+    "compiler-version": ["error","^0.8.0"],
+    "func-name-mixedcase": "off",
+    "not-rely-on-time": "off",
+    "no-unused-vars": "off",
+    "no-inline-assembly": "off",
+    "avoid-low-level-calls": "off"
+  }
+}

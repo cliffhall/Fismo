@@ -20,7 +20,7 @@ contract StopWatchCatalyst {
      *
      * @param _fismo - address of the Fismo contract
      */
-    constructor(address _fismo) {
+    constructor(address _fismo) public {
         fismo = IFismo(_fismo);
     }
 

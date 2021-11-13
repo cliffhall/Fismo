@@ -19,7 +19,7 @@ contract VIPLoungeGuards is NightClubGuardBase {
     returns(string memory message)
     {
         // Can't enter if you're not a VIP
-        require(isVIP(_user), "Sorry, you just aren't fabulous enough, loser.");
+        require(isVIP(_user), "Not fabulous enough");
 
         if (compare(_priorStateName, DANCEFLOOR)) {
             message = "The DJ is spinning some decade-old Trap track that sounds like a T-Rex destroying the building with lasers. Time to chill.";

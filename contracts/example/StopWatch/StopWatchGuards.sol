@@ -15,12 +15,12 @@ contract StopWatchGuards {
     event StopWatchPaused(address indexed user, uint256 elapsed);
 
     // States
-    string constant READY   = "Ready";
-    string constant RUNNING = "Running";
-    string constant PAUSED  = "Paused";
+    string private constant READY   = "Ready";
+    string private constant RUNNING = "Running";
+    string private constant PAUSED  = "Paused";
 
     // Machine-specific storage slot
-    bytes32 constant STOPWATCH_SLOT = keccak256("fismo.example.stopwatch.storage.slot");
+    bytes32 private constant STOPWATCH_SLOT = keccak256("fismo.example.stopwatch.storage.slot");
 
     /// User-specific memory accessed by state guards
     struct UserMemory {

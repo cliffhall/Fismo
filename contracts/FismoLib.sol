@@ -222,7 +222,7 @@ library FismoLib {
     returns (address guardAddress)
     {
         guardAddress = fismoSlot().guardLogic[_functionSelector];
-        require(guardAddress != address(0), "Guard logic implementation does not exist");
+        require(guardAddress != address(0), "Guard does not exist");
     }
 
     /**

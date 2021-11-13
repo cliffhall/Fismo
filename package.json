@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "build": "npx hardhat compile",
+    "lint": "solhint 'contracts/**/*.sol'",
     "test": "npx hardhat test",
     "fismo:deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",
     "fismo:deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
@@ -40,6 +41,7 @@
     "ethers": "^5.4.5",
     "hardhat": "^2.6.4",
     "hardhat-gas-reporter": "^1.0.4",
+    "solhint": "^3.3.6",
     "solidity-coverage": "^0.7.16"
   }
 }
