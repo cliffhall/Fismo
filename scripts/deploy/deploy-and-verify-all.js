@@ -1,8 +1,8 @@
+const environments = require('../../environments');
+const gasLimit = environments.gasLimit;
 const hre = require("hardhat");
 const ethers = hre.ethers;
 const network = hre.network.name;
-const environments = require('../../environments');
-const gasLimit = environments.gasLimit;
 const {deployGuardedFismo} = require("./deploy-guarded-fismo");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify-deployments");
 
