@@ -1,7 +1,9 @@
 const NightClubMachine = {
+  "operator": null,
   "name": "NightClub",
   "id": "0xf1b3092a",
   "initialStateId": "0x13728da8",
+  "uri": "ipfs://",
   "states": [
     {
       "name": "Bar",
@@ -225,10 +227,13 @@ const NightClubMachine = {
     }
   ]
 };
+
 const StopWatchMachine = {
+  "operator": null,
   "name": "StopWatch",
   "id": "0x1c1346e3",
   "initialStateId": "0xce5ceceb",
+  "uri": "ipfs://",
   "states": [
     {
       "name": "Ready",
@@ -285,13 +290,13 @@ exports.NightClub = {
     machine: NightClubMachine,
     operator: "NightClubOperator",
     guards: [
-      {states: ["Bar"], contractName: "BarGuards"},
-      {states: ["Cab"], contractName: "CabGuards"},
-      {states: ["Dancefloor"], contractName: "DancefloorGuards"},
-      {states: ["Foyer"], contractName: "FoyerGuards"},
-      {states: ["Restroom"], contractName: "RestroomGuards"},
-      {states: ["Street"], contractName: "StreetGuards"},
-      {states: ["VIP_Lounge"], contractName: "VIPLoungeGuards"},
+      {states: ["Bar"], contractName: "BarGuards", contract: null},
+      {states: ["Cab"], contractName: "CabGuards", contract: null},
+      {states: ["Dancefloor"], contractName: "DancefloorGuards", contract: null},
+      {states: ["Foyer"], contractName: "FoyerGuards", contract: null},
+      {states: ["Restroom"], contractName: "RestroomGuards", contract: null},
+      {states: ["Street"], contractName: "StreetGuards", contract: null},
+      {states: ["VIP_Lounge"], contractName: "VIPLoungeGuards", contract: null},
     ],
 };
 
@@ -299,6 +304,10 @@ exports.StopWatch = {
     machine: StopWatchMachine,
     operator: "StopWatchOperator",
     guards: [
-      {states: ["Ready", "Running", "Paused"], contractName: "StopWatchGuards"},
+      {
+        states: ["Ready", "Running", "Paused"],
+        contractName: "StopWatchGuards",
+        contract: null
+      },
     ]
 }

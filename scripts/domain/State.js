@@ -92,7 +92,7 @@ class State {
         try {
             valid = (
                 typeof guardLogic === 'string' &&
-                eip55.verify(eip55.encode(guardLogic))
+                eip55.verify(guardLogic)
             ) || (
                 guardLogic === null ||
                 typeof guardLogic === 'undefined'

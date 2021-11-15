@@ -1,5 +1,6 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
+const Machine = require("../../scripts/domain/Machine");
 
 /**
  * Deploy an example machine
@@ -20,17 +21,42 @@ async function deployExample(owner, fismoAddress, example, gasLimit) {
     // Get the deployed Fismo contract
     const fismo = await ethers.getContractAt("Fismo", fismoAddress);
 
-    // Deploy operator
-    const operatorArgs = [fismo.address];
-    const Operator = await ethers.getContractFactory(example.operator);
-    const operator = await Operator.deploy(...operatorArgs, {gasLimit});
-    await operator.deployed();
+    // Create and validate the machine
+    const machine = Machine.fromObject(example.machine);
 
-    // Deploy transition guards
-    const guards = await deployTransitionGuards(example, gasLimit);
+    if (machine.isValid()) {
 
-    // Return the operator and the guards
-    return [operator, operatorArgs, guards];
+        // Deploy operator
+        const operatorArgs = [fismo.address];
+        const Operator = await ethers.getContractFactory(example.operator);
+        const operator = await Operator.deploy(...operatorArgs, {gasLimit});
+        await operator.deployed();
+
+        // Update machine with operator address
+        machine.operator = operator.address;
+
+        // Deploy transition guards
+        const guards = await deployTransitionGuards(example, gasLimit);
+
+        // Add guard addresses to their associated states
+        for (const guard of guards) {
+            guard.states.forEach(stateName => {
+                let state = machine.getState(stateName);
+                state.guardLogic = guard.contract.address
+            })
+        }
+
+        // Add the machine
+        await fismo.addMachine(machine.toObject(), operator.address);
+
+        // Return the operator and the guards
+        return [operator, operatorArgs, guards];
+
+    } else {
+
+        throw("Invalid machine definition.");
+
+    }
 
 }
 

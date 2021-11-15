@@ -11,7 +11,7 @@ class Transition {
         struct Transition {
             bytes4 actionId;          // keccak256 hash of action name
             bytes4 targetStateId;     // keccak256 hash of target state name
-            string action;        // Action name. no spaces, only a-z, A-Z, 0-9, and _
+            string action;            // Action name. no spaces, only a-z, A-Z, 0-9, and _
             string targetStateName;   // Target State name. begin with letter, no spaces, a-z, A-Z, 0-9, and _
         }
     */

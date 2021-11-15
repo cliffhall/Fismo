@@ -5,11 +5,13 @@
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 const {nameToId, validateNameStrict, validateId} = require("../util/name-utils");
 const State = require("./State");
+const eip55 = require("eip55");
 
 class Machine {
 
     /*
         struct Machine {
+            address operator;         // address of approved operator contract
             bytes4 id;                // keccak256 hash of machine name
             bytes4 initialStateId;    // keccak256 hash of initial state
             string name;              // name of machine
@@ -18,7 +20,8 @@ class Machine {
         }
     */
 
-    constructor (name, states, initialStateId, uri) {
+    constructor (operator, name, states, initialStateId, uri) {
+        this.operator = operator ? eip55.encode(operator) : null;
         this.id = nameToId(name);
         this.name = name;
         this.initialStateId = initialStateId;
@@ -32,9 +35,9 @@ class Machine {
      * @returns {Machine}
      */
     static fromObject(o) {
-        const {name, initialStateId, uri} = o;
+        const {operator, name, initialStateId, uri} = o;
         let states = o.states ? o.states.map(state => State.fromObject(state)) : undefined;
-        return new Machine(name, states, initialStateId, uri);
+        return new Machine(operator, name, states, initialStateId, uri);
     }
 
     /**
@@ -59,6 +62,26 @@ class Machine {
      */
     clone () {
         return Machine.fromObject(this.toObject());
+    }
+
+    /**
+     * Is this Machine instance's operator field valid?
+     * Must be a eip55 compliant Ethereum address
+     * @returns {boolean}
+     */
+    operatorIsValid() {
+        let valid = false;
+        let {operator} = this;
+        try {
+            valid = (
+                typeof operator === "string" &&
+                eip55.verify(operator)
+            ) || (
+                operator === null ||
+                typeof operator === 'undefined'
+            );
+        } catch (e) {}
+        return valid;
     }
 
     /**
@@ -154,6 +177,7 @@ class Machine {
      */
     isValid() {
         return (
+            this.operatorIsValid() &&
             this.idIsValid() &&
             this.nameIsValid() &&
             this.initialStateIdIsValid() &&
@@ -162,6 +186,14 @@ class Machine {
         );
     };
 
+    /**
+     * Get the state with the given name
+     * @param stateName - the name of the state to fetch
+     * @return state - the state (if any) whose name matches stateName
+     */
+    getState(stateName) {
+        return this.states.filter(state => state.name == stateName)[0];
+    }
 
 }
 

@@ -3,7 +3,7 @@ const gasLimit = environments.gasLimit;
 const hre = require("hardhat");
 const ethers = hre.ethers;
 const network = hre.network.name;
-const {deployStandaloneFismo} = require("./deploy-fismo");
+const {deployFismo} = require("./deploy-fismo");
 const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify-deployments");
 const {NightClub, StopWatch} = require("../constants/example-machines");
@@ -28,16 +28,20 @@ async function main() {
     console.log(divider);
 
     // Deploy Fismo
-    [fismo, fismoArgs] = await deployStandaloneFismo(deployer.address, gasLimit);
+    [fismo, fismoArgs] = await deployFismo(deployer.address, gasLimit);
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
 
     // Deploy examples
     const examples = [NightClub, StopWatch];
     for (const example of examples) {
         console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
-        [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
-        deploymentComplete(example.operator, fismo.address, operatorArgs, contracts);
-        guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
+        try {
+            [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+            deploymentComplete(example.operator, fismo.address, operatorArgs, contracts);
+            guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
+        } catch (e) {
+            console.log(`❌  ${e}`);
+        }
     }
 
     // Bail now if deploying locally

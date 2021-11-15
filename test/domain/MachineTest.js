@@ -1,3 +1,5 @@
+const hre = require("hardhat");
+const ethers = hre.ethers;
 const { expect } = require("chai");
 const State = require("../../scripts/domain/State");
 const Machine = require("../../scripts/domain/Machine");
@@ -13,24 +15,27 @@ describe("Machine", function() {
 
     // Suite-wide scope
     let machine, object, dehydrated, rehydrated, clone;
-    let name, states, initialStateId, uri;
-
+    let accounts, operator, name, states, initialStateId, uri;
 
     beforeEach( async function () {
 
-        let stateName, guardLogic, transitions, exitGuarded, enterGuarded, uri;
+        // Get accounts
+        // N.B. just need valid eip55 addresses for unit tests
+        accounts = await ethers.getSigners();
+        operator = accounts[0].address;
 
         // Create states of a door that can be unlocked with a key and locked without a key
+        let stateName, guardLogic, transitions, exitGuarded, enterGuarded, uri;
         states = [];
 
         // Unlocked state
         stateName = "Unlocked";
         exitGuarded = true;
         enterGuarded = false;
+        guardLogic = accounts[1].address;
         transitions = [
             new Transition("Lock", "Locked")
         ];
-        guardLogic = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
         uri = "The door is unlocked.";
         states.push(new State(stateName, exitGuarded, enterGuarded, transitions, guardLogic, uri));
 
@@ -38,10 +43,10 @@ describe("Machine", function() {
         stateName = "Locked";
         exitGuarded = true;
         enterGuarded = false;
+        guardLogic = accounts[2].address;
         transitions = [
             new Transition("Unlock", "Unlocked")
         ];
-        guardLogic = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
         uri = "The door is locked.";
         states.push(new State(stateName, exitGuarded, enterGuarded, transitions, guardLogic, uri));
 
@@ -55,8 +60,9 @@ describe("Machine", function() {
 
         it("Should allow creation of valid, fully populated Machine instance", async function () {
 
-            machine =  new Machine(name, states, initialStateId, uri);
+            machine =  new Machine(operator, name, states, initialStateId, uri);
 
+            expect(machine.operatorIsValid(), "Invalid operator address").is.true;
             expect(machine.nameIsValid(), "Invalid name").is.true;
             expect(machine.idIsValid(), "Invalid id").is.true;
             expect(machine.initialStateIdIsValid(), "Invalid initial state id").is.true;
@@ -72,7 +78,31 @@ describe("Machine", function() {
 
         beforeEach( async function () {
 
-            machine =  new Machine(name, states, initialStateId, uri);
+            machine =  new Machine(operator, name, states, initialStateId, uri);
+
+        });
+
+        it("Always present, operator must be a valid eip55 address", async function() {
+
+            // Invalid field value
+            machine.operator = 12;
+            expect(machine.operatorIsValid()).is.false;
+            expect(machine.isValid()).is.false;
+
+            // Invalid field value
+            machine.operator = "zedzdeadbaby";
+            expect(machine.operatorIsValid()).is.false;
+            expect(machine.isValid()).is.false;
+
+            // Invalid field values
+            machine.operator = "0";
+            expect(machine.operatorIsValid()).is.false;
+            expect(machine.isValid()).is.false;
+
+            // Valid field value
+            machine.operator = accounts[3].address;
+            expect(machine.operatorIsValid()).is.true;
+            expect(machine.isValid()).is.true;
 
         });
 
@@ -224,8 +254,8 @@ describe("Machine", function() {
 
             beforeEach( async function () {
 
-                machine =  new Machine(name, states, initialStateId, uri);
-                object = { name, states, initialStateId, uri };
+                machine =  new Machine(operator, name, states, initialStateId, uri);
+                object = { operator, name, states, initialStateId, uri };
 
             });
 
@@ -250,7 +280,7 @@ describe("Machine", function() {
 
             beforeEach( async function () {
 
-                machine =  new Machine(name, states, initialStateId, uri);
+                machine =  new Machine(operator, name, states, initialStateId, uri);
 
             });
 

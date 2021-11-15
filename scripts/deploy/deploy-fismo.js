@@ -35,4 +35,4 @@ if (require.main === module) {
         })
 }
 
-exports.deployStandaloneFismo = deployFismo;
+exports.deployFismo = deployFismo;
