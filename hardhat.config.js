@@ -61,10 +61,10 @@ module.exports = {
   gasReporter: {
     currency: 'USD',
     enabled: true,
-    gasPrice: 82,
+    gasPrice: 170,
     coinmarketcap: environments.apiKey.coinmarketcap,
     showTimeSpent: true,
-    showMethodSig: true
+    showMethodSig: false
   },
   paths: {
     sources: "./contracts",

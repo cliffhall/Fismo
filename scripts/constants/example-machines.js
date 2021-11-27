@@ -1,3 +1,4 @@
+// TODO: Fix this defintion. What's wrong???
 const NightClubMachine = {
   "operator": null,
   "name": "NightClub",

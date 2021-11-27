@@ -274,8 +274,11 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Get the machine's storage location
         Machine storage machine = FismoLib.getMachine(_machineId);
 
+        // Zero init a new states array element in storage
+        machine.states.push();
+
         // Get the new state's storage location
-        uint256 index = machine.states.length;
+        uint256 index = machine.states.length - 1;
 
         // Map state id to index of state in machine's states array
         FismoLib.mapStateIndex(_machineId, _state.id, index);
@@ -329,6 +332,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     function storeState(Machine storage _machine, State memory _state, uint256 _index)
     internal
     {
+
         // Overwrite the state in the machine's states array
         State storage state = _machine.states[_index];
         state.id = _state.id;
@@ -371,8 +375,11 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Get the state
         State storage state = FismoLib.getState(_machineId, _stateId);
 
+        // Zero init a new transitions array element in storage
+        state.transitions.push();
+
         // Get the new transition's storage location
-        uint256 index = state.transitions.length;
+        uint256 index = state.transitions.length - 1;
 
         // Overwrite the state in the machine's states array
         Transition storage transition = state.transitions[index];

@@ -24,6 +24,7 @@ async function deployExample(owner, fismoAddress, example, gasLimit) {
     // Create and validate the machine
     const machine = Machine.fromObject(example.machine);
 
+    // Deploy operator, guards, and add machine to Fismo
     if (machine.isValid()) {
 
         // Deploy operator
