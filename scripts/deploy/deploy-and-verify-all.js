@@ -5,7 +5,7 @@ const ethers = hre.ethers;
 const network = hre.network.name;
 const {deployFismo} = require("./deploy-fismo");
 const {deployExample} = require("./deploy-example");
-const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify-deployments");
+const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify");
 const {NightClub, StopWatch} = require("../constants/example-machines");
 
 async function main() {
@@ -14,7 +14,7 @@ async function main() {
     await hre.run('compile');
 
     // Deployed contracts
-    let contracts = [];
+    let contract, contracts = [];
 
     // Get accounts
     const accounts = await ethers.getSigners();

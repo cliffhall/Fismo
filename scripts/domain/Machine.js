@@ -127,6 +127,9 @@ class Machine {
         let {initialStateId, states} = this;
         try {
             valid = (
+                states.length === 0 &&
+                (initialStateId === null || initialStateId === undefined)
+            ) || (
                 typeof initialStateId === "string" &&
                 !!states.find(state => state.id === initialStateId)
             );
@@ -192,7 +195,7 @@ class Machine {
      * @return state - the state (if any) whose name matches stateName
      */
     getState(stateName) {
-        return this.states.filter(state => state.name == stateName)[0];
+        return this.states.filter(state => state.name === stateName)[0];
     }
 
 }

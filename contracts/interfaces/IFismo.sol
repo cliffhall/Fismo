@@ -29,9 +29,8 @@ interface IFismo {
      * @notice Add a new Machine
      *
      * @param _machine - the machine definition to add
-     * @param _operator - the operator address for this machine
      */
-    function addMachine(FismoTypes.Machine memory _machine, address _operator)
+    function addMachine(FismoTypes.Machine memory _machine)
     external;
 
     /**

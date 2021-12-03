@@ -1,3 +1,5 @@
+const hre = require("hardhat");
+const ethers = hre.ethers;
 const { assert } = require("chai");
 const { InterfaceIds } = require('../../scripts/constants/supported-interfaces.js');
 

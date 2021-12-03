@@ -287,6 +287,30 @@ const StopWatchMachine = {
   ]
 };
 
+const MeditationMachine = {
+  "operator": null,
+  "name": "BeHereNow",
+  "id": "0x1794ba3e",
+  "initialStateId": "0xd3c380eb",
+  "uri": "ipfs://",
+  "states": [
+    {
+      "name": "Relax",
+      "id": "0xd3c380eb",
+      "enterGuarded": false,
+      "exitGuarded": false,
+      "transitions": [
+        {
+          "action": "Float downstream",
+          "actionId": "0x8be2f0a7",
+          "targetStateName": "Relax",
+          "targetStateId": "0xd3c380eb"
+        },
+      ]
+    }
+  ]
+};
+
 exports.NightClub = {
     machine: NightClubMachine,
     operator: "NightClubOperator",
@@ -302,13 +326,18 @@ exports.NightClub = {
 };
 
 exports.StopWatch = {
-    machine: StopWatchMachine,
-    operator: "StopWatchOperator",
-    guards: [
-      {
-        states: ["Ready", "Running", "Paused"],
-        contractName: "StopWatchGuards",
-        contract: null
-      },
-    ]
-}
+  machine: StopWatchMachine,
+  operator: "StopWatchOperator",
+  guards: [
+    {
+      states: ["Ready", "Running", "Paused"],
+      contractName: "StopWatchGuards",
+      contract: null
+    },
+  ]
+};
+
+// Simple one state unguarded example for unit testing
+exports.Meditation = {
+  machine: MeditationMachine,
+};

@@ -205,15 +205,14 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      * - machine id already exists
      *
      * @param _machine - the machine definition to add
-     * @param _operator - the operator address for this machine
      */
-    function addMachine(Machine memory _machine, address _operator)
+    function addMachine(Machine memory _machine)
     external
     override
     onlyOwner
     {
         // Make sure operator address is not the black hole
-        require(_operator != address(0), "Invalid operator address");
+        require(_machine.operator != address(0), "Invalid operator address");
 
         // Make sure machine id is valid
         require(_machine.id == FismoLib.nameToId(_machine.name), "Invalid machine ID");
@@ -225,7 +224,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         require(machine.id != _machine.id, "Machine already exists");
 
         // Store the machine
-        machine.operator = _operator;
+        machine.operator = _machine.operator;
         machine.id = _machine.id;
         machine.initialStateId = _machine.initialStateId;
         machine.name = _machine.name;
@@ -250,6 +249,9 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
             // Determine the state guard
             FismoLib.updateStateGuards(_machine, state);
         }
+
+        // Alert listeners to change of state
+        emit MachineAdded(_machine.id, _machine.name);
 
     }
 
@@ -332,14 +334,13 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     function storeState(Machine storage _machine, State memory _state, uint256 _index)
     internal
     {
-
         // Overwrite the state in the machine's states array
         State storage state = _machine.states[_index];
         state.id = _state.id;
         state.name = _state.name;
         state.exitGuarded = _state.exitGuarded;
         state.enterGuarded = _state.enterGuarded;
-        state.guardLogic = _state.guardLogic;
+        if (_state.exitGuarded || _state.enterGuarded) state.guardLogic = _state.guardLogic;
 
         // Store the state's transitions
         //

@@ -2,12 +2,12 @@ const hre = require("hardhat");
 const ethers = hre.ethers;
 const environments = require('../environments');
 const gasLimit = environments.gasLimit;
-
 const { expect } = require("chai");
 const { deployFismo } = require('../scripts/deploy/deploy-fismo.js');
 const { deployExample } = require('../scripts/deploy/deploy-example.js');
-const { NightClub, StopWatch } = require("../scripts/constants/example-machines");
+const { StopWatch, Meditation } = require("../scripts/constants/example-machines");
 const { InterfaceIds } = require('../scripts/constants/supported-interfaces.js');
+const Machine = require("../scripts/domain/Machine");
 
 /**
  *  Test Fismo
@@ -18,7 +18,7 @@ describe("Fismo", function() {
 
     // Common vars
     let accounts, deployer;
-    let fismo;
+    let fismo, example, machine;
 
     beforeEach( async function () {
 
@@ -30,13 +30,14 @@ describe("Fismo", function() {
         [fismo] = await deployFismo(deployer.address, gasLimit);
 
         // Deploy examples
+/*
         const examples = [StopWatch];
         for (const example of examples) {
            await deployExample(deployer.address, fismo.address, example, gasLimit);
         }
+*/
 
     });
-
 
     context("Interfaces", async function () {
 
@@ -72,5 +73,26 @@ describe("Fismo", function() {
 
     });
 
+    context("IFismo methods", async function () {
+
+        context("addMachine", async function () {
+
+            it("Should accept a valid Machine instance", async function () {
+
+                // Create and validate the machine
+                example = Meditation.machine;
+                example.operator = deployer.address;
+                machine = Machine.fromObject(example);
+                expect (machine.isValid()).is.true;
+
+                // Add the machine, checking for the event
+                await expect(fismo.addMachine(machine.toObject()))
+                    .to.emit(fismo, 'MachineAdded')
+                    .withArgs(machine.id, machine.name);
+            });
+
+        });
+
+    });
 
 });

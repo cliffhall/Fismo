@@ -48,7 +48,7 @@ async function deployExample(owner, fismoAddress, example, gasLimit) {
         }
 
         // Add the machine
-        await fismo.addMachine(machine.toObject(), operator.address);
+        await fismo.addMachine(machine.toObject());
 
         // Return the operator and the guards
         return [operator, operatorArgs, guards];
