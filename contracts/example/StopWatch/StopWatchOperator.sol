@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IFismo } from "../../interfaces/IFismo.sol";
+import { IFismo } from "../../interface/IFismo.sol";
 import { FismoTypes } from "../../domain/FismoTypes.sol";
 
 /**

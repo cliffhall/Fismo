@@ -77,7 +77,7 @@ describe("Fismo", function() {
 
         context("addMachine", async function () {
 
-            it("Should accept a valid Machine instance", async function () {
+            it("Should accept a valid Machine", async function () {
 
                 // Create and validate the machine
                 example = Meditation.machine;

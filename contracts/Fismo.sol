@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/interfaces/IERC165.sol";
 import { FismoLib } from "./FismoLib.sol";
-import { IFismo } from "./interfaces/IFismo.sol";
+import { IFismo } from "./interface/IFismo.sol";
 import { FismoTypes } from "./domain/FismoTypes.sol";
 import { FismoEvents } from "./domain/FismoEvents.sol";
 
