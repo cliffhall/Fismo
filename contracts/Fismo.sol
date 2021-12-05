@@ -66,7 +66,9 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      *
      * @param _interfaceId - the sighash of the given interface
      */
-    function supportsInterface(bytes4 _interfaceId) external
+    function supportsInterface(bytes4 _interfaceId)
+    external
+    override
     pure
     returns (bool)
     {

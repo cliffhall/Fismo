@@ -1,16 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/interfaces/IERC165.sol";
 import { FismoTypes } from "../domain/FismoTypes.sol";
 
 /**
  * @title IFismo
  *
  * Interface for Fismo implementations
+ * The ERC-165 identifier for this interface is 0x284a083c.
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-interface IFismo {
+interface IFismo is IERC165 {
 
     /**
      * Invoke an action on a configured machine
