@@ -22,8 +22,8 @@ contract StopWatchGuards {
     // Machine-specific storage slot
     bytes32 private constant STOPWATCH_SLOT = keccak256("fismo.example.stopwatch.storage.slot");
 
-    /// User-specific memory accessed by state guards
-    struct UserMemory {
+    /// User-specific slice of the stopwatch memory bank, accessed by state guards
+    struct UserSlice {
 
         // starting block.timestamp
         uint256 timeStarted;
@@ -44,8 +44,8 @@ contract StopWatchGuards {
      */
     struct StopWatchSlot {
 
-        // maps user wallet => UserMemory struct
-        mapping(address => UserMemory) memoryBank;
+        // maps user wallet => UserSlice struct
+        mapping(address => UserSlice) memoryBank;
 
     }
 
@@ -69,12 +69,12 @@ contract StopWatchGuards {
      * @notice Get the user's slice of the memory bank
      *
      * @param _user - the wallet address of the user
-     * @return slice - the user's slice of the memory bank as a UserMemory struct
+     * @return slice - the user's slice of the memory bank as a UserSlice struct
      */
-    function userMemory(address _user)
+    function userSlice(address _user)
     internal
     view
-    returns (UserMemory storage slice)
+    returns (UserSlice storage slice)
     {
         slice = stopWatchSlot().memoryBank[_user];
     }
@@ -94,7 +94,7 @@ contract StopWatchGuards {
     /**
      * @notice Calculate / store time elapsed for user
      */
-    function calcTimeElapsed(UserMemory memory slice)
+    function calcTimeElapsed(UserSlice memory slice)
     internal
     view
     {
@@ -141,7 +141,7 @@ contract StopWatchGuards {
     external
     returns(string memory message)
     {
-        emit StopWatchRunning(_user, userMemory(_user).timeElapsed);
+        emit StopWatchRunning(_user, userSlice(_user).timeElapsed);
         message = RUNNING;
     }
 
@@ -154,7 +154,7 @@ contract StopWatchGuards {
     external
     returns(string memory message)
     {
-        UserMemory storage slice = userMemory(_user);
+        UserSlice storage slice = userSlice(_user);
         slice.timeLastPaused = block.timestamp;
         calcTimeElapsed(slice);
         emit StopWatchPaused(_user, block.timestamp);
@@ -169,7 +169,7 @@ contract StopWatchGuards {
     external
     returns(string memory message)
     {
-        UserMemory storage slice = userMemory(_user);
+        UserSlice storage slice = userSlice(_user);
         slice.totalTimePaused = slice.totalTimePaused + (block.timestamp - slice.timeLastPaused);
         calcTimeElapsed(slice);
     }

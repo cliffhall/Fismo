@@ -133,12 +133,12 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
         // if there is exit guard logic for the current state, call it
         if (state.exitGuarded) {
-            response.exitMessage = guardTransition(_user, machine.name, state.name, Guard.Exit);
+            response.exitMessage = challengeGuard(_user, machine.name, state.name, Guard.Exit);
         }
 
         // if there is enter guard logic for the next state, call it
         if (nextState.enterGuarded) {
-            response.enterMessage = guardTransition(_user, machine.name, nextState.name, Guard.Enter);
+            response.enterMessage = challengeGuard(_user, machine.name, nextState.name, Guard.Enter);
         }
 
         // if we made it this far, set the new state
@@ -161,16 +161,16 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      * @param _stateName - the name of the state
      * @param _guard - the guard type (enter/exit) See: {FismoTypes.Guard}
      *
-     * @return guardMessage - the message (if any) returned from the guard
+     * @return guardResponse - the message (if any) returned from the guard
      */
-    function guardTransition(
+    function challengeGuard(
         address _user,
         string memory _machineName,
         string memory _stateName,
         FismoTypes.Guard _guard
     )
     internal
-    returns (string memory guardMessage)
+    returns (string memory guardResponse)
     {
         // Get the function selector
         bytes4 selector = FismoLib.getGuardSelector(_machineName, _stateName, _guard);
@@ -188,11 +188,11 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Challenge the guard
         (bool success, bytes memory response) = guardAddress.delegatecall(challenge);
 
-        // Revert if not successful
-        require(success, "Guard call failed");
-
         // Return the guard message
-        guardMessage = abi.decode(response, (string));
+        guardResponse = abi.decode(response, (string));
+
+        // Revert with guard message as reason if challenge not successful
+        require(success, guardResponse);
 
     }
 
