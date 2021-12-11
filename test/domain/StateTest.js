@@ -12,7 +12,7 @@ describe("State", function() {
 
     // Suite-wide scope
     let state, object, dehydrated, rehydrated, clone;
-    let name, guardLogic, transitions, exitGuarded, enterGuarded, description;
+    let name, guardLogic, transitions, exitGuarded, enterGuarded;
 
     beforeEach( async function () {
 
@@ -25,7 +25,6 @@ describe("State", function() {
             new Transition("Batter", "Broken")
         ];
         guardLogic = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
-        description = "The door is locked.";
 
     });
 
@@ -33,7 +32,7 @@ describe("State", function() {
 
         it("Should allow creation of valid, fully populated State instance", async function () {
 
-            state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
+            state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic);
 
             expect(state.nameIsValid(), "Invalid name").is.true;
             expect(state.idIsValid(), "Invalid id").is.true;
@@ -41,7 +40,6 @@ describe("State", function() {
             expect(state.transitionsIsValid(), "Invalid transitions array").is.true;
             expect(state.exitGuardedIsValid(), "Invalid exit guarded flag").is.true;
             expect(state.enterGuardedIsValid(), "Invalid enter guarded flag").is.true;
-            expect(state.descriptionIsValid(), "Invalid description").is.true;
             expect(state.isValid()).is.true;
 
         });
@@ -52,7 +50,7 @@ describe("State", function() {
 
         beforeEach( async function () {
 
-            state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
+            state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic);
 
         });
 
@@ -224,50 +222,6 @@ describe("State", function() {
 
         });
 
-        it("If present, description must be a string", async function() {
-
-            // Invalid field value
-            state.description = 12;
-            expect(state.descriptionIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Invalid field value
-            state.description = false;
-            expect(state.descriptionIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Invalid field value
-            state.description = new Date();
-            expect(state.descriptionIsValid()).is.false;
-            expect(state.isValid()).is.false;
-
-            // Valid field value
-            state.description = "zedzdeadbaby";
-            expect(state.descriptionIsValid()).is.true;
-            expect(state.isValid()).is.true;
-
-            // Valid field value
-            state.description = "0x7777788200B672A42421017F65EDE4Fc759564C8";
-            expect(state.descriptionIsValid()).is.true;
-            expect(state.isValid()).is.true;
-
-            // Valid field value
-            state.description = "0x7777788200B672A42421017F65EDE4Fc759564C8";
-            expect(state.descriptionIsValid()).is.true;
-            expect(state.isValid()).is.true;
-
-            // Valid field value
-            state.description = null;
-            expect(state.descriptionIsValid()).is.true;
-            expect(state.isValid()).is.true;
-
-            // Valid field value
-            state.description = undefined;
-            expect(state.descriptionIsValid()).is.true;
-            expect(state.isValid()).is.true;
-
-        });
-
     });
 
     context("Utility functions", async function () {
@@ -276,8 +230,8 @@ describe("State", function() {
 
             beforeEach( async function () {
 
-                state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
-                object = { name,  transitions, exitGuarded, enterGuarded, guardLogic, description };
+                state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic);
+                object = { name,  transitions, exitGuarded, enterGuarded, guardLogic };
 
             });
 
@@ -302,7 +256,7 @@ describe("State", function() {
 
             beforeEach( async function () {
 
-                state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
+                state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic);
 
             });
 

@@ -25,7 +25,7 @@ describe("Machine", function() {
         operator = accounts[0].address;
 
         // Create states of a door that can be unlocked with a key and locked without a key
-        let stateName, guardLogic, transitions, exitGuarded, enterGuarded, uri;
+        let stateName, guardLogic, transitions, exitGuarded, enterGuarded;
         states = [];
 
         // Unlocked state
@@ -36,8 +36,7 @@ describe("Machine", function() {
         transitions = [
             new Transition("Lock", "Locked")
         ];
-        uri = "The door is unlocked.";
-        states.push(new State(stateName, exitGuarded, enterGuarded, transitions, guardLogic, uri));
+        states.push(new State(stateName, exitGuarded, enterGuarded, transitions, guardLogic));
 
         // Locked state
         stateName = "Locked";
@@ -47,8 +46,7 @@ describe("Machine", function() {
         transitions = [
             new Transition("Unlock", "Unlocked")
         ];
-        uri = "The door is locked.";
-        states.push(new State(stateName, exitGuarded, enterGuarded, transitions, guardLogic, uri));
+        states.push(new State(stateName, exitGuarded, enterGuarded, transitions, guardLogic));
 
         // Machine
         name = "Lockable_Door";
@@ -230,19 +228,19 @@ describe("Machine", function() {
             expect(machine.isValid()).is.true;
 
             // Valid field value
-            machine.uri = "0x7777788200B672A42421017F65EDE4Fc759564C8";
+            machine.uri = "ipfs://";
             expect(machine.uriIsValid()).is.true;
             expect(machine.isValid()).is.true;
 
-            // Valid field value
+            // Invalid field value
             machine.uri = null;
-            expect(machine.uriIsValid()).is.true;
-            expect(machine.isValid()).is.true;
+            expect(machine.uriIsValid()).is.false;
+            expect(machine.isValid()).is.false;
 
-            // Valid field value
+            // Invalid field value
             machine.uri = undefined;
-            expect(machine.uriIsValid()).is.true;
-            expect(machine.isValid()).is.true;
+            expect(machine.uriIsValid()).is.false;
+            expect(machine.isValid()).is.false;
 
         });
 

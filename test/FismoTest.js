@@ -3,10 +3,12 @@ const ethers = hre.ethers;
 const environments = require('../environments');
 const gasLimit = environments.gasLimit;
 const { expect } = require("chai");
-const { deployFismo } = require('../scripts/deploy/deploy-fismo.js');
-const { deployExample } = require('../scripts/deploy/deploy-example.js');
-const { StopWatch, Meditation } = require("../scripts/constants/example-machines");
-const { InterfaceIds } = require('../scripts/constants/supported-interfaces.js');
+const { deployFismo } = require('../scripts/deploy/deploy-fismo');
+const { deployExample } = require('../scripts/deploy/deploy-example');
+const { deployTransitionGuards } = require('../scripts/deploy/deploy-guards');
+const { StopWatch } = require("../scripts/constants/example-machines");
+const { InterfaceIds } = require('../scripts/constants/supported-interfaces');
+const { nameToId } =  require('../scripts/util/name-utils');
 const Machine = require("../scripts/domain/Machine");
 
 /**
@@ -18,7 +20,7 @@ describe("Fismo", function() {
 
     // Common vars
     let accounts, deployer;
-    let fismo, example, machine;
+    let fismo, example, machine, stateName, stateId;
 
     beforeEach( async function () {
 
@@ -28,14 +30,6 @@ describe("Fismo", function() {
 
         // Deploy Fismo
         [fismo] = await deployFismo(deployer.address, gasLimit);
-
-        // Deploy examples
-/*
-        const examples = [StopWatch];
-        for (const example of examples) {
-           await deployExample(deployer.address, fismo.address, example, gasLimit);
-        }
-*/
 
     });
 
@@ -77,13 +71,61 @@ describe("Fismo", function() {
 
         context("addMachine", async function () {
 
-            it("Should accept a valid Machine", async function () {
+            it("Should accept a valid unguarded Machine", async function () {
 
-                // Create and validate the machine
-                example = Meditation.machine;
-                example.operator = deployer.address;
+                // Create and validate a simple, unguarded, single state machine
+                stateName = "Be";
+                initialStateId = nameToId(stateName);
+                example = {
+
+                    "name": "Meditate",
+                    "operator": deployer.address,
+                    "initialStateId": initialStateId,
+                    "states": [
+                        {
+                            "name": stateName,
+                            "enterGuarded": false,
+                            "exitGuarded": false,
+                            "transitions": [
+                                {
+                                    "action": "Inhale",
+                                    "targetStateName": stateName,
+                                },
+                                {
+                                    "action": "Exhale",
+                                    "targetStateName": stateName,
+                                },
+                            ]
+                        }
+                    ]
+                };
                 machine = Machine.fromObject(example);
-                expect (machine.isValid()).is.true;
+                expect(machine.isValid()).is.true;
+
+
+                // Add the machine, checking for the event
+                await expect(fismo.addMachine(machine.toObject()))
+                    .to.emit(fismo, 'MachineAdded')
+                    .withArgs(machine.id, machine.name);
+            });
+
+            it("Should accept a valid guarded Machine", async function () {
+
+                // Get simple, guarded example
+                example = StopWatch;
+                machine = Machine.fromObject(example.machine);
+                machine.operator = deployer.address;
+
+                // Deploy its transition guards
+                const guards = await deployTransitionGuards(example);
+
+                // Add guard addresses to their associated states
+                for (const guard of guards) {
+                    guard.states.forEach(stateName => {
+                        let state = machine.getState(stateName);
+                        state.guardLogic = guard.contract.address
+                    })
+                }
 
                 // Add the machine, checking for the event
                 await expect(fismo.addMachine(machine.toObject()))
@@ -92,6 +134,7 @@ describe("Fismo", function() {
             });
 
         });
+
 
     });
 

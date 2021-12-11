@@ -21,14 +21,13 @@ class State {
         }
     */
 
-    constructor (name, exitGuarded, enterGuarded, transitions, guardLogic, description) {
+    constructor (name, exitGuarded, enterGuarded, transitions, guardLogic) {
         this.name = name;
         this.id = nameToId(name);
         this.enterGuarded = enterGuarded;
         this.exitGuarded = exitGuarded;
         this.transitions = transitions || [];
         this.guardLogic = guardLogic ? eip55.encode(guardLogic) : ZERO_ADDRESS;
-        this.description = description;
     }
 
     /**
@@ -37,9 +36,9 @@ class State {
      * @returns {State}
      */
     static fromObject(o) {
-        const {name, exitGuarded, enterGuarded, guardLogic, description} = o;
+        const {name, exitGuarded, enterGuarded, guardLogic} = o;
         let transitions = o.transitions ? o.transitions.map(transition => Transition.fromObject(transition)) : undefined;
-        return new State(name, exitGuarded, enterGuarded, transitions, guardLogic, description);
+        return new State(name, exitGuarded, enterGuarded, transitions, guardLogic);
     }
 
     /**
@@ -161,25 +160,6 @@ class State {
     }
 
     /**
-     * Is this State instance's description field valid?
-     * @returns {boolean}
-     */
-    descriptionIsValid() {
-        let valid = false;
-        let {description} = this;
-        try {
-            valid = (
-                typeof description === "string" &&
-                description.length >= 1
-            ) || (
-                description === null ||
-                typeof description === 'undefined'
-            );
-        } catch (e) {}
-        return valid;
-    }
-
-    /**
      * Is this State instance valid?
      * @returns {boolean}
      */
@@ -190,8 +170,7 @@ class State {
             this.enterGuardedIsValid() &&
             this.exitGuardedIsValid() &&
             this.transitionsIsValid() &&
-            this.guardLogicIsValid() &&
-            this.descriptionIsValid()
+            this.guardLogicIsValid()
         );
     };
 

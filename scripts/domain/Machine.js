@@ -26,7 +26,7 @@ class Machine {
         this.name = name;
         this.initialStateId = initialStateId;
         this.states = states || []; // State[]
-        this.uri = uri;
+        this.uri = uri || "";
     }
 
     /**
@@ -164,11 +164,7 @@ class Machine {
         let {uri} = this;
         try {
             valid = (
-                typeof uri === "string" &&
-                uri.length >= 1
-            ) || (
-                uri === null ||
-                typeof uri === 'undefined'
+                typeof uri === "string"
             );
         } catch (e) {}
         return valid;

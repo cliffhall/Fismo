@@ -96,8 +96,6 @@ class Transition {
         let { action } = this;
         try {
             valid = (
-                action !== null &&
-                typeof action !== 'undefined' &&
                 typeof action === "string" &&
                 validateNameLax(action)
             );
