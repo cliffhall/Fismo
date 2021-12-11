@@ -37,6 +37,7 @@ async function main() {
         console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
         try {
             [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+            console.log(`✅ ${example.machine.name} machine added to Fismo contract.`);
             deploymentComplete(example.operator, fismo.address, operatorArgs, contracts);
             guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
         } catch (e) {
