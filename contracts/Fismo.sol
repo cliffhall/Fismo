@@ -146,7 +146,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // if we made it this far, set the new state
         FismoLib.setUserState(_user, _machineId, _actionId);
 
-        // emit events
+        // Alert listeners to change of state
         emit Transitioned(_user, _machineId, _actionId, response);
 
     }
@@ -289,6 +289,10 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
         // Store the new state in the machine's states array
         storeState(machine, _state, index);
+
+        // Alert listeners to change of state
+        emit StateAdded(_machineId, _state.id, _state.name);
+
     }
 
     /**
@@ -375,6 +379,12 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     override
     onlyOwner
     {
+        // Make sure action id is valid
+        require(_transition.actionId == FismoLib.nameToId(_transition.action), "Action ID is invalid");
+
+        // Make sure target state id is valid
+        require(_transition.targetStateId == FismoLib.nameToId(_transition.targetStateName), "Target State ID is invalid");
+
         // Get the state
         State storage state = FismoLib.getState(_machineId, _stateId);
 
