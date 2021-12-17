@@ -12,6 +12,7 @@ const { nameToId } =  require('../scripts/util/name-utils');
 const { ZERO_ADDRESS } = require("../scripts/util/constants");
 const Machine = require("../scripts/domain/Machine");
 const State = require("../scripts/domain/State");
+const Transition = require("../scripts/domain/Transition");
 
 /**
  *  Test Fismo
@@ -21,22 +22,25 @@ const State = require("../scripts/domain/State");
 describe("Fismo", function() {
 
     // Common vars
-    let accounts, deployer;
+    let accounts, deployer, user, operator, guardLogic;
     let fismo, machine, machineObj;
-    let state, stateObj, stateName;
+    let state, transition, action, stateName, stateId, actionId;
 
     beforeEach( async function () {
 
         // Make accounts available
         accounts = await ethers.getSigners();
         deployer = accounts[0];
+        user = accounts[1];
+        operator = accounts[2];   // operator can be an EOA, which helps with unit testing
+        guardLogic = accounts[3]; // just need a valid address for the guard logic since we won't invoke it in units
 
         // Deploy Fismo
         [fismo] = await deployFismo(deployer.address, gasLimit);
 
     });
 
-    context("Interfaces", async function () {
+    context("Supported Interfaces", async function () {
 
         context("supportsInterface()", async function () {
 
@@ -74,12 +78,13 @@ describe("Fismo", function() {
 
         beforeEach( async function () {
 
-            // Define a simple, valid, unguarded, single-state machine
+            // Create and validate a simple, unguarded, single state machine
             stateName = "Be";
+            stateId = nameToId(stateName);
             machineObj = {
-                "operator": deployer.address,
                 "name": "Meditate",
-                "initialStateId": nameToId(stateName),
+                "operator": operator.address,
+                "initialStateId": stateId,
                 "states": [
                     {
                         "name": stateName,
@@ -120,7 +125,7 @@ describe("Fismo", function() {
                 // Get simple, guarded machineObj
                 machineObj = StopWatch;
                 machine = Machine.fromObject(machineObj.machine);
-                machine.operator = deployer.address;
+                machine.operator = operator.address;
                 expect(machine.isValid()).is.true;
 
                 // Deploy its transition guards
@@ -227,30 +232,7 @@ describe("Fismo", function() {
 
             beforeEach( async function () {
 
-                // Create and validate a simple, unguarded, single state machine
-                stateName = "Be";
-                machineObj = {
-                    "name": "Meditate",
-                    "operator": deployer.address,
-                    "initialStateId": nameToId(stateName),
-                    "states": [
-                        {
-                            "name": stateName,
-                            "enterGuarded": false,
-                            "exitGuarded": false,
-                            "transitions": [
-                                {
-                                    "action": "Inhale",
-                                    "targetStateName": stateName,
-                                },
-                                {
-                                    "action": "Exhale",
-                                    "targetStateName": stateName,
-                                },
-                            ]
-                        }
-                    ]
-                };
+                // Create machine
                 machine = Machine.fromObject(machineObj);
                 expect(machine.isValid()).is.true;
 
@@ -259,23 +241,15 @@ describe("Fismo", function() {
 
                 // Define a simple end state, no transitions
                 state = State.fromObject({
-                    "name": "Transcendence",
+                    "name": "Enlightenment",
                     "enterGuarded": false,
                     "exitGuarded": false
                 });
                 expect(state.isValid()).is.true;
-                
+
             });
 
             it("Should accept a valid end State (no transitions)", async function () {
-
-                // Simple end state, no transitions
-                state = State.fromObject({
-                    "name": "Transcendence",
-                    "enterGuarded": false,
-                    "exitGuarded": false
-                });
-                expect(state.isValid()).is.true;
 
                 // Add the state to the existing machine, checking for the event
                 await expect(fismo.addState(machine.id, state.toObject()))
@@ -287,13 +261,13 @@ describe("Fismo", function() {
 
                 // Simple end state, with transition
                 state = State.fromObject({
-                    "name": "Transcendence",
+                    "name": "Enlightenment",
                     "enterGuarded": false,
                     "exitGuarded": false,
                     "transitions": [
                         {
                             action: "Accept",
-                            targetStateName: "Enlightenment"
+                            targetStateName: "Nirvana"
                         }
                     ]
                 });
@@ -316,15 +290,17 @@ describe("Fismo", function() {
                         "exitGuarded": false
                     });
                     expect(state.isValid()).is.true;
+
+                    // Set state id to an invalid value
                     state.id = nameToId("not this");
                     expect(state.isValid()).is.false;
 
-                    // Add the state to the existing machine, checking for the event
+                    // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
                         .to.revertedWith("State ID is invalid");
                 });
 
-                xit("Should revert if an action id in a transition is invalid", async function () {
+                it("Should revert if an action id in a transition is invalid", async function () {
 
                     // Simple end state, no transitions
                     state = State.fromObject({
@@ -333,35 +309,237 @@ describe("Fismo", function() {
                         "exitGuarded": false,
                         "transitions": [
                             {
-                                action: "Accept",
+                                action: "Transcend",
                                 targetStateName: "Enlightenment"
                             }
                         ]
                     });
                     expect(state.isValid()).is.true;
 
-                    // Add the state to the existing machine, checking for the event
+                    // Set action id to an invalid value
+                    state.transitions[0].actionId = nameToId("not this");
+                    expect(state.isValid()).is.false;
+
+                    // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
-                        .to.emit(fismo, 'StateAdded')
-                        .withArgs(machine.id, state.id, state.name);
+                        .to.revertedWith("Action ID is invalid");
                 });
 
-                xit("Should revert if a target state id in a transition is invalid", async function () {
+                it("Should revert if a target state id in a transition is invalid", async function () {
 
-                    // Create the machine, but then set an invalid action id
-                    machine = Machine.fromObject(machineObj);
-                    expect(machine.isValid()).is.true;
-                    machine.states[0].transitions[0].targetStateId = nameToId("not this");
-                    expect(machine.isValid()).is.false;
+                    // Simple end state, no transitions
+                    state = State.fromObject({
+                        "name": "Transcendence",
+                        "enterGuarded": false,
+                        "exitGuarded": false,
+                        "transitions": [
+                            {
+                                action: "Transcend",
+                                targetStateName: "Enlightenment"
+                            }
+                        ]
+                    });
+                    expect(state.isValid()).is.true;
 
-                    // Attempt to add the machine, again
-                    await expect(fismo.addMachine(machine.toObject()))
+                    // Set target state id to an invalid value
+                    state.transitions[0].targetStateId = nameToId("not this");
+                    expect(state.isValid()).is.false;
+
+                    // Attempt to add the state to the existing machine, checking for the revert
+                    await expect(fismo.addState(machine.id, state.toObject()))
                         .to.revertedWith("Target State ID is invalid");
                 });
 
             });
 
         });
+
+        context("updateState", async function () {
+
+            beforeEach( async function () {
+
+                // Create machine
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+                // Create updated state with enter and exit guards specified
+                state = State.fromObject({
+                    "name": stateName,
+                    "enterGuarded": true,
+                    "exitGuarded": true,
+                    "guardLogic": guardLogic.address,
+                    "transitions": [
+                        {
+                            "action": "Inhale",
+                            "targetStateName": stateName,
+                        },
+                        {
+                            "action": "Exhale",
+                            "targetStateName": stateName,
+                        },
+                    ]
+                });
+                expect(state.isValid()).is.true;
+
+            });
+
+            it("Should accept an updated State", async function () {
+
+                // Update the state on the existing machine, checking for the event
+                await expect(fismo.updateState(machine.id, state.toObject()))
+                    .to.emit(fismo, 'StateUpdated')
+                    .withArgs(machine.id, state.id, state.name);
+            });
+
+            context("Revert Reasons", async function () {
+
+                it("Should revert if the state id is invalid", async function () {
+
+                    // Set state id to an invalid value
+                    state.id = nameToId("not this");
+                    expect(state.isValid()).is.false;
+
+                    // Attempt to add the state to the existing machine, checking for the revert
+                    await expect(fismo.updateState(machine.id, state.toObject()))
+                        .to.revertedWith("State ID is invalid");
+                });
+
+                it("Should revert if an action id in a transition is invalid", async function () {
+
+                    // Set action id to an invalid value
+                    state.transitions[0].actionId = nameToId("not this");
+                    expect(state.isValid()).is.false;
+
+                    // Attempt to add the state to the existing machine, checking for the revert
+                    await expect(fismo.addState(machine.id, state.toObject()))
+                        .to.revertedWith("Action ID is invalid");
+                });
+
+                it("Should revert if a target state id in a transition is invalid", async function () {
+
+                    // Set target state id to an invalid value
+                    state.transitions[0].targetStateId = nameToId("not this");
+                    expect(state.isValid()).is.false;
+
+                    // Attempt to add the state to the existing machine, checking for the revert
+                    await expect(fismo.addState(machine.id, state.toObject()))
+                        .to.revertedWith("Target State ID is invalid");
+                });
+
+            });
+
+        });
+
+        context("addTransition", async function () {
+
+            beforeEach( async function () {
+
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+            });
+
+            it("Should accept a valid Transition", async function () {
+
+                // Create a new transition instance
+                transition = Transition.fromObject({
+                    action: "Transcend",
+                    targetStateName: "Enlightenment"
+                });
+                expect(transition.isValid()).is.true;
+
+                // Add the transition to the only state of the machine
+                await expect(fismo.addTransition(machine.id, stateId, transition.toObject()))
+                    .to.emit(fismo, 'TransitionAdded')
+                    .withArgs(machine.id, stateId, transition.action, transition.targetStateName);
+            });
+
+            context("Revert Reasons", async function () {
+
+                it("Should revert if the action id is invalid", async function () {
+
+                    // Create a new transition instance
+                    transition = Transition.fromObject({
+                        action: "Transcend",
+                        targetStateName: "Enlightenment"
+                    });
+                    expect(transition.isValid()).is.true;
+
+                    // Set an invalid action id
+                    transition.actionId = nameToId("not this");
+
+                    // Add the transition to the only state of the machine
+                    await expect(fismo.addTransition(machine.id, stateId, transition.toObject()))
+                        .to.revertedWith("Action ID is invalid");
+
+                });
+
+                it("Should revert if the target state id is invalid", async function () {
+
+                    // Create a new transition instance
+                    transition = Transition.fromObject({
+                        action: "Transcend",
+                        targetStateName: "Enlightenment"
+                    });
+                    expect(transition.isValid()).is.true;
+
+                    // Set an invalid target state id
+                    transition.targetStateId = nameToId("not this");
+
+                    // Add the transition to the only state of the machine
+                    await expect(fismo.addTransition(machine.id, stateId, transition.toObject()))
+                        .to.revertedWith("Target State ID is invalid");
+
+                });
+
+            });
+
+        });
+
+        context("invokeAction", async function () {
+
+            beforeEach( async function () {
+
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+                // Id of action to invoke
+                action = "Inhale";
+                actionId = nameToId(action);
+
+            });
+
+            it("Should accept a valid invocation", async function () {
+
+                // Invoke the action, checking for the event
+                await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
+                    .to.emit(fismo, 'Transitioned')
+                    .withArgs(user.address, machine.id, actionId, [
+                        machine.name, stateName, stateName, action, "", ""
+                    ]);
+
+                // TODO: Create ActionResponse entity and update this test
+            });
+
+            xcontext("Revert Reasons", async function () {
+
+                it("Should revert if the action id is invalid", async function () {
+
+                });
+
+            });
+
+        });
+
 
     });
 

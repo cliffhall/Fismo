@@ -15,8 +15,8 @@ describe("Transition", function() {
 
     beforeEach( async function () {
 
-        action = "Disappear in a Puff of Smoke";
-        targetStateName = "Inside_Puff_of_Smoke";
+        action = "Disappear in a Puff of Smoke";  // Action names can have spaces as they're never part of a method name
+        targetStateName = "Inside_Puff_of_Smoke"; // State names cannot have no spaces
 
     });
 

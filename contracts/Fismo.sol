@@ -317,6 +317,9 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     override
     onlyOwner
     {
+        // Make sure state id is valid
+        require(_state.id == FismoLib.nameToId(_state.name), "State ID is invalid");
+
         // Get the machine
         Machine storage machine = FismoLib.getMachine(_machineId);
 
@@ -326,6 +329,9 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
         // Overwrite the state in the machine's states array
         storeState(machine, _state, index);
+
+        // Alert listeners to change of state
+        emit StateUpdated(_machineId, _state.id, _state.name);
     }
 
     /**
@@ -399,6 +405,10 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         transition.actionId = _transition.actionId;
         transition.action = _transition.action;
         transition.targetStateId = _transition.targetStateId;
+        transition.targetStateName = _transition.targetStateName;
+
+        // Alert listeners to change of state
+        emit TransitionAdded(_machineId, state.id, transition.action, transition.targetStateName);
 
     }
 
