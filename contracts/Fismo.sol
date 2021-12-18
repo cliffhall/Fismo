@@ -129,9 +129,9 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
         // Create the action response
         response.machineName = machine.name;
+        response.action = transition.action;
         response.priorStateName = state.name;
         response.nextStateName = nextState.name;
-        response.action = transition.action;
 
         // if there is exit guard logic for the current state, call it
         if (state.exitGuarded) {

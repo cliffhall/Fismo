@@ -47,9 +47,9 @@ contract FismoTypes {
 
     struct ActionResponse {
         string machineName;        // name of machine
+        string action;             // name of action that triggered the transition
         string priorStateName;     // name of prior state
         string nextStateName;      // name of new state
-        string action;             // name of action that triggered the transition
         string exitMessage;        // response from the prior state's exit guard
         string enterMessage;       // response from the new state's enter guard
     }

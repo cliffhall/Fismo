@@ -152,7 +152,7 @@ describe("Machine", function() {
 
         });
 
-        it("Always present, name must contain only characters: a-z, A-Z, 0-9, and _", async function() {
+        it("Always present, name must start with a letter and contain only characters: a-z, A-Z, 0-9, and ", async function() {
 
             // Invalid field value
             machine.name = 12;

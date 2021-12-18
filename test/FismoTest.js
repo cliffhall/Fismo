@@ -13,6 +13,7 @@ const { ZERO_ADDRESS } = require("../scripts/util/constants");
 const Machine = require("../scripts/domain/Machine");
 const State = require("../scripts/domain/State");
 const Transition = require("../scripts/domain/Transition");
+const ActionResponse = require("../scripts/domain/ActionResponse");
 
 /**
  *  Test Fismo
@@ -25,6 +26,7 @@ describe("Fismo", function() {
     let accounts, deployer, user, operator, guardLogic;
     let fismo, machine, machineObj;
     let state, transition, action, stateName, stateId, actionId;
+    let actionResponse, actionResponseStruct;
 
     beforeEach( async function () {
 
@@ -520,19 +522,23 @@ describe("Fismo", function() {
 
             it("Should accept a valid invocation", async function () {
 
+                // The expected ActionResponse struct args
+                actionResponseStruct = [machine.name, action, stateName, stateName, "", ""];
+
                 // Invoke the action, checking for the event
                 await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
                     .to.emit(fismo, 'Transitioned')
-                    .withArgs(user.address, machine.id, actionId, [
-                        machine.name, stateName, stateName, action, "", ""
-                    ]);
+                    .withArgs(user.address, machine.id, actionId, actionResponseStruct);
 
-                // TODO: Create ActionResponse entity and update this test
+                // Validate ActionResponse struct
+                actionResponse = new ActionResponse(...actionResponseStruct);
+                expect(actionResponse.isValid()).is.true;
+
             });
 
             xcontext("Revert Reasons", async function () {
 
-                it("Should revert if the action id is invalid", async function () {
+                it("Should revert if the action is invalid for the user's current state", async function () {
 
                 });
 
