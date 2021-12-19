@@ -80,7 +80,8 @@ describe("Fismo", function() {
 
         beforeEach( async function () {
 
-            // Create and validate a simple, unguarded, single state machine
+            // Create and validate a simple, unguarded, single-state machine
+            // N.B. the single state is the initial state, and its transitions are re-entrant
             stateName = "Be";
             stateId = nameToId(stateName);
             machineObj = {
@@ -124,7 +125,7 @@ describe("Fismo", function() {
 
             it("Should accept a valid guarded Machine", async function () {
 
-                // Get simple, guarded machineObj
+                // Get simple, guarded machine example
                 machineObj = StopWatch;
                 machine = Machine.fromObject(machineObj.machine);
                 machine.operator = operator.address;
@@ -522,7 +523,8 @@ describe("Fismo", function() {
 
             it("Should accept a valid invocation", async function () {
 
-                // The expected ActionResponse struct args
+                // The expected ActionResponse struct
+                // N.B. In this simple machine,the single state is re-entrant for each action
                 actionResponseStruct = [machine.name, action, stateName, stateName, "", ""];
 
                 // Invoke the action, checking for the event
@@ -536,16 +538,49 @@ describe("Fismo", function() {
 
             });
 
-            xcontext("Revert Reasons", async function () {
+            context("Revert Reasons", async function () {
+
+                /*
+                 * Reverts if
+                 * - caller is not the machine's operator (contract or EOA)
+                 * - _machineId does not refer to a valid machine
+                 * - _actionId is not valid for the user's current state in the given machine
+                 * - any invoked guard logic reverts (tested separately elsewhere)
+                 */
+
+                it("Should revert if caller is not the machine's operator", async function () {
+
+                    // Attempt to invoke the action from user wallet, checking for revert
+                    await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
+                        .to.revertedWith("Only operator may call");
+
+                });
+
+                it("Should revert if machine doesn't exist", async function () {
+
+                    // Invalid machine id
+                    machine.id = nameToId("not this");
+
+                    // Attempt to invoke the action from user wallet, checking for revert
+                    await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
+                        .to.revertedWith("No such machine");
+
+                });
 
                 it("Should revert if the action is invalid for the user's current state", async function () {
+
+                    // Invalid action id
+                    actionId = nameToId("not this");
+
+                    // Invoke the action, checking for the event
+                    await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
+                        .to.revertedWith("No such action");
 
                 });
 
             });
 
         });
-
 
     });
 

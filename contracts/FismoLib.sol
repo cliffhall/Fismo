@@ -281,7 +281,7 @@ library FismoLib {
     view
     returns (FismoTypes.State storage state)
     {
-        // Get the current state of user in given machine
+        // Get the user's current state in the given machine, default to initialStateId if not found
         bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
         if (currentStateId == bytes4(0)) currentStateId = getMachine(_machineId).initialStateId;
 

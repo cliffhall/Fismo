@@ -94,7 +94,13 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
     /**
      * Invoke an action on a configured machine
      *
-     * @param _user - the wallet address of the user invoking the action
+     * Reverts if
+     * - caller is not the machine's operator
+     * - _machineId does not refer to a valid machine
+     * - _actionId is not valid for the user's current state in the given machine
+     * - any invoked guard logic reverts (revert reason is guard response)
+     *
+     * @param _user - the address of the user
      * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
      */
@@ -263,6 +269,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      * Reverts if
      * - state id is invalid
      * - machine does not exist
+     * - any contained transition is invalid
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
@@ -301,10 +308,12 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
      * State name / id cannot be changed.
      *
      * Reverts if:
-     * - state does not exist
      * - machine does not exist
+     * - state does not exist
+     * - state id is invalid
+     * - any contained transition is invalid
      *
-     * Use this if:
+     * Use this when:
      * - adding more than one transition
      * - removing one or more transitions
      * - changing exitGuarded and/or enterGuarded
@@ -375,6 +384,12 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
     /**
      * @notice Add a transition to an existing state of an existing machine
+     *
+     * Reverts if:
+     * - machine does not exist
+     * - state does not exist
+     * - _actionId is invalid
+     * - _targetStateId is invalid
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state

@@ -17,7 +17,11 @@ interface IFismo is IERC165 {
     /**
      * Invoke an action on a configured machine
      *
-     * Reverts if caller is not the machine's operator contract
+     * Reverts if
+     * - caller is not the machine's operator (contract or EOA)
+     * - _machineId does not refer to a valid machine
+     * - _actionId is not valid for the user's current state in the given machine
+     * - any invoked guard logic reverts (revert reason is guard response)
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the target machine
@@ -30,6 +34,11 @@ interface IFismo is IERC165 {
     /**
      * @notice Add a new Machine
      *
+     * Reverts if
+     * - operator address is zero
+     * - machine id is not valid
+     * - machine id already exists
+     *
      * @param _machine - the machine definition to add
      */
     function addMachine(FismoTypes.Machine memory _machine)
@@ -37,6 +46,11 @@ interface IFismo is IERC165 {
 
     /**
      * @notice Add a state to an existing Machine
+     *
+     * Reverts if
+     * - state id is invalid
+     * - machine does not exist
+     * - any contained transition is invalid
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
@@ -49,7 +63,13 @@ interface IFismo is IERC165 {
      *
      * State name / id cannot be changed.
      *
-     * Use this if:
+     * Reverts if:
+     * - machine does not exist
+     * - state does not exist
+     * - state id is invalid
+     * - any contained transition is invalid
+     *
+     * Use this when:
      * - adding more than one transition
      * - removing one or more transitions
      * - changing exitGuarded and/or enterGuarded
@@ -62,6 +82,12 @@ interface IFismo is IERC165 {
 
     /**
      * @notice Add a transition to an existing state of an existing machine
+     *
+     * Reverts if:
+     * - machine does not exist
+     * - state does not exist
+     * - transition id is invalid
+     * - any contained transition is invalid
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state

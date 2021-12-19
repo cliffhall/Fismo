@@ -16,7 +16,7 @@ contract FismoTypes {
     }
 
     struct Machine {
-        address operator;         // address of approved operator contract
+        address operator;         // address of approved operator (can be contract or EOA)
         bytes4 id;                // keccak256 hash of machine name
         bytes4 initialStateId;    // keccak256 hash of initial state
         string name;              // name of machine
