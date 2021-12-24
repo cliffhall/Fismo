@@ -1,9 +1,15 @@
 # Fismo
-## A Solidity contract framework for multiuser Finite State Machines (FSMs)
+## Multitenant Finite State Machines (FSMs) for Ethereum
 
-### What are FSMs?
+### What is an FSM?
 
-Some finite number of states in an interconnected graph that represents some idealized "machine".
+- A finite number of _States_, in an interconnected graph. 
+  - The edges connecting one State to another is a _Transition_
+  - Transitions between States are initiated by _Actions_.
+  - Transitions can also have associated _Guard_ logic, triggered on exit or entry to a State.
+  
+#### Example
+![](docs/LockableDoorFSM.png)
 
 #### What can they usefully map to?
 
