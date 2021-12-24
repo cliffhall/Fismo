@@ -1,28 +1,28 @@
 # Fismo
-## Multitenant Finite State Machines (FSMs) for Ethereum
+## Multiuser Finite State Machines (FSMs) for Ethereum
 
 ### What is an FSM?
 
-- A finite number of _States_, in an interconnected graph. 
-  - The edges connecting one State to another is a _Transition_
+- A finite number of _States_, in a directed graph. 
+  - The edges connecting one State to another is a _Transition_.
   - Transitions between States are initiated by _Actions_.
   - Transitions can also have associated _Guard_ logic, triggered on exit or entry to a State.
-  
-#### Example
-![](docs/LockableDoorFSM.png)
 
 #### What can they usefully map to?
 
 As a software pattern, they are frequently used to map processes. A couple of common examples:
   * Software installation wizards; a series of forms or choices with validation rules controlling progress.
-  * The myriad steps in a commercial home loan process, each of which has rules about moving to the next phase.
+  * The myriad steps in a commercial home loan process, each of which has rules about moving to the next.
 
-But practically anything that can be described with a graph could be modeled as an FSM. States can represent...
-  * Rooms in an dungeon, which an adventurer wanders through, being met with challenges
-  * An object such as a door, which could be open, closed, or locked
-  * A player's health, such as in hungry state, eating is required before moving to another state
+But practically anything that can be described with a directed graph could be modeled as an FSM. States can represent...
+  * Rooms in an dungeon, which an adventurer wanders through, being met with challenges.
+  * A player's health, such as in hungry state, eating is required before moving to another state.
+  * An object such as a door, which could be opened, closed, or locked
   
-### How is Fismo different from other FSM implementations
+#### Example
+![Lockable Door FSM example](docs/LockableDoorFSM.png)
+
+### How is Fismo different from other FSM implementations?
 Most FSM implementations are set up to track state for a single machine.
 
 For instance, even though multiple people may interact with an FSM-based auction contract, it is the current state of 

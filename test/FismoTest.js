@@ -109,7 +109,7 @@ describe("Fismo", function() {
 
         });
 
-        context("addMachine", async function () {
+        context("addMachine()", async function () {
 
             it("Should accept a valid unguarded Machine", async function () {
 
@@ -231,7 +231,7 @@ describe("Fismo", function() {
 
         });
 
-        context("addState", async function () {
+        context("addState()", async function () {
 
             beforeEach( async function () {
 
@@ -357,7 +357,7 @@ describe("Fismo", function() {
 
         });
 
-        context("updateState", async function () {
+        context("updateState()", async function () {
 
             beforeEach( async function () {
 
@@ -436,7 +436,7 @@ describe("Fismo", function() {
 
         });
 
-        context("addTransition", async function () {
+        context("addTransition()", async function () {
 
             beforeEach( async function () {
 
@@ -505,7 +505,7 @@ describe("Fismo", function() {
 
         });
 
-        context("invokeAction", async function () {
+        context("invokeAction()", async function () {
 
             beforeEach( async function () {
 
