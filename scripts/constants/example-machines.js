@@ -215,6 +215,56 @@ const StopWatchMachine = {
   ]
 };
 
+const LockableDoorMachine = {
+  "operator": null,
+  "name": "LockableDoor",
+  "initialStateId":  nameToId("Closed"),
+  "uri": "ipfs://",
+  "states": [
+    {
+      "name": "Closed",
+      "enterGuarded": false,
+      "exitGuarded": false,
+      "transitions": [
+        {
+          "action": "Open",
+          "targetStateName": "Opened",
+        },
+        {
+          "action": "Lock",
+          "targetStateName": "Locked",
+        }
+      ]
+    },
+    {
+      "name": "Locked",
+      "enterGuarded": false,
+      "exitGuarded": true,
+      "transitions": [
+        {
+          "action": "Unlock",
+          "targetStateName": "Closed",
+        },
+      ]
+    },
+    {
+      "name": "Opened",
+      "enterGuarded": false,
+      "exitGuarded": false,
+      "transitions": [
+        {
+          "action": "Close",
+          "targetStateName": "Closed"
+        },
+        {
+          "action": "Reset",
+          "targetStateName": "Ready",
+        }
+      ]
+    },
+  ]
+};
+
 exports.NightClub = {
     machine: NightClubMachine,
     operator: "NightClubOperator",
@@ -236,6 +286,18 @@ exports.StopWatch = {
     {
       states: ["Ready", "Running", "Paused"],
       contractName: "StopWatchGuards",
+      contract: null
+    },
+  ]
+};
+
+exports.LockableDoor = {
+  machine: LockableDoorMachine,
+  operator: "LockableDoorOperator",
+  guards: [
+    {
+      states: ["Locked"],
+      contractName: "LockableDoorGuards",
       contract: null
     },
   ]

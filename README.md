@@ -16,6 +16,7 @@ As a software pattern, they are frequently used to map processes. A couple of co
 
 But practically anything that can be described with a directed graph could be modeled as an FSM. States can represent...
   * Rooms in an dungeon, which an adventurer wanders through, being met with challenges.
+  * Positions in a tournament bracket,
   * A player's health, such as in hungry state, eating is required before moving to another state.
   * An object such as a door, which could be opened, closed, or locked
   

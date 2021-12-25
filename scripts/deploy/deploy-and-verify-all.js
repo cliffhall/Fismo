@@ -6,7 +6,7 @@ const network = hre.network.name;
 const {deployFismo} = require("./deploy-fismo");
 const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify");
-const {NightClub, StopWatch} = require("../constants/example-machines");
+const {NightClub, StopWatch, LockableDoor} = require("../constants/example-machines");
 
 async function main() {
 
@@ -32,13 +32,13 @@ async function main() {
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
 
     // Deploy examples
-    const examples = [NightClub, StopWatch];
+    const examples = [NightClub, StopWatch, LockableDoor];
     for (const example of examples) {
         console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
         try {
             [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
             console.log(`✅ ${example.machine.name} machine added to Fismo contract.`);
-            deploymentComplete(example.operator, fismo.address, operatorArgs, contracts);
+            deploymentComplete(example.operator, operator.address, operatorArgs, contracts);
             guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
         } catch (e) {
             console.log(`❌  ${e}`);
