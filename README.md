@@ -56,13 +56,15 @@ The other, much more interesting part is "guard code"...
 * The valid transitions to other states and the actions that trigger them.
 * Whether proxied guard logic exists for exiting a state.
 * Whether proxied guard logic exists for entering a state.
-* An offchain metadata URI for each machine that describes this configuration in JSON format.
+* An off-chain metadata URI for each machine that describes this configuration in JSON format.
     - Like NFT metadata, commonly stored on IPFS.
     - Can have longer descriptions than is financially feasible for casual building on-chain.
 * Eventually, an on-chain metadata function that returns a bare-bones JSON description of the machine structure:
     - Is possible (see the AvastarsMetadata contract)
     - But no machine, state, transition, or action descriptions other than their names and ids would be included.
     - Could be used to construct client side text or multimedia representations of the machine in question.
+
+![Lockable Door FSM example](docs/LockableDoorConfig.png)
 
 #### Fismo.sol, what does it do?
 It is a combination of Proxy (for executing guard logic in the context of the Fismo contract), registry of an 
