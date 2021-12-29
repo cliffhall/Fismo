@@ -67,22 +67,24 @@ The other, much more interesting part is "guard code"...
 ![Lockable Door FSM example](docs/LockableDoorConfig.png)
 
 #### Fismo.sol, what does it do?
-It is a combination of Proxy (for executing guard logic in the context of the Fismo contract), registry of an 
-ever-growing machine universe and its users' states within it, and orchestrator of all state transitions.
+It is a combination of...
+  - the Proxy pattern for executing guard logic in the context of the Fismo contract
+  - a registry of machines and their users' states within them
+  - and orchestrator of all state transitions in all machines for all users
 
 It maintains...
-  * Configurations for any number of named machines.
-  * Maintains current state in any number of machines for any number of users.
-  * Keeps a history of each user's position (current machine and state)
+  * Configurations for any number of named machines
+  * Current state in any number of machines for any number of wallet addresses
+  * A history of each user's position (current machine and state)
 
 It executes...
-  * Actions that trigger user transitions between states or even machines.
-  * Delegates state-specific entrance and exit guard logic to proxied logic contracts.
+  * Actions that trigger user transitions between states
+  * State-specific entrance and exit guard logic by delegating to logic contracts
     - This is similar to the facets of the [Diamond proxy pattern](https://eips.ethereum.org/EIPS/eip-2535).
-    - Except, function signatures on proxied logic contracts are...
+    - Except, function signatures on Fismo's proxied logic contracts are...
       - Deterministic. Based on the machine and the states involved in a transition.
-      - Example: `MachineName_StateName_Enter(address _user)` or `MachineName_StateName_Enter(address _user)`.
-      - Simpler to maintain while avoiding collisions.
+      - Example: `MachineName_StateName_Enter(address _user)` or `MachineName_StateName_Exit(address _user)`.
+      - Simpler to maintain while avoiding name collisions.
 
 It emits events when...
   * A user's state changed in some machine
@@ -95,3 +97,4 @@ It emits events when...
 It reverts if...
   * A configured entrance guard returns false
   * A configured exit guard returns false
+  * Machine is misconfigured in some way
