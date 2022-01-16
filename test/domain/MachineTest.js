@@ -14,7 +14,7 @@ const { nameToId } = require("../../scripts/util/name-utils");
 describe("Machine", function() {
 
     // Suite-wide scope
-    let machine, object, dehydrated, rehydrated, clone;
+    let machine, object, dehydrated, rehydrated, clone, state, stateName;
     let accounts, operator, name, states, initialStateId, uri;
 
     beforeEach( async function () {
@@ -320,6 +320,33 @@ describe("Machine", function() {
                 for (const [key, value] of Object.entries(machine)) {
                     expect(JSON.stringify(object[key]) === JSON.stringify(value)).is.true;
                 }
+
+            });
+
+            it("instance.getState() should return the named State instance", async function() {
+
+                // Get named state
+                stateName = "Unlocked";
+                state = machine.getState(stateName);
+
+                // Should be a State instance
+                expect(state instanceof State).is.true;
+
+                // State names should match
+                expect(state.name === stateName).is.true;
+
+            });
+
+            it("instance.getInitialState() should return the initial State instance", async function() {
+
+                // Get initial state
+                state = machine.getInitialState();
+
+                // Should be a State instance
+                expect(state instanceof State).is.true;
+
+                // State id should match machine's initialStateId
+                expect(state.id === machine.initialStateId).is.true;
 
             });
 

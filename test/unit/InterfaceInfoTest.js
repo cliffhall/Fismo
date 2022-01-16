@@ -6,6 +6,9 @@ const { InterfaceIds } = require('../../scripts/constants/supported-interfaces.j
 /**
  *  Test the InterfaceInfo contract
  *
+ *  N.B. InterfaceInfo contract and tests are just a way to easily query the current
+ *  ERC-165 interface id of a contract during development.
+ *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 describe("InterfaceInfo", function() {

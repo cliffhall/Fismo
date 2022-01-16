@@ -1,19 +1,22 @@
+// Environment
 const hre = require("hardhat");
 const ethers = hre.ethers;
-const environments = require('../environments');
-const gasLimit = environments.gasLimit;
 const { expect } = require("chai");
+const environments = require('../../environments');
+const gasLimit = environments.gasLimit;
 
-const { deployTransitionGuards } = require('../scripts/deploy/deploy-guards');
-const { InterfaceIds } = require('../scripts/constants/supported-interfaces');
-const { StopWatch } = require("../scripts/constants/example-machines");
-const { deployFismo } = require('../scripts/deploy/deploy-fismo');
-const { nameToId } =  require('../scripts/util/name-utils');
-const { ZERO_ADDRESS } = require("../scripts/util/constants");
-const Machine = require("../scripts/domain/Machine");
-const State = require("../scripts/domain/State");
-const Transition = require("../scripts/domain/Transition");
-const ActionResponse = require("../scripts/domain/ActionResponse");
+// Scripts and data
+const { deployTransitionGuards } = require('../../scripts/deploy/deploy-guards');
+const { InterfaceIds } = require('../../scripts/constants/supported-interfaces');
+const { StopWatch } = require("../../scripts/constants/example-machines");
+const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
+const { nameToId } =  require('../../scripts/util/name-utils');
+
+// Domain entities
+const State = require("../../scripts/domain/State");
+const Machine = require("../../scripts/domain/Machine");
+const Transition = require("../../scripts/domain/Transition");
+const ActionResponse = require("../../scripts/domain/ActionResponse");
 
 /**
  *  Test Fismo
@@ -154,7 +157,7 @@ describe("Fismo", function() {
 
                     // Create and validate a simple, unguarded, single-state machine
                     // Operator cannot be zero address
-                    machineObj.operator = ZERO_ADDRESS;
+                    machineObj.operator = ethers.constants.AddressZero;
                     machine = Machine.fromObject(machineObj);
                     expect(machine.isValid()).is.true;
 

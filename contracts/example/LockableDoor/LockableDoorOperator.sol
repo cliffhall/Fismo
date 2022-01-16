@@ -34,7 +34,8 @@ contract LockableDoorOperator {
      */
     function invokeAction(bytes4 _machineId, bytes4 _actionId)
     external
-    returns(FismoTypes.ActionResponse memory response) {
+    returns (FismoTypes.ActionResponse memory response) {
+
         response = fismo.invokeAction(msg.sender, _machineId, _actionId);
     }
 

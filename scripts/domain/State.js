@@ -6,7 +6,7 @@ const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefi
 const {nameToId, validateNameStrict, validateId} = require("../util/name-utils");
 const Transition = require("./Transition");
 const eip55 = require("eip55");
-const {ZERO_ADDRESS} = require("../util/constants");
+const ethers = require("ethers");
 
 class State {
 
@@ -27,7 +27,7 @@ class State {
         this.enterGuarded = enterGuarded;
         this.exitGuarded = exitGuarded;
         this.transitions = transitions || [];
-        this.guardLogic = guardLogic ? eip55.encode(guardLogic) : ZERO_ADDRESS;
+        this.guardLogic = guardLogic ? eip55.encode(guardLogic) : ethers.constants.AddressZero;
     }
 
     /**

@@ -194,6 +194,15 @@ class Machine {
         return this.states.filter(state => state.name === stateName)[0];
     }
 
+    /**
+     * Get the initial state
+     * @return state - the machine's initial state
+     */
+    getInitialState() {
+        const initialStateId = this.initialStateId;
+        return this.states.filter(state => state.id === initialStateId)[0];
+    }
+
 }
 
 // Export
