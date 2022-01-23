@@ -33,7 +33,7 @@ describe("Lockable Door Machine", function() {
     let accounts, deployer, user, operator, operatorArgs, guards;
     let fismo, example, machine, machineId, state, action, actionId;
     let actionResponse, actionResponseStruct;
-    let prevState, nextState;
+    let priorState, nextState, exitMessage, enterMessage;
 
     beforeEach( async function () {
 
@@ -55,10 +55,12 @@ describe("Lockable Door Machine", function() {
 
         beforeEach( async function () {
 
-            // Get the machine and its intial state
+            // Get the machine and its initial state
             machine = Machine.fromObject(example.machine);
             machineId = nameToId(machine.name);
-            state = machine.getInitialState();
+
+            exitMessage = "";
+            enterMessage = "";
 
         });
 
@@ -71,11 +73,11 @@ describe("Lockable Door Machine", function() {
                 actionId = nameToId(action);
 
                 // Initial state is "Closed", action is "Open", target state is "Opened"
-                prevState = "Closed";
+                priorState = "Closed";
                 nextState = "Opened";
 
                 // Expected ActionResponse parameter
-                actionResponseStruct = [machine.name, action, prevState, nextState, "", ""];
+                actionResponseStruct = [machine.name, action, priorState, nextState, exitMessage, enterMessage];
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))
@@ -95,11 +97,11 @@ describe("Lockable Door Machine", function() {
                 actionId = nameToId(action);
 
                 // Initial state is "Closed", action is "Open", target state is "Locked"
-                prevState = "Closed";
+                priorState = "Closed";
                 nextState = "Locked";
 
                 // Expected ActionResponse parameter
-                actionResponseStruct = [machine.name, action, prevState, nextState, "", ""];
+                actionResponseStruct = [machine.name, action, priorState, nextState, exitMessage, enterMessage];
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))
@@ -119,11 +121,16 @@ describe("Lockable Door Machine", function() {
                 actionId = nameToId(action);
 
                 // Initial state is "Closed", action is "Open", target state is "Locked"
-                prevState = "Closed";
+                priorState = "Closed";
                 nextState = "Locked";
 
                 // Expected ActionResponse parameter
-                actionResponseStruct = [machine.name, action, prevState, nextState, "", ""];
+                actionResponseStruct = [machine.name, action, priorState, nextState, exitMessage, enterMessage];
+
+                // Verify the user's state before the transition
+                state = machine.getInitialState();
+                let currentStateId = await fismo.getUserState(user.address, machine.id);
+                expect(currentStateId).to.equal(state.id);
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))
@@ -134,16 +141,21 @@ describe("Lockable Door Machine", function() {
                 actionResponse = new ActionResponse(...actionResponseStruct);
                 expect(actionResponse.isValid()).is.true;
 
+                // Verify the user's state after the transition
+                currentStateId = await fismo.getUserState(user.address, machine.id);
+                expect(currentStateId).to.equal(nameToId(nextState));
+
                 // Action to invoke
                 action = "Unlock";
                 actionId = nameToId(action);
 
                 // Current state is "Locked", action is "Open", target state is "Closed"
-                prevState = "Locked";
+                priorState = nextState;
                 nextState = "Closed";
+                exitMessage = "Door unlocked.";
 
                 // Expected ActionResponse parameter
-                actionResponseStruct = [machine.name, action, prevState, nextState, "", ""];
+                actionResponseStruct = [machine.name, action, priorState, nextState, exitMessage, enterMessage];
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))

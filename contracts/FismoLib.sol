@@ -269,33 +269,6 @@ library FismoLib {
     }
 
     /**
-     * @notice Set the current state for a given user in a given machine.
-     *
-     * @param _user - the address of the user
-     * @param _machineId - the address of the user
-     *
-     * @return state - the user's current state in the given machine
-     */
-    function getUserState(address _user, bytes4 _machineId)
-    internal
-    view
-    returns (FismoTypes.State storage state)
-    {
-        // Get the user's current state in the given machine, default to initialStateId if not found
-        bytes4 currentStateId = fismoSlot().userState[_user][_machineId];
-        if (currentStateId == bytes4(0)) currentStateId = getMachine(_machineId).initialStateId;
-
-        // Get that state's index in the machine's states array
-        uint256 index = getStateIndex(_machineId, currentStateId);
-
-        // Get the machine
-        FismoTypes.Machine storage machine = getMachine(_machineId);
-
-        // Return the state struct
-        state = machine.states[index];
-    }
-
-    /**
      * @notice Get the last known machine and state ids for a given user
      *
      * @param _user - the address of the user
@@ -305,7 +278,7 @@ library FismoLib {
     view
     returns (FismoTypes.Position memory position)
     {
-        // Get the user's position history
+        // Get the user's position historyCF
         FismoTypes.Position[] storage history = fismoSlot().userHistory[_user];
 
         // Return the last position on the stack

@@ -255,10 +255,6 @@ const LockableDoorMachine = {
         {
           "action": "Close",
           "targetStateName": "Closed"
-        },
-        {
-          "action": "Reset",
-          "targetStateName": "Ready",
         }
       ]
     },

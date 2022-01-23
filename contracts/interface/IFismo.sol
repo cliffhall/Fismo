@@ -95,5 +95,22 @@ interface IFismo is IERC165 {
      */
     function addTransition(bytes4 _machineId, bytes4 _stateId, FismoTypes.Transition memory _transition)
     external;
+/*
+
+    */
+/**
+     * @notice Set the current state for a given user in a given machine.
+     *
+     * @param _user - the address of the user
+     * @param _machineId - the address of the user
+     *
+     * @return state - the user's current state in the given machine
+     *//*
+
+    function getUserState(address _user, bytes4 _machineId)
+    external
+    view
+    returns (FismoTypes.State storage state);
+*/
 
 }

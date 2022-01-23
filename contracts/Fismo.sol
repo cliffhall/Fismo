@@ -113,8 +113,14 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Get the machine
         Machine storage machine = FismoLib.getMachine(_machineId);
 
-        // Get the user's current state in the machine
-        State storage state = FismoLib.getUserState(_user, _machineId);
+        // Get the user's current state id in the machine
+        bytes4 currentStateId = getUserState(_user, _machineId);
+
+        // Get that state's index in the machine's states array
+        uint256 index = FismoLib.getStateIndex(_machineId, currentStateId);
+
+        // Get the state
+        State storage state = machine.states[index];
 
         // Find the transition triggered by the given action
         Transition memory transition;
@@ -127,11 +133,14 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
             }
         }
 
-        // Make sure action is valid for given state
-        require(transition.actionId == _actionId, "No such action");
+        // Make sure transition was found
+        require(valid == true, "No such action");
+
+        // Get the next state's index in the machine's states array
+        index = FismoLib.getStateIndex(_machineId, transition.targetStateId);
 
         // Get the next state
-        State storage nextState = FismoLib.getState(_machineId, transition.targetStateId);
+        State storage nextState = machine.states[index];
 
         // Create the action response
         response.machineName = machine.name;
@@ -150,7 +159,7 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         }
 
         // if we made it this far, set the new state
-        FismoLib.setUserState(_user, _machineId, _actionId);
+        FismoLib.setUserState(_user, _machineId, nextState.id);
 
         // Alert listeners to change of state
         emit Transitioned(_user, _machineId, _actionId, response);
@@ -250,12 +259,6 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
             // Store the state
             addState(_machine.id, state);
-
-            // Map state id to index of state in machine's states array
-            FismoLib.mapStateIndex(_machine.id, _machine.states[i].id, i);
-
-            // Determine the state guard
-            FismoLib.updateStateGuards(_machine, state);
         }
 
         // Alert listeners to change of state
@@ -406,14 +409,20 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Make sure target state id is valid
         require(_transition.targetStateId == FismoLib.nameToId(_transition.targetStateName), "Target State ID is invalid");
 
-        // Get the state
-        State storage state = FismoLib.getState(_machineId, _stateId);
+        // Get the machine
+        Machine storage machine = FismoLib.getMachine(_machineId);
+
+        // Get the state's index in the machine's states array
+        uint256 index = FismoLib.getStateIndex(_machineId, _stateId);
+
+        // Get the target state
+        State storage state = machine.states[index];
 
         // Zero init a new transitions array element in storage
         state.transitions.push();
 
-        // Get the new transition's storage location
-        uint256 index = state.transitions.length - 1;
+        // Get the new transition's storage index in the state's transitions array
+        index = state.transitions.length - 1;
 
         // Overwrite the state in the machine's states array
         Transition storage transition = state.transitions[index];
@@ -427,4 +436,28 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
 
     }
 
+    /**
+     * @notice Set the current state for a given user in a given machine.
+     *
+     * Reverts if:
+     * - machine does not exist
+     *
+     * @param _user - the address of the user
+     * @param _machineId - the address of the user
+     *
+     * @return currentStateId - the user's current state in the given machine
+     */
+    function getUserState(address _user, bytes4 _machineId)
+    public
+    view
+    returns (bytes4 currentStateId)
+    {
+        // Get the machine
+        Machine storage machine = FismoLib.getMachine(_machineId);
+
+        // Get the user's current state in the given machine, default to initialStateId if not found
+        currentStateId = fismoSlot().userState[_user][_machineId];
+        if (currentStateId == bytes4(0)) currentStateId = machine.initialStateId;
+
+    }
 }
