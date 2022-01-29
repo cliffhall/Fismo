@@ -14,9 +14,9 @@ contract LockableDoorGuards {
     // -------------------------------------------------------------------------
 
     // Locked / Exit
-    // Valid prior states: Closed
-    function LockableDoor_Locked_Exit(address _user, string memory _priorStateName)
-    external
+    // Valid next states: Closed
+    function LockableDoor_Locked_Exit(address _user, string memory _nextStateName)
+    public
     returns(string memory message)
     {
         // User must have key to unlock door
@@ -25,6 +25,7 @@ contract LockableDoorGuards {
 
         // Success response message
         message = "Door unlocked.";
+
     }
 
 }

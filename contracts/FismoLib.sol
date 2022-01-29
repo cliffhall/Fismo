@@ -176,12 +176,18 @@ library FismoLib {
     pure
     returns (string memory guardSignature) {
         string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_Enter" : "_Exit";
-        string memory functionName = strConcat(strConcat(_machineName, _stateName), guardType);
+        string memory functionName = strConcat(
+            strConcat(
+                strConcat(_machineName, "_"),
+                _stateName
+            ),
+            guardType
+        );
         string memory functionParams = strConcat(
             "(address _user, string ",
             (_guard == FismoTypes.Guard.Enter)
-            ? "_priorStateName)"
-            : "_nextStateName)"
+                ? "_priorStateName)"
+                : "_nextStateName)"
         );
 
         guardSignature = strConcat(functionName, functionParams);

@@ -40,7 +40,7 @@ import { FismoEvents } from "./domain/FismoEvents.sol";
  * - Delegates to an implementation...
  *   - exit guard logic
  *   - entrance guard logic
- *   - guard function selectors are deterministic based on: fromStateName, toStateName, exit|enter
+ *   - guard function selectors are deterministic based on: machineName, stateName, guardType
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -205,11 +205,25 @@ contract Fismo is IFismo, FismoTypes, FismoEvents  {
         // Challenge the guard
         (bool success, bytes memory response) = guardAddress.delegatecall(challenge);
 
+        // if the function call reverted
+        if (success == false) {
+            // if there is a return reason string
+            if (response.length > 0) {
+                // bubble up any reason for revert
+                assembly {
+                    let response_size := mload(response)
+                    revert(add(32, response), response_size)
+                }
+            } else {
+                revert("Function call reverted");
+            }
+        }
+
         // Return the guard message
-        guardResponse = abi.decode(response, (string));
+        guardResponse = string(response);
 
         // Revert with guard message as reason if challenge not successful
-        require(success, guardResponse);
+        //require(success, guardResponse);
 
     }
 
