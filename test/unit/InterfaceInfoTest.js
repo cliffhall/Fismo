@@ -25,12 +25,28 @@ describe("InterfaceInfo", function() {
 
     });
 
-    context("Interface Ids", async function () {
+    context("Interface Ids", async function () {;
 
-        it("getIFismo() should return expected id", async function () {
+        it("getIFismoOperate() should return expected id", async function () {
 
-            const expected = InterfaceIds.IFismo;
-            const actual = await interfaceInfo.getIFismo();
+            const expected = InterfaceIds.IFismoOperate;
+            const actual = await interfaceInfo.getIFismoOperate();
+            assert.equal(actual, expected);
+
+        });
+
+        it("getIFismoUpdate() should return expected id", async function () {
+
+            const expected = InterfaceIds.IFismoUpdate;
+            const actual = await interfaceInfo.getIFismoUpdate();
+            assert.equal(actual, expected);
+
+        });
+
+        it("getIFismoView() should return expected id", async function () {
+
+            const expected = InterfaceIds.IFismoView;
+            const actual = await interfaceInfo.getIFismoView();
             assert.equal(actual, expected);
 
         });

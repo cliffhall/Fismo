@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IFismo } from "../../interface/IFismo.sol";
+import { IFismoOperate } from "../../interface/IFismoOperate.sol";
 import { FismoTypes } from "../../domain/FismoTypes.sol";
 
 /**
@@ -13,7 +13,7 @@ import { FismoTypes } from "../../domain/FismoTypes.sol";
  */
 contract StopWatchOperator {
 
-    IFismo internal fismo;
+    IFismoOperate internal fismo;
 
     /**
      * @notice Constructor
@@ -21,7 +21,7 @@ contract StopWatchOperator {
      * @param _fismo - address of the Fismo contract
      */
     constructor(address _fismo) {
-        fismo = IFismo(_fismo);
+        fismo = IFismoOperate(_fismo);
     }
 
     /**

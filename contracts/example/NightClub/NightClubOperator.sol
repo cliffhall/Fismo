@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import { IFismo } from "../../interface/IFismo.sol";
+import { IFismoOperate } from "../../interface/IFismoOperate.sol";
 import { NightClubConstants } from "./NightClubConstants.sol";
 import { FismoTypes } from "../../domain/FismoTypes.sol";
 
@@ -20,7 +20,7 @@ import { FismoTypes } from "../../domain/FismoTypes.sol";
  */
 contract NightClubOperator is NightClubConstants, AccessControl {
 
-    IFismo internal fismo;
+    IFismoOperate internal fismo;
 
     /**
      * @notice Constructor
@@ -29,7 +29,7 @@ contract NightClubOperator is NightClubConstants, AccessControl {
      * Sets ADMIN as role admin for all other roles.
      */
     constructor(address _fismo) {
-        fismo = IFismo(_fismo);
+        fismo = IFismoOperate(_fismo);
         _setupRole(ADMIN, msg.sender);
         _setRoleAdmin(ADMIN, ADMIN);
         _setRoleAdmin(VIP, ADMIN);

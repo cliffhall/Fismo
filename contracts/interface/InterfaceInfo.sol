@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.0;
 
-import "./IFismo.sol";
+import "./IFismoOperate.sol";
+import "./IFismoUpdate.sol";
+import "./IFismoView.sol";
 
 /**
  * @title Interface Info
@@ -19,10 +21,22 @@ import "./IFismo.sol";
  */
 contract InterfaceInfo {
 
-    function getIFismo()
+    function getIFismoOperate()
     public pure
     returns(bytes4 id) {
-        id = type(IFismo).interfaceId;
+        id = type(IFismoOperate).interfaceId;
+    }
+
+    function getIFismoUpdate()
+    public pure
+    returns(bytes4 id) {
+        id = type(IFismoUpdate).interfaceId;
+    }
+
+    function getIFismoView()
+    public pure
+    returns(bytes4 id) {
+        id = type(IFismoView).interfaceId;
     }
 
 }

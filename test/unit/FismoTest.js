@@ -62,15 +62,41 @@ describe("Fismo", function() {
 
             });
 
-            it("should indicate support for IFismo interface", async function () {
+            it("should indicate support for IFismoOperate interface", async function () {
 
-                // Current interfaceId for IFismo
-                support = await fismo.supportsInterface(InterfaceIds.IFismo);
+                // Current interfaceId for IFismoOperate
+                support = await fismo.supportsInterface(InterfaceIds.IFismoOperate);
 
                 // Test
                 await expect(
                     support,
-                    "IFismo interface not supported"
+                    "IFismoOperate interface not supported"
+                ).is.true;
+
+            });
+
+            it("should indicate support for IFismoUpdate interface", async function () {
+
+                // Current interfaceId for IFismoUpdate
+                support = await fismo.supportsInterface(InterfaceIds.IFismoUpdate);
+
+                // Test
+                await expect(
+                    support,
+                    "IFismoUpdate interface not supported"
+                ).is.true;
+
+            });
+
+            it("should indicate support for IFismoView interface", async function () {
+
+                // Current interfaceId for IFismoView
+                support = await fismo.supportsInterface(InterfaceIds.IFismoView);
+
+                // Test
+                await expect(
+                    support,
+                    "IFismoView interface not supported"
                 ).is.true;
 
             });
