@@ -204,6 +204,9 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     /**
      * @notice Store a state
      *
+     * Reverts if:
+     * - No code is found at a guarded state's guardLogic address
+     *
      * Shared by addState and updateState
      *
      * @param _machine - the machine's storage location
@@ -219,7 +222,10 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
         state.name = _state.name;
         state.exitGuarded = _state.exitGuarded;
         state.enterGuarded = _state.enterGuarded;
-        if (_state.exitGuarded || _state.enterGuarded) state.guardLogic = _state.guardLogic;
+        if (_state.exitGuarded || _state.enterGuarded) {
+            enforceHasContractCode(_state.guardLogic, strConcat("Codeless guard address for state ", _state.name));
+            state.guardLogic = _state.guardLogic;
+        }
 
         // Store the state's transitions
         //

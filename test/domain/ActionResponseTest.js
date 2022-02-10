@@ -23,7 +23,7 @@ describe("ActionResponse", function() {
 
     });
 
-    context("Constructor", async function () {
+    context("📋 Constructor", async function () {
 
         it("Should allow creation of valid, fully populated ActionResponse instance", async function () {
 
@@ -47,7 +47,7 @@ describe("ActionResponse", function() {
 
     });
 
-    context("Field validations", async function () {
+    context("📋 Field validations", async function () {
 
         beforeEach( async function () {
 
@@ -238,9 +238,9 @@ describe("ActionResponse", function() {
 
     });
 
-    context("Utility functions", async function () {
+    context("📋 Utility functions", async function () {
 
-        context("Static", async function () {
+        context("👉 Static", async function () {
 
             beforeEach( async function () {
 
@@ -279,7 +279,7 @@ describe("ActionResponse", function() {
 
         });
 
-        context("Instance", async function () {
+        context("👉 Instance", async function () {
 
             beforeEach( async function () {
 

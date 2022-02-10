@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import { FismoUpdate } from "./FismoUpdate.sol";
 import { IFismoOperate } from "../interface/IFismoOperate.sol";
+import { console } from "hardhat/console.sol";
 
 /**
  * @title FismoOperate
@@ -72,12 +73,12 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
 
         // if there is exit guard logic for the current state, call it
         if (state.exitGuarded) {
-            response.exitMessage = challengeGuard(_user, machine.name, state.name, Guard.Exit);
+            response.exitMessage = invokeGuard(_user, machine.name, state.name, Guard.Exit);
         }
 
         // if there is enter guard logic for the next state, call it
         if (nextState.enterGuarded) {
-            response.enterMessage = challengeGuard(_user, machine.name, nextState.name, Guard.Enter);
+            response.enterMessage = invokeGuard(_user, machine.name, nextState.name, Guard.Enter);
         }
 
         // if we made it this far, set the new state
@@ -102,7 +103,7 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
      *
      * @return guardResponse - the message (if any) returned from the guard
      */
-    function challengeGuard(
+    function invokeGuard(
         address _user,
         string memory _machineName,
         string memory _stateName,
@@ -111,22 +112,19 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
     internal
     returns (string memory guardResponse)
     {
-
-        // Get the function selector
+        // Get the function selector and encode the call
         bytes4 selector = getGuardSelector(_machineName, _stateName, _guard);
-
-        // Make sure the logic implementation exists
-        address guardAddress = getGuardAddress(selector);
-
-        // Encode the signature and arguments
-        bytes memory challenge = abi.encodeWithSelector(
+        bytes memory guardCall = abi.encodeWithSelector(
             selector,
             _user,
             _stateName
         );
 
-        // Challenge the guard
-        (bool success, bytes memory response) = guardAddress.delegatecall(challenge);
+        // Get the guard implementation address
+        address guardAddress = getGuardAddress(selector);
+
+        // Invoke the guard
+        (bool success, bytes memory response) = guardAddress.delegatecall(guardCall);
 
         // if the function call reverted
         if (success == false) {
@@ -145,7 +143,7 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
         // Return the guard message
         guardResponse = string(response);
 
-        // Revert with guard message as reason if challenge not successful
+        // Revert with guard message as reason if invocation not successful
         //require(success, guardResponse);
 
     }

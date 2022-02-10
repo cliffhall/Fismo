@@ -33,13 +33,4 @@ async function deployTransitionGuards(example, gasLimit) {
 
 }
 
-if (require.main === module) {
-    deployTransitionGuards()
-        .then(() => process.exit(0))
-        .catch(error => {
-            console.error(error)
-            process.exit(1)
-        })
-}
-
 exports.deployTransitionGuards = deployTransitionGuards;

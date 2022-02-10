@@ -201,5 +201,4 @@ contract FismoView is IFismoView, FismoTools {
         return FismoStore.getStore();
     }
 
-
 }

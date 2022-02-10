@@ -54,7 +54,7 @@ describe("Machine", function() {
 
     });
 
-    context("Constructor", async function () {
+    context("📋 Constructor", async function () {
 
         it("Should allow creation of valid, fully populated Machine instance", async function () {
 
@@ -72,7 +72,7 @@ describe("Machine", function() {
 
     });
 
-    context("Field validations", async function () {
+    context("📋 Field validations", async function () {
 
         beforeEach( async function () {
 
@@ -246,9 +246,9 @@ describe("Machine", function() {
 
     });
 
-    context("Utility functions", async function () {
+    context("📋 Utility functions", async function () {
 
-        context("Static", async function () {
+        context("👉 Static", async function () {
 
             beforeEach( async function () {
 
@@ -274,7 +274,7 @@ describe("Machine", function() {
 
         });
 
-        context("Instance", async function () {
+        context("👉 Instance", async function () {
 
             beforeEach( async function () {
 

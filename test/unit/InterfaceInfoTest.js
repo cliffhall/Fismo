@@ -25,7 +25,7 @@ describe("InterfaceInfo", function() {
 
     });
 
-    context("Interface Ids", async function () {;
+    context("📋 Interface Ids", async function () {;
 
         it("getIFismoOperate() should return expected id", async function () {
 

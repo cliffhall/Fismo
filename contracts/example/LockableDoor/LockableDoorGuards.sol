@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+import { console } from "hardhat/console.sol";
 
 /**
  * @notice Transition guard functions
@@ -15,8 +16,9 @@ contract LockableDoorGuards {
 
     // Locked / Exit
     // Valid next states: Closed
-    function LockableDoor_Locked_Exit(address _user, string memory _nextStateName)
+    function LockableDoor_Locked_Exit(address _user, string calldata _nextStateName)
     public
+    view
     returns(string memory message)
     {
         // User must have key to unlock door

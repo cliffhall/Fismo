@@ -20,7 +20,7 @@ describe("Transition", function() {
 
     });
 
-    context("Constructor", async function () {
+    context("📋 Constructor", async function () {
 
         it("Should allow creation of valid, fully populated Transition instance", async function () {
 
@@ -35,7 +35,7 @@ describe("Transition", function() {
 
     });
 
-    context("Field validations", async function () {
+    context("📋 Field validations", async function () {
 
         beforeEach( async function () {
 
@@ -146,9 +146,9 @@ describe("Transition", function() {
 
     });
 
-    context("Utility functions", async function () {
+    context("📋 Utility functions", async function () {
 
-        context("Static", async function () {
+        context("📋 Static", async function () {
 
             beforeEach( async function () {
 
@@ -174,7 +174,7 @@ describe("Transition", function() {
 
         });
 
-        context("Instance", async function () {
+        context("👉 Instance", async function () {
 
             beforeEach( async function () {
 

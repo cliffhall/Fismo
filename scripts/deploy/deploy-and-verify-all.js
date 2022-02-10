@@ -28,7 +28,7 @@ async function main() {
     console.log(divider);
 
     // Deploy Fismo
-    [fismo, fismoArgs] = await deployFismo(deployer.address, gasLimit);
+    [fismo, fismoArgs] = await deployFismo(false, deployer.address, gasLimit);
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
 
     // Deploy examples
@@ -36,8 +36,8 @@ async function main() {
     for (const example of examples) {
         console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
         try {
-            [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
-            console.log(`✅ ${example.machine.name} machine added to Fismo contract.`);
+            [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+            console.log(`✅ ${machine.name} machine added to Fismo contract.`);
             deploymentComplete(example.operator, operator.address, operatorArgs, contracts);
             guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
         } catch (e) {

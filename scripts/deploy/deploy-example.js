@@ -3,7 +3,6 @@ const ethers = hre.ethers;
 const Machine = require("../../scripts/domain/Machine");
 const { deployTransitionGuards } = require('./deploy-guards');
 
-
 /**
  * Deploy an example machine
  *
@@ -52,8 +51,8 @@ async function deployExample(owner, fismoAddress, example, gasLimit) {
         // Add the machine
         await fismo.addMachine(machine.toObject());
 
-        // Return the operator and the guards
-        return [operator, operatorArgs, guards];
+        // Return the operator, the guards, and the guarded machine entity
+        return [operator, operatorArgs, guards, machine.clone()];
 
     } else {
 
@@ -61,15 +60,6 @@ async function deployExample(owner, fismoAddress, example, gasLimit) {
 
     }
 
-}
-
-if (require.main === module) {
-    deployExample()
-        .then(() => process.exit(0))
-        .catch(error => {
-            console.error(error)
-            process.exit(1)
-        })
 }
 
 exports.deployExample = deployExample;

@@ -41,13 +41,40 @@ describe("Fismo", function() {
         guardLogic = accounts[3]; // just need a valid address for the guard logic since we won't invoke it in units
 
         // Deploy Fismo
-        [fismo] = await deployFismo(deployer.address, gasLimit);
+        [fismo] = await deployFismo(false, deployer.address, gasLimit);
+
+        // A simple, unguarded, single-state machine definition
+        // N.B. the single state is the initial state, and its transitions are re-entrant
+        stateName = "Be";
+        stateId = nameToId(stateName);
+        machineObj = {
+            "name": "Meditate",
+            "operator": operator.address,
+            "initialStateId": stateId,
+            "states": [
+                {
+                    "name": stateName,
+                    "enterGuarded": false,
+                    "exitGuarded": false,
+                    "transitions": [
+                        {
+                            "action": "Inhale",
+                            "targetStateName": stateName,
+                        },
+                        {
+                            "action": "Exhale",
+                            "targetStateName": stateName,
+                        },
+                    ]
+                }
+            ]
+        };
 
     });
 
-    context("Supported Interfaces", async function () {
+    context("📋 Supported Interfaces", async function () {
 
-        context("supportsInterface()", async function () {
+        context("👉 supportsInterface()", async function () {
 
             it("should indicate support for ERC-165 interface", async function () {
 
@@ -105,40 +132,90 @@ describe("Fismo", function() {
 
     });
 
-    context("IFismo methods", async function () {
+    context("📋 IFismoOperate methods", async function () {
 
-        beforeEach( async function () {
+        context("👉 invokeAction()", async function () {
 
-            // Create and validate a simple, unguarded, single-state machine
-            // N.B. the single state is the initial state, and its transitions are re-entrant
-            stateName = "Be";
-            stateId = nameToId(stateName);
-            machineObj = {
-                "name": "Meditate",
-                "operator": operator.address,
-                "initialStateId": stateId,
-                "states": [
-                    {
-                        "name": stateName,
-                        "enterGuarded": false,
-                        "exitGuarded": false,
-                        "transitions": [
-                            {
-                                "action": "Inhale",
-                                "targetStateName": stateName,
-                            },
-                            {
-                                "action": "Exhale",
-                                "targetStateName": stateName,
-                            },
-                        ]
-                    }
-                ]
-            };
+            beforeEach( async function () {
+
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+                // Id of action to invoke
+                action = "Inhale";
+                actionId = nameToId(action);
+
+            });
+
+            it("Should accept a valid invocation", async function () {
+
+                // The expected ActionResponse struct
+                // N.B. In this simple machine,the single state is re-entrant for each action
+                actionResponseStruct = [machine.name, action, stateName, stateName, "", ""];
+
+                // Invoke the action, checking for the event
+                await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
+                    .to.emit(fismo, 'Transitioned')
+                    .withArgs(user.address, machine.id, actionId, actionResponseStruct);
+
+                // Validate ActionResponse struct
+                actionResponse = new ActionResponse(...actionResponseStruct);
+                expect(actionResponse.isValid()).is.true;
+
+            });
+
+            context("💔 Revert Reasons", async function () {
+
+                /*
+                 * Reverts if
+                 * - caller is not the machine's operator (contract or EOA)
+                 * - _machineId does not refer to a valid machine
+                 * - _actionId is not valid for the user's current state in the given machine
+                 * - any invoked guard logic reverts (tested separately elsewhere)
+                 */
+
+                it("Should revert if caller is not the machine's operator", async function () {
+
+                    // Attempt to invoke the action from user wallet, checking for revert
+                    await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
+                        .to.revertedWith("Only operator may call");
+
+                });
+
+                it("Should revert if machine doesn't exist", async function () {
+
+                    // Invalid machine id
+                    machine.id = nameToId("not this");
+
+                    // Attempt to invoke the action from user wallet, checking for revert
+                    await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
+                        .to.revertedWith("No such machine");
+
+                });
+
+                it("Should revert if the action is invalid for the user's current state", async function () {
+
+                    // Invalid action id
+                    actionId = nameToId("not this");
+
+                    // Invoke the action, checking for the event
+                    await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
+                        .to.revertedWith("No such action");
+
+                });
+
+            });
 
         });
 
-        context("addMachine()", async function () {
+    });
+
+    context("📋 IFismoUpdate methods", async function () {
+
+        context("👉 addMachine()", async function () {
 
             it("Should accept a valid unguarded Machine", async function () {
 
@@ -177,7 +254,7 @@ describe("Fismo", function() {
                     .withArgs(machine.id, machine.name);
             });
 
-            context("Revert Reasons", async function () {
+            context("💔 Revert Reasons", async function () {
 
                 it("Should revert if operator address is zero address", async function () {
 
@@ -260,7 +337,7 @@ describe("Fismo", function() {
 
         });
 
-        context("addState()", async function () {
+        context("👉 addState()", async function () {
 
             beforeEach( async function () {
 
@@ -311,7 +388,7 @@ describe("Fismo", function() {
                     .withArgs(machine.id, state.id, state.name);
             });
 
-            context("Revert Reasons", async function () {
+            context("💔 Revert Reasons", async function () {
 
                 it("Should revert if the state id is invalid", async function () {
 
@@ -386,7 +463,7 @@ describe("Fismo", function() {
 
         });
 
-        context("updateState()", async function () {
+        context("👉 updateState()", async function () {
 
             beforeEach( async function () {
 
@@ -426,7 +503,7 @@ describe("Fismo", function() {
                     .withArgs(machine.id, state.id, state.name);
             });
 
-            context("Revert Reasons", async function () {
+            context("💔 Revert Reasons", async function () {
 
                 it("Should revert if the state id is invalid", async function () {
 
@@ -465,7 +542,7 @@ describe("Fismo", function() {
 
         });
 
-        context("addTransition()", async function () {
+        context("👉 addTransition()", async function () {
 
             beforeEach( async function () {
 
@@ -492,7 +569,7 @@ describe("Fismo", function() {
                     .withArgs(machine.id, stateId, transition.action, transition.targetStateName);
             });
 
-            context("Revert Reasons", async function () {
+            context("💔 Revert Reasons", async function () {
 
                 it("Should revert if the action id is invalid", async function () {
 
@@ -527,83 +604,6 @@ describe("Fismo", function() {
                     // Add the transition to the only state of the machine
                     await expect(fismo.addTransition(machine.id, stateId, transition.toObject()))
                         .to.revertedWith("Target State ID is invalid");
-
-                });
-
-            });
-
-        });
-
-        context("invokeAction()", async function () {
-
-            beforeEach( async function () {
-
-                machine = Machine.fromObject(machineObj);
-                expect(machine.isValid()).is.true;
-
-                // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
-
-                // Id of action to invoke
-                action = "Inhale";
-                actionId = nameToId(action);
-
-            });
-
-            it("Should accept a valid invocation", async function () {
-
-                // The expected ActionResponse struct
-                // N.B. In this simple machine,the single state is re-entrant for each action
-                actionResponseStruct = [machine.name, action, stateName, stateName, "", ""];
-
-                // Invoke the action, checking for the event
-                await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
-                    .to.emit(fismo, 'Transitioned')
-                    .withArgs(user.address, machine.id, actionId, actionResponseStruct);
-
-                // Validate ActionResponse struct
-                actionResponse = new ActionResponse(...actionResponseStruct);
-                expect(actionResponse.isValid()).is.true;
-
-            });
-
-            context("Revert Reasons", async function () {
-
-                /*
-                 * Reverts if
-                 * - caller is not the machine's operator (contract or EOA)
-                 * - _machineId does not refer to a valid machine
-                 * - _actionId is not valid for the user's current state in the given machine
-                 * - any invoked guard logic reverts (tested separately elsewhere)
-                 */
-
-                it("Should revert if caller is not the machine's operator", async function () {
-
-                    // Attempt to invoke the action from user wallet, checking for revert
-                    await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
-                        .to.revertedWith("Only operator may call");
-
-                });
-
-                it("Should revert if machine doesn't exist", async function () {
-
-                    // Invalid machine id
-                    machine.id = nameToId("not this");
-
-                    // Attempt to invoke the action from user wallet, checking for revert
-                    await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
-                        .to.revertedWith("No such machine");
-
-                });
-
-                it("Should revert if the action is invalid for the user's current state", async function () {
-
-                    // Invalid action id
-                    actionId = nameToId("not this");
-
-                    // Invoke the action, checking for the event
-                    await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
-                        .to.revertedWith("No such action");
 
                 });
 

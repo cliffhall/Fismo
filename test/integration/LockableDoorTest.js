@@ -12,6 +12,7 @@ const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
 const { nameToId } =  require('../../scripts/util/name-utils');
 
 // Domain entities
+const Guard = require("../../scripts/domain/Guard");
 const State = require("../../scripts/domain/State");
 const Machine = require("../../scripts/domain/Machine");
 const Transition = require("../../scripts/domain/Transition");
@@ -32,7 +33,7 @@ describe("Lockable Door Machine", function() {
     // Common vars
     let accounts, deployer, user, operator, operatorArgs, guards;
     let fismo, example, machine, machineId, state, action, actionId;
-    let actionResponse, actionResponseStruct;
+    let actionResponse, actionResponseStruct, response, tx;
     let priorState, nextState, exitMessage, enterMessage;
 
     beforeEach( async function () {
@@ -43,28 +44,41 @@ describe("Lockable Door Machine", function() {
         user = accounts[1];
 
         // Deploy Fismo
-        [fismo] = await deployFismo(deployer.address, gasLimit);
+        [fismo] = await deployFismo(true, deployer.address, gasLimit);
 
         // Deploy Example
         example = LockableDoor;
-        [operator, operatorArgs, guards] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+        [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, example, gasLimit);
 
     });
 
-    context("Operator", async function () {
+    context("📋 Operator", async function () {
 
         beforeEach( async function () {
 
             // Get the machine and its initial state
-            machine = Machine.fromObject(example.machine);
-            machineId = nameToId(machine.name);
+            machineId = machine.id;
 
             exitMessage = "";
             enterMessage = "";
 
         });
 
-        context("invokeAction()", async function () {
+        context("👉 callGuard()", async function () {
+
+            it.only("Should call guard function and return response", async function () {
+
+                // State to call guard for
+                state = "Locked";
+
+                // Call the guard
+                response = await fismo.callStatic.callGuard(user.address, machine.name, state, Guard.EXIT);
+
+            });
+
+        });
+
+        context("👉 invokeAction()", async function () {
 
             it("Should invoke valid action 'Open' for initial state 'Closed'", async function () {
 
@@ -168,7 +182,7 @@ describe("Lockable Door Machine", function() {
 
             });
 
-            context("Revert Reasons", async function () {
+            context("💔 Revert Reasons", async function () {
 
                 it("Should revert if machineId is invalid", async function () {
 

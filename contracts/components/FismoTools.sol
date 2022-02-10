@@ -26,7 +26,7 @@ contract FismoTools is FismoTypes {
      * @return guardSignature - a string representation of the function signature
      */
     function getGuardSignature(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
-    internal
+    public
     pure
     returns (string memory guardSignature) {
         string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_Enter" : "_Exit";
@@ -38,19 +38,8 @@ contract FismoTools is FismoTypes {
             guardType
         );
 
-        // TODO: do I need names and types or just types for signature
-        /*
-                string memory functionParams = strConcat(
-                    "(address _user, string memory ",
-                    (_guard == Guard.Enter)
-                    ? "_priorStateName)"
-                    : "_nextStateName)"
-                );
-        */
-
-        string memory functionParams = "(address, string)";
-
-        guardSignature = strConcat(functionName, functionParams);
+        // Construct signature
+        guardSignature = strConcat(functionName, "(address,string)");
     }
 
     /**
@@ -102,6 +91,22 @@ contract FismoTools is FismoTypes {
     (bytes4 id)
     {
         id = bytes4(keccak256(bytes(_name)));
+    }
+
+    /**
+     * @notice make sure the given address has code
+     *
+     * Reverts if address has no contract code
+     *
+     * @param _contract - the contract to check
+     * @param _errorMessage - the revert reason to throw
+     */
+    function enforceHasContractCode(address _contract, string memory _errorMessage) internal view {
+        uint256 contractSize;
+        assembly {
+            contractSize := extcodesize(_contract)
+        }
+        require(contractSize > 0, _errorMessage);
     }
 
 }
