@@ -66,7 +66,7 @@ describe("Lockable Door Machine", function() {
 
         context("👉 callGuard()", async function () {
 
-            it.only("Should call guard function and return response", async function () {
+            it("Should call guard function and return response", async function () {
 
                 // State to call guard for
                 state = "Locked";
@@ -74,6 +74,8 @@ describe("Lockable Door Machine", function() {
                 // Call the guard
                 response = await fismo.callStatic.callGuard(user.address, machine.name, state, Guard.EXIT);
 
+                // Test the response
+                expect(response).equal("Door unlocked.");
             });
 
         });

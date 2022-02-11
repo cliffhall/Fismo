@@ -47,7 +47,7 @@ contract MockFismo is FismoOperate  {
     returns (string memory guardResponse)
     {
 
-        return invokeGuard(_user, _machineName, _stateName, _guard);
+        guardResponse = invokeGuard(_user, _machineName, _stateName, _guard);
 
     }
 

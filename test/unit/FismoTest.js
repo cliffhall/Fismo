@@ -479,7 +479,7 @@ describe("Fismo", function() {
                     "name": stateName,
                     "enterGuarded": true,
                     "exitGuarded": true,
-                    "guardLogic": guardLogic.address,
+                    "guardLogic": fismo.address,  // Just has to be a contract. We're not invoking any code.
                     "transitions": [
                         {
                             "action": "Inhale",

@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import { FismoUpdate } from "./FismoUpdate.sol";
 import { IFismoOperate } from "../interface/IFismoOperate.sol";
-import { console } from "hardhat/console.sol";
 
 /**
  * @title FismoOperate
@@ -140,11 +139,11 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
             }
         }
 
-        // Return the guard message
-        guardResponse = string(response);
+        // Decode the response message
+        (guardResponse) = abi.decode(response, (string));
 
         // Revert with guard message as reason if invocation not successful
-        //require(success, guardResponse);
+        require(success, guardResponse);
 
     }
 
