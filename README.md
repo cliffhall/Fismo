@@ -5,9 +5,9 @@
 #### An experiment in [Deterministic Proxy](docs/about.md#a-deterministic-proxy-experiment) design
 
 ## Status
-Currently in development.
+[![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml)
 
-Done or in progress are:
+Currently in development. Done or in progress are:
 - ✅ Developer setup and tasks documentation
 - ✅ Developer environment configuration template
 - ✅ Working Deterministic Proxy implementation
@@ -19,11 +19,13 @@ Done or in progress are:
 - ✅ Domain model unit tests
 - ✅ Script modules for reuse in both deployment and testing
 - ✅ Contract unit tests
+- ✅ CI build and test with Github Actions
+- 👉 Machine operation tests (multi-step operation of machine examples)
+- 👉 Explore minimal clones for cheap deployments.
 - 👉 High level architecture documentation
 - 👉 Project structure documentation
 - 👉 API documentation
-- 👉 Machine operation tests (multi-step operation of machine examples)
-- 👉 Explore minimal clones for cheap deployments.
+- 👉 "How to create and run FSMs on Fismo" doc
 
 ## Developer Docs
 - [Setup](docs/setup.md) - Get going quickly on your local system.
