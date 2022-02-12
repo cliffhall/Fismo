@@ -2,7 +2,7 @@
 ## Lab 🧪 [Setup](docs/setup.md) 🧪 [Tasks](docs/tasks.md) 🧪 [FAQ](docs/faq.md) 🧪  [About](docs/about.md)
 
 ## Multitenant Finite State Machines for Ethereum
-#### An experiment in Deterministic Proxy design
+#### An experiment in [Deterministic Proxy](docs/about.md#a-deterministic-proxy-experiment) design
 
 ## Status
 Currently in development.
@@ -10,7 +10,7 @@ Currently in development.
 Done or in progress are:
 - ✅ Developer setup and tasks documentation
 - ✅ Developer environment configuration template
-- ✅ Working [Deterministic Proxy](docs/about.md#a-deterministic-proxy-experiment) implementation
+- ✅ Working Deterministic Proxy implementation
 - ✅ Deployable examples
 - ✅ Clear and complete inline [NatSpec](https://docs.soliditylang.org/en/v0.8.11/natspec-format.html?highlight=NatSpec) docs and in-method comments
 - ✅ Separation of concerns into inheritance tree for easy comprehension and maintenance
@@ -33,7 +33,7 @@ Done or in progress are:
 
 ## License 
 * Fismo - Copyright © 2021-2022 Futurescale, Inc.
-* License BSD-3-Clause
+* License - [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
 
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
