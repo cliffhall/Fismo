@@ -34,8 +34,8 @@ Currently in development. Done or in progress are:
 - [About](docs/about.md) - What is this project even about?
 
 ## License 
-* Fismo - Copyright © 2021-2022 Futurescale, Inc.
 * License - [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
+* Copyright © 2021-2022 [Futurescale, Inc.](https://futurescale.com)
 
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
