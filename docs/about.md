@@ -21,7 +21,7 @@ In the [Lockable Door](../contracts/example/LockableDoor) example, going from th
 
 This is where you need to write some code and deploy a guard logic implementation contract. It is also where we get a chance to test the Deterministic Proxy hypothesis at the heart of the Fismo experiment.
 
-In the machine definition for the Locked state, the `enterGuarded` flag should be set to `true` and its `guardLogic` property set to this contract address. When Fismo tries to transition between the Locked state and the Open state, it will attempt to execute the following function by combining machine name, state name, and guard direction.
+In the machine definition for the Locked state, the `exitGuarded` flag should be set to `true` and its `guardLogic` property set to this contract address. When Fismo tries to transition between the Locked state and the Open state, it will attempt to execute the following function by combining machine name, state name, and guard direction.
 
 > `LockableDoor_Locked_Exit(address user, string memory _nextStateName)`
 
