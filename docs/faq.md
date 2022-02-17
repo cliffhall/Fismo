@@ -97,16 +97,17 @@ It executes...
       - Simpler to maintain while avoiding name collisions.
 
 It emits events when...
-  * A user's state changed in some machine
-  * A user is about to exit a state
-  * A user is about to enter a state
   * A machine is created
   * A machine is modified
-  * A state's guard logic contract is changed
+  * A state is added to an existing machine
+  * A transition is added to an existing state
+  * A state's definition is updated e.g., its guard logic contract is changed
+  * A user transitioned states in some machine
 
 It reverts if...
- * Machine is misconfigured in some way
+  * An added machine, state, or transition is misconfigured in some way
+  * An address supplied for a guard logic contract has no code
   * Action invocation not called from declared operator address
-  * A configured entrance guard reverts
-  * A configured exit guard reverts
-  * Machine is misconfigured in some way
+  * Action invoked is not valid for the user's current state in the given machine
+  * An exit guard function reverts during action invocation
+  * An entrance guard function reverts during action invocation
