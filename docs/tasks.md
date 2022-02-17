@@ -1,4 +1,4 @@
-# Fismo
+![Fismo](images/fismo-logo.png)
 ## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 Tasks 🧪 [FAQ](faq.md) 🧪 [About](about.md)
 
 ## Development Tasks

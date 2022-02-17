@@ -1,4 +1,4 @@
-# Fismo
+![Fismo](docs/images/fismo-logo.png)
 ## Lab 🧪 [Setup](docs/setup.md) 🧪 [Tasks](docs/tasks.md) 🧪 [FAQ](docs/faq.md) 🧪  [About](docs/about.md)
 
 ## Multitenant Finite State Machines for Ethereum
