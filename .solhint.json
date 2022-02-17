@@ -8,6 +8,7 @@
     "no-unused-vars": "off",
     "no-inline-assembly": "off",
     "avoid-low-level-calls": "off",
-    "func-visibility": ["warn", {"ignoreConstructors":true}]
+    "func-visibility": ["warn", {"ignoreConstructors":true}],
+    "reason-string": "off"
   }
 }
