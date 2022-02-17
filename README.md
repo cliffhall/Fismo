@@ -21,10 +21,11 @@ Currently in development. Done or in progress are:
 - ✅ Contract unit tests
 - ✅ CI build and test with Github Actions
 - 👉 Machine operation tests (multi-step operation of machine examples)
-- 👉 Explore minimal clones for cheap deployments.
+- 👉 Explore minimal clones for cheap deployments
 - 👉 High level architecture documentation
 - 👉 Project structure documentation
 - 👉 API documentation
+- 👉 Javascript NPM package for interacting with Fismo
 - 👉 "How to create and run FSMs on Fismo" doc
 
 ## Developer Docs
