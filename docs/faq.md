@@ -102,7 +102,7 @@ It emits events when...
   * A state is added to an existing machine
   * A transition is added to an existing state
   * A state's definition is updated e.g., its guard logic contract is changed
-  * A user transitioned states in some machine
+  * A user transitioned to a new state in some machine
 
 It reverts if...
   * An added machine, state, or transition is misconfigured in some way
