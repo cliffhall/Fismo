@@ -15,7 +15,7 @@ Fismo began as an experiment in what I will call Deterministic Proxy design. The
 Nifty idea, but without a problem domain, this hypothetical deterministic proxy would have no context within which to formulate function selectors to be proxied. 
 
 ## Problem Domain: Finite State Machines
-FSMs are a perfect match for this experiment. As problem domains go, it's relatively simple, but still non-trivial. You can describe them in a lightweight way, validate their machine-readable description easily, consume it in Solidity, and place it in contract storage. It is straightforward to enforce that transitions between states follow the edges of their directed graph. Fismo does that automatically.
+FSMs are a perfect match for this experiment. As problem domains go, it's relatively simple, but still non-trivial. You can describe them in a lightweight way, validate the descriptions easily, consume them in Solidity, and place them into contract storage. It is straightforward to enforce that transitions between states follow the edges of their directed graph. Fismo does that automatically.
 
 But there is one place where you need to add custom code: _guarding state transitions._ 
 
