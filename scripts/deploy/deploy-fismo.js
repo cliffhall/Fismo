@@ -6,7 +6,6 @@ const ethers = hre.ethers;
  *
  * Reused between deployment script and unit tests for consistency
  *
- * @param useMock - if true, deploys MockFismo instead of Fismo
  * @param owner - the owner address
  * @param gasLimit - gasLimit for transactions
  *
@@ -14,14 +13,11 @@ const ethers = hre.ethers;
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-async function deployFismo(useMock, owner, gasLimit) {
-
-    // Determine which contract to deploy
-    const contract = useMock ? "MockFismo" : "Fismo";
+async function deployFismo(owner, gasLimit) {
 
     // Deploy Contract
     const fismoArgs = [owner]
-    const Fismo = await ethers.getContractFactory(contract);
+    const Fismo = await ethers.getContractFactory("Fismo");
     const fismo = await Fismo.deploy(...fismoArgs, {gasLimit});
     await fismo.deployed();
 

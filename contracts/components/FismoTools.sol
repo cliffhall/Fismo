@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import { FismoTypes } from "../domain/FismoTypes.sol";
 import "@openzeppelin/contracts/interfaces/IERC165.sol";
+import { FismoConstants } from "../domain/FismoConstants.sol";
+import { FismoTypes } from "../domain/FismoTypes.sol";
 
 /**
  * @title FismoTools
@@ -11,7 +12,7 @@ import "@openzeppelin/contracts/interfaces/IERC165.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoTools is FismoTypes {
+contract FismoTools is FismoTypes, FismoConstants {
 
     /**
      * @notice Get the function signature for an enter or exit guard guard
@@ -61,6 +62,7 @@ contract FismoTools is FismoTypes {
 
         // Return the hashed function selector
         guardSelector = nameToId(guardSignature);
+
     }
 
     /**

@@ -5,11 +5,15 @@ const { expect } = require("chai");
 const environments = require('../../environments');
 const gasLimit = environments.gasLimit;
 
+// Revert Reasons
+const { RevertReasons } = require("../../scripts/constants/revert-reasons");
+
 // Scripts and data
 const { deployTransitionGuards } = require('../../scripts/deploy/deploy-guards');
 const { InterfaceIds } = require('../../scripts/constants/supported-interfaces');
-const { StopWatch } = require("../../scripts/constants/example-machines");
+const { StopWatch, LockableDoor } = require("../../scripts/constants/example-machines");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
+const { deployExample } = require("../../scripts/deploy/deploy-example");
 const { nameToId } =  require('../../scripts/util/name-utils');
 
 // Domain entities
@@ -26,10 +30,10 @@ const ActionResponse = require("../../scripts/domain/ActionResponse");
 describe("Fismo", function() {
 
     // Common vars
-    let accounts, deployer, user, operator, guardLogic;
+    let accounts, deployer, user, operator, guardLogic, operatorArgs, guards, expected;
     let fismo, machine, machineObj;
     let state, transition, action, stateName, stateId, actionId;
-    let actionResponse, actionResponseStruct;
+    let actionResponse, actionResponseStruct, selector;
 
     beforeEach( async function () {
 
@@ -41,7 +45,7 @@ describe("Fismo", function() {
         guardLogic = accounts[3]; // just need a valid address for the guard logic since we won't invoke it in units
 
         // Deploy Fismo
-        [fismo] = await deployFismo(false, deployer.address, gasLimit);
+        [fismo] = await deployFismo(deployer.address, gasLimit);
 
         // A simple, unguarded, single-state machine definition
         // N.B. the single state is the initial state, and its transitions are re-entrant
@@ -181,7 +185,7 @@ describe("Fismo", function() {
 
                     // Attempt to invoke the action from user wallet, checking for revert
                     await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
-                        .to.revertedWith("Only operator may call");
+                        .to.revertedWith(RevertReasons.ONLY_OPERATOR);
 
                 });
 
@@ -192,7 +196,7 @@ describe("Fismo", function() {
 
                     // Attempt to invoke the action from user wallet, checking for revert
                     await expect(fismo.connect(user).invokeAction(user.address, machine.id, actionId))
-                        .to.revertedWith("No such machine");
+                        .to.revertedWith(RevertReasons.NO_SUCH_MACHINE);
 
                 });
 
@@ -203,7 +207,7 @@ describe("Fismo", function() {
 
                     // Invoke the action, checking for the event
                     await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
-                        .to.revertedWith("No such action");
+                        .to.revertedWith(RevertReasons.NO_SUCH_ACTION);
 
                 });
 
@@ -232,7 +236,7 @@ describe("Fismo", function() {
             it("Should accept a valid guarded Machine", async function () {
 
                 // Get simple, guarded machine example
-                machineObj = StopWatch;
+                machineObj = LockableDoor;
                 machine = Machine.fromObject(machineObj.machine);
                 machine.operator = operator.address;
                 expect(machine.isValid()).is.true;
@@ -266,7 +270,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the machine, checking for the revert
                     await expect(fismo.addMachine(machine.toObject()))
-                        .to.revertedWith("Invalid operator address");
+                        .to.revertedWith(RevertReasons.INVALID_OPERATOR_ADDR);
                 });
 
                 it("Should revert if machine id is invalid", async function () {
@@ -279,7 +283,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the machine, checking for the revert
                     await expect(fismo.addMachine(machine.toObject()))
-                        .to.revertedWith("Invalid machine ID");
+                        .to.revertedWith(RevertReasons.INVALID_MACHINE_ID);
                 });
 
                 it("Should revert if machine already exists", async function () {
@@ -291,7 +295,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the machine, again
                     await expect(fismo.addMachine(machine.toObject()))
-                        .to.revertedWith("Machine already exists");
+                        .to.revertedWith(RevertReasons.MACHINE_EXISTS);
                 });
 
                 it("Should revert if a state id in a state is invalid", async function () {
@@ -304,7 +308,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the machine, again
                     await expect(fismo.addMachine(machine.toObject()))
-                        .to.revertedWith("State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_STATE_ID);
                 });
 
                 it("Should revert if an action id in a transition is invalid", async function () {
@@ -317,7 +321,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the machine, again
                     await expect(fismo.addMachine(machine.toObject()))
-                        .to.revertedWith("Action ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_ACTION_ID);
                 });
 
                 it("Should revert if a target state id in a transition is invalid", async function () {
@@ -330,7 +334,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the machine, again
                     await expect(fismo.addMachine(machine.toObject()))
-                        .to.revertedWith("Target State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
                 });
 
             });
@@ -406,7 +410,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
-                        .to.revertedWith("State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_STATE_ID);
                 });
 
                 it("Should revert if an action id in a transition is invalid", async function () {
@@ -431,7 +435,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
-                        .to.revertedWith("Action ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_ACTION_ID);
                 });
 
                 it("Should revert if a target state id in a transition is invalid", async function () {
@@ -456,7 +460,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
-                        .to.revertedWith("Target State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
                 });
 
             });
@@ -513,7 +517,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.updateState(machine.id, state.toObject()))
-                        .to.revertedWith("State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_STATE_ID);
                 });
 
                 it("Should revert if an action id in a transition is invalid", async function () {
@@ -524,7 +528,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
-                        .to.revertedWith("Action ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_ACTION_ID);
                 });
 
                 it("Should revert if a target state id in a transition is invalid", async function () {
@@ -535,7 +539,7 @@ describe("Fismo", function() {
 
                     // Attempt to add the state to the existing machine, checking for the revert
                     await expect(fismo.addState(machine.id, state.toObject()))
-                        .to.revertedWith("Target State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
                 });
 
             });
@@ -585,7 +589,7 @@ describe("Fismo", function() {
 
                     // Add the transition to the only state of the machine
                     await expect(fismo.addTransition(machine.id, stateId, transition.toObject()))
-                        .to.revertedWith("Action ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_ACTION_ID);
 
                 });
 
@@ -603,7 +607,57 @@ describe("Fismo", function() {
 
                     // Add the transition to the only state of the machine
                     await expect(fismo.addTransition(machine.id, stateId, transition.toObject()))
-                        .to.revertedWith("Target State ID is invalid");
+                        .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
+
+                });
+
+            });
+
+        });
+
+    });
+
+    context("📋 IFismoView methods", async function () {
+
+        context("👉 getGuardAddress()", async function () {
+
+            beforeEach( async function () {
+
+                [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, LockableDoor, gasLimit);
+
+            });
+
+            it("Should return the guard address of a guarded selector", async function () {
+
+                // The selector of the only guard function
+                selector = nameToId("LockableDoor_Locked_Exit(address,string)");
+
+                // Get the guard logic address
+                expected = guards[0].contract.address;
+
+                guardLogic = await fismo.getGuardAddress(selector);
+
+                // Verify that the appropriate address was returned
+                expect(guardLogic).to.equal(expected);
+
+
+            });
+
+            context("💔 Revert Reasons", async function () {
+
+                /*
+                 * Reverts if
+                 * -  no guard exists for the function selector
+                 */
+
+                it("Should revert if no guard exists for the function selector", async function () {
+
+                    // Invalid function selector
+                    selector = nameToId("not this");
+
+                    // Attempt to invoke the action from user wallet, checking for revert
+                    await expect(fismo.connect(user).getGuardAddress(selector))
+                        .to.revertedWith(RevertReasons.NO_SUCH_GUARD);
 
                 });
 

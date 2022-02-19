@@ -28,7 +28,7 @@ async function deployTransitionGuards(example, gasLimit) {
         deployedGuards.push(guard);
     }
 
-    // Return array of guard objects with state, contractName, and contract members
+    // Return array of guard objects with state, contractName, and contract
     return deployedGuards;
 
 }

@@ -28,7 +28,7 @@ async function main() {
     console.log(divider);
 
     // Deploy Fismo
-    [fismo, fismoArgs] = await deployFismo(false, deployer.address, gasLimit);
+    [fismo, fismoArgs] = await deployFismo(deployer.address, gasLimit);
     deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
 
     // Deploy examples

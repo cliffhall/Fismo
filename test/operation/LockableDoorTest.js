@@ -5,6 +5,9 @@ const environments = require('../../environments');
 const gasLimit = environments.gasLimit;
 const { expect } = require("chai");
 
+// Revert Reasons
+const { RevertReasons } = require("../../scripts/constants/revert-reasons");
+
 // Scripts and data
 const { LockableDoor } = require("../../scripts/constants/example-machines");
 const { deployExample } = require("../../scripts/deploy/deploy-example");
@@ -17,6 +20,7 @@ const State = require("../../scripts/domain/State");
 const Machine = require("../../scripts/domain/Machine");
 const Transition = require("../../scripts/domain/Transition");
 const ActionResponse = require("../../scripts/domain/ActionResponse");
+
 
 /**
  *  Test interacting with the LockableDoor machine
@@ -44,7 +48,7 @@ describe("Lockable Door Machine", function() {
         user = accounts[1];
 
         // Deploy Fismo
-        [fismo] = await deployFismo(true, deployer.address, gasLimit);
+        [fismo] = await deployFismo(deployer.address, gasLimit);
 
         // Deploy Example
         example = LockableDoor;
@@ -61,22 +65,6 @@ describe("Lockable Door Machine", function() {
 
             exitMessage = "";
             enterMessage = "";
-
-        });
-
-        context("👉 callGuard()", async function () {
-
-            it("Should call guard function and return response", async function () {
-
-                // State to call guard for
-                state = "Locked";
-
-                // Call the guard
-                response = await fismo.callStatic.callGuard(user.address, machine.name, state, Guard.EXIT);
-
-                // Test the response
-                expect(response).equal("Door unlocked.");
-            });
 
         });
 
@@ -132,6 +120,8 @@ describe("Lockable Door Machine", function() {
 
             it("Should invoke valid action 'Unlock' from state 'Locked'", async function () {
 
+                // LOCK THE DOOR FIRST
+
                 // Action to invoke
                 action = "Lock";
                 actionId = nameToId(action);
@@ -160,6 +150,8 @@ describe("Lockable Door Machine", function() {
                 // Verify the user's state after the transition
                 currentStateId = await fismo.getUserState(user.address, machine.id);
                 expect(currentStateId).to.equal(nameToId(nextState));
+
+                // NOW UNLOCK THE DOOR
 
                 // Action to invoke
                 action = "Unlock";
@@ -193,7 +185,7 @@ describe("Lockable Door Machine", function() {
 
                     // Attempt to invoke the action with an invalid machine Id
                     await expect(operator.connect(user).invokeAction(machineId, actionId))
-                        .to.revertedWith("No such machine");
+                        .to.revertedWith(RevertReasons.NO_SUCH_MACHINE);
                 });
 
                 it("Should revert if actionId is invalid", async function () {
@@ -203,7 +195,7 @@ describe("Lockable Door Machine", function() {
 
                     // Attempt to add the machine, again
                     await expect(operator.connect(user).invokeAction(machine.id, actionId))
-                        .to.revertedWith("No such action");
+                        .to.revertedWith(RevertReasons.NO_SUCH_ACTION);
                 });
 
             });

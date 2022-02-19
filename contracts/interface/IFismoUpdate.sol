@@ -13,6 +13,12 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  */
 interface IFismoUpdate {
 
+    /// Events
+    event MachineAdded(bytes4 indexed machineId, string machineName);
+    event StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+    event StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+    event TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName);
+
     /**
      * @notice Add a new Machine
      *

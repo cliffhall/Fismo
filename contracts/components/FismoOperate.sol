@@ -56,7 +56,7 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
         }
 
         // Make sure transition was found
-        require(valid == true, "No such action");
+        require(valid == true, NO_SUCH_ACTION);
 
         // Get the next state's index in the machine's states array
         index = getStateIndex(_machineId, transition.targetStateId);
@@ -135,7 +135,7 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
                     revert(add(32, response), response_size)
                 }
             } else {
-                revert("Function call reverted");
+                revert(GUARD_REVERTED);
             }
         }
 

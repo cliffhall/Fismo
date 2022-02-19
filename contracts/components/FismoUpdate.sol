@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import { FismoAccess } from "./FismoAccess.sol";
-import { FismoEvents } from "../domain/FismoEvents.sol";
 import { IFismoUpdate } from "../interface/IFismoUpdate.sol";
 
 /**
@@ -12,7 +11,7 @@ import { IFismoUpdate } from "../interface/IFismoUpdate.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
+contract FismoUpdate is IFismoUpdate, FismoAccess {
 
     /**
      * @notice Add a new Machine
@@ -31,16 +30,16 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     onlyOwner
     {
         // Make sure operator address is not the black hole
-        require(_machine.operator != address(0), "Invalid operator address");
+        require(_machine.operator != address(0), INVALID_OPERATOR_ADDR);
 
         // Make sure machine id is valid
-        require(_machine.id == nameToId(_machine.name), "Invalid machine ID");
+        require(_machine.id == nameToId(_machine.name), INVALID_MACHINE_ID);
 
         // Get the machine's storage location
         Machine storage machine = getStore().machine[_machine.id];
 
         // Make sure machine doesn't already exist
-        require(machine.id != _machine.id, "Machine already exists");
+        require(machine.id != _machine.id, MACHINE_EXISTS);
 
         // Store the machine
         machine.operator = _machine.operator;
@@ -86,7 +85,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     onlyOwner
     {
         // Make sure state id is valid
-        require(_state.id == nameToId(_state.name), "State ID is invalid");
+        require(_state.id == nameToId(_state.name), INVALID_STATE_ID);
 
         // Get the machine's storage location
         Machine storage machine = getMachine(_machineId);
@@ -109,7 +108,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     }
 
     /**
-  * @notice Add a transition to an existing state of an existing machine
+     * @notice Add a transition to an existing state of an existing machine
      *
      * Reverts if:
      * - caller is not contract owner
@@ -128,10 +127,10 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     onlyOwner
     {
         // Make sure action id is valid
-        require(_transition.actionId == nameToId(_transition.action), "Action ID is invalid");
+        require(_transition.actionId == nameToId(_transition.action), INVALID_ACTION_ID);
 
         // Make sure target state id is valid
-        require(_transition.targetStateId == nameToId(_transition.targetStateName), "Target State ID is invalid");
+        require(_transition.targetStateId == nameToId(_transition.targetStateName), INVALID_TARGET_ID);
 
         // Get the machine
         Machine storage machine = getMachine(_machineId);
@@ -157,7 +156,6 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
 
         // Alert listeners to change of state
         emit TransitionAdded(_machineId, state.id, transition.action, transition.targetStateName);
-
     }
 
     /**
@@ -185,14 +183,14 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     onlyOwner
     {
         // Make sure state id is valid
-        require(_state.id == nameToId(_state.name), "State ID is invalid");
+        require(_state.id == nameToId(_state.name), INVALID_STATE_ID);
 
         // Get the machine
         Machine storage machine = getMachine(_machineId);
 
         // Make sure state exists
         uint256 index = getStateIndex(_machineId, _state.id);
-        require(machine.states[index].id == _state.id, "State does not exist");
+        require(machine.states[index].id == _state.id, NO_SUCH_STATE);
 
         // Overwrite the state in the machine's states array
         storeState(machine, _state, index);
@@ -223,7 +221,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
         state.exitGuarded = _state.exitGuarded;
         state.enterGuarded = _state.enterGuarded;
         if (_state.exitGuarded || _state.enterGuarded) {
-            enforceHasContractCode(_state.guardLogic, strConcat("Codeless guard address for state ", _state.name));
+            enforceHasContractCode(_state.guardLogic, CODELESS_GUARD);
             state.guardLogic = _state.guardLogic;
         }
 
@@ -270,18 +268,19 @@ contract FismoUpdate is IFismoUpdate, FismoAccess, FismoEvents {
     internal
     {
         // determine enter guard function signature for state
-        // Ex. keccak256 hash of: MachineName_StateName_Enter(address _user)
+        // Ex. keccak256 hash of: MachineName_StateName_Enter(address, string memory)
         bytes4 enterGuardSelector = getGuardSelector(_machine.name, _state.name, Guard.Enter);
 
         // Map the enter guard function selector to the address of the guard logic implementation for this state
         getStore().guardLogic[enterGuardSelector] = (_state.enterGuarded) ? _state.guardLogic : address(0);
 
         // determine exit guard function signature for state
-        // Ex. keccak256 hash of: MachineName_StateName_Exit(address _user)
+        // Ex. keccak256 hash of: MachineName_StateName_Exit(address, string memory)
         bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, Guard.Exit);
 
         // Map the exit guard function selector to the address of the guard logic implementation for this state
         getStore().guardLogic[exitGuardSelector] = (_state.exitGuarded) ?  _state.guardLogic : address(0);
+
     }
 
     /**

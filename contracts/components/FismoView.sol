@@ -35,7 +35,7 @@ contract FismoView is IFismoView, FismoTools {
     returns (address guardAddress)
     {
         guardAddress = getStore().guardLogic[_functionSelector];
-        require(guardAddress != address(0), "Guard does not exist");
+        require(guardAddress != address(0), NO_SUCH_GUARD);
     }
 
     /**
@@ -141,7 +141,7 @@ contract FismoView is IFismoView, FismoTools {
         machine = getStore().machine[_machineId];
 
         // Make sure machine exists
-        require(machine.id == _machineId, "No such machine");
+        require(machine.id == _machineId, NO_SUCH_MACHINE);
     }
 
     /**
@@ -169,7 +169,7 @@ contract FismoView is IFismoView, FismoTools {
         state = machine.states[index];
 
         // Make sure state exists
-        require(state.id == _stateId, "No such state");
+        require(state.id == _stateId, NO_SUCH_STATE);
     }
 
     /**
