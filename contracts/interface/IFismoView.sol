@@ -8,7 +8,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  * @title IFismoView
  *
  * Interface for Fismo view functions
- * The ERC-165 identifier for this interface is 0x284a083c. // TODO: recalc
+ * The ERC-165 identifier for this interface is 0x26276912.
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -20,7 +20,7 @@ interface IFismoView is IERC165 {
      * Reverts if
      * - guard logic implementation is not defined
      *
-     * @param _functionSelector - the keck
+     * @param _functionSelector - the bytes4 sighash of function signature
      * @return guardAddress - the address of the guard logic implementation contract
      */
     function getGuardAddress(bytes4 _functionSelector)
@@ -38,6 +38,17 @@ interface IFismoView is IERC165 {
     external
     view
     returns (FismoTypes.Position memory position);
+
+    /**
+     * @notice Get the entire position history for a given user
+     *
+     * @param _user - the address of the user
+     * @return history - an array of Position structs
+     */
+    function getPositionHistory(address _user)
+    external
+    view
+    returns (FismoTypes.Position[] memory history);
 
     /**
      * @notice Get the current state for a given user in a given machine.

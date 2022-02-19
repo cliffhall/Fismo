@@ -1,5 +1,5 @@
 /**
- * Domain Entity: Transition
+ * Fismo Domain Entity: Transition
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');

@@ -1,5 +1,5 @@
 /**
- * Domain Entity: ActionResponse
+ * Fismo Domain Entity: ActionResponse
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');

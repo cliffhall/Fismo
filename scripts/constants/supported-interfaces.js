@@ -6,6 +6,6 @@
 exports.InterfaceIds = {
     IFismoOperate:       "0xcad6b576",
     IFismoUpdate:        "0xe29cbd4a",
-    IFismoView:          "0x653649dd",
+    IFismoView:          "0x26276912",
     IERC165:             "0x01ffc9a7",
 };

@@ -7,7 +7,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  * @title FismoOperate
  *
  * Operate Fismo state machines
- * The ERC-165 identifier for this interface is 0x284a083c. // TODO: recalc
+ * The ERC-165 identifier for this interface is 0xcad6b576
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */

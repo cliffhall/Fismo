@@ -1,5 +1,5 @@
 /**
- * Domain Enum: Guard
+ * Fismo Domain Enum: Guard
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');

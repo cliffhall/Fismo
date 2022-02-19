@@ -1,5 +1,5 @@
 /**
- * Domain Entity: Machine
+ * Fismo Domain Entity: Machine
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');

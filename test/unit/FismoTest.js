@@ -19,6 +19,7 @@ const { nameToId } =  require('../../scripts/util/name-utils');
 // Domain entities
 const State = require("../../scripts/domain/State");
 const Machine = require("../../scripts/domain/Machine");
+const Position = require("../../scripts/domain/Position");
 const Transition = require("../../scripts/domain/Transition");
 const ActionResponse = require("../../scripts/domain/ActionResponse");
 
@@ -31,7 +32,7 @@ describe("Fismo", function() {
 
     // Common vars
     let accounts, deployer, user, operator, guardLogic, operatorArgs, guards, expected;
-    let fismo, machine, machineObj;
+    let fismo, machine, machineObj, position, response, targetStateName, targetStateId;
     let state, transition, action, stateName, stateId, actionId;
     let actionResponse, actionResponseStruct, selector;
 
@@ -43,6 +44,7 @@ describe("Fismo", function() {
         user = accounts[1];
         operator = accounts[2];   // operator can be an EOA, which helps with unit testing
         guardLogic = accounts[3]; // just need a valid address for the guard logic since we won't invoke it in units
+        user = accounts[4];
 
         // Deploy Fismo
         [fismo] = await deployFismo(deployer.address, gasLimit);
@@ -640,26 +642,172 @@ describe("Fismo", function() {
                 // Verify that the appropriate address was returned
                 expect(guardLogic).to.equal(expected);
 
+            });
+
+        });
+
+        context("👉 getLastPosition()", async function () {
+
+            beforeEach( async function () {
+
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+                // Id of action to invoke
+                action = "Inhale";
+                actionId = nameToId(action);
 
             });
 
-            context("💔 Revert Reasons", async function () {
+            it("Should return the last position of a user who has interacted with Fismo", async function () {
 
-                /*
-                 * Reverts if
-                 * -  no guard exists for the function selector
-                 */
+                // Invoke the action
+                await fismo.connect(operator).invokeAction(user.address, machine.id, actionId);
 
-                it("Should revert if no guard exists for the function selector", async function () {
+                // Request the last position of the user
+                response = await fismo.getLastPosition(user.address);
 
-                    // Invalid function selector
-                    selector = nameToId("not this");
+                // Validate the returned Position
+                position = Position.fromObject(response);
+                expect(position.isValid()).to.be.true;
 
-                    // Attempt to invoke the action from user wallet, checking for revert
-                    await expect(fismo.connect(user).getGuardAddress(selector))
-                        .to.revertedWith(RevertReasons.NO_SUCH_GUARD);
+            });
 
+            it("Should return a zeroed position for a user who has not interacted with Fismo", async function () {
+
+                // Request the last position of the user
+                response = await fismo.getLastPosition(user.address);
+
+                // Validate the returned Position (zeroed fields not considered valid)
+                position = Position.fromObject(response);
+                expect(position.isValid()).to.be.false;
+
+            });
+
+        });
+
+        context("👉 getPositionHistory()", async function () {
+
+            beforeEach( async function () {
+
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+                // Id of action to invoke
+                action = "Inhale";
+                actionId = nameToId(action);
+
+            });
+
+            it("Should return the position history for a user who has interacted with Fismo", async function () {
+
+                // N.B. in this single-state machine, the actions return to the same state and are repeatable
+
+                // Invoke the action several times
+                let totalPositions = 5;
+                for (let i = 0; i < totalPositions; i++) {
+                    await fismo.connect(operator).invokeAction(user.address, machine.id, actionId);
+                }
+
+                // Request the position history of the user
+                response = await fismo.getPositionHistory(user.address);
+
+                // Response should be an array
+                expect(Array.isArray(response));
+
+                // There should be an entry for the new position recorded after the each invoked action
+                expect(response.length === totalPositions).to.be.true;
+
+                // Validate the returned Position array
+                expect(Position.positionHistoryIsValid(response)).to.be.true;
+
+            });
+
+            it("Should return an empty array for a user who has not interacted with Fismo", async function () {
+
+                // User has never interacted, so expect...
+                let totalPositions = 0;
+
+                // Request the position history of the user
+                response = await fismo.getPositionHistory(user.address);
+
+                // Response should be an array
+                expect(Array.isArray(response));
+
+                // There should no positions
+                expect(response.length === totalPositions).to.be.true;
+
+            });
+
+        });
+
+        context("👉 getUserState()", async function () {
+
+            beforeEach( async function () {
+
+                machine = Machine.fromObject(machineObj);
+                expect(machine.isValid()).is.true;
+
+                // Add machine to Fismo
+                await fismo.addMachine(machine.toObject());
+
+                // N.B. in this single-state machine, the actions return to the same state and are repeatable
+                // Add another state for these tests, since even with no interaction, the machine's initial state
+                // would be returned.
+
+                // Id of action to invoke
+                action = "Transcend";
+                actionId = nameToId(action);
+                targetStateName = "Enlightenment";
+                targetStateId = nameToId(targetStateName);
+
+                // Define a simple end state, no transitions
+                state = State.fromObject({
+                    "name": targetStateName,
+                    "enterGuarded": false,
+                    "exitGuarded": false
                 });
+
+                // Add the state to the existing machine
+                await fismo.addState(machine.id, state.toObject());
+
+                // Create a new transition instance
+                transition = Transition.fromObject({
+                    action,
+                    targetStateName
+                });
+
+                // Add a transition from the previous state of the machine to the new state
+                await fismo.addTransition(machine.id, stateId, transition.toObject());
+
+            });
+
+            it("Should return the current state id of a user who has interacted with a given machine", async function () {
+
+                // Invoke the action
+                await fismo.connect(operator).invokeAction(user.address, machine.id, actionId);
+
+                // Request the current state id of the user in the given machine
+                response = await fismo.getUserState(user.address, machine.id);
+
+                // Validate the returned stateId
+                expect(response === targetStateId).to.be.true;
+
+            });
+
+            it("Should return a machine's initial state for a user who has not interacted with a it", async function () {
+
+                // Request the current state id of the user in the given machine
+                response = await fismo.getUserState(user.address, machine.id);
+
+                // Validate the returned stateId
+                expect(response === stateId).to.be.true;
 
             });
 

@@ -7,7 +7,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  * @title IFismoUpdate
  *
  * Interface for Fismo update functions
- * The ERC-165 identifier for this interface is 0x284a083c. // TODO: recalc
+ * The ERC-165 identifier for this interface is 0xe29cbd4a
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -22,7 +22,8 @@ interface IFismoUpdate {
     /**
      * @notice Add a new Machine
      *
-     * Reverts if
+     * Reverts if:
+     * - caller is not contract owner
      * - operator address is zero
      * - machine id is not valid
      * - machine id already exists
@@ -35,10 +36,15 @@ interface IFismoUpdate {
     /**
      * @notice Add a state to an existing Machine
      *
-     * Reverts if
+     * Reverts if:
+     * - caller is not contract owner
      * - state id is invalid
      * - machine does not exist
      * - any contained transition is invalid
+     *
+     * Remember:
+     * - the new state will not be reachable by any action
+     * - add one or more transitions to other states, targeting the new state
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
@@ -60,7 +66,7 @@ interface IFismoUpdate {
      * Use this when:
      * - adding more than one transition
      * - removing one or more transitions
-     * - changing exitGuarded and/or enterGuarded
+     * - changing exitGuarded, enterGuarded, guardLogic params
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to update
@@ -72,10 +78,14 @@ interface IFismoUpdate {
      * @notice Add a transition to an existing state of an existing machine
      *
      * Reverts if:
+     * - caller is not contract owner
      * - machine does not exist
      * - state does not exist
-     * - transition id is invalid
-     * - any contained transition is invalid
+     * - action id is invalid
+     * - target state id is invalid
+     *
+     * Use this when:
+     * - adding only a single transition (use updateState for multiple)
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state

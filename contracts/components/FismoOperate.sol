@@ -92,8 +92,9 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
      * @notice Make a delegatecall to the specified guard function
      *
      * Reverts if
-     * - Guard logic decides to disallow transition
-     * - delegatecall attempt fails
+     * - guard logic implementation is not defined
+     * - guard logic reverts
+     * - delegatecall attempt fails for any other reason
      *
      * @param _user - the user address the call is being invoked for
      * @param _machineName - the name of the machine
@@ -121,6 +122,7 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
 
         // Get the guard implementation address
         address guardAddress = getGuardAddress(selector);
+        require(guardAddress != address(0), NO_SUCH_GUARD);
 
         // Invoke the guard
         (bool success, bytes memory response) = guardAddress.delegatecall(guardCall);

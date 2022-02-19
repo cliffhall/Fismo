@@ -9,6 +9,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
 import { IFismoView } from "../interface/IFismoView.sol";
 import { IFismoUpdate } from "../interface/IFismoUpdate.sol";
 import { IFismoOperate } from "../interface/IFismoOperate.sol";
+import { console } from "hardhat/console.sol";
 
 /**
  * @title FismoView
@@ -22,10 +23,7 @@ contract FismoView is IFismoView, FismoTools {
     /**
      * @notice Get the implementation address for a given guard selector
      *
-     * Reverts if
-     * - guard logic implementation is not defined
-     *
-     * @param _functionSelector - the keck
+     * @param _functionSelector - the bytes4 sighash of function signature
      * @return guardAddress - the address of the guard logic implementation contract
      */
     function getGuardAddress(bytes4 _functionSelector)
@@ -35,13 +33,13 @@ contract FismoView is IFismoView, FismoTools {
     returns (address guardAddress)
     {
         guardAddress = getStore().guardLogic[_functionSelector];
-        require(guardAddress != address(0), NO_SUCH_GUARD);
     }
 
     /**
-     * @notice Get the last known machine and state ids for a given user
+     * @notice Get the last known position for a given user
      *
-     * TODO: Test transfer of struct from storage to memory
+     * Each position contains a machine id and state id.
+     * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
      * @return position - the last recorded position of the given user
@@ -63,17 +61,20 @@ contract FismoView is IFismoView, FismoTools {
     /**
      * @notice Get the entire position history for a given user
      *
-     * TODO: Test transfer of struct array from storage to memory
+     * Each position contains a machine id and state id.
+     * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
+     * @return history - an array of Position structs
      */
     function getPositionHistory(address _user)
     public
     view
     returns (Position[] memory history)
     {
-        // Get the user's position history
+        // Return the user's position history
         history = getStore().userHistory[_user];
+
     }
 
     /**
@@ -84,7 +85,6 @@ contract FismoView is IFismoView, FismoTools {
      *
      * @param _user - the address of the user
      * @param _machineId - the address of the user
-     *
      * @return currentStateId - the user's current state in the given machine
      */
     function getUserState(address _user, bytes4 _machineId)

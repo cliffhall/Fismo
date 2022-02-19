@@ -1,5 +1,5 @@
 /**
- * Domain Entity: State
+ * Fismo Domain Entity: State
  * @author Cliff Hall <cliff@futurescale.com>
  */
 const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');

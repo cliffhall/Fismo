@@ -76,6 +76,10 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * - machine does not exist
      * - any contained transition is invalid
      *
+     * Remember:
+     * - the new state will not be reachable by any action
+     * - add one or more transitions to other states, targeting the new state
+     *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
      */
@@ -116,6 +120,9 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * - state does not exist
      * - action id is invalid
      * - target state id is invalid
+     *
+     * Use this when:
+     * - adding only a single transition (use updateState for multiple)
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state
@@ -161,7 +168,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     /**
      * @notice Update an existing state to an existing machine
      *
-     * State name / id cannot be changed.
+     * N.B. state name and id cannot be changed.
      *
      * Reverts if:
      * - machine does not exist
@@ -172,7 +179,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * Use this when:
      * - adding more than one transition
      * - removing one or more transitions
-     * - changing exitGuarded and/or enterGuarded
+     * - changing exitGuarded, enterGuarded, guardLogic params
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to update
