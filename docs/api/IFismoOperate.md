@@ -4,7 +4,7 @@
 ## Fismo API
 ### IFismoOperate 💥 [IFismoUpdate](IFismoUpdate.md)  💥 [IFismoView](IFismoView.md)
 
-## Interface [IFismoOperate.sol](../../contracts/interfaces/IFismoOperate.sol)
+## Interface [IFismoOperate](../../contracts/interfaces/IFismoOperate.sol)
 ###  Operate Fismo Machines
 The ERC-165 identifier for this interface is `0xcad6b576`
 

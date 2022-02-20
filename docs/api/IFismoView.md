@@ -4,12 +4,11 @@
 ## Fismo API
 ### [IFismoOperate](IFismoOperate.md) 💥 [IFismoUpdate](IFismoUpdate.md)  💥 IFismoView
 
-## Interface [IFismoView.sol](../../contracts/interfaces/IFismoView.sol)
+## Interface [IFismoView](../../contracts/interfaces/IFismoView.sol)
 ### View Fismo Storage
 The ERC-165 identifier for this interface is `0x26276912`
 
 ## Functions
-
 ### getGuardAddress
 Get the implementation address for a given Guard selector.
 
