@@ -40,7 +40,7 @@ interface IFismoView is IERC165 {
     returns (FismoTypes.Position memory position);
 
     /**
-     * @notice Get the entire position history for a given user
+     * @notice Get the entire position history for a given user.
      *
      * @param _user - the address of the user
      * @return history - an array of Position structs
@@ -57,7 +57,7 @@ interface IFismoView is IERC165 {
      * - machine does not exist
      *
      * @param _user - the address of the user
-     * @param _machineId - the address of the user
+     * @param _machineId - the id of the machine
      * @return currentStateId - the user's current state in the given machine
      */
     function getUserState(address _user, bytes4 _machineId)

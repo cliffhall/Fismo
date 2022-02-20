@@ -13,12 +13,12 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  */
 interface IFismoOperate {
 
-    event StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorState);
+    event StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorStateId);
     event StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId);
     event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response);
 
     /**
-     * Invoke an action on a configured machine
+     * Invoke an action on a configured machine.
      *
      * Reverts if
      * - caller is not the machine's operator (contract or EOA)

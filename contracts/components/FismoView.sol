@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/interfaces/IERC165.sol";
 import { FismoStore } from "./FismoStore.sol";
 import { FismoTools } from "./FismoTools.sol";
 import { FismoTypes } from "../domain/FismoTypes.sol";
-import { IFismoView } from "../interface/IFismoView.sol";
-import { IFismoUpdate } from "../interface/IFismoUpdate.sol";
-import { IFismoOperate } from "../interface/IFismoOperate.sol";
+import { IFismoView } from "../interfaces/IFismoView.sol";
+import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
+import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
 import { console } from "hardhat/console.sol";
 
 /**
@@ -84,7 +84,7 @@ contract FismoView is IFismoView, FismoTools {
      * - machine does not exist
      *
      * @param _user - the address of the user
-     * @param _machineId - the address of the user
+     * @param _machineId - the id of the machine
      * @return currentStateId - the user's current state in the given machine
      */
     function getUserState(address _user, bytes4 _machineId)

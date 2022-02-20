@@ -1,5 +1,5 @@
 ![Fismo](docs/images/fismo-logo.png)
-## Lab 🧪 [Setup](docs/setup.md) 🧪 [Tasks](docs/tasks.md) 🧪 [FAQ](docs/faq.md) 🧪  [About](docs/about.md)
+## Lab 🧪 [Setup](docs/setup.md) 🧪 [Tasks](docs/tasks.md) 🧪 [API](docs/api/README.md) 🧪 [FAQ](docs/faq.md) 🧪  [About](docs/about.md)
 
 ## Multitenant Finite State Machines for Ethereum
 #### An experiment in [Deterministic Proxy](docs/about.md#a-deterministic-proxy-experiment) design
@@ -21,8 +21,7 @@ Currently in development. Done or in progress are:
 - ✅ Contract unit tests
 - ✅ CI build and test with Github Actions
 - ✅ High level architecture documentation
-- 👉 Project structure documentation
-- 👉 API documentation
+- ✅ API documentation
 - 👉 Machine operation tests (multi-step operation of machine examples)
 - 👉 Explore minimal clones for cheap deployments
 - 👉 Javascript NPM package for interacting with Fismo

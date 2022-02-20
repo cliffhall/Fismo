@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { FismoAccess } from "./FismoAccess.sol";
-import { IFismoUpdate } from "../interface/IFismoUpdate.sol";
+import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
 
 /**
  * @title FismoUpdate
@@ -16,11 +16,16 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     /**
      * @notice Add a new Machine
      *
+     * Emits:
+     * - MachineAdded
+     * - StateAdded
+     * - TransitionAdded
+     *
      * Reverts if:
      * - caller is not contract owner
      * - operator address is zero
      * - machine id is not valid
-     * - machine id already exists
+     * - machine already exists
      *
      * @param _machine - the machine definition to add
      */
@@ -68,17 +73,21 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Add a state to an existing Machine
+     * @notice Add a State to an existing Machine
+     *
+     * Note:
+     * - the new state will not be reachable by any action
+     * - add one or more transitions to other states, targeting the new state
+     *
+     * Emits:
+     * - StateAdded
+     * - TransitionAdded
      *
      * Reverts if:
      * - caller is not contract owner
      * - state id is invalid
      * - machine does not exist
      * - any contained transition is invalid
-     *
-     * Remember:
-     * - the new state will not be reachable by any action
-     * - add one or more transitions to other states, targeting the new state
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
@@ -112,7 +121,10 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Add a transition to an existing state of an existing machine
+     * @notice Add a Transition to an existing State of an existing Machine
+     *
+     * Emits:
+     * - TransitionAdded
      *
      * Reverts if:
      * - caller is not contract owner
@@ -171,6 +183,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * N.B. state name and id cannot be changed.
      *
      * Reverts if:
+     * - caller is not contract owner
      * - machine does not exist
      * - state does not exist
      * - state id is invalid

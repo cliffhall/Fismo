@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import { IFismoOperate } from "../../interface/IFismoOperate.sol";
+import { IFismoOperate } from "../../interfaces/IFismoOperate.sol";
 import { NightClubConstants } from "./NightClubConstants.sol";
 import { FismoTypes } from "../../domain/FismoTypes.sol";
 

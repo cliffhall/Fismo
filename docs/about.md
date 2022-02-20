@@ -1,5 +1,5 @@
 ![Fismo](images/fismo-logo.png)
-## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 [Tasks](tasks.md) 🧪 [FAQ](faq.md) 🧪 About
+## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 [Tasks](tasks.md) 🧪  [API](api/README.md) 🧪 [FAQ](faq.md) 🧪 About
 
 ## The Big Picture
 ![The Big Picture](images/FismoHighLevelArch.png)

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { FismoUpdate } from "./FismoUpdate.sol";
-import { IFismoOperate } from "../interface/IFismoOperate.sol";
+import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
 
 /**
  * @title FismoOperate
@@ -21,6 +21,8 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
      * - _machineId does not refer to a valid machine
      * - _actionId is not valid for the user's current state in the given machine
      * - any invoked guard logic reverts (revert reason is guard response)
+     *
+     * Emits Transitioned event if successful.
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the target machine

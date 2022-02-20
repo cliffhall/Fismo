@@ -1,5 +1,5 @@
 ![Fismo](images/fismo-logo.png)
-## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 Tasks 🧪 [FAQ](faq.md) 🧪 [About](about.md)
+## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 Tasks 🧪 [API](api/README.md) 🧪 [FAQ](faq.md) 🧪 [About](about.md)
 
 ## Development Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.
