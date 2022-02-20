@@ -5,47 +5,20 @@
 ### IFismoOperate 💥 [IFismoUpdate](IFismoUpdate.md)  💥 [IFismoView](IFismoView.md)
 
 ## Interface [IFismoOperate.sol](../../contracts/interfaces/IFismoOperate.sol)
-### Invoke Actions on Fismo Machines
+###  Operate Fismo Machines
 The ERC-165 identifier for this interface is `0xcad6b576`
 
 ## Events
 
-- [`StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorStateId)`](#stateexited)
-
-- [`StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId)`](#stateentered)
-
-- [`Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response)`](#transitioned)
-
-### StateExited
-
-```solidity
-event StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorStateId);
-```
-**Parameters**
-
-| Name         | Description                 | Type     |
-|--------------|-----------------------------|----------|
-| user         | the user's wallet address   | address  | 
-| machineId    | the machine's id            | bytes4  | 
-| priorStateId | the id of state exited | bytes4  | 
-
-
-### StateEntered
-
-```solidity
-event StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId);
-```
-**Parameters**
-
-| Name         | Description               | Type     |
-|--------------|---------------------------|----------|
-| user         | the user's wallet address | address  | 
-| machineId    | the machine's id          | bytes4  | 
-| newStateId | the id of state entered   | bytes4  | 
-
-
 ### Transitioned
+Emitted when a user transitions from one State to another.
 
+<details>
+<summary>
+View Details
+</summary>
+
+**Signature**
 ```solidity
 event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response);
 ```
@@ -57,13 +30,17 @@ event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexe
 | machineId   | the machine's id             | bytes4  | 
 | actionId | the id of the action invoked | bytes4  | 
 | response | the id of the action invoked | FismoTypes.ActionResponse  | 
-
+</details>
 
 ## Functions
-- [`invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)`](#invokeAction)
 
 ### invokeAction
-Invoke an action on a configured machine.
+Invoke an action on a configured Machine.
+
+<details>
+<summary>
+View Details
+</summary>
 
 **Emits events**
 * [`StateExited`](#stateexited)
@@ -71,10 +48,10 @@ Invoke an action on a configured machine.
 * [`Transitioned`](#transitioned)
 
 **Reverts if**
-- caller is not the machine's operator (contract or EOA)
-- _`machineId` does not refer to a valid machine
-- _`actionId` is not valid for the user's current state in the given machine
-- any invoked guard logic reverts (revert reason is guard response)
+- Caller is not the machine's Operator address
+- Machine does not exist
+- Action is not valid for the user's current State in the given Machine
+- Any invoked guard logic reverts
 
 **Signature**
 ```solidity
@@ -96,3 +73,4 @@ returns(FismoTypes.ActionResponse memory response);
 | Name        | Description                                | Type          |
 | ------------- |--------------------------------------------|-------------|
 | response | the address of the guard logic implementation contract| FismoTypes.ActionResponse |
+</details>

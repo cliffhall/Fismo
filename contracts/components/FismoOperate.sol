@@ -14,13 +14,13 @@ import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
 contract FismoOperate is IFismoOperate, FismoUpdate  {
 
     /**
-     * Invoke an action on a configured machine
+     * Invoke an action on a configured Machine.
      *
      * Reverts if
-     * - caller is not the machine's operator
-     * - _machineId does not refer to a valid machine
-     * - _actionId is not valid for the user's current state in the given machine
-     * - any invoked guard logic reverts (revert reason is guard response)
+     * - Caller is not the machine's operator
+     * - Machine does not exist
+     * - Action is not valid for the user's current State in the given Machine
+     * - any invoked Guard logic reverts
      *
      * Emits Transitioned event if successful.
      *

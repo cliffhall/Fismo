@@ -29,7 +29,10 @@ interface IFismoView is IERC165 {
     returns (address guardAddress);
 
     /**
-     * @notice Get the last known machine and state ids for a given user
+     * @notice Get the last recorded position of the given user.
+     *
+     * Positions contain a machine id and state id.
+     * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
      * @return position - the last recorded position of the given user
@@ -41,6 +44,9 @@ interface IFismoView is IERC165 {
 
     /**
      * @notice Get the entire position history for a given user.
+     *
+     * Each Position contains a machine id and state id.
+     * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
      * @return history - an array of Position structs
@@ -54,7 +60,7 @@ interface IFismoView is IERC165 {
      * @notice Get the current state for a given user in a given machine.
      *
      * Reverts if:
-     * - machine does not exist
+     * - Machine does not exist
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the machine

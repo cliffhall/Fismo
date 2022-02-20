@@ -36,7 +36,7 @@ contract FismoView is IFismoView, FismoTools {
     }
 
     /**
-     * @notice Get the last known position for a given user
+     * @notice Get the last recorded position of the given user.
      *
      * Each position contains a machine id and state id.
      * See: {FismoTypes.Position}
@@ -127,7 +127,7 @@ contract FismoView is IFismoView, FismoTools {
      * @notice Get a machine by id
      *
      * Reverts if
-     * - machine does not exist
+     * - Machine does not exist
      *
      * @param _machineId - the id of the machine
      * @return machine - the machine configuration
@@ -145,10 +145,10 @@ contract FismoView is IFismoView, FismoTools {
     }
 
     /**
-     * @notice Get a state by machine id and state id
+     * @notice Get a state by Machine id and State id.
      *
      * Reverts if
-     * - state does not exist
+     * - State does not exist
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state
@@ -173,7 +173,7 @@ contract FismoView is IFismoView, FismoTools {
     }
 
     /**
-     * @notice Get a state's index in machine's states array
+     * @notice Get a State's index in Machine's states array.
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state within the given machine
@@ -189,7 +189,7 @@ contract FismoView is IFismoView, FismoTools {
     }
 
     /**
-     * @notice Get the Fismo storage slot
+     * @notice Get the Fismo storage slot.
      *
      * @return Fismo storage slot
      */

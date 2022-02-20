@@ -13,18 +13,17 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  */
 interface IFismoOperate {
 
-    event StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorStateId);
-    event StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId);
+    /// Emitted when a user transitions from one State to another.
     event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response);
 
     /**
-     * Invoke an action on a configured machine.
+     * Invoke an action on a configured Machine.
      *
      * Reverts if
-     * - caller is not the machine's operator (contract or EOA)
-     * - _machineId does not refer to a valid machine
-     * - _actionId is not valid for the user's current state in the given machine
-     * - any invoked guard logic reverts (revert reason is guard response)
+     * - Caller is not the machine's operator (contract or EOA)
+     * - Machine does not exist
+     * - Action is not valid for the user's current State in the given Machine
+     * - Any invoked Guard logic reverts
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the target machine

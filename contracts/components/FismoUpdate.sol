@@ -14,7 +14,7 @@ import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
 contract FismoUpdate is IFismoUpdate, FismoAccess {
 
     /**
-     * @notice Add a new Machine
+     * @notice Add a new Machine to Fismo.
      *
      * Emits:
      * - MachineAdded
@@ -22,10 +22,10 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * - TransitionAdded
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - operator address is zero
-     * - machine id is not valid
-     * - machine already exists
+     * - Caller is not contract owner
+     * - Operator address is zero
+     * - Machine id is not valid for Machine name
+     * - Machine already exists
      *
      * @param _machine - the machine definition to add
      */
@@ -73,21 +73,21 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Add a State to an existing Machine
+     * @notice Add a State to an existing Machine.
      *
      * Note:
-     * - the new state will not be reachable by any action
-     * - add one or more transitions to other states, targeting the new state
+     * - The new state will not be reachable by any action
+     * - Add one or more transitions to other states, targeting the new state
      *
      * Emits:
      * - StateAdded
      * - TransitionAdded
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - state id is invalid
-     * - machine does not exist
-     * - any contained transition is invalid
+     * - Caller is not contract owner
+     * - State id is invalid for State name
+     * - Machine does not exist
+     * - Any contained transition is invalid
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
@@ -121,20 +121,63 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
+     * @notice Add a Transition to an existing State of an existing Machine.
+     *
+     * Note:
+     * - State name and id cannot be changed.
+     *
+     * Reverts if:
+     * - Caller is not contract owner
+     * - Machine does not exist
+     * - State does not exist
+     * - State id is invalid
+     * - Any contained transition is invalid
+     *
+     * Use this when:
+     * - Adding more than one transition
+     * - Removing one or more transitions
+     * - Changing exitGuarded, enterGuarded, guardLogic params
+     *
+     * @param _machineId - the id of the machine
+     * @param _state - the state to update
+     */
+    function updateState(bytes4 _machineId, State memory _state)
+    public
+    override
+    onlyOwner
+    {
+        // Make sure state id is valid
+        require(_state.id == nameToId(_state.name), INVALID_STATE_ID);
+
+        // Get the machine
+        Machine storage machine = getMachine(_machineId);
+
+        // Make sure state exists
+        uint256 index = getStateIndex(_machineId, _state.id);
+        require(machine.states[index].id == _state.id, NO_SUCH_STATE);
+
+        // Overwrite the state in the machine's states array
+        storeState(machine, _state, index);
+
+        // Alert listeners to change of state
+        emit StateUpdated(_machineId, _state.id, _state.name);
+    }
+
+    /**
      * @notice Add a Transition to an existing State of an existing Machine
      *
      * Emits:
      * - TransitionAdded
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - machine does not exist
-     * - state does not exist
-     * - action id is invalid
-     * - target state id is invalid
+     * - Caller is not contract owner
+     * - Machine does not exist
+     * - State does not exist
+     * - Action id is invalid
+     * - Target state id is invalid
      *
      * Use this when:
-     * - adding only a single transition (use updateState for multiple)
+     * - Adding only a single transition (use updateState for multiple)
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state
@@ -178,54 +221,13 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Update an existing state to an existing machine
+     * @notice Store a State.
      *
-     * N.B. state name and id cannot be changed.
-     *
-     * Reverts if:
-     * - caller is not contract owner
-     * - machine does not exist
-     * - state does not exist
-     * - state id is invalid
-     * - any contained transition is invalid
-     *
-     * Use this when:
-     * - adding more than one transition
-     * - removing one or more transitions
-     * - changing exitGuarded, enterGuarded, guardLogic params
-     *
-     * @param _machineId - the id of the machine
-     * @param _state - the state to update
-     */
-    function updateState(bytes4 _machineId, State memory _state)
-    public
-    override
-    onlyOwner
-    {
-        // Make sure state id is valid
-        require(_state.id == nameToId(_state.name), INVALID_STATE_ID);
-
-        // Get the machine
-        Machine storage machine = getMachine(_machineId);
-
-        // Make sure state exists
-        uint256 index = getStateIndex(_machineId, _state.id);
-        require(machine.states[index].id == _state.id, NO_SUCH_STATE);
-
-        // Overwrite the state in the machine's states array
-        storeState(machine, _state, index);
-
-        // Alert listeners to change of state
-        emit StateUpdated(_machineId, _state.id, _state.name);
-    }
-
-    /**
-     * @notice Store a state
+     * Note:
+     * - Shared by addState and updateState.
      *
      * Reverts if:
      * - No code is found at a guarded state's guardLogic address
-     *
-     * Shared by addState and updateState
      *
      * @param _machine - the machine's storage location
      * @param _state - the state's storage location
@@ -265,7 +267,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Map a state's index in machine's states array
+     * @notice Map a State's index in Machine's states array.
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state within the given machine
@@ -279,7 +281,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Update the guard function selector mappings for given state
+     * @notice Update the Gguard function selector mappings for given State.
      *
      * @param _machine - the machine. see {Machine}
      * @param _state - the state. see {State}
@@ -304,7 +306,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Set the current state for a given user in a given machine.
+     * @notice Set the current State for a given user in a given Machine.
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the machine

@@ -13,14 +13,22 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  */
 interface IFismoUpdate {
 
-    /// Events
+    /// Emitted when a new Machine is added to Fismo.
     event MachineAdded(bytes4 indexed machineId, string machineName);
+
+    /// Emitted when a new State is added to Fismo.
+    /// May be emitted multiple times during the addition of a Machine.
     event StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+
+    /// Emitted when an existing State is updated.
     event StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+
+    /// Emitted when a new Transition is added to an existing State.
+    /// May be emitted multiple times during the addition of a Machine or State.
     event TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName);
 
     /**
-     * @notice Add a new Machine
+     * @notice Add a new Machine to Fismo.
      *
      * Emits:
      * - MachineAdded
@@ -28,10 +36,10 @@ interface IFismoUpdate {
      * - TransitionAdded
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - operator address is zero
-     * - machine id is not valid
-     * - machine already exists
+     * - Caller is not contract owner
+     * - Operator address is zero
+     * - Machine id is not valid for Machine name
+     * - Machine already exists
      *
      * @param _machine - the machine definition to add
      */
@@ -39,21 +47,21 @@ interface IFismoUpdate {
     external;
 
     /**
-     * @notice Add a State to an existing Machine
+     * @notice Add a State to an existing Machine.
      *
      * Note:
-     * - the new state will not be reachable by any action
-     * - add one or more transitions to other states, targeting the new state
+     * - The new state will not be reachable by any action
+     * - Add one or more transitions to other states, targeting the new state
      *
      * Emits:
      * - StateAdded
      * - TransitionAdded
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - state id is invalid
-     * - machine does not exist
-     * - any contained transition is invalid
+     * - Caller is not contract owner
+     * - State id is invalid
+     * - Machine does not exist
+     * - Any contained transition is invalid
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
@@ -62,21 +70,22 @@ interface IFismoUpdate {
     external;
 
     /**
-     * @notice Update an existing state to an existing machine
+     * @notice Update an existing State in an existing Machine.
      *
-     * N.B. state name and id cannot be changed.
+     * Note:
+     * - State name and id cannot be changed.
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - machine does not exist
-     * - state does not exist
-     * - state id is invalid
-     * - any contained transition is invalid
+     * - Caller is not contract owner
+     * - Machine does not exist
+     * - State does not exist
+     * - State id is invalid
+     * - Any contained transition is invalid
      *
      * Use this when:
-     * - adding more than one transition
-     * - removing one or more transitions
-     * - changing exitGuarded, enterGuarded, guardLogic params
+     * - Adding more than one transition
+     * - Removing one or more transitions
+     * - Changing exitGuarded, enterGuarded, guardLogic params
      *
      * @param _machineId - the id of the machine
      * @param _state - the state to update
@@ -85,20 +94,20 @@ interface IFismoUpdate {
     external;
 
     /**
-     * @notice Add a Transition to an existing State of an existing Machine
+     * @notice Add a Transition to an existing State of an existing Machine.
      *
      * Emits:
      * - TransitionAdded
      *
      * Reverts if:
-     * - caller is not contract owner
-     * - machine does not exist
-     * - state does not exist
-     * - action id is invalid
-     * - target state id is invalid
+     * - Caller is not contract owner
+     * - Machine does not exist
+     * - State does not exist
+     * - Action id is invalid
+     * - Target state id is invalid
      *
      * Use this when:
-     * - adding only a single transition (use updateState for multiple)
+     * - Adding only a single transition (use updateState for multiple)
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state

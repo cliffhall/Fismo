@@ -9,16 +9,17 @@
 The ERC-165 identifier for this interface is `0x26276912`
 
 ## Functions
-- [`getGuardAddress(bytes4 _functionSelector)`](#getGuardAddress)
-- [`getLastPosition(address _user)`](#getLastPosition)
-- [`getPositionHistory(address _user)`](#getPositionHistory)
-- [`getUserState(address _user, bytes4 _machineId)`](#getUserState)
 
 ### getGuardAddress
-Get the implementation address for a given guard selector.
+Get the implementation address for a given Guard selector.
+
+<details>
+<summary>
+View Details
+</summary>
 
 **Reverts if**
-- guard logic implementation is not defined
+- Guard logic implementation is not defined
 
 **Signature**
 ```solidity
@@ -39,9 +40,15 @@ returns (address guardAddress);
 | Name        | Type           | Description                                |
 | ------------- |------------- |--------------------------------------------|
 | guardAddress | address | the address of the guard logic implementation contract|
+</details>
 
 ### getLastPosition
-Get the current state for a given user in a given machine.
+Get the last recorded position of the given user.
+
+<details>
+<summary>
+View Details
+</summary>
 
 **Signature**
 ```solidity
@@ -62,9 +69,15 @@ returns (FismoTypes.Position memory position);
 | Name        | Type                | Description                                |
 | ------------- |---------------------|--------------------------------------------|
 | position | FismoTypes.Position | the last recorded position of the given user|
+</details>
 
 ### getPositionHistory
 Get the entire position history for a given user.
+
+<details>
+<summary>
+View Details
+</summary>
 
 **Signature**
 ```solidity
@@ -85,13 +98,18 @@ returns (FismoTypes.Position[] memory history);
 | Name        | Type                  | Description                               |
 | ------------- |-----------------------|-------------------------------------------|
 | history | FismoTypes.Position[] | an array of Position structs|
-
+</details>
 
 ### getUserState
 Get the current state for a given user in a given machine.
 
+<details>
+<summary>
+View Details
+</summary>
+
 **Reverts if**
-- machine does not exist
+- Machine does not exist
 
 **Signature**
 ```solidity
@@ -114,5 +132,6 @@ returns (bytes4 currentStateId);
 | ------------- |------------------------|------------------------------------------------|
 | currentStateId | bytes4 | the user's current state in the given machine  |
 
+</details>
 
 
