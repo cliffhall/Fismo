@@ -10,11 +10,11 @@ The ERC-165 identifier for this interface is `0xcad6b576`
 
 ## Events
 
-- [StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorStateId)](#stateexited)
+- [`StateExited(address indexed user, bytes4 indexed machineId, bytes4 indexed priorStateId)`](#stateexited)
 
-- [StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId)](#stateentered)
+- [`StateEntered(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId)`](#stateentered)
 
-- [Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response)](#transitioned)
+- [`Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response)`](#transitioned)
 
 ### StateExited
 
