@@ -42,9 +42,7 @@ Invoke an action on a configured Machine.
 View Details
 </summary>
 
-**Emits events**
-* [`StateExited`](#stateexited)
-* [`StateEntered`](#stateentered)
+**Emits**
 * [`Transitioned`](#transitioned)
 
 **Reverts if**
