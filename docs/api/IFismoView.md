@@ -9,10 +9,10 @@
 The ERC-165 identifier for this interface is `0x26276912`
 
 ## Functions
-- [`getGuardAddress(bytes4 _functionSelector)`](#getGuardAddress)
-- [`getLastPosition(address _user)`](#getLastPosition)
-- [`getPositionHistory(address _user)`](#getPositionHistory)
-- [`getUserState(address _user, bytes4 _machineId)`](#getUserState)
+- [getGuardAddress(bytes4 _functionSelector)](#getGuardAddress)
+- [getLastPosition(address _user)](#getLastPosition)
+- [getPositionHistory(address _user)](#getPositionHistory)
+- [getUserState(address _user, bytes4 _machineId)](#getUserState)
 
 ### getGuardAddress
 Get the implementation address for a given guard selector.

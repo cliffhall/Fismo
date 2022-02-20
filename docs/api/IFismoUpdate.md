@@ -10,10 +10,10 @@ The ERC-165 identifier for this interface is `0xe29cbd4a`
 
 ## Events
 
-- [`MachineAdded(bytes4 indexed machineId, string machineName)`](#machineadded)
-- [`StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateName)`](#stateadded)
-- [`StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stateName)`](#stateupdated)
-- [`TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName)`](#transitionadded)
+- [MachineAdded(bytes4 indexed machineId, string machineName)](#machineadded)
+- [StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateName)](#stateadded)
+- [StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stateName)](#stateupdated)
+- [TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName)](#transitionadded)
 
 ### MachineAdded
 
