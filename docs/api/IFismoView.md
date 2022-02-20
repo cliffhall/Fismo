@@ -31,15 +31,15 @@ returns (address guardAddress);
 
 **Arguments**
 
-| Name        | Type           | Description                              |
-| ------------- |------------- |------------------------------------------|
-| _functionSelector | bytes4 | the bytes4 sighash of function signature | 
+| Name        |  Description |Type           |
+| ------------- |------------- |-------------|
+| _functionSelector | the bytes4 sighash of function signature | bytes4      |  
 
 **Return Values**
 
-| Name        | Type           | Description                                |
-| ------------- |------------- |--------------------------------------------|
-| guardAddress | address | the address of the guard logic implementation contract|
+| Name        | Description                                | Type           |
+| ------------- |--------------------------------------------|------------- |
+| guardAddress | the address of the guard logic implementation contract| address |
 </details>
 
 ### getLastPosition
@@ -60,15 +60,15 @@ returns (FismoTypes.Position memory position);
 
 **Arguments**
 
-| Name       | Type    | Description                              |
-| ----------- |---------|------------------------------------------|
-| _user | address | the address of the user | 
+| Name       | Description                              | Type    |
+| ----------- |------------------------------------------|---------|
+| _user | the address of the user | address | 
 
 **Return Values**
 
-| Name        | Type                | Description                                |
-| ------------- |---------------------|--------------------------------------------|
-| position | FismoTypes.Position | the last recorded position of the given user|
+| Name        | Description                                | Type                |
+| ------------- |--------------------------------------------|---------------------|
+| position | the last recorded position of the given user| FismoTypes.Position |
 </details>
 
 ### getPositionHistory
@@ -89,15 +89,15 @@ returns (FismoTypes.Position[] memory history);
 
 **Arguments**
 
-| Name       | Type    | Description                              |
-| ----------- |---------|------------------------------------------|
-| _user | address | the address of the user | 
+| Name       | Description                              | Type    |
+| ----------- |------------------------------------------|---------|
+| _user | the address of the user | address | 
 
 **Return Values**
 
-| Name        | Type                  | Description                               |
-| ------------- |-----------------------|-------------------------------------------|
-| history | FismoTypes.Position[] | an array of Position structs|
+| Name        | Description                   | Type                  |
+| ------------- |-------------------------------|-----------------------|
+| history | an array of Position structs  | FismoTypes.Position[] |
 </details>
 
 ### getUserState
@@ -121,10 +121,10 @@ returns (bytes4 currentStateId);
 
 **Arguments**
 
-| Name      | Type    | Description           |
-| ---------- |---------|-----------------------|
-| _user | address | the address of the user | 
-| _machineId | bytes4 | the id of the machine | 
+| Name      | Description           | Type    |
+| ---------- |-----------------------|---------|
+| _user | the address of the user | address | 
+| _machineId | the id of the machine | bytes4 | 
 
 **Return Values**
 
