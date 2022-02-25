@@ -3,7 +3,7 @@
 
 ## [Intro](intro.md) 💥 Setup 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
 
-## Setup
+## Local Dev Environment Setup
 The stack is a simple one:
 * Solidity
 * JavaScript
