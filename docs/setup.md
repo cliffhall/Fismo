@@ -1,8 +1,6 @@
 ![Fismo](images/fismo-logo.png)
 # [Status](../README.md) 🧪 [About](about.md) 🧪 Docs 🧪 [FAQ](faq.md)
 
-## Developer Documentation
-
 ## [Intro](intro.md) 💥 Setup 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
 
 ## Setup
