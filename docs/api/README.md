@@ -1,11 +1,15 @@
 ![Fismo](..//images/fismo-logo.png)
-## [Lab](../../README.md) 🧪 [Setup](../setup.md) 🧪 [Tasks](../tasks.md) 🧪 API 🧪 [FAQ](../faq.md) 🧪 [About](../about.md)
+## [Status](../../README.md) 🧪 [About](../about.md)  🧪 Docs 🧪 [FAQ](../faq.md)
+
+## Developer Documentation
+
+### [Intro](../docs.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
 ## Fismo API
 ### [IFismoOperate](IFismoOperate.md) 💥 [IFismoUpdate](IFismoUpdate.md)  💥 [IFismoView](IFismoView.md)
 
 ## Interfaces
-The `Fismo` contract's exposed functionality is split into three interfaces: 
+The exposed functionality of the `Fismo` contract is split into three interfaces: 
 * [`IFismoOperate`](IFismoOperate.md) - Operate Fismo machines.
 * [`IFismoUpdate`](IFismoUpdate.md) - Update Fismo storage.
 * [`IFismoView`](IFismoView.md) - View Fismo storage.

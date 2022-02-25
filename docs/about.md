@@ -1,8 +1,6 @@
 ![Fismo](images/fismo-logo.png)
-## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 [Tasks](tasks.md) 🧪  [API](api/README.md) 🧪 [FAQ](faq.md) 🧪 About
+## [Status](../README.md) 🧪 About 🧪 [Docs](docs.md) 🧪 [FAQ](faq.md)
 
-## The Big Picture
-![The Big Picture](images/FismoHighLevelArch.png)
 ## A Deterministic Proxy Experiment
 Most extensible among Solidity contract proxy patterns is the [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond Multi-Facet Proxy specification. It allows a proxy to have more than one upgradeable implementation (logic) contract. The Diamond architecture is extremely useful for almost any non-trivial contract suite, lending a modular building approach that can place any amount of logic behind a single Ethereum address. Having built upon the Diamond architecture multiple times, I highly recommend it.
 
@@ -19,7 +17,7 @@ FSMs are a perfect match for this experiment. As problem domains go, it's relati
 
 But there is one place where you need to add custom code: _guarding state transitions._ 
 
-In the [Lockable Door](../contracts/example/LockableDoor) example, going from the Locked state to the Unlocked state should require that the user have a key. That could be an NFT, or just some state in the contract. 
+In the [Lockable Door](../contracts/lab/LockableDoor) example, going from the Locked state to the Unlocked state should require that the user have a key. That could be an NFT, or just some state in the contract. 
 
 This is where you need to write some code and deploy a guard logic implementation contract. It is also where we get a chance to test the Deterministic Proxy hypothesis at the heart of the Fismo experiment.
 
@@ -31,6 +29,10 @@ This requires a developer to write function signatures in a very specific way, b
   - Each machine name must be unique  
   - Within a machine, each state name must be unique
   - There are only two valid guard directions
+
+## Result
+The Deterministic Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation.
+
 
 Additionally, we end up with a nice protocol that can be used to simulate, oh, I don't know...
   - [Nearly any describable process](https://scholar.google.com/scholar?q=process+simulation+with+finite+state+machines&hl=en&as_sdt=0&as_vis=1&oi=scholart)

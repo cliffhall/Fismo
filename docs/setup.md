@@ -1,5 +1,9 @@
 ![Fismo](images/fismo-logo.png)
-## [Lab](../README.md) 🧪 Setup 🧪 [Tasks](tasks.md) 🧪 [API](api/README.md) 🧪 [FAQ](faq.md) 🧪 [About](about.md)
+## [Status](../README.md) 🧪 [About](about.md) 🧪 Docs 🧪 [FAQ](faq.md)
+
+## Developer Documentation
+
+### [Intro](docs.md) 💥 Setup 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
 
 ## Developer Setup
 The stack is a simple one:

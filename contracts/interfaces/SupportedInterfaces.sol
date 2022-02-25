@@ -6,20 +6,21 @@ import "./IFismoUpdate.sol";
 import "./IFismoView.sol";
 
 /**
- * @title Interface Info
+ * @title Supported Interfaces
  *
  * @notice Calculate / verify the interface ids supported by the project
  *
- * When you need to add a new interface and find out what its ERC165 interfaceId is,
- * Add it to this contract, and add a unit test for it, which will fail, telling you
- * the actual interface id. Then update the supported-interfaces.js file with the id
- * of the new interface. This way, should an interface change, say adding a new method,
- * the InterfaceInfoTest.js test suite will fail, reminding you to update the interface
- * id in the constants file.
+ * When you need to add or update an interface, recalculate its ERC165 interfaceId:
+ *
+ *  - Add a method to return the id in SupportedInterfaces.sol
+ *  - If interface is new, add to supported-interfaces.js with the a placeholder id.
+ *  - Add unit test for in this file, which will fail with the actual interface id.
+ *  - Update supported-interfaces.js with the actual id.
+ *  - Update the ERC165 comment in the interface file itself with its actual id
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract InterfaceInfo {
+contract SupportedInterfaces {
 
     function getIFismoOperate()
     public pure

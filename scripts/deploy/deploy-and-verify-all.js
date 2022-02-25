@@ -6,7 +6,7 @@ const network = hre.network.name;
 const {deployFismo} = require("./deploy-fismo");
 const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify");
-const {NightClub, StopWatch, LockableDoor} = require("../constants/example-machines");
+const {NightClub, StopWatch, LockableDoor} = require("../config/lab-examples");
 
 async function main() {
 

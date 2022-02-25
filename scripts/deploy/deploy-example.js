@@ -10,7 +10,7 @@ const { deployTransitionGuards } = require('./deploy-guards');
  *
  * @param owner - the owner address
  * @param fismoAddress - the fismo contract
- * @param example - the example descriptor. see {example-machines.js}
+ * @param example - the example descriptor. see {lab-examples.js}
  * @param gasLimit - gasLimit for transactions
  *
  * @returns {Promise<(*|*|*)[]>}

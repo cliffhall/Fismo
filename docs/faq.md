@@ -1,5 +1,5 @@
 ![Fismo](images/fismo-logo.png)
-## [Lab](../README.md) 🧪 [Setup](setup.md) 🧪 [Tasks](tasks.md) 🧪  [API](api/README.md) 🧪 FAQ 🧪 [About](about.md)
+## [Status](../README.md) 🧪 [About](../docs/about.md) 🧪 [Docs](docs.md) 🧪 FAQ
 
 ## Frequently Asked Questions
 * [What is an FSM?](#what-is-a-finite-state-machine)

@@ -6,12 +6,12 @@ const environments = require('../../environments');
 const gasLimit = environments.gasLimit;
 
 // Revert Reasons
-const { RevertReasons } = require("../../scripts/constants/revert-reasons");
+const { RevertReasons } = require("../../scripts/config/revert-reasons");
 
 // Scripts and data
 const { deployTransitionGuards } = require('../../scripts/deploy/deploy-guards');
-const { InterfaceIds } = require('../../scripts/constants/supported-interfaces');
-const { StopWatch, LockableDoor } = require("../../scripts/constants/example-machines");
+const { InterfaceIds } = require('../../scripts/config/supported-interfaces');
+const { StopWatch, LockableDoor } = require("../../scripts/config/lab-examples");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
 const { deployExample } = require("../../scripts/deploy/deploy-example");
 const { nameToId } =  require('../../scripts/util/name-utils');

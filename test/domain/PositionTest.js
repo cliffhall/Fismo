@@ -96,7 +96,7 @@ describe("Position", function() {
 
     context("📋 Utility functions", async function () {
 
-        context("📋 Static", async function () {
+        context("👉 Static", async function () {
 
             beforeEach( async function () {
 

@@ -7,7 +7,7 @@ const Machine = require("../../scripts/domain/Machine");
  *
  * Reused between deployment script and unit tests for consistency
  *
- * @param example - the example machine descriptor. see {example-machines.js}
+ * @param example - the example machine descriptor. see {lab-machines.js}
  * @param gasLimit - gasLimit for transactions
  * @returns {Promise<(*|*|*)[]>}
  *

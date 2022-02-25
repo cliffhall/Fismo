@@ -1,5 +1,5 @@
 /**
- * ERC-165 identifiers for interfaces implemented by Fismo
+ * Reasons for Fismo transactions to revert
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
