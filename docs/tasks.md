@@ -3,9 +3,9 @@
 
 ## Developer Documentation
 
-### [Intro](docs.md) 💥 [Setup](setup.md) 💥 Tasks 💥 [API](api/README.md)
+### [Intro](intro.md) 💥 [Setup](setup.md) 💥 Tasks 💥 [API](api/README.md)
 
-## Development Tasks
+## Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.
 * Scripts are defined in [`package.json`](../package.json).
 * Most late-model IDEs such as Webstorm have an NPM tab to let you view and launch these

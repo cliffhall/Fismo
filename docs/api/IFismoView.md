@@ -3,7 +3,7 @@
 
 ## Developer Documentation
 
-### [Intro](../docs.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
+### [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
 ## Fismo API
 ### [IFismoOperate](IFismoOperate.md) 💥 [IFismoUpdate](IFismoUpdate.md)  💥 IFismoView

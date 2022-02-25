@@ -3,9 +3,9 @@
 
 ## Developer Documentation
 
-### [Intro](docs.md) 💥 Setup 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
+### [Intro](intro.md) 💥 Setup 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
 
-## Developer Setup
+## Setup
 The stack is a simple one:
 * Solidity
 * JavaScript
