@@ -6,7 +6,7 @@
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
 ## Fismo API
-### [IFismoOperate](IFismoOperate.md) 💥 [IFismoUpdate](IFismoUpdate.md)  💥 IFismoView
+### [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 IFismoView
 
 ## Interface [IFismoView](../../contracts/interfaces/IFismoView.sol)
 ### View Fismo Storage

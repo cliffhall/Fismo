@@ -6,7 +6,7 @@
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
 ## API
-### [IFismoOperate](IFismoOperate.md) 💥 [IFismoUpdate](IFismoUpdate.md)  💥 [IFismoView](IFismoView.md)
+### [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
 
 ## Interfaces
 The exposed functionality of the `Fismo` contract is split into three interfaces: 
