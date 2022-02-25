@@ -1,5 +1,5 @@
 ![Fismo](docs/images/fismo-logo.png)
-##  Status  🧪  [About](docs/about.md) 🧪 [Docs](docs/intro.md) 🧪 [FAQ](docs/faq.md)
+# Status 🧪 [About](docs/about.md) 🧪 [Docs](docs/intro.md) 🧪 [FAQ](docs/faq.md)
 
 ## Finite State Machines for Ethereum
 #### An experiment in [Deterministic Proxy](docs/about.md#a-deterministic-proxy-experiment) design

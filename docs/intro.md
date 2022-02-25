@@ -1,9 +1,9 @@
 ![Fismo](../docs/images/fismo-logo.png)
-## [Status](../README.md) 🧪 [About](../docs/about.md) 🧪 Docs 🧪 [FAQ](../docs/faq.md)
+# [Status](../README.md) 🧪 [About](../docs/about.md) 🧪 Docs 🧪 [FAQ](../docs/faq.md)
 
 ## Developer Documentation
 
-### Intro 💥 [Setup](setup.md) 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
+## Intro 💥 [Setup](setup.md) 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
 
 ## The Big Picture
 ![The Big Picture](images/FismoHighLevelArch.png)
