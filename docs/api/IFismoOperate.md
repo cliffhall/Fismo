@@ -21,7 +21,7 @@ View Details
 
 **Signature**
 ```solidity
-event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response);
+event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId, FismoTypes.ActionResponse response);
 ```
 **Parameters**
 

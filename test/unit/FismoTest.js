@@ -161,11 +161,12 @@ describe("Fismo", function() {
                 // The expected ActionResponse struct
                 // N.B. In this simple machine,the single state is re-entrant for each action
                 actionResponseStruct = [machine.name, action, stateName, stateName, "", ""];
+                stateId = nameToId(stateName);
 
                 // Invoke the action, checking for the event
                 await expect(fismo.connect(operator).invokeAction(user.address, machine.id, actionId))
                     .to.emit(fismo, 'Transitioned')
-                    .withArgs(user.address, machine.id, actionId, actionResponseStruct);
+                    .withArgs(user.address, machine.id, stateId, actionResponseStruct);
 
                 // Validate ActionResponse struct
                 actionResponse = new ActionResponse(...actionResponseStruct);

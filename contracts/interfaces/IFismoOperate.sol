@@ -14,7 +14,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
 interface IFismoOperate {
 
     /// Emitted when a user transitions from one State to another.
-    event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed actionId, FismoTypes.ActionResponse response);
+    event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId, FismoTypes.ActionResponse response);
 
     /**
      * Invoke an action on a configured Machine.

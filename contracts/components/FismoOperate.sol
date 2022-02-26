@@ -86,7 +86,7 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
         setUserState(_user, _machineId, nextState.id);
 
         // Alert listeners to change of state
-        emit Transitioned(_user, _machineId, _actionId, response);
+        emit Transitioned(_user, _machineId, nextState.id, response);
 
     }
 
