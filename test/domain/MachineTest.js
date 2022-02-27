@@ -20,7 +20,7 @@ describe("Machine", function() {
     beforeEach( async function () {
 
         // Get accounts
-        // N.B. just need valid eip55 addresses for unit tests
+        // Just need valid eip55 addresses for unit tests
         accounts = await ethers.getSigners();
         operator = accounts[0].address;
 

@@ -50,7 +50,7 @@ describe("Fismo", function() {
         [fismo] = await deployFismo(deployer.address, gasLimit);
 
         // A simple, unguarded, single-state machine definition
-        // N.B. the single state is the initial state, and its transitions are re-entrant
+        // The single state is the initial state, and its transitions are re-entrant
         stateName = "Be";
         stateId = nameToId(stateName);
         machineObj = {
@@ -159,7 +159,7 @@ describe("Fismo", function() {
             it("Should accept a valid invocation", async function () {
 
                 // The expected ActionResponse struct
-                // N.B. In this simple machine,the single state is re-entrant for each action
+                // In this simple machine,the single state is re-entrant for each action
                 actionResponseStruct = [machine.name, action, stateName, stateName, "", ""];
                 stateId = nameToId(stateName);
 
@@ -708,7 +708,7 @@ describe("Fismo", function() {
 
             it("Should return the position history for a user who has interacted with Fismo", async function () {
 
-                // N.B. in this single-state machine, the actions return to the same state and are repeatable
+                // In this single-state machine, the actions return to the same state and are repeatable
 
                 // Invoke the action several times
                 let totalPositions = 5;
@@ -758,7 +758,7 @@ describe("Fismo", function() {
                 // Add machine to Fismo
                 await fismo.addMachine(machine.toObject());
 
-                // N.B. in this single-state machine, the actions return to the same state and are repeatable
+                // In this single-state machine, the actions return to the same state and are repeatable
                 // Add another state for these tests, since even with no interaction, the machine's initial state
                 // would be returned.
 
