@@ -10,7 +10,7 @@
 * [What does Fismo.sol actually do?](#what-does-fismosol-actually-do)
 
 ### What is a finite state machine?
-The Finite State Machines (FSM) is an abstract "machine" with various states and rules for moving between them. The primary features are:
+The Finite State Machine (FSM) is an abstract "machine" with various states and rules for moving between them. The primary features are:
 - A finite number of _States_, represented in a directed graph. 
 - The edge connecting one _State_ to another is a _Transition_.
 - _Transitions_ between _States_ are initiated by _Actions_.
