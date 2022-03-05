@@ -14,7 +14,7 @@ const ethers = hre.ethers;
  */
 async function deployTokens(gasLimit) {
 
-    const deployedTokens = [], tokens = ["Fismo20", "Fismo721", "Fismo1155"]
+    const deployedTokens = [], tokens = ["Fismo20", "Fismo721", "Fismo1155"];
 
     // Deploy all the tokens
     while (tokens.length) {

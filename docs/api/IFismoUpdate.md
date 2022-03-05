@@ -105,8 +105,8 @@ View Details
 
 ## Functions
 
-### addMachine
-Add a new Machine to Fismo.
+### installMachine
+Install a Fismo Machine that requires no initialization.
 
 <details>
 <summary>
@@ -126,7 +126,7 @@ View Details
 
 **Signature**
 ```solidity
-function addMachine(FismoTypes.Machine memory _machine)
+function installMachine(FismoTypes.Machine memory _machine)
 external;
 ```
 
@@ -135,6 +135,45 @@ external;
 | Name     | Description                    | Type     |
 | ---------- |--------------------------------|----------|
 | _machine | the machine definition to add  | FismoTypes.Machine  | 
+</details>
+
+### installAndInitializeMachine
+Install a Fismo Machine and initialize it.
+
+<details>
+<summary>
+View Details
+</summary>
+
+**Emits**
+- [`MachineAdded`](#machineadded)
+- [`StateAdded`](#stateadded)
+- [`TransitionAdded`](#transitionadded)
+
+**Reverts if**
+- Caller is not contract owner
+- Operator address is zero
+- Machine id is not valid for Machine name
+- Machine already exists
+- Initializer call reverts
+
+**Signature**
+```solidity
+function installAndInitializeMachine(
+    FismoTypes.Machine memory _machine,
+    address _initializer,
+    bytes memory _calldata
+)
+external;
+```
+
+**Arguments**
+
+| Name    | Description                       | Type  |
+| --------- |-----------------------------------|-------|
+| _machine | the machine definition to install | FismoTypes.Machine | 
+| _initializer | the address of the initializer contract | address | 
+| _calldata | the encoded function and args to pass in delegatecall | bytes | 
 </details>
 
 ### addState

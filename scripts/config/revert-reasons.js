@@ -5,6 +5,9 @@
  */
 exports.RevertReasons = {
 
+    // --------------------------------------------------------
+    // FISMO
+    // --------------------------------------------------------
     ONLY_OWNER: "Only owner may call",
     ONLY_OPERATOR: "Only operator may call",
 
@@ -21,6 +24,16 @@ exports.RevertReasons = {
     INVALID_ACTION_ID: "Invalid action id",
     INVALID_TARGET_ID: "Invalid target state id",
 
-    GUARD_REVERTED: "Guard function reverted"
+    CODELESS_INITIALIZER: "Initializer address not a contract",
+    INITIALIZER_REVERTED: "Initializer function reverted",
+
+    CODELESS_GUARD: "Guard address not a contract",
+    GUARD_REVERTED: "Guard function reverted",
+
+    // --------------------------------------------------------
+    // LOCKABLE DOOR EXAMPLE
+    // --------------------------------------------------------
+    USER_MUST_HAVE_KEY: "User must hold key to unlock."
+
 
 };

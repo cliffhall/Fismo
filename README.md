@@ -22,7 +22,8 @@ Currently in development. Done or in progress are:
 - ✅ CI build and test with Github Actions
 - ✅ High level architecture documentation
 - ✅ API documentation
-- 👉 Machine operation tests (multi-step operation of machine examples)
+- ✅ Initialization and access of machine-specific storage slots
+- ✅ Example machine tests (multi-step operation of machine examples)
 - 👉 Explore minimal clones for cheap deployments
 - 👉 Javascript NPM package for interacting with Fismo
 - 👉 "How to create and run FSMs on Fismo" doc

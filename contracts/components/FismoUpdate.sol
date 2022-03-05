@@ -14,7 +14,7 @@ import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
 contract FismoUpdate is IFismoUpdate, FismoAccess {
 
     /**
-     * @notice Add a new Machine to Fismo.
+     * @notice Install a Fismo Machine that requires no initialization.
      *
      * Emits:
      * - MachineAdded
@@ -27,48 +27,62 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * - Machine id is not valid for Machine name
      * - Machine already exists
      *
-     * @param _machine - the machine definition to add
+     * @param _machine - the machine definition to install
      */
-    function addMachine(Machine memory _machine)
+    function installMachine(Machine memory _machine)
     external
     override
     onlyOwner
     {
-        // Make sure operator address is not the black hole
-        require(_machine.operator != address(0), INVALID_OPERATOR_ADDR);
+        // Add the new machine to Fismo's storage
+        addMachine(_machine);
+    }
 
-        // Make sure machine id is valid
-        require(_machine.id == nameToId(_machine.name), INVALID_MACHINE_ID);
+    /**
+     * @notice Install a Fismo Machine and initialize it.
+     *
+     * Emits:
+     * - MachineAdded
+     * - StateAdded
+     * - TransitionAdded
+     *
+     * Reverts if:
+     * - Caller is not contract owner
+     * - Operator address is zero
+     * - Machine id is not valid for Machine name
+     * - Machine already exists
+     * - Initializer call reverts
+     *
+     * @param _machine - the machine definition to install
+     * @param _initializer - the address of the initializer contract
+     * @param _calldata - the encoded function and args to pass in delegatecall
+     */
+    function installAndInitializeMachine(
+        Machine memory _machine,
+        address _initializer,
+        bytes memory _calldata
+    )
+    external
+    override
+    onlyOwner
+    {
+        // Make sure this is actually a contract
+        enforceHasContractCode(_initializer, CODELESS_INITIALIZER);
 
-        // Get the machine's storage location
-        Machine storage machine = getStore().machine[_machine.id];
+        // Add the new machine to Fismo's storage
+        addMachine(_machine);
 
-        // Make sure machine doesn't already exist
-        require(machine.id != _machine.id, MACHINE_EXISTS);
+        // Delegate the call to the initializer contract
+        (bool success, bytes memory error) = _initializer.delegatecall(_calldata);
 
-        // Store the machine
-        machine.operator = _machine.operator;
-        machine.id = _machine.id;
-        machine.initialStateId = _machine.initialStateId;
-        machine.name = _machine.name;
-        machine.uri = _machine.uri;
-
-        // Store and map the machine's states
-        //
-        // Struct arrays cannot be copied from memory to storage,
-        // so states must be added to the machine individually
-        uint256 length = _machine.states.length;
-        for (uint256 i = 0; i < length; i+=1) {
-
-            // Get the state from memory
-            State memory state = _machine.states[i];
-
-            // Store the state
-            addState(_machine.id, state);
+        // Handle failure
+        if (!success) {
+            revert (
+                (error.length > 0)
+                    ? string(error)
+                    : INITIALIZER_REVERTED
+            );
         }
-
-        // Alert listeners to change of state
-        emit MachineAdded(_machine.id, _machine.name);
 
     }
 
@@ -218,6 +232,63 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
 
         // Alert listeners to change of state
         emit TransitionAdded(_machineId, state.id, transition.action, transition.targetStateName);
+    }
+
+    /**
+     * @notice Add a new Machine to Fismo.
+     *
+     * Emits:
+     * - MachineAdded
+     * - StateAdded
+     * - TransitionAdded
+     *
+     * Reverts if:
+     * - Caller is not contract owner
+     * - Operator address is zero
+     * - Machine id is not valid for Machine name
+     * - Machine already exists
+     *
+     * @param _machine - the machine definition to add
+     */
+    function addMachine(Machine memory _machine)
+    internal
+    {
+        // Make sure operator address is not the black hole
+        require(_machine.operator != address(0), INVALID_OPERATOR_ADDR);
+
+        // Make sure machine id is valid
+        require(_machine.id == nameToId(_machine.name), INVALID_MACHINE_ID);
+
+        // Get the machine's storage location
+        Machine storage machine = getStore().machine[_machine.id];
+
+        // Make sure machine doesn't already exist
+        require(machine.id != _machine.id, MACHINE_EXISTS);
+
+        // Store the machine
+        machine.operator = _machine.operator;
+        machine.id = _machine.id;
+        machine.initialStateId = _machine.initialStateId;
+        machine.name = _machine.name;
+        machine.uri = _machine.uri;
+
+        // Store and map the machine's states
+        //
+        // Struct arrays cannot be copied from memory to storage,
+        // so states must be added to the machine individually
+        uint256 length = _machine.states.length;
+        for (uint256 i = 0; i < length; i+=1) {
+
+            // Get the state from memory
+            State memory state = _machine.states[i];
+
+            // Store the state
+            addState(_machine.id, state);
+        }
+
+        // Alert listeners to change of state
+        emit MachineAdded(_machine.id, _machine.name);
+
     }
 
     /**
