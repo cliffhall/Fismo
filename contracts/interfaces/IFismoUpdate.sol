@@ -28,7 +28,7 @@ interface IFismoUpdate {
     event TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName);
 
     /**
-     * @notice Add a new Machine to Fismo.
+     * @notice Install a Fismo Machine that requires no initialization.
      *
      * Emits:
      * - MachineAdded
@@ -41,9 +41,35 @@ interface IFismoUpdate {
      * - Machine id is not valid for Machine name
      * - Machine already exists
      *
-     * @param _machine - the machine definition to add
+     * @param _machine - the machine definition to install
      */
-    function addMachine(FismoTypes.Machine memory _machine)
+    function installMachine(FismoTypes.Machine memory _machine)
+    external;
+
+    /**
+     * @notice Install a Fismo Machine and initialize it.
+     *
+     * Emits:
+     * - MachineAdded
+     * - StateAdded
+     * - TransitionAdded
+     *
+     * Reverts if:
+     * - Caller is not contract owner
+     * - Operator address is zero
+     * - Machine id is not valid for Machine name
+     * - Machine already exists
+     * - Initializer call reverts
+     *
+     * @param _machine - the machine definition to install
+     * @param _initializer - the address of the initializer contract
+     * @param _calldata - the encoded function and args to pass in delegatecall
+     */
+    function installAndInitializeMachine(
+        FismoTypes.Machine memory _machine,
+        address _initializer,
+        bytes memory _calldata
+    )
     external;
 
     /**

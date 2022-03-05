@@ -1,5 +1,9 @@
 const { nameToId } =  require('../util/name-utils');
 
+//--------------------------------------------------
+// Define Machines
+//--------------------------------------------------
+
 const NightClubMachine = {
   "operator": null,
   "name": "NightClub",
@@ -261,6 +265,12 @@ const LockableDoorMachine = {
   ]
 };
 
+
+
+//--------------------------------------------------
+// Export example descriptors
+//--------------------------------------------------
+
 exports.NightClub = {
     machine: NightClubMachine,
     operator: "NightClubOperator",
@@ -290,6 +300,10 @@ exports.StopWatch = {
 exports.LockableDoor = {
   machine: LockableDoorMachine,
   operator: "LockableDoorOperator",
+  initializer: {
+    contractName: "LockableDoorGuards",
+    signature: "initialize(address)"
+  },
   guards: [
     {
       states: ["Locked"],
@@ -298,3 +312,4 @@ exports.LockableDoor = {
     },
   ]
 };
+

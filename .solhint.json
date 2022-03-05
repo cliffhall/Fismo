@@ -9,6 +9,7 @@
     "no-inline-assembly": "off",
     "avoid-low-level-calls": "off",
     "func-visibility": ["warn", {"ignoreConstructors":true}],
-    "reason-string": "off"
+    "reason-string": "off",
+    "no-empty-blocks": "off"
   }
 }

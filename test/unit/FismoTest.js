@@ -11,7 +11,7 @@ const { RevertReasons } = require("../../scripts/config/revert-reasons");
 // Scripts and data
 const { deployTransitionGuards } = require('../../scripts/deploy/deploy-guards');
 const { InterfaceIds } = require('../../scripts/config/supported-interfaces');
-const { StopWatch, LockableDoor } = require("../../scripts/config/lab-examples");
+const { LockableDoor } = require("../../scripts/config/lab-examples");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
 const { deployExample } = require("../../scripts/deploy/deploy-example");
 const { nameToId } =  require('../../scripts/util/name-utils');
@@ -134,6 +134,19 @@ describe("Fismo", function() {
 
             });
 
+            it("should not indicate support for a random interface", async function () {
+
+                // An invalid
+                support = await fismo.supportsInterface(InterfaceIds.IInvalidRandom);
+
+                // Test
+                await expect(
+                    support,
+                    "Random interface oddly supported?"
+                ).is.false;
+
+            });
+
         });
 
     });
@@ -148,7 +161,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
                 // Id of action to invoke
                 action = "Inhale";
@@ -222,7 +235,7 @@ describe("Fismo", function() {
 
     context("📋 IFismoUpdate methods", async function () {
 
-        context("👉 addMachine()", async function () {
+        context("👉 installMachine()", async function () {
 
             it("Should accept a valid unguarded Machine", async function () {
 
@@ -231,7 +244,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add the machine, checking for the event
-                await expect(fismo.addMachine(machine.toObject()))
+                await expect(fismo.installMachine(machine.toObject()))
                     .to.emit(fismo, 'MachineAdded')
                     .withArgs(machine.id, machine.name);
             });
@@ -256,7 +269,7 @@ describe("Fismo", function() {
                 }
 
                 // Add the machine, checking for the event
-                await expect(fismo.addMachine(machine.toObject()))
+                await expect(fismo.installMachine(machine.toObject()))
                     .to.emit(fismo, 'MachineAdded')
                     .withArgs(machine.id, machine.name);
             });
@@ -272,7 +285,7 @@ describe("Fismo", function() {
                     expect(machine.isValid()).is.true;
 
                     // Attempt to add the machine, checking for the revert
-                    await expect(fismo.addMachine(machine.toObject()))
+                    await expect(fismo.installMachine(machine.toObject()))
                         .to.revertedWith(RevertReasons.INVALID_OPERATOR_ADDR);
                 });
 
@@ -285,7 +298,7 @@ describe("Fismo", function() {
                     expect(machine.isValid()).is.false;
 
                     // Attempt to add the machine, checking for the revert
-                    await expect(fismo.addMachine(machine.toObject()))
+                    await expect(fismo.installMachine(machine.toObject()))
                         .to.revertedWith(RevertReasons.INVALID_MACHINE_ID);
                 });
 
@@ -294,10 +307,10 @@ describe("Fismo", function() {
                     // Create the machine and add it
                     machine = Machine.fromObject(machineObj);
                     expect(machine.isValid()).is.true;
-                    await fismo.addMachine(machine.toObject());
+                    await fismo.installMachine(machine.toObject());
 
                     // Attempt to add the machine, again
-                    await expect(fismo.addMachine(machine.toObject()))
+                    await expect(fismo.installMachine(machine.toObject()))
                         .to.revertedWith(RevertReasons.MACHINE_EXISTS);
                 });
 
@@ -310,7 +323,7 @@ describe("Fismo", function() {
                     expect(machine.isValid()).is.false;
 
                     // Attempt to add the machine, again
-                    await expect(fismo.addMachine(machine.toObject()))
+                    await expect(fismo.installMachine(machine.toObject()))
                         .to.revertedWith(RevertReasons.INVALID_STATE_ID);
                 });
 
@@ -323,7 +336,7 @@ describe("Fismo", function() {
                     expect(machine.isValid()).is.false;
 
                     // Attempt to add the machine, again
-                    await expect(fismo.addMachine(machine.toObject()))
+                    await expect(fismo.installMachine(machine.toObject()))
                         .to.revertedWith(RevertReasons.INVALID_ACTION_ID);
                 });
 
@@ -336,7 +349,7 @@ describe("Fismo", function() {
                     expect(machine.isValid()).is.false;
 
                     // Attempt to add the machine, again
-                    await expect(fismo.addMachine(machine.toObject()))
+                    await expect(fismo.installMachine(machine.toObject()))
                         .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
                 });
 
@@ -353,7 +366,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
                 // Define a simple end state, no transitions
                 state = State.fromObject({
@@ -380,6 +393,29 @@ describe("Fismo", function() {
                     "name": "Enlightenment",
                     "enterGuarded": false,
                     "exitGuarded": false,
+                    "transitions": [
+                        {
+                            action: "Accept",
+                            targetStateName: "Nirvana"
+                        }
+                    ]
+                });
+                expect(state.isValid()).is.true;
+
+                // Add the state to the existing machine, checking for the event
+                await expect(fismo.addState(machine.id, state.toObject()))
+                    .to.emit(fismo, 'StateAdded')
+                    .withArgs(machine.id, state.id, state.name);
+            });
+
+            it("Should accept a valid guarded State with guard logic", async function () {
+
+                // Simple guarded state
+                state = State.fromObject({
+                    "name": "Enlightenment",
+                    "enterGuarded": false,
+                    "exitGuarded": true,
+                    "guardLogic": fismo.address, // just needs a deployed contract with code
                     "transitions": [
                         {
                             action: "Accept",
@@ -466,6 +502,28 @@ describe("Fismo", function() {
                         .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
                 });
 
+                it("Should revert if guard logic address is not a contract", async function () {
+
+                    // Guarded state with an EOA supplied as the guard logic address
+                    state = State.fromObject({
+                        "name": "Transcendence",
+                        "enterGuarded": false,
+                        "exitGuarded": true,
+                        "guardLogic": user.address,
+                        "transitions": [
+                            {
+                                action: "Transcend",
+                                targetStateName: "Enlightenment"
+                            }
+                        ]
+                    });
+                    expect(state.isValid()).is.true;
+
+                    // Attempt to add the state to the existing machine, checking for the revert
+                    await expect(fismo.addState(machine.id, state.toObject()))
+                        .to.revertedWith(RevertReasons.CODELESS_GUARD);
+                });
+
             });
 
         });
@@ -479,7 +537,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
                 // Create updated state with enter and exit guards specified
                 state = State.fromObject({
@@ -557,7 +615,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
             });
 
@@ -655,7 +713,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
                 // Id of action to invoke
                 action = "Inhale";
@@ -698,7 +756,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
                 // Id of action to invoke
                 action = "Inhale";
@@ -756,7 +814,7 @@ describe("Fismo", function() {
                 expect(machine.isValid()).is.true;
 
                 // Add machine to Fismo
-                await fismo.addMachine(machine.toObject());
+                await fismo.installMachine(machine.toObject());
 
                 // In this single-state machine, the actions return to the same state and are repeatable
                 // Add another state for these tests, since even with no interaction, the machine's initial state

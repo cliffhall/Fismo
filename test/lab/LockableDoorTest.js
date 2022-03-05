@@ -22,7 +22,7 @@ const ActionResponse = require("../../scripts/domain/ActionResponse");
  *
  *  Integrates:
  *  - Fismo
- *  - LockableDoorGuards
+ *  - LockableDoorGuards (initializer and guard)
  *  - LockableDoorOperator
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
@@ -30,7 +30,7 @@ const ActionResponse = require("../../scripts/domain/ActionResponse");
 describe("Lockable Door Machine", function() {
 
     // Common vars
-    let accounts, deployer, user, operator, operatorArgs, guards;
+    let accounts, deployer, user, operator, operatorArgs, guards, tokens, keyToken;
     let fismo, example, machine, machineId, action, actionId, stateId;
     let actionResponse, actionResponseStruct;
     let priorState, nextState, exitMessage, enterMessage;
@@ -47,7 +47,10 @@ describe("Lockable Door Machine", function() {
 
         // Deploy Example
         example = LockableDoor;
-        [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+        [operator, operatorArgs, guards, machine, tokens] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+
+        // Get the Fismo20 token, which is being used as a key
+        keyToken = tokens[0];
 
     });
 
@@ -65,7 +68,7 @@ describe("Lockable Door Machine", function() {
 
         context("👉 invokeAction()", async function () {
 
-            it("Should invoke valid action 'Open' for initial state 'Closed'", async function () {
+            it("Should invoke action 'Open' for initial state 'Closed'", async function () {
 
                 // Action to invoke
                 action = "Open";
@@ -90,7 +93,7 @@ describe("Lockable Door Machine", function() {
 
             });
 
-            it("Should invoke valid action 'Lock' for initial state 'Closed'", async function () {
+            it("Should invoke action 'Lock' for initial state 'Closed'", async function () {
 
                 // Action to invoke
                 action = "Lock";
@@ -115,7 +118,7 @@ describe("Lockable Door Machine", function() {
 
             });
 
-            it("Should invoke valid action 'Unlock' from state 'Locked'", async function () {
+            it("Should invoke action 'Unlock' from state 'Locked' if user has key", async function () {
 
                 // ---------------------------------------------------------------------------------------------
                 // LOCK THE DOOR FIRST
@@ -129,6 +132,18 @@ describe("Lockable Door Machine", function() {
 
                 // Invoke the action via the Operator
                 await operator.connect(user).invokeAction(machine.id, actionId);
+
+                // ---------------------------------------------------------------------------------------------
+                // GIVE USER THE KEY
+                // ---------------------------------------------------------------------------------------------
+
+                // One key
+                amountToMint = "1";
+
+                // Mint the key token and check for the event
+                await expect(keyToken.connect(user).mintSample(user.address, amountToMint))
+                    .to.emit(keyToken, 'Transfer')
+                    .withArgs(ethers.constants.AddressZero, user.address, amountToMint);
 
                 // ---------------------------------------------------------------------------------------------
                 // NOW UNLOCK THE DOOR
@@ -176,6 +191,43 @@ describe("Lockable Door Machine", function() {
                     // Attempt to add the machine, again
                     await expect(operator.connect(user).invokeAction(machine.id, actionId))
                         .to.revertedWith(RevertReasons.NO_SUCH_ACTION);
+                });
+
+                it("Should revert if user doesn't have key for action 'Unlock'", async function () {
+
+                    // ---------------------------------------------------------------------------------------------
+                    // LOCK THE DOOR FIRST
+                    // ---------------------------------------------------------------------------------------------
+
+                    // Initial state is "Closed", action is "Lock", target state is "Locked"
+                    action = "Lock";
+                    actionId = nameToId(action);
+                    priorState = "Closed";
+                    nextState = "Locked";
+
+                    // Invoke the action via the Operator
+                    await operator.connect(user).invokeAction(machine.id, actionId);
+
+                    // ---------------------------------------------------------------------------------------------
+                    // DO *NOT* GIVE USER THE KEY
+                    // ---------------------------------------------------------------------------------------------
+
+                    // ---------------------------------------------------------------------------------------------
+                    // NOW ATTEMPT TO UNLOCK THE DOOR
+                    // ---------------------------------------------------------------------------------------------
+
+                    // Current state is "Locked", action is "Unlock", target state is "Closed"
+                    action = "Unlock";
+                    actionId = nameToId(action);
+                    priorState = nextState;
+                    nextState = "Closed";
+                    exitMessage = "Door unlocked.";
+                    stateId = nameToId(nextState);
+
+                    // Invoke the action via the Operator, checking for the custom revert reason
+                    await expect(operator.connect(user).invokeAction(machine.id, actionId))
+                        .to.revertedWith(RevertReasons.USER_MUST_HAVE_KEY);
+
                 });
 
             });

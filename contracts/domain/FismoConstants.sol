@@ -25,6 +25,8 @@ contract FismoConstants {
     string internal constant INVALID_ACTION_ID = "Invalid action id";
     string internal constant INVALID_TARGET_ID = "Invalid target state id";
 
+    string internal constant CODELESS_INITIALIZER = "Initializer address not a contract";
+    string internal constant INITIALIZER_REVERTED = "Initializer function reverted";
     string internal constant CODELESS_GUARD = "Guard address not a contract";
     string internal constant GUARD_REVERTED = "Guard function reverted";
 
