@@ -35,12 +35,13 @@ interface IFismoView is IERC165 {
      * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
+     * @return success - whether any positions have been recorded for the user
      * @return position - the last recorded position of the given user
      */
     function getLastPosition(address _user)
     external
     view
-    returns (FismoTypes.Position memory position);
+    returns (bool success, FismoTypes.Position memory position);
 
     /**
      * @notice Get the entire position history for a given user.
@@ -49,15 +50,20 @@ interface IFismoView is IERC165 {
      * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
+     * @return success - whether any history exists for the user
      * @return history - an array of Position structs
      */
     function getPositionHistory(address _user)
     external
     view
-    returns (FismoTypes.Position[] memory history);
+    returns (bool success, FismoTypes.Position[] memory history);
 
     /**
      * @notice Get the current state for a given user in a given machine.
+     *
+     * Note:
+     * - If the user has not interacted with the machine, the initial state
+     *   for the machine is returned.
      *
      * Reverts if:
      * - Machine does not exist

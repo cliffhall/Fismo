@@ -55,7 +55,7 @@ View Details
 function getLastPosition(address _user)
 external
 view
-returns (FismoTypes.Position memory position);
+returns (bool success, FismoTypes.Position memory position);
 ```
 
 **Arguments**
@@ -68,6 +68,7 @@ returns (FismoTypes.Position memory position);
 
 | Name        | Description                                | Type                |
 | ------------- |--------------------------------------------|---------------------|
+| success |  whether any history exists for the user | bool |
 | position | the last recorded position of the given user| FismoTypes.Position |
 </details>
 
@@ -84,7 +85,7 @@ View Details
 function getPositionHistory(address _user)
 external
 view
-returns (FismoTypes.Position[] memory history);
+returns (bool success, FismoTypes.Position[] memory history);
 ```
 
 **Arguments**
@@ -95,9 +96,11 @@ returns (FismoTypes.Position[] memory history);
 
 **Return Values**
 
-| Name        | Description                   | Type                  |
-| ------------- |-------------------------------|-----------------------|
+| Name    | Description                   | Type |
+| ------- |-------------------------------|------|
+| success |  whether any history exists for the user | bool |
 | history | an array of Position structs  | FismoTypes.Position[] |
+
 </details>
 
 ### getUserState
@@ -107,6 +110,9 @@ Get the current state for a given user in a given machine.
 <summary>
 View Details
 </summary>
+
+**Note**
+- If the user has not interacted with the machine, the initial state for the machine is returned.
 
 **Reverts if**
 - Machine does not exist

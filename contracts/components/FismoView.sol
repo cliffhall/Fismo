@@ -42,13 +42,14 @@ contract FismoView is IFismoView, FismoTools {
      * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
+     * @return success - whether any positions have been recorded for the user
      * @return position - the last recorded position of the given user
      */
     function getLastPosition(address _user)
     public
     view
     override
-    returns (Position memory position)
+    returns (bool success, Position memory position)
     {
         // Get the user's position historyCF
         Position[] storage history = getStore().userHistory[_user];
@@ -56,6 +57,9 @@ contract FismoView is IFismoView, FismoTools {
         // Return the last position on the stack
         bytes4 none = 0;
         position = (history.length > 0) ? history[history.length-1] : Position(none, none);
+
+        // If the machine id is zero, the user has not interacted with this Fismo instance
+        success = (position.machineId != 0);
     }
 
     /**
@@ -65,20 +69,27 @@ contract FismoView is IFismoView, FismoTools {
      * See: {FismoTypes.Position}
      *
      * @param _user - the address of the user
+     * @return success - whether any history exists for the user
      * @return history - an array of Position structs
      */
     function getPositionHistory(address _user)
     public
     view
-    returns (Position[] memory history)
+    returns (bool success, Position[] memory history)
     {
         // Return the user's position history
         history = getStore().userHistory[_user];
 
+        // If there are no history entries, the user has not interacted with this Fismo instance
+        success = history.length > 0;
     }
 
     /**
      * @notice Get the current state for a given user in a given machine.
+     *
+     * Note:
+     * - If the user has not interacted with the machine, the initial state
+     *   for the machine is returned.
      *
      * Reverts if:
      * - machine does not exist

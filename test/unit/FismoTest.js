@@ -32,9 +32,9 @@ describe("Fismo", function() {
 
     // Common vars
     let accounts, deployer, user, operator, guardLogic, operatorArgs, guards, expected;
-    let fismo, machine, machineObj, position, response, targetStateName, targetStateId;
-    let state, transition, action, stateName, stateId, actionId;
-    let actionResponse, actionResponseStruct, selector;
+    let fismo, machine, machineObj, response, targetStateName, targetStateId, selector;
+    let state, transition, action, stateName, stateId, actionId, success;
+    let actionResponse, actionResponseStruct, position, positionStruct;
 
     beforeEach( async function () {
 
@@ -727,10 +727,13 @@ describe("Fismo", function() {
                 await fismo.connect(operator).invokeAction(user.address, machine.id, actionId);
 
                 // Request the last position of the user
-                response = await fismo.getLastPosition(user.address);
+                [success, positionStruct] = await fismo.getLastPosition(user.address);
+
+                // Check for success as reported by the contract
+                expect(success).to.be.true;
 
                 // Validate the returned Position
-                position = Position.fromObject(response);
+                position = Position.fromObject(positionStruct);
                 expect(position.isValid()).to.be.true;
 
             });
@@ -738,10 +741,13 @@ describe("Fismo", function() {
             it("Should return a zeroed position for a user who has not interacted with Fismo", async function () {
 
                 // Request the last position of the user
-                response = await fismo.getLastPosition(user.address);
+                [success, positionStruct] = await fismo.getLastPosition(user.address);
+
+                // Check for success as reported by the contract
+                expect(success).to.be.false;
 
                 // Validate the returned Position (zeroed fields not considered valid)
-                position = Position.fromObject(response);
+                position = Position.fromObject(positionStruct);
                 expect(position.isValid()).to.be.false;
 
             });
@@ -764,9 +770,9 @@ describe("Fismo", function() {
 
             });
 
-            it("Should return the position history for a user who has interacted with Fismo", async function () {
+            it.only("Should return the position history for a user who has interacted with Fismo", async function () {
 
-                // In this single-state machine, the actions return to the same state and are repeatable
+                // In this single-state machine, the actions return to the same state and so, are repeatable
 
                 // Invoke the action several times
                 let totalPositions = 5;
@@ -775,7 +781,10 @@ describe("Fismo", function() {
                 }
 
                 // Request the position history of the user
-                response = await fismo.getPositionHistory(user.address);
+                [success, response] = await fismo.getPositionHistory(user.address);
+
+                // Check for success as reported by the contract
+                expect(success).to.be.true;
 
                 // Response should be an array
                 expect(Array.isArray(response));
