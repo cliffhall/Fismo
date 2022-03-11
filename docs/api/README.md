@@ -10,3 +10,5 @@ The exposed functionality of the `Fismo` contract is split into three interfaces
 * [`IFismoOperate`](IFismoOperate.md) - Operate Fismo machines.
 * [`IFismoUpdate`](IFismoUpdate.md) - Update Fismo storage.
 * [`IFismoView`](IFismoView.md) - View Fismo storage.
+
+[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)
