@@ -1,5 +1,5 @@
 ![Fismo](../docs/images/fismo-logo.png)
-# [Status](../README.md) 🧪 [About](../docs/about.md) 🧪 Docs 🧪 [FAQ](../docs/faq.md)
+# [Status](../README.md) 🧪 [About](../docs/about.md) 🧪 [FAQ](faq.md) 🧪 Docs
 
 ## Intro 💥 [Setup](setup.md) 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
 

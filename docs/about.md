@@ -1,5 +1,5 @@
 ![Fismo](images/fismo-logo.png)
-# [Status](../README.md) 🧪 About 🧪 [Docs](intro.md) 🧪 [FAQ](faq.md)
+# [Status](../README.md) 🧪 About 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
 
 ## A Deterministic Proxy Experiment
 Most extensible among Solidity contract proxy patterns is the [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond Multi-Facet Proxy specification. It allows a proxy to have more than one upgradeable implementation (logic) contract. The Diamond architecture is extremely useful for almost any non-trivial contract suite, lending a modular building approach that can place any amount of logic behind a single Ethereum address. Having built upon the Diamond architecture multiple times, I highly recommend it.
