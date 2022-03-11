@@ -39,3 +39,5 @@
 * The name of the function is composed of the machine name, the state name, and the guard direction (exit|enter).
 
 * Guard functions can revert to stop the transition or return a success message. 
+
+[![Created by Futurescale](images/created-by.png)](https://futurescale.com)

@@ -111,3 +111,6 @@ It reverts if...
   * Action invoked is not valid for the user's current state in the given machine
   * An exit guard function reverts during action invocation
   * An entrance guard function reverts during action invocation
+
+
+[![Created by Futurescale](images/created-by.png)](https://futurescale.com)

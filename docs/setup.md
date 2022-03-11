@@ -33,3 +33,5 @@ npm install
 - For verifying code and running the gas reporter, set:
     * `etherscan.apiKey`: your etherscan API key
     * `coinmarketcap.apiKey`: your coinmarketcap API key
+
+[![Created by Futurescale](images/created-by.png)](https://futurescale.com)

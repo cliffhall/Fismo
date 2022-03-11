@@ -28,5 +28,4 @@ Currently in development. Done or in progress are:
 - 👉 Javascript NPM package for interacting with Fismo
 - 👉 "How to create and run FSMs on Fismo" doc
 
-
-![Created by Futurescale](docs/images/created-by.png)
+  [![Created by Futurescale](docs/images/created-by.png)](https://futurescale.com)
