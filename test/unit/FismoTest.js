@@ -770,7 +770,7 @@ describe("Fismo", function() {
 
             });
 
-            it.only("Should return the position history for a user who has interacted with Fismo", async function () {
+            it("Should return the position history for a user who has interacted with Fismo", async function () {
 
                 // In this single-state machine, the actions return to the same state and so, are repeatable
 
@@ -803,7 +803,7 @@ describe("Fismo", function() {
                 let totalPositions = 0;
 
                 // Request the position history of the user
-                response = await fismo.getPositionHistory(user.address);
+                [success, response] = await fismo.getPositionHistory(user.address);
 
                 // Response should be an array
                 expect(Array.isArray(response));
