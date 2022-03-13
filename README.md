@@ -2,7 +2,11 @@
 # Status 🧪 [About](docs/about.md) 🧪 [FAQ](docs/faq.md) 🧪 [Docs](docs/intro.md)
 ## A Finite State Machine Protocol for EVM Blockchains
 ### What is this?
-Fismo is a way of simulating stateful places, things, or processes on Ethereum. Each user's journey through a state machine is recorded, can be referred to from other contracts. Their progress can be gated by the tokens they hold, like a player's inventory in an adventure game.
+Fismo is a way of simulating stateful things, processes, or maps of places on EVM blockchains.
+
+There are standards for tokens that allow us to represent things like currency, ownership, and membership. But why do we have no standard for representing a process and an individual's path through it?
+
+Each user's position on their journey through a state machine is recorded, and can be publicly queried by anyone. Progress can be controlled by the tokens a user holds. Likewise, tokens could be transferred to a user when they or take some action or arrive at some waypoint.
 
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
 * 💥 Configure and install a virtually unlimited number of FSMs
