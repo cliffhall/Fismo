@@ -1,7 +1,8 @@
 ![Fismo](images/fismo-logo.png)
 # [Status](../README.md) 🧪 About 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
 
-## Experiment: Deterministic Selector Proxy
+## Experiment
+### Deterministic Selector Proxy
 Most extensible among Solidity contract proxy patterns is the [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond Multi-Facet Proxy specification. It allows a proxy to have more than one upgradeable implementation (logic) contract. The Diamond architecture is extremely useful for almost any non-trivial contract suite, lending a modular building approach that can place any amount of logic behind a single Ethereum address. Having built upon the Diamond architecture multiple times, I highly recommend it.
 
 However, one criticism auditors and implementers have often raised is the level of complexity involved in managing the "Facets" (how the Diamond spec refers to implementation contracts) and their function selectors. That complexity is for the most part tucked away out of sight and works flawlessly. But it does beg the question: 
@@ -12,7 +13,8 @@ Fismo began as an experiment in what I will call Deterministic Selecto Proxy des
 
 Nifty idea, but without a problem domain, this hypothetical deterministic selector proxy would have no context within which to formulate function selectors to be proxied. 
 
-## Problem Domain: Finite State Machines
+## Problem Domain
+###Finite State Machines
 FSMs are a perfect match for this experiment. As problem domains go, it's relatively simple, but still non-trivial. You can describe them in a lightweight way, validate the descriptions easily, consume them in Solidity, and place them into contract storage. It is straightforward to enforce that transitions between states follow the edges of their directed graph. Fismo does that automatically.
 
 But there is one place where you need to add custom code: _guarding state transitions._ 
