@@ -1,6 +1,12 @@
 ![Fismo](docs/images/fismo-logo.png)
 # Status 🧪 [About](docs/about.md) 🧪 [FAQ](docs/faq.md) 🧪 [Docs](docs/intro.md)
 ## A Finite State Machine Protocol for EVM Blockchains
+ * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
+ * 💥 Confgure and install unlimited FSMs with unlimited states
+ * 💥 Deploy custom logic to be triggered by any state transition
+ * 💥 Deploy custom logic for controlling access to your machines
+ * 💥 Use off-chain metadata to describe states in any medium
+
 ### Status 🔬 [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/85/?title=Progress&width=120&color=000000)
 
 Currently in development. Done or in progress are:
