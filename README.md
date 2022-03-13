@@ -35,6 +35,8 @@ Done or in progress are:
 - ✅ High level architecture documentation
 - 👉 Complete code coverage
 - 👉 Create NPM package
+- 👉 Deploy to testnets, mainnet, sidechains
 - 👉 Write "How to create, install and operate machines on Fismo" doc
+- 👉 Moar examples!
 
-  [![Created by Futurescale](docs/images/created-by.png)](https://futurescale.com)
+##  [![Created by Futurescale](docs/images/created-by.png)](https://futurescale.com)
