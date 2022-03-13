@@ -3,7 +3,7 @@
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
-### [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 IFismoView
+### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 IFismoView
 
 ## Interface [IFismoView](../../contracts/interfaces/IFismoView.sol)
 ### View Fismo Storage
@@ -13,20 +13,19 @@ The ERC-165 identifier for this interface is `0x26276912`
 ### getGuardAddress
 Get the implementation address for a given Guard selector.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Reverts if**
 - Guard logic implementation is not defined
 
 **Signature**
 ```solidity
-function getGuardAddress(bytes4 _functionSelector)
-external
+function getGuardAddress (
+    bytes4 _functionSelector
+) 
+external 
 view
-returns (address guardAddress);
+returns (
+    address guardAddress
+);
 ```
 
 **Arguments**
@@ -40,22 +39,21 @@ returns (address guardAddress);
 | Name        | Description                                | Type           |
 | ------------- |--------------------------------------------|------------- |
 | guardAddress | the address of the guard logic implementation contract| address |
-</details>
 
 ### getLastPosition
 Get the last recorded position of the given user.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Signature**
 ```solidity
-function getLastPosition(address _user)
+function getLastPosition (
+    address _user
+)
 external
 view
-returns (bool success, FismoTypes.Position memory position);
+returns (
+    bool success, 
+    FismoTypes.Position memory position
+);
 ```
 
 **Arguments**
@@ -70,22 +68,21 @@ returns (bool success, FismoTypes.Position memory position);
 | ------------- |--------------------------------------------|---------------------|
 | success |  whether any history exists for the user | bool |
 | position | the last recorded position of the given user| FismoTypes.Position |
-</details>
 
 ### getPositionHistory
 Get the entire position history for a given user.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Signature**
 ```solidity
-function getPositionHistory(address _user)
+function getPositionHistory (
+    address _user
+)
 external
 view
-returns (bool success, FismoTypes.Position[] memory history);
+returns (
+    bool success, 
+    FismoTypes.Position[] memory history
+);
 ```
 
 **Arguments**
@@ -101,28 +98,26 @@ returns (bool success, FismoTypes.Position[] memory history);
 | success |  whether any history exists for the user | bool |
 | history | an array of Position structs  | FismoTypes.Position[] |
 
-</details>
-
 ### getUserState
 Get the current state for a given user in a given machine.
-
-<details>
-<summary>
-View Details
-</summary>
-
-**Note**
-- If the user has not interacted with the machine, the initial state for the machine is returned.
 
 **Reverts if**
 - Machine does not exist
 
+**Note**
+- If the user has not interacted with the machine, the initial state for the machine is returned.
+
 **Signature**
 ```solidity
-function getUserState(address _user, bytes4 _machineId)
+function getUserState (
+    address _user, 
+    bytes4 _machineId
+)
 external
 view
-returns (bytes4 currentStateId);
+returns (
+    bytes4 currentStateId
+);
 ```
 
 **Arguments**
@@ -134,11 +129,9 @@ returns (bytes4 currentStateId);
 
 **Return Values**
 
-| Name        | Type                   | Description                                    |
-| ------------- |------------------------|------------------------------------------------|
-| currentStateId | bytes4 | the user's current state in the given machine  |
-
-</details>
+| Name | Type   | Description                          |
+| ------ |--------|--------------------------------------|
+| currentStateId | bytes4 | the user's current state in the given machine |
 
 
 [![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

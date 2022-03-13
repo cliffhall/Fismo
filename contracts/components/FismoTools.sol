@@ -27,7 +27,7 @@ contract FismoTools is FismoTypes, FismoConstants {
      * @return guardSignature - a string representation of the function signature
      */
     function getGuardSignature(string memory _machineName, string memory _stateName, FismoTypes.Guard _guard)
-    public
+    internal
     pure
     returns (string memory guardSignature) {
         string memory guardType = (_guard == FismoTypes.Guard.Enter) ? "_Enter" : "_Exit";

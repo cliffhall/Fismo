@@ -3,13 +3,13 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/interfaces/IERC165.sol";
 
-import { FismoStore } from "./FismoStore.sol";
 import { FismoTools } from "./FismoTools.sol";
+import { FismoStore } from "../domain/FismoStore.sol";
 import { FismoTypes } from "../domain/FismoTypes.sol";
 import { IFismoView } from "../interfaces/IFismoView.sol";
 import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
 import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
-import { console } from "hardhat/console.sol";
+import { IFismoClone } from "../interfaces/IFismoClone.sol";
 
 /**
  * @title FismoView
@@ -19,6 +19,19 @@ import { console } from "hardhat/console.sol";
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 contract FismoView is IFismoView, FismoTools {
+
+    /**
+     * @notice Get the owner of this Fismo contract
+     *
+     * @return owner - the address of the contract owner
+     */
+    function getOwner()
+    external
+    view
+    returns (address owner)
+    {
+        return getStore().owner;
+    }
 
     /**
      * @notice Get the implementation address for a given guard selector
@@ -122,7 +135,7 @@ contract FismoView is IFismoView, FismoTools {
      */
     function supportsInterface(bytes4 _interfaceId)
     external
-    pure
+    view
     override
     returns (bool)
     {
@@ -130,7 +143,8 @@ contract FismoView is IFismoView, FismoTools {
         _interfaceId == type(IERC165).interfaceId ||
         _interfaceId == type(IFismoOperate).interfaceId ||
         _interfaceId == type(IFismoUpdate).interfaceId ||
-        _interfaceId == type(IFismoView).interfaceId
+        _interfaceId == type(IFismoView).interfaceId ||
+        (_interfaceId == type(IFismoClone).interfaceId && getStore().isFismo)
         ) ;
     }
 

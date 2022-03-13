@@ -2,22 +2,24 @@
 pragma solidity ^0.8.0;
 
 import { FismoOperate } from  "./components/FismoOperate.sol";
+import { FismoClone } from  "./components/FismoClone.sol";
 
 /**
  * @title Fismo - Finite State Machines with a twist
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract Fismo is FismoOperate  {
+contract Fismo is FismoClone, FismoOperate {
 
     /**
-     * Constructor
+     * @notice Constructor
      *
-     * Sets the initial contract owner
-     *
-     * @param _owner the address of the contract owner
+     * Note:
+     * - Only executed by an original Fismo deployment
+     * - Clones have their init() method called to do same
      */
-    constructor(address _owner) payable {
-        setOwner( _owner);
+    constructor() payable {
+        setOwner(msg.sender);
+        setIsFismo(true);
     }
 
 }

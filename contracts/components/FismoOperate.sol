@@ -16,19 +16,24 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
     /**
      * Invoke an action on a configured Machine.
      *
-     * Reverts if
+     * Emits:
+     * - UserTransitioned
+     *
+     * Reverts if:
      * - Caller is not the machine's operator
      * - Machine does not exist
      * - Action is not valid for the user's current State in the given Machine
      * - any invoked Guard logic reverts
      *
-     * Emits Transitioned event if successful.
-     *
      * @param _user - the address of the user
      * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
      */
-    function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
+    function invokeAction(
+        address _user,
+        bytes4 _machineId,
+        bytes4 _actionId
+    )
     external
     override
     onlyOperator(_machineId)
@@ -86,14 +91,14 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
         setUserState(_user, _machineId, nextState.id);
 
         // Alert listeners to change of state
-        emit Transitioned(_user, _machineId, nextState.id, response);
+        emit UserTransitioned(_user, _machineId, nextState.id, response);
 
     }
 
     /**
      * @notice Make a delegatecall to the specified guard function
      *
-     * Reverts if
+     * Reverts if:
      * - guard logic implementation is not defined
      * - guard logic reverts
      * - delegatecall attempt fails for any other reason

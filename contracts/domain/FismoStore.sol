@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import { FismoTypes } from "../domain/FismoTypes.sol";
+import { FismoTypes } from "./FismoTypes.sol";
 
 /**
  * @title FismoStore
@@ -15,6 +15,9 @@ library FismoStore {
     bytes32 internal constant FISMO_SLOT = keccak256("fismo.storage.slot");
 
     struct FismoSlot {
+
+        // Is this the original Fismo contract or a clone?
+        bool isFismo;
 
         // Address of the contract owner
         address owner;

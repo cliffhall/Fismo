@@ -3,48 +3,60 @@
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
-### [IFismoOperate](IFismoOperate.md) 🔬 IFismoUpdate 🔬 [IFismoView](IFismoView.md)
+### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 IFismoUpdate 🔬 [IFismoView](IFismoView.md)
 
 ## Interface [IFismoUpdate](../../contracts/interfaces/IFismoUpdate.sol)
 ### Update Fismo Storage
-The ERC-165 identifier for this interface is `0xe29cbd4a`
+The ERC-165 identifier for this interface is `0x0a16331a`
 
 ## Events
-### MachineAdded
-Emitted when a new Machine is added to Fismo.
 
-<details>
-<summary>
-View Details
-</summary>
+### OwnershipTransferred
+Emitted when ownership of the Fismo instance is transferred.
 
 **Signature**
 ```solidity
-event MachineAdded(bytes4 indexed machineId, string machineName);
+event OwnershipTransferred (
+    address indexed newOwner
+);
+```
+**Parameters**
+
+| Name         | Description                         | Type    |
+|--------------|-------------------------------------|---------|
+| newOwner    | the new owner of the Fismo instance | address |
+
+### MachineInstalled
+Emitted when a new Machine is installed in the Fismo instance.
+
+**Signature**
+```solidity
+event MachineInstalled (
+    bytes4 indexed machineId, 
+    string machineName
+);
 ```
 **Parameters**
 
 | Name         | Description             | Type   |
 |--------------|-------------------------|--------|
 | machineId    | the machine's id        | bytes4 | 
-| machineName | the name of the machine | string | 
-</details>
+| machineName | the name of the machine | string |
 
 ### StateAdded
-Emitted when a new State is added to Fismo. 
-
-<details>
-<summary>
-View Details
-</summary>
+Emitted when a new State is added to a Fismo Machine.
 
 **Note**
-- May be emitted multiple times during the addition of a Machine.
+* May be emitted multiple times during the installation of a Machine.
 
 **Signature**
 
 ```solidity
-event StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+event StateAdded (
+    bytes4 indexed machineId, 
+    bytes4 indexed stateId, 
+    string stateName
+);
 ```
 **Parameters**
 
@@ -52,21 +64,19 @@ event StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateN
 |-----------|-----------------------|--------|
 | machineId | the machine's id      | bytes4 | 
 | stateId   | the state's id        | bytes4 | 
-| stateName | the name of the state | string | 
-</details>
+| stateName | the name of the state | string |
 
 ### StateUpdated
 Emitted when an existing State is updated. 
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Signature**
 
 ```solidity
-event StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+event StateUpdated (
+    bytes4 indexed machineId, 
+    bytes4 indexed stateId, 
+    string stateName
+);
 ```
 **Parameters**
 
@@ -74,16 +84,10 @@ event StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stat
 |-----------|-----------------------|--------|
 | machineId | the machine's id      | bytes4 | 
 | stateId   | the state's id        | bytes4 | 
-| stateName | the name of the state | string | 
-</details>
+| stateName | the name of the state | string |
 
 ### TransitionAdded
 Emitted when a new Transition is added to an existing State. 
-
-<details>
-<summary>
-View Details
-</summary>
 
 **Note**
 - May be emitted multiple times during the addition of a Machine or State.
@@ -91,7 +95,12 @@ View Details
 **Signature**
 
 ```solidity
-  event TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName);
+event TransitionAdded (
+    bytes4 indexed machineIdΩ, 
+    bytes4 indexed stateId, 
+    string action, 
+    string targetStateName
+);
 ```
 **Parameters**
 
@@ -100,21 +109,40 @@ View Details
 | machineId | the machine's id             | bytes4 | 
 | stateId   | the state's id               | bytes4 | 
 | action | the name of the action       | string | 
-| targetStateName | the name of the target state | string | 
-</details>
+| targetStateName | the name of the target state | string |
 
 ## Functions
+
+### transferOwnership
+Transfer ownership of the Fismo instance to another address.
+
+**Emits**
+- [`OwnershipTransferred`](#ownershiptransferred)
+
+**Reverts if**
+- Caller is not contract owner
+- New owner is zero address
+
+**Signature**
+```solidity
+function transferOwnership (
+    address _newOwner
+) 
+external;
+```
+
+**Arguments**
+
+| Name      | Description                    | Type    |
+|-----------|--------------------------------|---------|
+| _newOwner | the new owner's address  | address |
+
 
 ### installMachine
 Install a Fismo Machine that requires no initialization.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Emits**
-- [`MachineAdded`](#machineadded)
+- [`MachineInstalled`](#machineadded)
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 
@@ -126,7 +154,9 @@ View Details
 
 **Signature**
 ```solidity
-function installMachine(FismoTypes.Machine memory _machine)
+function installMachine (
+    FismoTypes.Machine memory _machine
+) 
 external;
 ```
 
@@ -134,19 +164,13 @@ external;
 
 | Name     | Description                    | Type     |
 | ---------- |--------------------------------|----------|
-| _machine | the machine definition to add  | FismoTypes.Machine  | 
-</details>
+| _machine | the machine definition to add  | FismoTypes.Machine  |
 
 ### installAndInitializeMachine
 Install a Fismo Machine and initialize it.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Emits**
-- [`MachineAdded`](#machineadded)
+- [`MachineInstalled`](#machineinstalled)
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 
@@ -159,11 +183,11 @@ View Details
 
 **Signature**
 ```solidity
-function installAndInitializeMachine(
+function installAndInitializeMachine (
     FismoTypes.Machine memory _machine,
     address _initializer,
     bytes memory _calldata
-)
+) 
 external;
 ```
 
@@ -173,24 +197,14 @@ external;
 | --------- |-----------------------------------|-------|
 | _machine | the machine definition to install | FismoTypes.Machine | 
 | _initializer | the address of the initializer contract | address | 
-| _calldata | the encoded function and args to pass in delegatecall | bytes | 
-</details>
+| _calldata | the encoded function and args to pass in delegatecall | bytes |
 
 ### addState
 Add a State to an existing Machine.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Emits**
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
-
-**Note**
-- The new state will not be reachable by any action
-- Add one or more transitions to other states, targeting the new state
 
 **Reverts if**
 - Caller is not contract owner
@@ -198,9 +212,16 @@ View Details
 - Machine does not exist
 - Any contained transition is invalid
 
+**Note**
+- The new state will not be reachable by any action
+- Add one or more transitions to other states, targeting the new state
+
 **Signature**
 ```solidity
-function  addState(bytes4 _machineId, FismoTypes.State memory _state)
+function  addState (
+    bytes4 _machineId, 
+    FismoTypes.State memory _state
+) 
 external;
 ```
 
@@ -210,23 +231,14 @@ external;
 |-----------|-----------------------|--------|
 | _machineId | the id of the machine | bytes4 | 
 | _state | the State to add      | FismoTypes.State  |
-</details>
 
 ### updateState
 Update an existing State in an existing Machine.
 
-<details>
-<summary>
-View Details
-</summary>
-
-**Note**
-- State name and id cannot be changed.
-
 **Emits**
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
-
+- 
 **Reverts if**
 - Caller is not contract owner
 - Machine does not exist
@@ -239,9 +251,15 @@ View Details
 - Removing one or more transitions
 - Changing exitGuarded, enterGuarded, guardLogic params
 
+**Note**
+* State name and id cannot be changed.
+
 **Signature**
 ```solidity
-function updateState(bytes4 _machineId, FismoTypes.State memory _state)
+function updateState (
+    bytes4 _machineId, 
+    FismoTypes.State memory _state
+) 
 external;
 ```
 
@@ -250,16 +268,10 @@ external;
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
 | _machineId | the id of the machine | bytes4 | 
-| _state | the State to update   | FismoTypes.State  | 
-</details>
+| _state | the State to update   | FismoTypes.State  |
 
 ### addTransition
 Add a Transition to an existing State of an existing Machine.
-
-<details>
-<summary>
-View Details
-</summary>
 
 **Emits**
 * [`TransitionAdded`](#transitionadded)
@@ -276,7 +288,11 @@ View Details
 
 **Signature**
 ```solidity
-function addTransition(bytes4 _machineId, bytes4 _stateId, FismoTypes.Transition memory _transition)
+function addTransition (
+    bytes4 _machineId, 
+    bytes4 _stateId, 
+    FismoTypes.Transition memory _transition
+) 
 external;
 ```
 
@@ -285,8 +301,7 @@ external;
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
 | _machineId | the id of the machine | bytes4 | 
-| _state | the State to update   | FismoTypes.State  | 
-</details>
+| _state | the State to update   | FismoTypes.State  |
 
 
 [![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

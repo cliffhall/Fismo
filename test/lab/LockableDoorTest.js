@@ -43,7 +43,7 @@ describe("Lockable Door Machine", function() {
         user = accounts[1];
 
         // Deploy Fismo
-        [fismo] = await deployFismo(deployer.address, gasLimit);
+        [fismo] = await deployFismo(gasLimit);
 
         // Deploy Example
         example = LockableDoor;
@@ -84,7 +84,7 @@ describe("Lockable Door Machine", function() {
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))
-                    .to.emit(fismo, 'Transitioned')
+                    .to.emit(fismo, 'UserTransitioned')
                     .withArgs(user.address, machine.id, stateId, actionResponseStruct);
 
                 // Validate the ActionResponse
@@ -109,7 +109,7 @@ describe("Lockable Door Machine", function() {
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))
-                    .to.emit(fismo, 'Transitioned')
+                    .to.emit(fismo, 'UserTransitioned')
                     .withArgs(user.address, machine.id, stateId, actionResponseStruct);
 
                 // Validate the ActionResponse
@@ -162,7 +162,7 @@ describe("Lockable Door Machine", function() {
 
                 // Invoke the action via the Operator, checking for the event from Fismo
                 await expect(operator.connect(user).invokeAction(machine.id, actionId))
-                    .to.emit(fismo, 'Transitioned')
+                    .to.emit(fismo, 'UserTransitioned')
                     .withArgs(user.address, machine.id, stateId, actionResponseStruct);
 
                 // Validate the ActionResponse
