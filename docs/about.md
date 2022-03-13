@@ -48,9 +48,9 @@ This requires a developer to write function signatures in a very specific way, b
 ### Self-cloning for affordable building
 * The Fismo contract is prohibitively expensive to deploy if you just want to create interesting machines for people to interact with. 
   * At the time of this writing, it 
-approaches **$2000 USD to deploy** to Ethereum mainnet.
+approaches **$2000 USD to deploy** Fismo to Ethereum mainnet.
 * By adding support for [ERC-1167 Minimal Proxy](https://eips.ethereum.org/EIPS/eip-1167) cloning, Fismo allows anyone to deploy their own fully functional clone. 
-  * Again, at the time of this writing, it costs about **$40 USD to clone** on Ethereum mainnet.
+  * At the time of this writing, it costs about **$40 USD to clone** Fismo on Ethereum mainnet.
 * And finally yes, you *could* try to make a clone of a clone. And it would work... ok.
     * Unfortunately, like Micheal Keaton in [Multiplicity](https://en.wikipedia.org/wiki/Multiplicity_(film)), you would realize a sort of fidelity loss with each successive clone in the chain.
     * Although the logic would operate the same and the clone would store the data, each clone would be delegating the call to the clone it came from, increasing the transaction cost with each delegation.
