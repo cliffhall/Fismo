@@ -23,10 +23,10 @@ event FismoCloned(
 ```
 **Parameters**
 
-| Name     | Description                  | Type                     |
-|----------|------------------------------|--------------------------|
-| owner    | the owner's wallet           | address                  | 
-| clone    | the cloned Fismo contract    | address                  |
+| Name     | Description               | Type                     |
+|----------|---------------------------|--------------------------|
+| owner    | the owner's wallet        | address                  | 
+| instance | the cloned Fismo instance | address                  |
 
 ## Functions
 
