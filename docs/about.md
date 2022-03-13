@@ -8,9 +8,9 @@ However, one criticism auditors and implementers have often raised is the level 
 
 > What other forms might the multiple-implementation proxy pattern take?
 
-Fismo began as an experiment in what I will call Deterministic Proxy design. The idea was that the function selectors would be determined not by calling complicated maintenance functions to associate a given function selector with its implementation, but rather by **generating the function selector on the fly** somehow, based on the execution context.
+Fismo began as an experiment in what I will call Deterministic Selecto Proxy design. The idea was that the function selectors would be determined not by calling complicated maintenance functions to associate a given function selector with its implementation, but rather by **generating the function selector on the fly** somehow, based on the execution context.
 
-Nifty idea, but without a problem domain, this hypothetical deterministic proxy would have no context within which to formulate function selectors to be proxied. 
+Nifty idea, but without a problem domain, this hypothetical deterministic selector proxy would have no context within which to formulate function selectors to be proxied. 
 
 ## Problem Domain: Finite State Machines
 FSMs are a perfect match for this experiment. As problem domains go, it's relatively simple, but still non-trivial. You can describe them in a lightweight way, validate the descriptions easily, consume them in Solidity, and place them into contract storage. It is straightforward to enforce that transitions between states follow the edges of their directed graph. Fismo does that automatically.
@@ -19,22 +19,22 @@ But there is one place where you need to add custom code: _guarding state transi
 
 In the [Lockable Door](../contracts/lab/LockableDoor) example, going from the Locked state to the Unlocked state should require that the user have a key. That could be an NFT, or just some state in the contract. 
 
-This is where you need to write some code and deploy a guard logic implementation contract. It is also where we get a chance to test the Deterministic Proxy hypothesis at the heart of the Fismo experiment.
+This is where you need to write some code and deploy a guard logic implementation contract. It is also where we get a chance to test the Deterministic Selector Proxy hypothesis at the heart of the Fismo experiment.
 
 In the machine definition for the Locked state, the `exitGuarded` flag should be set to `true` and the `guardLogic` property set to this guard contract's address. When Fismo tries to transition between the Locked state and the Open state, it will attempt to execute the following function by combining machine name, state name, and guard direction.
 
 > `LockableDoor_Locked_Exit(address user, string memory _nextStateName)`
 
-This requires a developer to write function signatures in a very specific way, but it nicely demonstrates the Deterministic Proxy concept with no chance of function signature collision, since:
+This requires a developer to write function signatures in a very specific way, but it nicely demonstrates the Deterministic Selector Proxy concept with no chance of function signature collision, since:
   - Each machine name must be unique  
   - Within a machine, each state name must be unique
   - There are only two valid guard directions
 
 ## Outcome
 ### A technology demonstration
-* The Deterministic Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation. For instance, a geo-tagging system could have selectors based on a global coordinate scheme rather than state machines.
+* The Deterministic Selector Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation. For instance, a geo-tagging system could have selectors based on a global coordinate scheme rather than state machines.
 
-### A useful protocol
+### A broadly useful protocol 
 * As a result of the experiment, we ended up with a Finite State Machine protocol that can be used to simulate, oh, I don't know...
 
   - [Nearly any describable process](https://scholar.google.com/scholar?q=process+simulation+with+finite+state+machines&hl=en&as_sdt=0&as_vis=1&oi=scholart)
@@ -45,7 +45,7 @@ This requires a developer to write function signatures in a very specific way, b
 
 * ... just to name a few. What will you build?
 
-### A self-cloning protocol
+### Self-cloning for affordable building
 * The Fismo contract is prohibitively expensive to deploy if you just want to create interesting machines for people to interact with. 
   * At the time of this writing, it 
 approaches **$2000 USD to deploy** to Ethereum mainnet.

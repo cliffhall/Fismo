@@ -7,7 +7,7 @@
 ## Status  🔬 [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/85/?title=Progress&width=120&color=000000)
 
 Currently in development. Done or in progress are:
-- ✅ Working Deterministic Proxy implementation
+- ✅ Working Deterministic Selector Proxy implementation
 - ✅ Working Finite State Machine protocol
 - ✅ Minimal clones for cheap deployments ($40 vs $2000)!!!
 - ✅ Initialization and access of machine-specific storage slots

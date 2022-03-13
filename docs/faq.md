@@ -79,6 +79,7 @@ It is a combination of...
   - The Proxy pattern for executing guard logic in the context of the Fismo contract
   - A registry of machines and their users' states within them
   - Orchestrator of all state transitions in all machines for all users
+  - A self-cloning [Minimal Proxy](https://eips.ethereum.org/EIPS/eip-1167) factory
 
 It maintains...
   * Configurations for any number of named machines
@@ -103,14 +104,15 @@ It emits events when...
   * A transition is added to an existing state
   * A state's definition is updated e.g., its guard logic contract is changed
   * A user transitioned to a new state in some machine
+  * A user cloned the Fismo contract
 
-It reverts if...
+Typical revert reasons...
   * An added machine, state, or transition is misconfigured in some way
   * An address supplied for a guard logic contract has no code
   * Action invocation not called from declared operator address
   * Action invoked is not valid for the user's current state in the given machine
   * An exit guard function reverts during action invocation
   * An entrance guard function reverts during action invocation
-
+  * Attempting to clone a clone
 
 [![Created by Futurescale](images/created-by.png)](https://futurescale.com)
