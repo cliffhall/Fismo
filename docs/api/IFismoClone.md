@@ -5,9 +5,9 @@
 
 ### IFismoClone 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
 
-## Interface [IFismoClone](../../contracts/interfaces/IFismoClone.sol)
-###  Clone the Fismo Contract
-The ERC-165 identifier for this interface is `0x08a9f5ec`
+### Clone the Fismo Contract
+* View Interface [IFismoClone.sol](../../contracts/interfaces/IFismoClone.sol)
+* The ERC-165 identifier for this interface is `0x08a9f5ec`
 
 ## Events
 

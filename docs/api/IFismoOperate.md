@@ -5,9 +5,9 @@
 
 ### [IFismoClone](IFismoClone.md) 🔬 IFismoOperate 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
 
-## Interface [IFismoOperate](../../contracts/interfaces/IFismoOperate.sol)
-###  Operate Fismo Machines
-The ERC-165 identifier for this interface is `0xcad6b576`
+### Operate Fismo Machines
+* View Interface [IFismoOperate.sol](../../contracts/interfaces/IFismoOperate.sol)
+* The ERC-165 identifier for this interface is `0xcad6b576`
 
 ## Events
 
