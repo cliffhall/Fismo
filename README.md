@@ -1,12 +1,10 @@
 ![Fismo](docs/images/fismo-logo.png)
 # Status 🧪 [About](docs/about.md) 🧪 [FAQ](docs/faq.md) 🧪 [Docs](docs/intro.md)
 
-## Finite State Machines for Ethereum
-#### An experiment in [Deterministic Proxy](docs/about.md#a-deterministic-proxy-experiment) design
+## An EVM-based Finite State Machine protocol
+## An experiment in [Deterministic Selector Proxy](docs/about.md#experimentdeterministicselectorproxy) design
 
 ## Status  🔬 [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/85/?title=Progress&width=120&color=000000)
-
-
 
 Currently in development. Done or in progress are:
 - ✅ Working Deterministic Proxy implementation

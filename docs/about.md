@@ -1,7 +1,7 @@
 ![Fismo](images/fismo-logo.png)
 # [Status](../README.md) 🧪 About 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
 
-## A Deterministic Proxy Experiment
+## Experiment: Deterministic Selector Proxy
 Most extensible among Solidity contract proxy patterns is the [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond Multi-Facet Proxy specification. It allows a proxy to have more than one upgradeable implementation (logic) contract. The Diamond architecture is extremely useful for almost any non-trivial contract suite, lending a modular building approach that can place any amount of logic behind a single Ethereum address. Having built upon the Diamond architecture multiple times, I highly recommend it.
 
 However, one criticism auditors and implementers have often raised is the level of complexity involved in managing the "Facets" (how the Diamond spec refers to implementation contracts) and their function selectors. That complexity is for the most part tucked away out of sight and works flawlessly. But it does beg the question: 
@@ -30,7 +30,7 @@ This requires a developer to write function signatures in a very specific way, b
   - Within a machine, each state name must be unique
   - There are only two valid guard directions
 
-## Experiment Results
+## Outcome
 ### A technology demonstration
 * The Deterministic Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation. For instance, a geo-tagging system could have selectors based on a global coordinate scheme rather than state machines.
 
