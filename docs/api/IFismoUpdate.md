@@ -142,7 +142,7 @@ external;
 Install a Fismo Machine that requires no initialization.
 
 **Emits**
-- [`MachineInstalled`](#machineadded)
+- [`MachineInstalled`](#machineinstalled)
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 
