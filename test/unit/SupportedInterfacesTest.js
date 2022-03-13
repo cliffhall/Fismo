@@ -22,7 +22,7 @@ const { InterfaceIds } = require('../../scripts/config/supported-interfaces.js')
 describe("SupportedInterfaces", function() {
 
     // Shared args
-    let InterfaceInfo, interfaceInfo;
+    let SupportedInterfaces, supportedInterfaces;
 
     beforeEach( async function () {
 
@@ -33,7 +33,15 @@ describe("SupportedInterfaces", function() {
 
     });
 
-    context("📋 Supported Interfaces", async function () {;
+    context("📋 Supported Interfaces", async function () {
+
+        it("getIFismoClone() should return expected id", async function () {
+
+            const expected = InterfaceIds.IFismoClone;
+            const actual = await supportedInterfaces.getIFismoClone();
+            assert.equal(actual, expected);
+
+        });
 
         it("getIFismoOperate() should return expected id", async function () {
 

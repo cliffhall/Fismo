@@ -28,8 +28,8 @@ async function main() {
     console.log(divider);
 
     // Deploy Fismo
-    [fismo, fismoArgs] = await deployFismo(deployer.address, gasLimit);
-    deploymentComplete('Fismo', fismo.address, fismoArgs, contracts);
+    [fismo] = await deployFismo(gasLimit);
+    deploymentComplete('Fismo', fismo.address, [], contracts);
 
     // Deploy examples
     const examples = [NightClub, StopWatch, LockableDoor];

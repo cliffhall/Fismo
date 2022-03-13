@@ -8,6 +8,8 @@ exports.RevertReasons = {
     // --------------------------------------------------------
     // FISMO
     // --------------------------------------------------------
+    MULTIPLICITY: "Can't clone a clone",
+
     ONLY_OWNER: "Only owner may call",
     ONLY_OPERATOR: "Only operator may call",
 
@@ -18,6 +20,7 @@ exports.RevertReasons = {
     NO_SUCH_STATE: "No such state",
     NO_SUCH_ACTION: "No such action",
 
+    INVALID_ADDRESS: "Invalid address",
     INVALID_OPERATOR_ADDR: "Invalid operator address",
     INVALID_MACHINE_ID: "Invalid machine id",
     INVALID_STATE_ID: "Invalid state id",

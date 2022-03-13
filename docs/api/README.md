@@ -3,10 +3,11 @@
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
-### [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
+### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
 
 ## Interfaces
-The exposed functionality of the `Fismo` contract is split into three interfaces: 
+The exposed functionality of the `Fismo` contract is split into several interfaces: 
+* [`IFismoClone`](IFismoClone.md) - Clone the Fismo contract.
 * [`IFismoOperate`](IFismoOperate.md) - Operate Fismo machines.
 * [`IFismoUpdate`](IFismoUpdate.md) - Update Fismo storage.
 * [`IFismoView`](IFismoView.md) - View Fismo storage.

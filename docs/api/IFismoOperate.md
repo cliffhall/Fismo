@@ -3,7 +3,7 @@
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
-### IFismoOperate 🔬 [IFismoUpdate](IFismoUpdate.md)  🔬 [IFismoView](IFismoView.md)
+### [IFismoClone](IFismoClone.md) 🔬 IFismoOperate 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
 
 ## Interface [IFismoOperate](../../contracts/interfaces/IFismoOperate.sol)
 ###  Operate Fismo Machines
@@ -11,17 +11,17 @@ The ERC-165 identifier for this interface is `0xcad6b576`
 
 ## Events
 
-### Transitioned
+### UserTransitioned
 Emitted when a user transitions from one State to another.
-
-<details>
-<summary>
-View Details
-</summary>
 
 **Signature**
 ```solidity
-event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexed newStateId, FismoTypes.ActionResponse response);
+event UserTransitioned (
+    address indexed user, 
+    bytes4 indexed machineId, 
+    bytes4 indexed newStateId, 
+    FismoTypes.ActionResponse response
+);
 ```
 **Parameters**
 
@@ -30,21 +30,15 @@ event Transitioned(address indexed user, bytes4 indexed machineId, bytes4 indexe
 | user        | the user's wallet address    | address  | 
 | machineId   | the machine's id             | bytes4  | 
 | actionId | the id of the action invoked | bytes4  | 
-| response | the id of the action invoked | FismoTypes.ActionResponse  | 
-</details>
+| response | the id of the action invoked | FismoTypes.ActionResponse  |
 
 ## Functions
 
 ### invokeAction
 Invoke an action on a configured Machine.
 
-<details>
-<summary>
-View Details
-</summary>
-
 **Emits**
-* [`Transitioned`](#transitioned)
+* [`UserTransitioned`](#usertransitioned)
 
 **Reverts if**
 - Caller is not the machine's Operator address
@@ -54,9 +48,15 @@ View Details
 
 **Signature**
 ```solidity
-function invokeAction(address _user, bytes4 _machineId, bytes4 _actionId)
+function invokeAction(
+    address _user, 
+    bytes4 _machineId, 
+    bytes4 _actionId
+) 
 external
-returns(FismoTypes.ActionResponse memory response);
+returns(
+    FismoTypes.ActionResponse memory response
+);
 ```
 
 **Arguments**
@@ -72,6 +72,5 @@ returns(FismoTypes.ActionResponse memory response);
 | Name        | Description                                | Type          |
 | ------------- |--------------------------------------------|-------------|
 | response | the address of the guard logic implementation contract| FismoTypes.ActionResponse |
-</details>
 
 [![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.0;
 
+import "./IFismoClone.sol";
 import "./IFismoOperate.sol";
 import "./IFismoUpdate.sol";
 import "./IFismoView.sol";
@@ -21,6 +22,12 @@ import "./IFismoView.sol";
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 contract SupportedInterfaces {
+
+    function getIFismoClone()
+    public pure
+    returns(bytes4 id) {
+        id = type(IFismoClone).interfaceId;
+    }
 
     function getIFismoOperate()
     public pure

@@ -9,6 +9,10 @@ pragma solidity ^0.8.0;
 contract FismoConstants {
 
     // Revert Reasons
+    string internal constant MULTIPLICITY = "Can't clone a clone";
+
+    string internal constant INVALID_ADDRESS = "Invalid address";
+
     string internal constant ONLY_OWNER = "Only owner may call";
     string internal constant ONLY_OPERATOR = "Only operator may call";
 

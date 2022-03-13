@@ -14,10 +14,32 @@ import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
 contract FismoUpdate is IFismoUpdate, FismoAccess {
 
     /**
+     * @notice Transfer ownership of the Fismo instance to another address.
+     *
+     * Reverts if:
+     * - Caller is not contract owner
+     * - New owner is zero address
+     *
+     * Emits:
+     * - OwnershipTransferred
+     *
+     * @param _newOwner - the new owner's address
+     */
+    function transferOwnership(address _newOwner)
+    external
+    override
+    onlyOwner
+    {
+        require(_newOwner != address(0), INVALID_ADDRESS);
+        setOwner(_newOwner);
+        emit OwnershipTransferred(_newOwner);
+    }
+
+    /**
      * @notice Install a Fismo Machine that requires no initialization.
      *
      * Emits:
-     * - MachineAdded
+     * - MachineInstalled
      * - StateAdded
      * - TransitionAdded
      *
@@ -42,7 +64,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * @notice Install a Fismo Machine and initialize it.
      *
      * Emits:
-     * - MachineAdded
+     * - MachineInstalled
      * - StateAdded
      * - TransitionAdded
      *
@@ -238,7 +260,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * @notice Add a new Machine to Fismo.
      *
      * Emits:
-     * - MachineAdded
+     * - MachineInstalled
      * - StateAdded
      * - TransitionAdded
      *
@@ -287,7 +309,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
         }
 
         // Alert listeners to change of state
-        emit MachineAdded(_machine.id, _machine.name);
+        emit MachineInstalled(_machine.id, _machine.name);
 
     }
 
@@ -398,14 +420,25 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     /**
      * @notice Set the contract owner
      *
-     * TODO: Send owner changed event
-     *
      * @param _owner - the contract owner address
      */
     function setOwner(address _owner)
     internal
     {
         getStore().owner = _owner;
+    }
+
+    /**
+     * @notice Set the isFismo flag.
+     *
+     * @dev Will the real Fismo please stand up?
+     *
+     * @param _assertion - true if this contract is an original deployment
+     */
+    function setIsFismo(bool _assertion)
+    internal
+    {
+        getStore().isFismo = _assertion;
     }
 
 }

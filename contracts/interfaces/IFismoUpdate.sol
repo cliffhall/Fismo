@@ -7,31 +7,68 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  * @title IFismoUpdate
  *
  * Interface for Fismo update functions
- * The ERC-165 identifier for this interface is 0xe29cbd4a
+ * The ERC-165 identifier for this interface is 0x0a16331a
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 interface IFismoUpdate {
 
-    /// Emitted when a new Machine is added to Fismo.
-    event MachineAdded(bytes4 indexed machineId, string machineName);
+    /// Emitted when ownership of the Fismo instance is transferred
+    event OwnershipTransferred (
+        address indexed newOwner
+    );
 
-    /// Emitted when a new State is added to Fismo.
+    /// Emitted when a new Machine is installed in this Fismo instance
+    event MachineInstalled (
+        bytes4 indexed machineId,
+        string machineName
+    );
+
+    /// Emitted when a new State is added to a Fismo Machine.
     /// May be emitted multiple times during the addition of a Machine.
-    event StateAdded(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+    event StateAdded (
+        bytes4 indexed machineId,
+        bytes4 indexed stateId,
+        string stateName
+    );
 
     /// Emitted when an existing State is updated.
-    event StateUpdated(bytes4 indexed machineId, bytes4 indexed stateId, string stateName);
+    event StateUpdated (
+        bytes4 indexed machineId,
+        bytes4 indexed stateId,
+        string stateName
+    );
 
     /// Emitted when a new Transition is added to an existing State.
     /// May be emitted multiple times during the addition of a Machine or State.
-    event TransitionAdded(bytes4 indexed machineId, bytes4 indexed stateId, string action, string targetStateName);
+    event TransitionAdded (
+        bytes4 indexed machineId,
+        bytes4 indexed stateId,
+        string action, string targetStateName
+    );
+
+    /**
+     * @notice Transfer ownership of the Fismo instance to another address.
+     *
+     * Reverts if:
+     * - Caller is not contract owner
+     * - New owner is zero address
+     *
+     * Emits:
+     * - OwnershipTransferred
+     *
+     * @param _newOwner - the new owner's address
+     */
+    function transferOwnership (
+        address _newOwner
+    )
+    external;
 
     /**
      * @notice Install a Fismo Machine that requires no initialization.
      *
      * Emits:
-     * - MachineAdded
+     * - MachineInstalled
      * - StateAdded
      * - TransitionAdded
      *
@@ -43,14 +80,16 @@ interface IFismoUpdate {
      *
      * @param _machine - the machine definition to install
      */
-    function installMachine(FismoTypes.Machine memory _machine)
+    function installMachine (
+        FismoTypes.Machine memory _machine
+    )
     external;
 
     /**
      * @notice Install a Fismo Machine and initialize it.
      *
      * Emits:
-     * - MachineAdded
+     * - MachineInstalled
      * - StateAdded
      * - TransitionAdded
      *
@@ -65,7 +104,7 @@ interface IFismoUpdate {
      * @param _initializer - the address of the initializer contract
      * @param _calldata - the encoded function and args to pass in delegatecall
      */
-    function installAndInitializeMachine(
+    function installAndInitializeMachine (
         FismoTypes.Machine memory _machine,
         address _initializer,
         bytes memory _calldata
@@ -92,7 +131,10 @@ interface IFismoUpdate {
      * @param _machineId - the id of the machine
      * @param _state - the state to add to the machine
      */
-    function addState(bytes4 _machineId, FismoTypes.State memory _state)
+    function addState (
+        bytes4 _machineId,
+        FismoTypes.State memory _state
+    )
     external;
 
     /**
@@ -116,7 +158,10 @@ interface IFismoUpdate {
      * @param _machineId - the id of the machine
      * @param _state - the state to update
      */
-    function updateState(bytes4 _machineId, FismoTypes.State memory _state)
+    function updateState (
+        bytes4 _machineId,
+        FismoTypes.State memory _state
+    )
     external;
 
     /**
@@ -139,7 +184,11 @@ interface IFismoUpdate {
      * @param _stateId - the id of the state
      * @param _transition - the transition to add to the state
      */
-    function addTransition(bytes4 _machineId, bytes4 _stateId, FismoTypes.Transition memory _transition)
+    function addTransition (
+        bytes4 _machineId,
+        bytes4 _stateId,
+        FismoTypes.Transition memory _transition
+    )
     external;
 
 }
