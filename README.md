@@ -11,9 +11,10 @@ Fismo is a way of simulating stateful places, things, or processes on Ethereum. 
 * 💥 Use off-chain metadata to describe states in any medium
 
 
-### Status 🔬 [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/85/?title=Progress&width=120&color=000000)
+### Status 
+### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/85/?title=Progress&width=120&color=000000)
 
-Currently in development. Done or in progress are:
+Done or in progress are:
 - ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#experimentdeterministicselectorproxy) implementation
 - ✅ A robust Finite State Machine protocol
 - ✅ Minimal clones for cheap deployments ($40 vs $2000)!!!
