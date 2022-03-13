@@ -30,18 +30,30 @@ This requires a developer to write function signatures in a very specific way, b
   - Within a machine, each state name must be unique
   - There are only two valid guard directions
 
-## Result
-The Deterministic Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation.
+## Experiment Results
+### A technology demonstration
+* The Deterministic Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation. For instance, a geo-tagging system could have selectors based on a global coordinate scheme rather than state machines.
 
+### A useful protocol
+* As a result of the experiment, we ended up with a Finite State Machine protocol that can be used to simulate, oh, I don't know...
 
-Additionally, we end up with a nice protocol that can be used to simulate, oh, I don't know...
   - [Nearly any describable process](https://scholar.google.com/scholar?q=process+simulation+with+finite+state+machines&hl=en&as_sdt=0&as_vis=1&oi=scholart)
   - [Chatbots or non-player characters in games](https://www.hamidadelyar.com/blog/finite-state-machine-chatbot/)
   - [Software architecture](328717831_Modeling_Software_with_Finite_State_Machines_A_Practical_Approach)
   - [The behavior of living creatures](https://mind-simulation.com/en/blog/tech/using-finite-state-machines-to-model-behavior.html)
   - [Adventure game worlds with blockchain-native assets](https://www.mecs-press.org/ijieeb/ijieeb-v13-n4/IJIEEB-V13-N4-5.pdf)
 
-... just to name a few. What will you build?
+* ... just to name a few. What will you build?
 
-
+### A self-cloning protocol
+* The Fismo contract is prohibitively expensive to deploy if you just want to create interesting machines for people to interact with. 
+  * At the time of this writing, it 
+approaches **$2000 USD to deploy** to Ethereum mainnet.
+* By adding support for [ERC-1167 Minimal Proxy](https://eips.ethereum.org/EIPS/eip-1167) cloning, Fismo allows anyone to deploy their own fully functional clone. 
+  * Again, at the time of this writing, it costs about **$40 USD to clone** on Ethereum mainnet.
+* And finally yes, you *could* try to make a clone of a clone. And it would work... ok.
+    * Unfortunately, like Micheal Keaton in [Multiplicity](https://en.wikipedia.org/wiki/Multiplicity_(film)), you would realize a sort of fidelity loss with each successive clone in the chain.
+    * Although the logic would operate the same and the clone would store the data, each clone would be delegating the call to the clone it came from, increasing the transaction cost with each delegation.
+    * To avoid this hidden expense for the unwary, the `cloneFismo` method reverts if attempting to clone a clone.
+    
 [![Created by Futurescale](images/created-by.png)](https://futurescale.com)
