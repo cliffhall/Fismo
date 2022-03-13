@@ -1,7 +1,7 @@
 ![Fismo](docs/images/fismo-logo.png)
 # Status 🧪 [About](docs/about.md) 🧪 [FAQ](docs/faq.md) 🧪 [Docs](docs/intro.md)
 ## A Finite State Machine Protocol for EVM Blockchains
-### What even is this?
+### What is this?
 Fismo is a way of simulating stateful places, things, or processes on Ethereum. Each user's journey through a state machine is recorded, can be referred to from other contracts. Their progress can be gated by the tokens they hold, like a player's inventory in an adventure game.
 
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
