@@ -4,7 +4,7 @@
 ### What is this?
 Fismo is a way of simulating stateful things, processes, or maps of places on EVM blockchains.
 
-There are standards for tokens that allow us to represent things like currency, ownership, and membership. But why do we have no standard for representing a process and an individual's path through it?
+There are standards for tokens that allow us to represent things like currency, ownership, and membership. But why do we have no standard for representing a process or map and an individual's path through it?
 
 Each user's position on their journey through a state machine is recorded, and can be publicly queried by anyone. Progress can be controlled by the tokens a user holds. Likewise, tokens could be transferred to a user when they or take some action or arrive at some waypoint.
 
