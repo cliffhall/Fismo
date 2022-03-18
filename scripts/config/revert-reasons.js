@@ -10,6 +10,8 @@ exports.RevertReasons = {
     // --------------------------------------------------------
     MULTIPLICITY: "Can't clone a clone",
 
+    ALREADY_INITIALIZED: "Already initialized",
+
     ONLY_OWNER: "Only owner may call",
     ONLY_OPERATOR: "Only operator may call",
 
@@ -28,10 +30,10 @@ exports.RevertReasons = {
     INVALID_TARGET_ID: "Invalid target state id",
 
     CODELESS_INITIALIZER: "Initializer address not a contract",
-    INITIALIZER_REVERTED: "Initializer function reverted",
+    INITIALIZER_REVERTED: "Initializer function reverted, no reason given",
 
     CODELESS_GUARD: "Guard address not a contract",
-    GUARD_REVERTED: "Guard function reverted",
+    GUARD_REVERTED: "Guard function reverted, no reason given",
 
     // --------------------------------------------------------
     // LOCKABLE DOOR EXAMPLE

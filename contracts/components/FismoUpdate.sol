@@ -73,6 +73,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      * - Operator address is zero
      * - Machine id is not valid for Machine name
      * - Machine already exists
+     * - Initializer has no code
      * - Initializer call reverts
      *
      * @param _machine - the machine definition to install
@@ -89,7 +90,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     onlyOwner
     {
         // Make sure this is actually a contract
-        enforceHasContractCode(_initializer, CODELESS_INITIALIZER);
+        requireContractCode(_initializer, CODELESS_INITIALIZER);
 
         // Add the new machine to Fismo's storage
         addMachine(_machine);
@@ -149,7 +150,7 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
         mapStateIndex(_machineId, _state.id, index);
 
         // Store the new state in the machine's states array
-        storeState(machine, _state, index);
+        storeState(machine, _state, false);
 
         // Alert listeners to change of state
         emit StateAdded(_machineId, _state.id, _state.name);
@@ -188,12 +189,8 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
         // Get the machine
         Machine storage machine = getMachine(_machineId);
 
-        // Make sure state exists
-        uint256 index = getStateIndex(_machineId, _state.id);
-        require(machine.states[index].id == _state.id, NO_SUCH_STATE);
-
         // Overwrite the state in the machine's states array
-        storeState(machine, _state, index);
+        storeState(machine, _state, true);
 
         // Alert listeners to change of state
         emit StateUpdated(_machineId, _state.id, _state.name);
@@ -230,20 +227,14 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
         // Make sure target state id is valid
         require(_transition.targetStateId == nameToId(_transition.targetStateName), INVALID_TARGET_ID);
 
-        // Get the machine
-        Machine storage machine = getMachine(_machineId);
-
-        // Get the state's index in the machine's states array
-        uint256 index = getStateIndex(_machineId, _stateId);
-
         // Get the target state
-        State storage state = machine.states[index];
+        State storage state = getState(_machineId, _stateId, true);
 
         // Zero init a new transitions array element in storage
         state.transitions.push();
 
         // Get the new transition's storage index in the state's transitions array
-        index = state.transitions.length - 1;
+        uint256 index = state.transitions.length - 1;
 
         // Overwrite the state in the machine's states array
         Transition storage transition = state.transitions[index];
@@ -324,19 +315,19 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
      *
      * @param _machine - the machine's storage location
      * @param _state - the state's storage location
-     * @param _index - the state's index within the machine's states array
+     * @param _shouldExist - true if the state should exist
      */
-    function storeState(Machine storage _machine, State memory _state, uint256 _index)
+    function storeState(Machine storage _machine, State memory _state, bool _shouldExist)
     internal
     {
         // Overwrite the state in the machine's states array
-        State storage state = _machine.states[_index];
+        State storage state = getState(_machine.id, _state.id, _shouldExist);
         state.id = _state.id;
         state.name = _state.name;
         state.exitGuarded = _state.exitGuarded;
         state.enterGuarded = _state.enterGuarded;
         if (_state.exitGuarded || _state.enterGuarded) {
-            enforceHasContractCode(_state.guardLogic, CODELESS_GUARD);
+            requireContractCode(_state.guardLogic, CODELESS_GUARD);
             state.guardLogic = _state.guardLogic;
         }
 

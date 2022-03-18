@@ -37,7 +37,7 @@ For instance, even though multiple people may interact with an FSM-based auction
 the auction that's being tracked (pending, open, closed). What the users are allowed to do is based on the state of 
 the machine. The user has no "state" to speak of.
 
-Fismo flips all this on it's head. It tracks the state of _each user in every machine they interact with_.
+Fismo flips all this on its head. It tracks the state of _each user in every machine they interact with_.
 
 A Machine is a combination of static configuration and guard logic that governs the current state of a user on that machine.
 

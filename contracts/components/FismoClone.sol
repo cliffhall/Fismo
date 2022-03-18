@@ -29,12 +29,11 @@ contract FismoClone is IFismoClone, FismoUpdate  {
     external
     override
     {
-        address owner = FismoStore.getStore().owner;
-        require(owner == address(0), INVALID_ADDRESS);
+        address owner = getStore().owner;
+        require(owner == address(0), ALREADY_INITIALIZED);
         setOwner(_owner);
         setIsFismo(false);
     }
-
 
     function cloneFismo()
     external

@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import { FismoView } from "./FismoView.sol";
-import { FismoStore } from "../domain/FismoStore.sol";
 
 /**
  * @title FismoControl
@@ -14,7 +13,7 @@ import { FismoStore } from "../domain/FismoStore.sol";
 contract FismoAccess is FismoView {
 
     modifier onlyOwner() {
-        require(msg.sender == FismoStore.getStore().owner, ONLY_OWNER);
+        require(msg.sender == getStore().owner, ONLY_OWNER);
         _;
     }
 

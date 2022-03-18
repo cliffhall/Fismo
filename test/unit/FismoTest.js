@@ -13,7 +13,8 @@ const { deployTransitionGuards } = require('../../scripts/deploy/deploy-guards')
 const { InterfaceIds } = require('../../scripts/config/supported-interfaces');
 const { LockableDoor } = require("../../scripts/config/lab-examples");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
-const { deployExample } = require("../../scripts/deploy/deploy-example");
+const { deployExample, prepareInitializerArgs } = require("../../scripts/deploy/deploy-example");
+const { deployTokens } = require('../../scripts/deploy/deploy-tokens');
 const { nameToId } =  require('../../scripts/util/name-utils');
 
 // Domain entities
@@ -34,8 +35,8 @@ describe("Fismo", function() {
     let accounts, deployer, user, operator, guardLogic, operatorArgs, guards, expected;
     let fismo, machine, machineObj, response, targetStateName, targetStateId, selector;
     let state, transition, action, stateName, stateId, actionId, success, support;
-    let actionResponse, actionResponseStruct, position, positionStruct;
-    let implementation, instance, tx, event, owner, isFismo;
+    let actionResponse, actionResponseStruct, position, positionStruct, example;
+    let implementation, instance, tx, event, owner, isFismo, tokens, initArgs;
 
     beforeEach( async function () {
 
@@ -89,6 +90,22 @@ describe("Fismo", function() {
         });
 
         context("📋 IFismoClone methods", async function () {
+
+            context("👉 init()", async function () {
+
+                context("💔 Revert Reasons", async function () {
+
+                    it("Should revert if not called by cloneFismo on an instance it created", async function () {
+
+                        // Attempt to call
+                        await expect(fismo.init(user.address))
+                            .to.revertedWith(RevertReasons.ALREADY_INITIALIZED);
+
+                    });
+
+                });
+
+            });
 
             context("👉 cloneFismo()", async function () {
 
@@ -153,6 +170,22 @@ describe("Fismo", function() {
         });
 
         context("📋 IFismoClone methods", async function () {
+
+            context("👉 init()", async function () {
+
+                context("💔 Revert Reasons", async function () {
+
+                    it("Should revert if not called by cloneFismo on an instance it created", async function () {
+
+                        // Attempt to call
+                        await expect(fismo.init(user.address))
+                            .to.revertedWith(RevertReasons.ALREADY_INITIALIZED);
+
+                    });
+
+                });
+
+            });
 
             context("👉 cloneFismo()", async function () {
 
@@ -219,10 +252,10 @@ describe("Fismo", function() {
 
                     /*
                      * Reverts if
-                     * - caller is not the machine's operator (contract or EOA)
+                     * - caller is not the machine's operator (can be contract or EOA)
                      * - _machineId does not refer to a valid machine
                      * - _actionId is not valid for the user's current state in the given machine
-                     * - any invoked guard logic reverts (tested separately elsewhere)
+                     * - any invoked guard logic reverts (tested separately in LockableDoorTest)
                      */
 
                     it("Should revert if caller is not the machine's operator", async function () {
@@ -320,7 +353,7 @@ describe("Fismo", function() {
                     expect(machine.isValid()).is.true;
 
                     // Deploy its transition guards
-                    const guards = await deployTransitionGuards(machineObj, gasLimit);
+                    guards = await deployTransitionGuards(machineObj, gasLimit);
 
                     // Add guard addresses to their associated states
                     for (const guard of guards) {
@@ -412,6 +445,153 @@ describe("Fismo", function() {
 
                         // Attempt to add the machine, again
                         await expect(fismo.installMachine(machine.toObject()))
+                            .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
+                    });
+
+                });
+
+            });
+
+            context("👉 installAndInitializeMachine()", async function () {
+
+                beforeEach( async function () {
+                    // Get simple, guarded machine example
+                    machineObj = LockableDoor;
+                    machine = Machine.fromObject(machineObj.machine);
+                    machine.operator = operator.address;
+                    expect(machine.isValid()).is.true;
+
+                    // Deploy its transition guards
+                    guards = await deployTransitionGuards(machineObj, gasLimit);
+
+                    // Add guard addresses to their associated states
+                    for (const guard of guards) {
+                        guard.states.forEach(stateName => {
+                            let state = machine.getState(stateName);
+                            state.guardLogic = guard.contract.address
+                        })
+                    }
+
+                    // Deploy the example tokens; example initializer needs to know the Fismo20 address
+                    tokens = await deployTokens(gasLimit);
+
+                });
+
+                it("Should install a valid guarded Machine and initialize it", async function () {
+
+                    // Get example-specific initialization args (initializer contract and calldata)
+                    initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                    // Add the machine, and initialize
+                    // Note: The initializer contract can be any contract, and
+                    //       it's any method can be called with any arguments.
+                    //       The initializer can be a separate contract,
+                    //       added to one of a machine's guard contracts,
+                    //       even some other contract that does no initialization
+                    //       of the machine's storage at all.
+
+                    await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                        .to.emit(fismo, 'MachineInstalled')
+                        .withArgs(machine.id, machine.name);
+                });
+
+                context("💔 Revert Reasons", async function () {
+
+                    it("Should revert with initializer's revert reason if it reverts with one", async function () {
+
+                        // Fake a guard contract with the user's EOA
+                        guards = [{contract: { address:user.address } }]
+
+                        // Get example-specific initialization args (initializer contract and calldata)
+                        initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                        // Add the machine, and attempt to initialize
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.CODELESS_INITIALIZER);
+                    });
+
+                    it("Should revert with generic reason if initializer reverts without one", async function () {
+
+                        // Fake a token contract with the zero address
+                        tokens = [{ address: ethers.constants.AddressZero }]
+
+                        // Get example-specific initialization args (initializer contract and calldata)
+                        initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                        // Add the machine, and attempt to initialize
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.INITIALIZER_REVERTED);
+                    });
+
+                    it("Should revert if operator address is zero address", async function () {
+
+                        // Operator cannot be zero address
+                        machine.operator = ethers.constants.AddressZero;
+
+                        // Get example-specific initialization args (initializer contract and calldata)
+                        initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                        // Attempt to add the machine, checking for the revert
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.INVALID_OPERATOR_ADDR);
+                    });
+
+                    it("Should revert if machine id is invalid", async function () {
+
+                        // Set an invalid machine id
+                        machine.id = nameToId("not this");
+
+                        // Get example-specific initialization args (initializer contract and calldata)
+                        initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                        // Attempt to add the machine, checking for the revert
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.INVALID_MACHINE_ID);
+                    });
+
+                    it("Should revert if machine already exists", async function () {
+
+                        // Get example-specific initialization args (initializer contract and calldata)
+                        initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                        // Add the machine once
+                        await fismo.installAndInitializeMachine(machine.toObject(), ...initArgs);
+
+                        // Attempt to add the machine, again
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.MACHINE_EXISTS);
+                    });
+
+                    it("Should revert if a state id in a state is invalid", async function () {
+
+                        // Set an invalid state id
+                        machine.states[0].id = nameToId("not this");
+
+                        // Get example-specific initialization args (initializer contract and calldata)
+                        initArgs = prepareInitializerArgs(LockableDoor, guards, tokens);
+
+                        // Attempt to add the machine, again
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.INVALID_STATE_ID);
+                    });
+
+                    it("Should revert if an action id in a transition is invalid", async function () {
+
+                        // Set an invalid action id
+                        machine.states[0].transitions[0].actionId = nameToId("not this");
+
+                        // Attempt to add the machine, again
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
+                            .to.revertedWith(RevertReasons.INVALID_ACTION_ID);
+                    });
+
+                    it("Should revert if a target state id in a transition is invalid", async function () {
+
+                        // Set an invalid target state id
+                        machine.states[0].transitions[0].targetStateId = nameToId("not this");
+
+                        // Attempt to add the machine, again
+                        await expect(fismo.installAndInitializeMachine(machine.toObject(), ...initArgs))
                             .to.revertedWith(RevertReasons.INVALID_TARGET_ID);
                     });
 
@@ -741,6 +921,23 @@ describe("Fismo", function() {
         });
 
         context("📋 IFismoView methods", async function () {
+
+            context("👉 getOwner()", async function () {
+
+                it("Should return the owner of the Fismo instance", async function () {
+
+                    // Current owner is the deployer
+                    expected = deployer.address;
+
+                    // Get the owner of the Fismo instance
+                    owner = await fismo.getOwner();
+
+                    // Verify that the appropriate address was returned
+                    expect(owner).to.equal(expected);
+
+                });
+
+            });
 
             context("👉 getGuardAddress()", async function () {
 

@@ -193,6 +193,48 @@ describe("Lockable Door Machine", function() {
                         .to.revertedWith(RevertReasons.NO_SUCH_ACTION);
                 });
 
+                it("Should revert with a generic reason if guard reverts without one", async function () {
+
+                    // ---------------------------------------------------------------------------------------------
+                    // LOCK THE DOOR FIRST
+                    // ---------------------------------------------------------------------------------------------
+
+                    // Initial state is "Closed", action is "Lock", target state is "Locked"
+                    action = "Lock";
+                    actionId = nameToId(action);
+                    priorState = "Closed";
+                    nextState = "Locked";
+
+                    // Invoke the action via the Operator
+                    await operator.connect(deployer).invokeAction(machine.id, actionId);
+
+                    // ---------------------------------------------------------------------------------------------
+                    // GIVE USER THE KEY
+                    // ---------------------------------------------------------------------------------------------
+
+                    // One key
+                    amountToMint = "1";
+
+                    // Mint the key token and check for the event
+                    await expect(keyToken.connect(deployer).mintSample(deployer.address, amountToMint))
+                        .to.emit(keyToken, 'Transfer')
+                        .withArgs(ethers.constants.AddressZero, deployer.address, amountToMint);
+
+                    // ---------------------------------------------------------------------------------------------
+                    // NOW ATTEMPT TO UNLOCK THE DOOR
+                    // ---------------------------------------------------------------------------------------------
+
+                    // Current state is "Locked", action is "Unlock", target state is "Closed"
+                    action = "Unlock";
+                    actionId = nameToId(action);
+
+                    // Attempt to invoke the action via the Operator, checking for the generic revert reason
+                    // Note: This guard will revert with no reason if the owner attempts to use it. (Contrived)
+                    await expect(operator.connect(deployer).invokeAction(machine.id, actionId))
+                        .to.revertedWith(RevertReasons.GUARD_REVERTED);
+
+                });
+
                 it("Should revert if user doesn't have key for action 'Unlock'", async function () {
 
                     // ---------------------------------------------------------------------------------------------

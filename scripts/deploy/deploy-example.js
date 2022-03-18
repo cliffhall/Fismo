@@ -127,3 +127,4 @@ function prepareInitializerArgs(example, guards, tokens) {
 }
 
 exports.deployExample = deployExample;
+exports.prepareInitializerArgs = prepareInitializerArgs;

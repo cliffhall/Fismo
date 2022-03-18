@@ -173,13 +173,14 @@ contract FismoView is IFismoView, FismoTools {
      * @notice Get a state by Machine id and State id.
      *
      * Reverts if
-     * - State does not exist
+     * - _verify is true and State does not exist
      *
      * @param _machineId - the id of the machine
      * @param _stateId - the id of the state
+     * @param _shouldExist - true if the state should already exist
      * @return state - the state definition
      */
-    function getState(bytes4 _machineId, bytes4 _stateId)
+    function getState(bytes4 _machineId, bytes4 _stateId, bool _shouldExist)
     internal
     view
     returns (State storage state) {
@@ -193,8 +194,12 @@ contract FismoView is IFismoView, FismoTools {
         // Get the state
         state = machine.states[index];
 
-        // Make sure state exists
-        require(state.id == _stateId, NO_SUCH_STATE);
+        // Verify expected existence or non-existence of State
+        if (_shouldExist) {
+            require(state.id == _stateId, NO_SUCH_STATE);
+        } else {
+            require(state.id == 0, STATE_EXISTS);
+        }
     }
 
     /**

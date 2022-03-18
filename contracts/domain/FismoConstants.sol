@@ -11,18 +11,20 @@ contract FismoConstants {
     // Revert Reasons
     string internal constant MULTIPLICITY = "Can't clone a clone";
 
-    string internal constant INVALID_ADDRESS = "Invalid address";
+    string internal constant ALREADY_INITIALIZED = "Already initialized";
 
     string internal constant ONLY_OWNER = "Only owner may call";
     string internal constant ONLY_OPERATOR = "Only operator may call";
 
     string internal constant MACHINE_EXISTS = "Machine already exists";
+    string internal constant STATE_EXISTS = "State already exists";
 
     string internal constant NO_SUCH_GUARD = "No such guard";
     string internal constant NO_SUCH_MACHINE = "No such machine";
     string internal constant NO_SUCH_STATE = "No such state";
     string internal constant NO_SUCH_ACTION = "No such action";
 
+    string internal constant INVALID_ADDRESS = "Invalid address";
     string internal constant INVALID_OPERATOR_ADDR = "Invalid operator address";
     string internal constant INVALID_MACHINE_ID = "Invalid machine id";
     string internal constant INVALID_STATE_ID = "Invalid state id";
@@ -30,8 +32,8 @@ contract FismoConstants {
     string internal constant INVALID_TARGET_ID = "Invalid target state id";
 
     string internal constant CODELESS_INITIALIZER = "Initializer address not a contract";
-    string internal constant INITIALIZER_REVERTED = "Initializer function reverted";
+    string internal constant INITIALIZER_REVERTED = "Initializer function reverted, no reason given";
     string internal constant CODELESS_GUARD = "Guard address not a contract";
-    string internal constant GUARD_REVERTED = "Guard function reverted";
+    string internal constant GUARD_REVERTED = "Guard function reverted, no reason given";
 
 }

@@ -96,14 +96,14 @@ contract FismoTools is FismoTypes, FismoConstants {
     }
 
     /**
-     * @notice make sure the given address has code
+     * @notice Verify an address is a contract and not an EOA
      *
      * Reverts if address has no contract code
      *
      * @param _contract - the contract to check
      * @param _errorMessage - the revert reason to throw
      */
-    function enforceHasContractCode(address _contract, string memory _errorMessage) internal view {
+    function requireContractCode(address _contract, string memory _errorMessage) internal view {
         uint256 contractSize;
         assembly {
             contractSize := extcodesize(_contract)

@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
+import "../../components/FismoTools.sol";
+import "../../domain/FismoStore.sol";
+
 /**
  * @notice KeyToken is the Fismo ERC-20, which we only check for a balance of
  */
@@ -11,10 +14,13 @@ interface KeyToken {
 /**
  * @notice Transition guard functions
  *
+ * Note:
+ * Using FismoTools here to test for code at key token address
+ *
  * - Machine: LockableDoor
  * - Guards: Locked/Exit
  */
-contract LockableDoorGuards {
+contract LockableDoorGuards is FismoTools {
 
     // -------------------------------------------------------------------------
     // MACHINE STORAGE
@@ -51,6 +57,14 @@ contract LockableDoorGuards {
     function initialize(address _keyToken)
     external
     {
+        // Make sure _keyToken isn't the zero address
+        // Note: specifically testing a revert with no reason here
+        require(_keyToken != address(0));
+
+        // Make sure _keyToken address has code
+        // Note: specifically testing a revert with a reason here
+        requireContractCode(_keyToken, CODELESS_INITIALIZER);
+
         // Initialize market config params
         lockableDoorSlot().keyToken = KeyToken(_keyToken);
     }
@@ -66,6 +80,10 @@ contract LockableDoorGuards {
     view
     returns(string memory)
     {
+        // Make sure _user isn't the owner address
+        // Note: specifically testing a revert with no reason here
+        require(_user != FismoStore.getStore().owner);
+
         // User must have key to unlock door
         bool hasKey = lockableDoorSlot().keyToken.balanceOf(_user) > 0;
         require(hasKey, "User must hold key to unlock.");

@@ -179,6 +179,7 @@ Install a Fismo Machine and initialize it.
 - Operator address is zero
 - Machine id is not valid for Machine name
 - Machine already exists
+- Initializer has no code
 - Initializer call reverts
 
 **Signature**

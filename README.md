@@ -9,18 +9,17 @@ There are standards for tokens that allow us to represent things like currency, 
 Each user's position on their journey through a state machine is recorded, and can be publicly queried by anyone. Progress can be controlled by the tokens a user holds. Likewise, tokens could be transferred to a user when they or take some action or arrive at some waypoint.
 
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
-* 💥 Configure and install a virtually unlimited number of FSMs
+* 💥 Configure and install a virtually unlimited number of machines
 * 💥 Deploy custom logic to be triggered by any state transition
 * 💥 Deploy custom logic for controlling access to your machines
 * 💥 Use off-chain metadata to describe states in any medium
-
 
 ### Status 
 ### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/85/?title=Progress&width=120&color=000000)
 
 Done or in progress are:
 - ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#experimentdeterministicselectorproxy) implementation
-- ✅ A robust Finite State Machine protocol
+- ✅ A robust [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) protocol
 - ✅ Minimal clones for cheap deployments ($40 vs $2000)!!!
 - ✅ Initialization and access of machine-specific storage slots
 - ✅ Clear and complete interface documentation and inline code comments

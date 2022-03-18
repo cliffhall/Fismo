@@ -65,11 +65,8 @@ contract FismoOperate is IFismoOperate, FismoUpdate  {
         // Make sure transition was found
         require(valid == true, NO_SUCH_ACTION);
 
-        // Get the next state's index in the machine's states array
-        index = getStateIndex(_machineId, transition.targetStateId);
-
         // Get the next state
-        State storage nextState = machine.states[index];
+        State storage nextState = getState(_machineId, transition.targetStateId, true);
 
         // Create the action response
         response.machineName = machine.name;

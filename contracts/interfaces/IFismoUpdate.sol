@@ -98,6 +98,7 @@ interface IFismoUpdate {
      * - Operator address is zero
      * - Machine id is not valid for Machine name
      * - Machine already exists
+     * - Initializer has no code
      * - Initializer call reverts
      *
      * @param _machine - the machine definition to install
