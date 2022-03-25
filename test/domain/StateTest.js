@@ -1,7 +1,5 @@
 const { expect } = require("chai");
-const State = require("../../scripts/domain/State");
-const Transition = require("../../scripts/domain/Transition");
-const { nameToId } = require("../../scripts/util/name-utils");
+const { State, Transition, nameToId } = require("../../scripts/domain");
 
 /**
  *  Test the State domain object

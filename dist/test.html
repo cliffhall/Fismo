@@ -1,0 +1,32 @@
+<html>
+<head>
+    <script src="fismo.js"></script>
+</head>
+<body onload="testFismoConstructors()">
+<script>
+
+    function testFismoConstructors() {
+
+        var a = new Fismo.ActionResponse();
+        console.log(a);
+
+        var m = new Fismo.Machine();
+        console.log(m);
+
+        var s = new Fismo.State();
+        s.guardLogic = "0x068d9f17fBF0CCBF39BD8DA421731Fe86986bD3a";
+        console.log(s, s.guardLogicIsValid()); // proves eip55 is there
+
+        var t = new Fismo.Transition();
+        console.log(t);
+
+        var p = new Fismo.Position();
+        console.log(p);
+
+        var name = "Fismology!"
+        console.log(name, Fismo.nameToId(name));
+
+    }
+</script>
+</body>
+</html>

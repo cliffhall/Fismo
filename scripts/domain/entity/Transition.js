@@ -2,8 +2,7 @@
  * Fismo Domain Entity: Transition
  * @author Cliff Hall <cliff@futurescale.com>
  */
-const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const { validateId, validateNameStrict, validateNameLax, nameToId} = require("../util/name-utils");
+const { nameToId, validateNameStrict, validateNameLax, validateId } = require("../util/name-utils");
 
 class Transition {
 
@@ -19,8 +18,8 @@ class Transition {
     constructor (action, targetStateName) {
         this.action = action;
         this.targetStateName = targetStateName;
-        this.actionId = nameToId(action);
-        this.targetStateId = nameToId(targetStateName);
+        this.actionId = action ? nameToId(action) : action;
+        this.targetStateId = targetStateName ? nameToId(targetStateName) : targetStateName;
     }
 
     /**
@@ -137,11 +136,4 @@ class Transition {
 }
 
 // Export
-if (NODE) {
-    module.exports = Transition;
-} else {
-    if (window) {
-        if (!window.Fismo) window.Fismo = {};
-        window.Fismo.Transition = Transition;
-    }
-}
+module.exports = Transition;

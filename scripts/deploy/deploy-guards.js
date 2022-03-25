@@ -1,6 +1,5 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
-const Machine = require("../../scripts/domain/Machine");
 
 /**
  * Deploy state transition guards

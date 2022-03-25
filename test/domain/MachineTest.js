@@ -1,10 +1,7 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
 const { expect } = require("chai");
-const State = require("../../scripts/domain/State");
-const Machine = require("../../scripts/domain/Machine");
-const Transition = require("../../scripts/domain/Transition");
-const { nameToId } = require("../../scripts/util/name-utils");
+const { State, Machine, Transition, nameToId } = require("../../scripts/domain");
 
 /**
  *  Test the Machine domain object

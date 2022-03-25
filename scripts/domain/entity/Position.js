@@ -2,9 +2,6 @@
  * Fismo Domain Entity: Position
  * @author Cliff Hall <cliff@futurescale.com>
  */
-const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const { validateId, validateNameStrict, validateNameLax} = require("../util/name-utils");
-
 class Position {
 
     /*
@@ -115,11 +112,4 @@ class Position {
 }
 
 // Export
-if (NODE) {
-    module.exports = Position;
-} else {
-    if (window) {
-        if (!window.Fismo) window.Fismo = {};
-        window.Fismo.Position = Position;
-    }
-}
+module.exports = Position;

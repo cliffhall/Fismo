@@ -2,7 +2,6 @@
  * Fismo Domain Entity: Machine
  * @author Cliff Hall <cliff@futurescale.com>
  */
-const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 const {nameToId, validateNameStrict, validateId} = require("../util/name-utils");
 const State = require("./State");
 const eip55 = require("eip55");
@@ -22,7 +21,7 @@ class Machine {
 
     constructor (operator, name, states, initialStateId, uri) {
         this.operator = operator ? eip55.encode(operator) : null;
-        this.id = nameToId(name);
+        this.id = name ? nameToId(name) : name;
         this.name = name;
         this.initialStateId = initialStateId;
         this.states = states || []; // State[]
@@ -206,11 +205,4 @@ class Machine {
 }
 
 // Export
-if (NODE) {
-    module.exports = Machine;
-} else {
-    if (window) {
-        if (!window.Fismo) window.Fismo = {};
-        window.Fismo.Machine = Machine;
-    }
-}
+module.exports = Machine;
