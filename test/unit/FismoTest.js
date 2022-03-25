@@ -15,14 +15,16 @@ const { LockableDoor } = require("../../scripts/config/lab-examples");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
 const { deployExample, prepareInitializerArgs } = require("../../scripts/deploy/deploy-example");
 const { deployTokens } = require('../../scripts/deploy/deploy-tokens');
-const { nameToId } =  require('../../scripts/util/name-utils');
+const { nameToId } =  require('../../scripts/domain');
 
 // Domain entities
-const State = require("../../scripts/domain/State");
-const Machine = require("../../scripts/domain/Machine");
-const Position = require("../../scripts/domain/Position");
-const Transition = require("../../scripts/domain/Transition");
-const ActionResponse = require("../../scripts/domain/ActionResponse");
+const {
+    State,
+    Machine,
+    Position,
+    Transition,
+    ActionResponse
+} = require("../../scripts/domain");
 
 /**
  *  Test Fismo
@@ -35,7 +37,7 @@ describe("Fismo", function() {
     let accounts, deployer, user, operator, guardLogic, operatorArgs, guards, expected;
     let fismo, machine, machineObj, response, targetStateName, targetStateId, selector;
     let state, transition, action, stateName, stateId, actionId, success, support;
-    let actionResponse, actionResponseStruct, position, positionStruct, example;
+    let actionResponse, actionResponseStruct, position, positionStruct;
     let implementation, instance, tx, event, owner, isFismo, tokens, initArgs;
 
     beforeEach( async function () {

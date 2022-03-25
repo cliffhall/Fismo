@@ -2,7 +2,6 @@
  * Fismo Domain Entity: ActionResponse
  * @author Cliff Hall <cliff@futurescale.com>
  */
-const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
 const { validateNameStrict, validateNameLax } = require("../util/name-utils");
 
 class ActionResponse {
@@ -183,11 +182,4 @@ class ActionResponse {
 }
 
 // Export
-if (NODE) {
-    module.exports = ActionResponse;
-} else {
-    if (window) {
-        if (!window.Fismo) window.Fismo = {};
-        window.Fismo.ActionResponse = ActionResponse;
-    }
-}
+module.exports = ActionResponse;

@@ -1,4 +1,10 @@
-const { nameToId } =  require('../util/name-utils');
+/**
+ * Machine definitions and example descriptors
+ *
+ * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
+ */
+
+const { nameToId } =  require('../domain');
 
 //--------------------------------------------------
 // Define Machines
@@ -264,8 +270,6 @@ const LockableDoorMachine = {
     },
   ]
 };
-
-
 
 //--------------------------------------------------
 // Export example descriptors

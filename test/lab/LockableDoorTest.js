@@ -12,10 +12,10 @@ const { RevertReasons } = require("../../scripts/config/revert-reasons");
 const { LockableDoor } = require("../../scripts/config/lab-examples");
 const { deployExample } = require("../../scripts/deploy/deploy-example");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
-const { nameToId } =  require('../../scripts/util/name-utils');
+const { nameToId } =  require('../../scripts/domain');
 
 // Domain entities
-const ActionResponse = require("../../scripts/domain/ActionResponse");
+const { ActionResponse } = require("../../scripts/domain");
 
 /**
  *  Test interacting with the LockableDoor machine

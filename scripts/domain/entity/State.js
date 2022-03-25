@@ -2,8 +2,7 @@
  * Fismo Domain Entity: State
  * @author Cliff Hall <cliff@futurescale.com>
  */
-const NODE = (typeof module !== 'undefined' && typeof module.exports !== 'undefined');
-const {nameToId, validateNameStrict, validateId} = require("../util/name-utils");
+const { nameToId, validateNameStrict, validateId } = require("../util/name-utils");
 const Transition = require("./Transition");
 const eip55 = require("eip55");
 const ethers = require("ethers");
@@ -23,7 +22,7 @@ class State {
 
     constructor (name, exitGuarded, enterGuarded, transitions, guardLogic) {
         this.name = name;
-        this.id = nameToId(name);
+        this.id = name ? nameToId(name) : name;
         this.enterGuarded = enterGuarded;
         this.exitGuarded = exitGuarded;
         this.transitions = transitions || [];
@@ -177,11 +176,4 @@ class State {
 }
 
 // Export
-if (NODE) {
-    module.exports = State;
-} else {
-    if (window) {
-        if (!window.Fismo) window.Fismo = {};
-        window.Fismo.State = State;
-    }
-}
+module.exports = State;

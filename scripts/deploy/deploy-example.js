@@ -1,6 +1,6 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
-const Machine = require("../../scripts/domain/Machine");
+const { Machine } = require("../domain");
 const { deployTokens } = require('./deploy-tokens');
 const { deployTransitionGuards } = require('./deploy-guards');
 

@@ -1,6 +1,5 @@
 const { expect } = require("chai");
-const Position = require("../../scripts/domain/Position");
-const { nameToId } = require("../../scripts/util/name-utils");
+const { Position, nameToId } = require("../../scripts/domain");
 
 /**
  *  Test the Position domain object

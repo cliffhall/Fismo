@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const ActionResponse = require("../../scripts/domain/ActionResponse");
+const { ActionResponse } = require("../../scripts/domain");
 
 /**
  *  Test the ActionResponse domain object
