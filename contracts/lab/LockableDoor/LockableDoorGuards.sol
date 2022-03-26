@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import "../../components/FismoTools.sol";
 import "../../domain/FismoStore.sol";
+import "../../domain/FismoConstants.sol";
 
 /**
  * @notice KeyToken is the Fismo ERC-20, which we only check for a balance of
@@ -14,13 +14,10 @@ interface KeyToken {
 /**
  * @notice Transition guard functions
  *
- * Note:
- * Using FismoTools here to test for code at key token address
- *
  * - Machine: LockableDoor
  * - Guards: Locked/Exit
  */
-contract LockableDoorGuards is FismoTools {
+contract LockableDoorGuards is FismoConstants {
 
     // -------------------------------------------------------------------------
     // MACHINE STORAGE
@@ -91,6 +88,22 @@ contract LockableDoorGuards is FismoTools {
         // Success response message
         return "Door unlocked.";
 
+    }
+
+    /**
+     * @notice Verify an address is a contract and not an EOA
+     *
+     * Reverts if address has no contract code
+     *
+     * @param _contract - the contract to check
+     * @param _errorMessage - the revert reason to throw
+     */
+    function requireContractCode(address _contract, string memory _errorMessage) internal view {
+        uint256 contractSize;
+        assembly {
+            contractSize := extcodesize(_contract)
+        }
+        require(contractSize > 0, _errorMessage);
     }
 
 }

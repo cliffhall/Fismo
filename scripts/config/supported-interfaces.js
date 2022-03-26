@@ -6,9 +6,10 @@
 exports.InterfaceIds = {
     IFismoClone:    "0x08a9f5ec",
     IFismoOperate:  "0xcad6b576",
-    IFismoUpdate:   "0x0a16331a",
-    IFismoView:     "0xaf1a49fa",
-    IERC165:        "0x01ffc9a7",
+    IFismoOwner:    "0x7f5828d0",
+    IFismoSupport:  "0x01ffc9a7",
+    IFismoUpdate:   "0xf8ebd091",
+    IFismoView:     "0x26276912",
 
     IInvalidRandom: "0xdeadfeed",  // for negative test
 };

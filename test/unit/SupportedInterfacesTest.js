@@ -51,6 +51,22 @@ describe("SupportedInterfaces", function() {
 
         });
 
+        it("getIFismoOwner() should return expected id", async function () {
+
+            const expected = InterfaceIds.IFismoOwner;
+            const actual = await supportedInterfaces.getIFismoOwner();
+            assert.equal(actual, expected);
+
+        });
+
+        it("getIFismoSupport() should return expected id", async function () {
+
+            const expected = InterfaceIds.IFismoSupport;
+            const actual = await supportedInterfaces.getIFismoSupport();
+            assert.equal(actual, expected);
+
+        });
+
         it("getIFismoUpdate() should return expected id", async function () {
 
             const expected = InterfaceIds.IFismoUpdate;

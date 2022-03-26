@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import { FismoUpdate } from "./FismoUpdate.sol";
+import { FismoSupport } from "./FismoSupport.sol";
 import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
 
 /**
@@ -11,7 +11,16 @@ import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoOperate is IFismoOperate, FismoUpdate  {
+contract FismoOperate is IFismoOperate, FismoSupport  {
+
+    /**
+     * @notice Modifier to only allow a method to be called by a machine's operator
+     */
+    modifier onlyOperator(bytes4 _machineId) {
+        Machine storage machine = getMachine(_machineId);
+        require(msg.sender == machine.operator, ONLY_OPERATOR);
+        _;
+    }
 
     /**
      * Invoke an action on a configured Machine.
