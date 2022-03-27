@@ -18,7 +18,7 @@ interface IFismoOwner {
     );
 
     /**
-     * @notice Get the address of the owner
+     * @notice Get the address of the Fismo instance's owner
      *
      * @return The address of the owner.
      */

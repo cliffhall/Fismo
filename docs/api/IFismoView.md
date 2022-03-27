@@ -3,7 +3,7 @@
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
-### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 IFismoView
+### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoOwner](IFismoOwner.md) 🔬 [IFismoSupport](IFismoSupport.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 IFismoView
 
 ### View Fismo Storage
 * View Interface [IFismoView.sol](../../contracts/interfaces/IFismoView.sol)
