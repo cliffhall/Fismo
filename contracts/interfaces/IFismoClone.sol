@@ -6,7 +6,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
 /**
  * @title IFismoClone
  *
- * Create and initialize a Fismo clone
+ * @notice Create and initialize a Fismo clone
  * The ERC-165 identifier for this interface is 0x08a9f5ec
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)

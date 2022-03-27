@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import { FismoUpdate } from "./FismoUpdate.sol";
 import { FismoStore } from "../domain/FismoStore.sol";
+
 import { IFismoClone } from "../interfaces/IFismoClone.sol";
+
+import { FismoOperate } from "./FismoOperate.sol";
 
 /**
  * @title FismoClone
@@ -12,7 +14,7 @@ import { IFismoClone } from "../interfaces/IFismoClone.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoClone is IFismoClone, FismoUpdate  {
+contract FismoClone is IFismoClone, FismoOperate  {
 
     /**
      * @notice Initialize a cloned Fismo instance.

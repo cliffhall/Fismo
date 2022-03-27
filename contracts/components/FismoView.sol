@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/interfaces/IERC165.sol";
-
-import { FismoTools } from "./FismoTools.sol";
 import { FismoStore } from "../domain/FismoStore.sol";
 import { FismoTypes } from "../domain/FismoTypes.sol";
-import { IFismoView } from "../interfaces/IFismoView.sol";
-import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
-import { IFismoOperate } from "../interfaces/IFismoOperate.sol";
+import { FismoConstants } from "../domain/FismoConstants.sol";
 import { IFismoClone } from "../interfaces/IFismoClone.sol";
+import { IFismoView } from "../interfaces/IFismoView.sol";
+import { FismoSupport } from "./FismoSupport.sol";
 
 /**
  * @title FismoView
@@ -18,20 +15,7 @@ import { IFismoClone } from "../interfaces/IFismoClone.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoView is IFismoView, FismoTools {
-
-    /**
-     * @notice Get the owner of this Fismo contract
-     *
-     * @return owner - the address of the contract owner
-     */
-    function getOwner()
-    external
-    view
-    returns (address owner)
-    {
-        return getStore().owner;
-    }
+contract FismoView is IFismoView, FismoTypes, FismoConstants {
 
     /**
      * @notice Get the implementation address for a given guard selector
@@ -127,28 +111,6 @@ contract FismoView is IFismoView, FismoTools {
     }
 
     /**
-     * @notice Onboard implementation of ERC-165 interface detection standard.
-     *
-     * @param _interfaceId - the sighash of the given interface
-     *
-     * @return true if _interfaceId is supported
-     */
-    function supportsInterface(bytes4 _interfaceId)
-    external
-    view
-    override
-    returns (bool)
-    {
-        return (
-        _interfaceId == type(IERC165).interfaceId ||
-        _interfaceId == type(IFismoOperate).interfaceId ||
-        _interfaceId == type(IFismoUpdate).interfaceId ||
-        _interfaceId == type(IFismoView).interfaceId ||
-        (_interfaceId == type(IFismoClone).interfaceId && getStore().isFismo)
-        ) ;
-    }
-
-    /**
      * @notice Get a machine by id
      *
      * Reverts if
@@ -216,6 +178,87 @@ contract FismoView is IFismoView, FismoTools {
     returns(uint256 index)
     {
         index = getStore().stateIndex[_machineId][_stateId];
+    }
+
+    /**
+     * @notice Get the function signature for an enter or exit guard guard
+     *
+     * e.g.,
+     * `NightClub_Dancefloor_Enter(address _user, string memory _priorStateName)`
+     *
+     * @param _machineName - the name of the machine, e.g., `NightClub`
+     * @param _stateName - the name of the state, e.g., `Dancefloor`
+     * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     *
+     * @return guardSignature - a string representation of the function signature
+     */
+    function getGuardSignature(string memory _machineName, string memory _stateName, Guard _guard)
+    internal
+    pure
+    returns (string memory guardSignature) {
+        string memory guardType = (_guard == Guard.Enter) ? "_Enter" : "_Exit";
+        string memory functionName = strConcat(
+            strConcat(
+                strConcat(_machineName, "_"),
+                _stateName
+            ),
+            guardType
+        );
+
+        // Construct signature
+        guardSignature = strConcat(functionName, "(address,string)");
+    }
+
+    /**
+     * @notice Get the function selector for an enter or exit guard guard
+     *
+     * @param _machineName - the name of the machine
+     * @param _stateName - the name of the state
+     * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     *
+     * @return guardSelector - the function selector, e.g., `0x23b872dd`
+     */
+    function getGuardSelector(string memory _machineName, string memory _stateName, Guard _guard)
+    internal
+    pure
+    returns (bytes4 guardSelector)
+    {
+        // Get the signature
+        string memory guardSignature = getGuardSignature(_machineName, _stateName, _guard);
+
+        // Return the hashed function selector
+        guardSelector = nameToId(guardSignature);
+
+    }
+
+    /**
+     * @notice Concatenate two strings
+     * @param _a the first string
+     * @param _b the second string
+     * @return result the concatenation of `_a` and `_b`
+     */
+    function strConcat(string memory _a, string memory _b)
+    internal
+    pure
+    returns(string memory result)
+    {
+        result = string(abi.encodePacked(bytes(_a), bytes(_b)));
+    }
+
+    /**
+     * @notice Hash a name into a bytes4 id
+     *
+     * @param _name a string to hash
+     *
+     * @return id bytes4 sighash of _name
+     */
+    function nameToId(string memory _name)
+    internal
+    pure
+    returns
+    (bytes4 id)
+    {
+        id = bytes4(keccak256(bytes(_name)));
     }
 
     /**

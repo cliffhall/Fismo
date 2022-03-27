@@ -1,28 +1,17 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/interfaces/IERC165.sol";
 import { FismoTypes } from "../domain/FismoTypes.sol";
 
 /**
  * @title IFismoView
  *
  * Interface for Fismo view functions
- * The ERC-165 identifier for this interface is 0xaf1a49fa
+ * The ERC-165 identifier for this interface is 0x26276912
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-interface IFismoView is IERC165 {
-
-    /**
-     * @notice Get the owner of this Fismo contract
-     *
-     * @return owner - the address of the contract owner
-     */
-    function getOwner()
-    external
-    view
-    returns (address owner);
+interface IFismoView {
 
     /**
      * @notice Get the implementation address for a given guard selector

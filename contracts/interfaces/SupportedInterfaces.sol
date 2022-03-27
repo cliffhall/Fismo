@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import "./IFismoClone.sol";
 import "./IFismoOperate.sol";
+import "./IFismoOwner.sol";
+import "./IFismoSupport.sol";
 import "./IFismoUpdate.sol";
 import "./IFismoView.sol";
 
@@ -33,6 +35,18 @@ contract SupportedInterfaces {
     public pure
     returns(bytes4 id) {
         id = type(IFismoOperate).interfaceId;
+    }
+
+    function getIFismoOwner()
+    public pure
+    returns(bytes4 id) {
+        id = type(IFismoOwner).interfaceId;
+    }
+
+    function getIFismoSupport()
+    public pure
+    returns(bytes4 id) {
+        id = type(IFismoSupport).interfaceId;
     }
 
     function getIFismoUpdate()

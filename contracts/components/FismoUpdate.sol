@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.0;
 
-import { FismoAccess } from "./FismoAccess.sol";
+import { FismoOwner } from "./FismoOwner.sol";
+import { IFismoOwner } from "../interfaces/IFismoOwner.sol";
 import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
 
 /**
@@ -11,29 +12,7 @@ import { IFismoUpdate } from "../interfaces/IFismoUpdate.sol";
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-contract FismoUpdate is IFismoUpdate, FismoAccess {
-
-    /**
-     * @notice Transfer ownership of the Fismo instance to another address.
-     *
-     * Reverts if:
-     * - Caller is not contract owner
-     * - New owner is zero address
-     *
-     * Emits:
-     * - OwnershipTransferred
-     *
-     * @param _newOwner - the new owner's address
-     */
-    function transferOwnership(address _newOwner)
-    external
-    override
-    onlyOwner
-    {
-        require(_newOwner != address(0), INVALID_ADDRESS);
-        setOwner(_newOwner);
-        emit OwnershipTransferred(_newOwner);
-    }
+contract FismoUpdate is IFismoUpdate, FismoOwner {
 
     /**
      * @notice Install a Fismo Machine that requires no initialization.
@@ -409,17 +388,6 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     }
 
     /**
-     * @notice Set the contract owner
-     *
-     * @param _owner - the contract owner address
-     */
-    function setOwner(address _owner)
-    internal
-    {
-        getStore().owner = _owner;
-    }
-
-    /**
      * @notice Set the isFismo flag.
      *
      * @dev Will the real Fismo please stand up?
@@ -430,6 +398,22 @@ contract FismoUpdate is IFismoUpdate, FismoAccess {
     internal
     {
         getStore().isFismo = _assertion;
+    }
+
+    /**
+     * @notice Verify an address is a contract and not an EOA
+     *
+     * Reverts if address has no contract code
+     *
+     * @param _contract - the contract to check
+     * @param _errorMessage - the revert reason to throw
+     */
+    function requireContractCode(address _contract, string memory _errorMessage) internal view {
+        uint256 contractSize;
+        assembly {
+            contractSize := extcodesize(_contract)
+        }
+        require(contractSize > 0, _errorMessage);
     }
 
 }

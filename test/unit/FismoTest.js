@@ -214,6 +214,8 @@ describe("Fismo", function() {
     // Tests to be run against Fismo and Fismo clone
     function testFismo() {
 
+        // TODO: IFismoClone methods
+
         context("📋 IFismoOperate methods", async function () {
 
             context("👉 invokeAction()", async function () {
@@ -296,7 +298,24 @@ describe("Fismo", function() {
 
         });
 
-        context("📋 IFismoUpdate methods", async function () {
+        context("📋 IFismoOwner methods", async function () {
+
+            context("👉 owner()", async function () {
+
+                it("Should return the owner of the Fismo instance", async function () {
+
+                    // Current owner is the deployer
+                    expected = deployer.address;
+
+                    // Get the owner of the Fismo instance
+                    owner = await fismo.owner();
+
+                    // Verify that the appropriate address was returned
+                    expect(owner).to.equal(expected);
+
+                });
+
+            });
 
             context("👉 transferOwnership()", async function () {
 
@@ -305,10 +324,9 @@ describe("Fismo", function() {
                     // Transfer ownership, checking for the event
                     await expect(fismo.transferOwnership(user.address))
                         .to.emit(fismo, 'OwnershipTransferred')
-                        .withArgs(user.address);
+                        .withArgs(deployer.address, user.address);
 
                 });
-
 
                 context("💔 Revert Reasons", async function () {
 
@@ -331,6 +349,120 @@ describe("Fismo", function() {
                 });
 
             });
+
+        });
+
+        context("📋 IFismoSupport methods", async function () {
+
+            context("👉 supportsInterface()", async function () {
+
+                it("should conditionally indicate support for IFismoClone interface", async function () {
+
+                    // Current interfaceId for IFismoOperate
+                    support = await fismo.supportsInterface(InterfaceIds.IFismoClone);
+
+                    // Test conditionally (not supported if called on a clone)
+                    if (isFismo) {
+
+                        await expect(
+                            support,
+                            "IFismoClone interface not supported"
+                        ).is.true;
+
+                    } else {
+
+                        await expect(
+                            support,
+                            "IFismoClone interface unexpectedly supported"
+                        ).is.false;
+
+                    }
+
+                });
+
+                it("should indicate support for IFismoOperate interface", async function () {
+
+                    // Current interfaceId for IFismoOperate
+                    support = await fismo.supportsInterface(InterfaceIds.IFismoOperate);
+
+                    // Test
+                    await expect(
+                        support,
+                        "IFismoOperate interface not supported"
+                    ).is.true;
+
+                });
+
+                it("should indicate support for IFismoOwner interface", async function () {
+
+                    // Current interfaceId for IFismoOwner
+                    support = await fismo.supportsInterface(InterfaceIds.IFismoOwner);
+
+                    // Test
+                    await expect(
+                        support,
+                        "IFismoOwner interface not supported"
+                    ).is.true;
+
+                });
+
+                it("should indicate support for IFismoSupport (ERC-165) interface", async function () {
+
+                    // InterfaceId for IFismoSupport (is same id as ERC-165)
+                    support = await fismo.supportsInterface(InterfaceIds.IFismoSupport);
+
+                    // Test
+                    await expect(
+                        support,
+                        "IFismoSupport (ERC-165) interface not supported"
+                    ).is.true;
+
+                });
+
+                it("should indicate support for IFismoUpdate interface", async function () {
+
+                    // Current interfaceId for IFismoUpdate
+                    support = await fismo.supportsInterface(InterfaceIds.IFismoUpdate);
+
+                    // Test
+                    await expect(
+                        support,
+                        "IFismoUpdate interface not supported"
+                    ).is.true;
+
+                });
+
+                it("should indicate support for IFismoView interface", async function () {
+
+                    // Current interfaceId for IFismoView
+                    support = await fismo.supportsInterface(InterfaceIds.IFismoView);
+
+                    // Test
+                    await expect(
+                        support,
+                        "IFismoView interface not supported"
+                    ).is.true;
+
+                });
+
+                it("should not indicate support for a random interface", async function () {
+
+                    // An invalid
+                    support = await fismo.supportsInterface(InterfaceIds.IInvalidRandom);
+
+                    // Test
+                    await expect(
+                        support,
+                        "Random interface oddly supported?"
+                    ).is.false;
+
+                });
+
+            });
+
+        });
+
+        context("📋 IFismoUpdate methods", async function () {
 
             context("👉 installMachine()", async function () {
 
@@ -924,23 +1056,6 @@ describe("Fismo", function() {
 
         context("📋 IFismoView methods", async function () {
 
-            context("👉 getOwner()", async function () {
-
-                it("Should return the owner of the Fismo instance", async function () {
-
-                    // Current owner is the deployer
-                    expected = deployer.address;
-
-                    // Get the owner of the Fismo instance
-                    owner = await fismo.getOwner();
-
-                    // Verify that the appropriate address was returned
-                    expect(owner).to.equal(expected);
-
-                });
-
-            });
-
             context("👉 getGuardAddress()", async function () {
 
                 beforeEach( async function () {
@@ -1137,99 +1252,6 @@ describe("Fismo", function() {
 
                     // Validate the returned stateId
                     expect(response === stateId).to.be.true;
-
-                });
-
-            });
-
-            context("👉 supportsInterface()", async function () {
-
-                it("should indicate support for ERC-165 interface", async function () {
-
-                    // See https://eips.ethereum.org/EIPS/eip-165#how-a-contract-will-publish-the-interfaces-it-implements
-                    support = await fismo.supportsInterface(InterfaceIds.IERC165);
-
-                    // Test
-                    await expect(
-                        support,
-                        "ERC-165 interface not supported"
-                    ).is.true;
-
-                });
-
-                it("should indicate support for IFismoOperate interface", async function () {
-
-                    // Current interfaceId for IFismoOperate
-                    support = await fismo.supportsInterface(InterfaceIds.IFismoOperate);
-
-                    // Test
-                    await expect(
-                        support,
-                        "IFismoOperate interface not supported"
-                    ).is.true;
-
-                });
-
-                it("should indicate support for IFismoUpdate interface", async function () {
-
-                    // Current interfaceId for IFismoUpdate
-                    support = await fismo.supportsInterface(InterfaceIds.IFismoUpdate);
-
-                    // Test
-                    await expect(
-                        support,
-                        "IFismoUpdate interface not supported"
-                    ).is.true;
-
-                });
-
-                it("should indicate support for IFismoView interface", async function () {
-
-                    // Current interfaceId for IFismoView
-                    support = await fismo.supportsInterface(InterfaceIds.IFismoView);
-
-                    // Test
-                    await expect(
-                        support,
-                        "IFismoView interface not supported"
-                    ).is.true;
-
-                });
-
-                it("should not indicate support for a random interface", async function () {
-
-                    // An invalid
-                    support = await fismo.supportsInterface(InterfaceIds.IInvalidRandom);
-
-                    // Test
-                    await expect(
-                        support,
-                        "Random interface oddly supported?"
-                    ).is.false;
-
-                });
-
-                it("should conditionally indicate support for IFismoClone interface", async function () {
-
-                    // Current interfaceId for IFismoOperate
-                    support = await fismo.supportsInterface(InterfaceIds.IFismoClone);
-
-                    // Test conditionally (not supported if called on a clone)
-                    if (isFismo) {
-
-                        await expect(
-                            support,
-                            "IFismoClone interface not supported"
-                        ).is.true;
-
-                    } else {
-
-                        await expect(
-                            support,
-                            "IFismoClone interface unexpectedly supported"
-                        ).is.false;
-
-                    }
 
                 });
 

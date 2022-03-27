@@ -3,28 +3,13 @@
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
 
-### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 IFismoUpdate 🔬 [IFismoView](IFismoView.md)
+### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoOwner](IFismoOwner.md) 🔬 [IFismoSupport](IFismoSupport.md) 🔬 IFismoUpdate 🔬 [IFismoView](IFismoView.md)
 
 ### Update Fismo Storage
 * View Interface [IFismoUpdate.sol](../../contracts/interfaces/IFismoUpdate.sol)
-* The ERC-165 identifier for this interface is `0x0a16331a`
+* The ERC-165 identifier for this interface is `0xf8ebd091`
 
 ## Events
-
-### OwnershipTransferred
-Emitted when ownership of the Fismo instance is transferred.
-
-**Signature**
-```solidity
-event OwnershipTransferred (
-    address indexed newOwner
-);
-```
-**Parameters**
-
-| Name         | Description                         | Type    |
-|--------------|-------------------------------------|---------|
-| newOwner    | the new owner of the Fismo instance | address |
 
 ### MachineInstalled
 Emitted when a new Machine is installed in the Fismo instance.
@@ -112,31 +97,6 @@ event TransitionAdded (
 | targetStateName | the name of the target state | string |
 
 ## Functions
-
-### transferOwnership
-Transfer ownership of the Fismo instance to another address.
-
-**Emits**
-- [`OwnershipTransferred`](#ownershiptransferred)
-
-**Reverts if**
-- Caller is not contract owner
-- New owner is zero address
-
-**Signature**
-```solidity
-function transferOwnership (
-    address _newOwner
-) 
-external;
-```
-
-**Arguments**
-
-| Name      | Description                    | Type    |
-|-----------|--------------------------------|---------|
-| _newOwner | the new owner's address  | address |
-
 
 ### installMachine
 Install a Fismo Machine that requires no initialization.

@@ -6,17 +6,12 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
 /**
  * @title IFismoUpdate
  *
- * Interface for Fismo update functions
- * The ERC-165 identifier for this interface is 0x0a16331a
+ * @notice Interface for Fismo update functions
+ * The ERC-165 identifier for this interface is 0xf8ebd091
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 interface IFismoUpdate {
-
-    /// Emitted when ownership of the Fismo instance is transferred
-    event OwnershipTransferred (
-        address indexed newOwner
-    );
 
     /// Emitted when a new Machine is installed in this Fismo instance
     event MachineInstalled (
@@ -46,23 +41,6 @@ interface IFismoUpdate {
         bytes4 indexed stateId,
         string action, string targetStateName
     );
-
-    /**
-     * @notice Transfer ownership of the Fismo instance to another address.
-     *
-     * Reverts if:
-     * - Caller is not contract owner
-     * - New owner is zero address
-     *
-     * Emits:
-     * - OwnershipTransferred
-     *
-     * @param _newOwner - the new owner's address
-     */
-    function transferOwnership (
-        address _newOwner
-    )
-    external;
 
     /**
      * @notice Install a Fismo Machine that requires no initialization.
