@@ -32,7 +32,7 @@ This requires a developer to write function signatures in a very specific way, b
   - Within a machine, each state name must be unique
   - There are only two valid guard directions
 
-## Outcome
+## Outcomes
 ### A technology demonstration
 * The Deterministic Selector Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation. For instance, a geo-tagging system could have selectors based on a global coordinate scheme rather than state machines.
 

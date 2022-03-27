@@ -2,10 +2,10 @@
 # [Status](../README.md) 🧪 [About](../docs/about.md) 🧪 FAQ 🧪 [Docs](intro.md)
 
 ## Frequently Asked Questions
-* [What is an FSM?](#what-is-a-finite-state-machine)
+* [What is a finite state machine?](#what-is-a-finite-state-machine)
 * [What can they usefully map to?](#what-are-state-machines-used-for)
 * [What are some examples?](#what-are-some-examples)
-* [How is Fismo different from other FSM implementations?](#how-is-fismo-different-from-other-fsm-implementations)
+* [How is Fismo different?](#how-is-fismo-different)
 * [What's in a machine configuration?](#whats-in-a-fismo-machine-configuration)
 * [What does Fismo.sol actually do?](#what-does-fismosol-actually-do)
 
@@ -24,14 +24,14 @@ As a software pattern, they are frequently used to map processes. A couple of co
 ### What are some examples?
 Practically anything that can be described with a directed graph could be modeled as an FSM. States can represent...
   * Rooms in an dungeon, which an adventurer wanders through, being met with challenges.
-  * Positions in a tournament bracket,
+  * Positions in a tournament bracket.
   * A player's health, such as in hungry state, eating is required before moving to another state.
   * An object such as a door, which could be opened, closed, or locked.
   
 #### Locking Door Example FSM 
 ![Lockable Door FSM example](images/LockableDoorFSM.png)
 
-### How is Fismo different from other FSM implementations?
+### How is Fismo different?
 Most FSM implementations are set up to track state for a single machine.
 For instance, even though multiple people may interact with an FSM-based auction contract, it is the current state of 
 the auction that's being tracked (pending, open, closed). What the users are allowed to do is based on the state of 
@@ -76,15 +76,15 @@ The other, much more interesting part is "guard code"...
 
 ### What does Fismo.sol actually do?
 It is a combination of...
-  - The Proxy pattern for executing guard logic in the context of the Fismo contract
-  - A registry of machines and their users' states within them
-  - Orchestrator of all state transitions in all machines for all users
-  - A self-cloning [Minimal Proxy](https://eips.ethereum.org/EIPS/eip-1167) factory
+  - The Proxy pattern for executing guard logic in the context of the Fismo contract.
+  - A registry of machines and users' states within them.
+  - Orchestrator of all state transitions in all machines for all users.
+  - A self-cloning [Minimal Proxy](https://eips.ethereum.org/EIPS/eip-1167) factory.
 
 It maintains...
   * Configurations for any number of named machines
   * Current state in any number of machines for any number of wallet addresses
-  * A history of each user's position (current machine and state)
+  * A history of each user's positions (machine and state)
 
 It executes...
   * Actions that trigger user transitions between states
@@ -105,6 +105,7 @@ It emits events when...
   * A state's definition is updated e.g., its guard logic contract is changed
   * A user transitioned to a new state in some machine
   * A user cloned the Fismo contract
+  * Ownership is transferred
 
 Typical revert reasons...
   * An added machine, state, or transition is misconfigured in some way

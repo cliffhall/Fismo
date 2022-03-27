@@ -1,4 +1,4 @@
-![Fismo](../images/fismo-logo.png)
+ ![Fismo](../images/fismo-logo.png)
 # [Status](../../README.md) 🧪 [About](../about.md)  🧪 [FAQ](../faq.md) 🧪 Docs
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
