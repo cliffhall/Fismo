@@ -37,7 +37,7 @@ Done or in progress are:
 - ✅ Developer environment configuration template
 - ✅ High level architecture documentation
 - ✅ Finalize API
-- 👉 Allow guard logic contract to expose a state-specific action list filter (supports puzzles with their own storage to control )
+- 👉 State-specific action list filter in guard contracts
 - 👉 Complete code coverage
 - 👉 Complete NPM package
 - 👉 Deploy to testnets, mainnet, sidechains
