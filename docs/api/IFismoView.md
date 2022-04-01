@@ -116,7 +116,7 @@ function getUserState (
 external
 view
 returns (
-    bytes4 currentStateId
+    FismoTypes.State memory state
 );
 ```
 
@@ -129,9 +129,9 @@ returns (
 
 **Return Values**
 
-| Name | Type   | Description                          |
-| ------ |--------|--------------------------------------|
-| currentStateId | bytes4 | the user's current state in the given machine |
+| Name  | Type | Description                          |
+|-------|---|--------------------------------------|
+| state | FismoTypes.State  | the user's current state in the given machine |
 
 
 [![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

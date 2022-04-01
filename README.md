@@ -36,8 +36,10 @@ Done or in progress are:
 - ✅ Developer setup and tasks documentation
 - ✅ Developer environment configuration template
 - ✅ High level architecture documentation
+- ✅ Finalize API
+- 👉 Allow guard logic contract to expose a state-specific action list filter (supports puzzles with their own storage to control )
 - 👉 Complete code coverage
-- 👉 Create NPM package
+- 👉 Complete NPM package
 - 👉 Deploy to testnets, mainnet, sidechains
 - 👉 Write "How to create, install and operate machines on Fismo" doc
 - 👉 Moar examples!
