@@ -40,6 +40,26 @@ class Machine {
     }
 
     /**
+     * Get a new Machine instance from a returned struct representation
+     * @param struct
+     * @returns {*}
+     */
+    static fromStruct(struct) {
+        let operator, id, name, initialStateId, uri, states;
+
+        // destructure struct
+        [operator, id, name, initialStateId, uri, states] = struct;
+        return Machine.fromObject({
+            operator,
+            id,
+            initialStateId: initialStateId,
+            name,
+            uri,
+            states: states.map(state => State.fromStruct(state))
+        });
+    }
+
+    /**
      * Get a database representation of this Machine instance
      * @returns {object}
      */
@@ -53,6 +73,23 @@ class Machine {
      */
     toString() {
         return JSON.stringify(this);
+    }
+
+    /**
+     * Get a struct representation of this Machine instance
+     * @returns {string}
+     */
+    toStruct() {
+        const {operator, name, initialStateId, uri} = this;
+        let states = this.states.map(state => state.toStruct());
+        return [
+            operator,
+            nameToId(name),
+            name,
+            initialStateId,
+            uri,
+            states
+        ];
     }
 
     /**

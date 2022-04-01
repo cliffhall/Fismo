@@ -33,6 +33,24 @@ class Transition {
     }
 
     /**
+     * Get a new Transition instance from a struct representation
+     * @param struct
+     * @returns {*}
+     */
+    static fromStruct(struct) {
+        let actionId, targetStateId, action, targetStateName;
+
+        // destructure struct
+        [actionId, targetStateId, action, targetStateName] = struct;
+        return Transition.fromObject({
+            actionId: actionId.toString(),
+            targetStateId: targetStateId.toString(),
+            action,
+            targetStateName
+        });
+    }
+
+    /**
      * Get a database representation of this Transition instance
      * @returns {object}
      */
@@ -46,6 +64,20 @@ class Transition {
      */
     toString() {
         return JSON.stringify(this);
+    }
+
+    /**
+     * Get a struct representation of this Transition instance
+     * @returns {string}
+     */
+    toStruct() {
+        const {action, actionId, targetStateName, targetStateId} = this;
+        return [
+            actionId,
+            targetStateId,
+            action,
+            targetStateName,
+        ];
     }
 
     /**

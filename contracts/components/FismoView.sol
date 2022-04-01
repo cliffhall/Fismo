@@ -93,21 +93,19 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the machine
-     * @return currentStateId - the user's current state in the given machine
+     * @return state - the user's current state in the given machine. See {FismoTypes.State}
      */
     function getUserState(address _user, bytes4 _machineId)
-    public
+    external
     view
     override
-    returns (bytes4 currentStateId)
+    returns (State memory state)
     {
-        // Get the machine
-        Machine storage machine = getMachine(_machineId);
+        // Get the user's current state in the given machine
+        bytes4 currentStateId = getUserStateId(_user, _machineId);
 
-        // Get the user's current state in the given machine, default to initialStateId if not found
-        currentStateId = getStore().userState[_user][_machineId];
-        if (currentStateId == bytes4(0)) currentStateId = machine.initialStateId;
-
+        // Get the state
+        state = getState(_machineId, currentStateId, true);
     }
 
     /**
@@ -179,6 +177,35 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
     {
         index = getStore().stateIndex[_machineId][_stateId];
     }
+
+    /**
+ * @notice Get the current state for a given user in a given machine.
+     *
+     * Note:
+     * - If the user has not interacted with the machine, the initial state
+     *   for the machine is returned.
+     *
+     * Reverts if:
+     * - machine does not exist
+     *
+     * @param _user - the address of the user
+     * @param _machineId - the id of the machine
+     * @return currentStateId - the user's current state id in the given machine.
+     */
+    function getUserStateId(address _user, bytes4 _machineId)
+    internal
+    view
+    returns (bytes4 currentStateId)
+    {
+        // Get the machine
+        Machine storage machine = getMachine(_machineId);
+
+        // Get the user's current state in the given machine, default to initialStateId if not found
+        currentStateId = getStore().userState[_user][_machineId];
+        if (currentStateId == bytes4(0)) currentStateId = machine.initialStateId;
+
+    }
+
 
     /**
      * @notice Get the function signature for an enter or exit guard guard

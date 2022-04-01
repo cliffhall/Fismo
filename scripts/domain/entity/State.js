@@ -41,6 +41,28 @@ class State {
     }
 
     /**
+     * Get a new State instance from a struct representation
+     * @param struct
+     * @returns {*}
+     */
+    static fromStruct(struct) {
+        let id, name, exitGuarded, enterGuarded, guardLogic, transitions;
+
+        // destructure struct
+        [id, name, exitGuarded, enterGuarded, guardLogic, transitions] = struct;
+        return State.fromObject({
+            id,
+            name,
+            exitGuarded,
+            enterGuarded,
+            guardLogic,
+            transitions: transitions
+                ? transitions.map(transition => Transition.fromStruct(transition))
+                : []
+        });
+    }
+
+    /**
      * Get a database representation of this State instance
      * @returns {object}
      */
@@ -54,6 +76,23 @@ class State {
      */
     toString() {
         return JSON.stringify(this);
+    }
+
+    /**
+     * Get a struct representation of this State instance
+     * @returns {string}
+     */
+    toStruct() {
+        const {name, exitGuarded, enterGuarded, guardLogic} = this;
+        let transitions = this.transitions.map(transition => transition.toStruct());
+        return [
+            nameToId(name),
+            name,
+            exitGuarded,
+            enterGuarded,
+            guardLogic,
+            transitions
+        ];
     }
 
     /**

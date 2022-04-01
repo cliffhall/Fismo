@@ -33,6 +33,8 @@ interface IFismoOperate {
      * @param _user - the address of the user
      * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
+     *
+     * @return response - the response from the action. See {FismoTypes.ActionResponse}
      */
     function invokeAction(
         address _user,

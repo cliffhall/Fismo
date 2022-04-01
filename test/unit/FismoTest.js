@@ -214,8 +214,6 @@ describe("Fismo", function() {
     // Tests to be run against Fismo and Fismo clone
     function testFismo() {
 
-        // TODO: IFismoClone methods
-
         context("📋 IFismoOperate methods", async function () {
 
             context("👉 invokeAction()", async function () {
@@ -1232,7 +1230,7 @@ describe("Fismo", function() {
 
                 });
 
-                it("Should return the current state id of a user who has interacted with a given machine", async function () {
+                it("Should return the current state of a user who has interacted with a given machine", async function () {
 
                     // Invoke the action
                     await fismo.connect(operator).invokeAction(user.address, machine.id, actionId);
@@ -1240,18 +1238,36 @@ describe("Fismo", function() {
                     // Request the current state id of the user in the given machine
                     response = await fismo.getUserState(user.address, machine.id);
 
-                    // Validate the returned stateId
-                    expect(response === targetStateId).to.be.true;
+                    // Flatten the current representation of the machine's single state
+                    expected = state.toString();
+
+                    // Get the state from the struct
+                    state = State.fromStruct(response);
+
+                    // Validate the returned state
+                    expect(state.isValid()).to.be.true;
+
+                    // Compare state to state
+                    expect(state.toString() === expected).to.be.true;
 
                 });
 
                 it("Should return a machine's initial state for a user who has not interacted with a it", async function () {
 
+                    // Flatten the current representation of the machine's single state
+                    expected = machine.states[0].name;
+
                     // Request the current state id of the user in the given machine
                     response = await fismo.getUserState(user.address, machine.id);
 
-                    // Validate the returned stateId
-                    expect(response === stateId).to.be.true;
+                    // Get the state from the struct
+                    state = State.fromStruct(response);
+
+                    // Validate the returned state
+                    expect(state.isValid()).to.be.true;
+
+                    // Compare state name to state name
+                    expect(state.name === expected).to.be.true;
 
                 });
 

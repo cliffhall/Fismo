@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { Transition, nameToId } = require("../../scripts/domain");
+const { Transition, nameToId, State} = require("../../scripts/domain");
 
 /**
  *  Test the Transition domain object
@@ -9,13 +9,15 @@ const { Transition, nameToId } = require("../../scripts/domain");
 describe("Transition", function() {
 
     // Suite-wide scope
-    let transition, object, dehydrated, rehydrated, clone;
-    let action, targetStateName;
+    let transition, object, dehydrated, rehydrated, struct, clone;
+    let actionId, targetStateId, action, targetStateName;
 
     beforeEach( async function () {
 
         action = "Disappear in a Puff of Smoke";  // Action names can have spaces as they're never part of a method name
-        targetStateName = "Inside_Puff_of_Smoke"; // State names cannot have no spaces
+        targetStateName = "Inside_Puff_of_Smoke"; // State names cannot have spaces
+        actionId = nameToId(action);
+        targetStateId = nameToId(targetStateName);
 
     });
 
@@ -153,6 +155,7 @@ describe("Transition", function() {
 
                 transition = new Transition(action, targetStateName);
                 object = { action, targetStateName };
+                struct = [ actionId, targetStateName, action, targetStateName];
 
             });
 
@@ -168,6 +171,16 @@ describe("Transition", function() {
                 for (const [key, value] of Object.entries(transition)) {
                     expect(JSON.stringify(promoted[key]) === JSON.stringify(value)).is.true;
                 }
+
+            });
+
+            it("Transition.fromStruct() should return a Transition instance from a struct representation", async function () {
+
+                // Get struct from instance
+                transition = Transition.fromStruct(struct);
+
+                // Ensure it is valid
+                expect(transition.isValid()).to.be.true;
 
             });
 
@@ -192,18 +205,16 @@ describe("Transition", function() {
 
             });
 
-            it("instance.clone() should return another Transition instance with the same property values", async function() {
+            it("instance.toStruct() should return a struct representation of the Transition instance", async function () {
 
-                // Get plain object
-                clone = transition.clone();
+                // Get struct from transition
+                struct = transition.toStruct();
 
-                // Is an Transition instance
-                expect(clone instanceof Transition).is.true;
+                // Marshal back to a transition instance
+                transition = Transition.fromStruct(struct);
 
-                // Key values all match
-                for (const [key, value] of Object.entries(transition)) {
-                    expect(JSON.stringify(clone[key]) === JSON.stringify(value)).is.true;
-                }
+                // Ensure it marshals back to a valid transition
+                expect(transition.isValid()).to.be.true;
 
             });
 
@@ -218,6 +229,21 @@ describe("Transition", function() {
                 // Key values all match
                 for (const [key, value] of Object.entries(transition)) {
                     expect(JSON.stringify(object[key]) === JSON.stringify(value)).is.true;
+                }
+
+            });
+
+            it("instance.clone() should return another Transition instance with the same property values", async function() {
+
+                // Get plain object
+                clone = transition.clone();
+
+                // Is an Transition instance
+                expect(clone instanceof Transition).is.true;
+
+                // Key values all match
+                for (const [key, value] of Object.entries(transition)) {
+                    expect(JSON.stringify(clone[key]) === JSON.stringify(value)).is.true;
                 }
 
             });
