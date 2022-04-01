@@ -11,8 +11,8 @@ const { State, Machine, Transition, nameToId } = require("../../scripts/domain")
 describe("Machine", function() {
 
     // Suite-wide scope
-    let machine, object, dehydrated, rehydrated, clone, state, stateName;
-    let accounts, operator, name, states, initialStateId, uri;
+    let machine, object, struct, dehydrated, rehydrated, promoted, clone, state, stateName;
+    let accounts, operator, id, name, states, initialStateId, uri;
 
     beforeEach( async function () {
 
@@ -47,7 +47,9 @@ describe("Machine", function() {
 
         // Machine
         name = "Lockable_Door";
+        id = nameToId(name);
         initialStateId = states[0].id;
+        uri = "https://ipfs.io/ipfs/Qsomething";
 
     });
 
@@ -250,14 +252,15 @@ describe("Machine", function() {
             beforeEach( async function () {
 
                 machine =  new Machine(operator, name, states, initialStateId, uri);
-                object = { operator, name, states, initialStateId, uri };
+                object = { operator, id, name, initialStateId, uri, states };
+                struct = [ operator, id, name, initialStateId, uri, states.map(state => state.toStruct()) ]
 
             });
 
             it("Machine.fromObject() should return a Machine instance with the same values as the given plain object", async function () {
 
                 // Promote to instance
-                const promoted = Machine.fromObject(object);
+                promoted = Machine.fromObject(object);
 
                 // Is a Machine instance
                 expect(promoted instanceof Machine).is.true;
@@ -266,6 +269,16 @@ describe("Machine", function() {
                 for (const [key, value] of Object.entries(machine)) {
                     expect(JSON.stringify(promoted[key]) === JSON.stringify(value)).is.true;
                 }
+
+            });
+
+            it("Machine.fromStruct() should return a Machine instance from a struct representation", async function () {
+
+                // Get struct from instance
+                machine = Machine.fromStruct(struct);
+
+                // Ensure it is valid
+                expect(machine.isValid()).to.be.true;
 
             });
 
@@ -317,6 +330,19 @@ describe("Machine", function() {
                 for (const [key, value] of Object.entries(machine)) {
                     expect(JSON.stringify(object[key]) === JSON.stringify(value)).is.true;
                 }
+
+            });
+
+            it("instance.toStruct() should return a struct representation of the Machine instance", async function () {
+
+                // Get struct from machine
+                struct = machine.toStruct();
+
+                // Marshal back to a machine instance
+                machine = Machine.fromStruct(struct);
+
+                // Ensure it marshals back to a valid machine
+                expect(machine.isValid()).to.be.true;
 
             });
 

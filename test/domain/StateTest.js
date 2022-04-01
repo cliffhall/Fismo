@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { State, Transition, nameToId } = require("../../scripts/domain");
+const { State, Transition, nameToId, Machine} = require("../../scripts/domain");
 
 /**
  *  Test the State domain object
@@ -9,13 +9,14 @@ const { State, Transition, nameToId } = require("../../scripts/domain");
 describe("State", function() {
 
     // Suite-wide scope
-    let state, object, dehydrated, rehydrated, clone;
-    let name, guardLogic, transitions, exitGuarded, enterGuarded;
+    let state, object, dehydrated, rehydrated, struct, clone;
+    let id, name, guardLogic, transitions, exitGuarded, enterGuarded;
 
     beforeEach( async function () {
 
         // Locked state of a door that can be unlocked with a key and locked without a key
         name = "Locked";
+        id = nameToId(name);
         exitGuarded = true;
         enterGuarded = false;
         transitions = [
@@ -229,7 +230,8 @@ describe("State", function() {
             beforeEach( async function () {
 
                 state = new State(name, exitGuarded, enterGuarded, transitions, guardLogic);
-                object = { name,  transitions, exitGuarded, enterGuarded, guardLogic };
+                object = { id, name, transitions, exitGuarded, enterGuarded, guardLogic };
+                struct = [ id, name, exitGuarded, enterGuarded, guardLogic, transitions.map(transition => transition.toStruct()) ];
 
             });
 
@@ -245,6 +247,16 @@ describe("State", function() {
                 for (const [key, value] of Object.entries(state)) {
                     expect(JSON.stringify(promoted[key]) === JSON.stringify(value)).is.true;
                 }
+
+            });
+
+            it("State.fromStruct() should return a State instance from a struct representation", async function () {
+
+                // Get struct from instance
+                state = State.fromStruct(struct);
+
+                // Ensure it is valid
+                expect(state.isValid()).to.be.true;
 
             });
 
@@ -269,18 +281,16 @@ describe("State", function() {
 
             });
 
-            it("instance.clone() should return another State instance with the same property values", async function() {
+            it("instance.toStruct() should return a struct representation of the State instance", async function () {
 
-                // Get plain object
-                clone = state.clone();
+                // Get struct from state
+                struct = state.toStruct();
 
-                // Is an State instance
-                expect(clone instanceof State).is.true;
+                // Marshal back to a state instance
+                state = State.fromStruct(struct);
 
-                // Key values all match
-                for (const [key, value] of Object.entries(state)) {
-                    expect(JSON.stringify(clone[key]) === JSON.stringify(value)).is.true;
-                }
+                // Ensure it marshals back to a valid state
+                expect(state.isValid()).to.be.true;
 
             });
 
@@ -295,6 +305,21 @@ describe("State", function() {
                 // Key values all match
                 for (const [key, value] of Object.entries(state)) {
                     expect(JSON.stringify(object[key]) === JSON.stringify(value)).is.true;
+                }
+
+            });
+
+            it("instance.clone() should return another State instance with the same property values", async function() {
+
+                // Get plain object
+                clone = state.clone();
+
+                // Is an State instance
+                expect(clone instanceof State).is.true;
+
+                // Key values all match
+                for (const [key, value] of Object.entries(state)) {
+                    expect(JSON.stringify(clone[key]) === JSON.stringify(value)).is.true;
                 }
 
             });

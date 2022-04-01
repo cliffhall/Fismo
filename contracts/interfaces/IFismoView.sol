@@ -69,11 +69,11 @@ interface IFismoView {
      *
      * @param _user - the address of the user
      * @param _machineId - the id of the machine
-     * @return currentStateId - the user's current state in the given machine
+     * @return state - the user's current state in the given machine. See {FismoTypes.State}
      */
     function getUserState(address _user, bytes4 _machineId)
     external
     view
-    returns (bytes4 currentStateId);
+    returns (FismoTypes.State memory state);
 
 }

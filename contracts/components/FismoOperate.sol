@@ -37,7 +37,9 @@ contract FismoOperate is IFismoOperate, FismoSupport  {
      * @param _user - the address of the user
      * @param _machineId - the id of the target machine
      * @param _actionId - the id of the action to invoke
-     */
+     *
+     * @return response - the response from the action. See {FismoTypes.ActionResponse}
+        */
     function invokeAction(
         address _user,
         bytes4 _machineId,
@@ -51,14 +53,11 @@ contract FismoOperate is IFismoOperate, FismoSupport  {
         // Get the machine
         Machine storage machine = getMachine(_machineId);
 
-        // Get the user's current state id in the machine
-        bytes4 currentStateId = getUserState(_user, _machineId);
-
-        // Get that state's index in the machine's states array
-        uint256 index = getStateIndex(_machineId, currentStateId);
+        // Get the user's current state in the given machine
+        bytes4 currentStateId = getUserStateId(_user, _machineId);
 
         // Get the state
-        State storage state = machine.states[index];
+        State storage state = getState(_machineId, currentStateId, true);
 
         // Find the transition triggered by the given action
         Transition memory transition;
