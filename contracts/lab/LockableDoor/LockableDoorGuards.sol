@@ -12,10 +12,13 @@ interface KeyToken {
 }
 
 /**
- * @notice Transition guard functions
+ * @notice Lockable Door Guard Logic
  *
  * - Machine: LockableDoor
- * - Guards: Locked/Exit
+ * - Init: Validate and store key token address
+ * - States guarded: Locked
+ * - Transition Guards: Exit
+ * - Action Filter: Suppress 'Unlock' action if user doesn't have key
  */
 contract LockableDoorGuards is FismoConstants {
 
@@ -67,13 +70,33 @@ contract LockableDoorGuards is FismoConstants {
     }
 
     // -------------------------------------------------------------------------
+    // ACTION FILTER
+    // -------------------------------------------------------------------------
+
+    // Filter actions contextually
+    function LockableDoor_Locked_Filter(address _user, string calldata _action)
+    external
+    view
+    returns(bool suppress)
+    {
+        // User must have key to unlock door
+        bool hasKey = isKeyHolder(_user);
+
+        // For unlock action only, suppress if user does not have key
+        suppress = (
+            keccak256(abi.encodePacked(_action)) ==
+            keccak256(abi.encodePacked("Unlock"))
+        ) ? !(hasKey) : false;
+    }
+
+    // -------------------------------------------------------------------------
     // TRANSITION GUARDS
     // -------------------------------------------------------------------------
 
     // Locked / Exit
     // Valid next states: Closed
     function LockableDoor_Locked_Exit(address _user, string calldata _nextStateName)
-    public
+    external
     view
     returns(string memory)
     {
@@ -82,12 +105,31 @@ contract LockableDoorGuards is FismoConstants {
         require(_user != FismoStore.getStore().owner);
 
         // User must have key to unlock door
-        bool hasKey = lockableDoorSlot().keyToken.balanceOf(_user) > 0;
-        require(hasKey, "User must hold key to unlock.");
+        bool hasKey = isKeyHolder(_user);
+        require(hasKey);
 
         // Success response message
         return "Door unlocked.";
 
+    }
+
+    // -------------------------------------------------------------------------
+    // HELPERS
+    // -------------------------------------------------------------------------
+
+    /**
+     * @notice Determine if user holds the key
+     *
+     * @param _user - the user to check
+     *
+     * @return true if the user holds a balance of the key token
+     */
+    function isKeyHolder(address _user)
+    internal
+    view
+    returns (bool)
+    {
+        return lockableDoorSlot().keyToken.balanceOf(_user) > 0;
     }
 
     /**

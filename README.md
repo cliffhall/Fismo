@@ -36,8 +36,7 @@ Done or in progress are:
 - ✅ Developer setup and tasks documentation
 - ✅ Developer environment configuration template
 - ✅ High level architecture documentation
-- ✅ Finalize API
-- 👉 State-specific action list filter in guard contracts
+- ✅ Contextually filter actions on guard contracts
 - 👉 Complete code coverage
 - 👉 Complete NPM package
 - 👉 Deploy to testnets, mainnet, sidechains

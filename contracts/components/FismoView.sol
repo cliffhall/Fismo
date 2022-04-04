@@ -17,6 +17,11 @@ import { FismoSupport } from "./FismoSupport.sol";
  */
 contract FismoView is IFismoView, FismoTypes, FismoConstants {
 
+    //-------------------------------------------------------
+    // EXTERNAL FUNCTIONS
+    //-------------------------------------------------------
+
+
     /**
      * @notice Get the implementation address for a given guard selector
      *
@@ -101,12 +106,52 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
     override
     returns (State memory state)
     {
+        // Get the machine
+        Machine storage machine = getMachine(_machineId);
+
         // Get the user's current state in the given machine
         bytes4 currentStateId = getUserStateId(_user, _machineId);
 
-        // Get the state
+        // Get the installed state
         state = getState(_machineId, currentStateId, true);
+
+        // If state is guarded, it may filter
+        if (state.exitGuarded || state.enterGuarded) {
+
+            // Remove any contextually suppressed actions
+            bool[] memory states;
+            uint256 count;
+            Transition[] memory transitions;
+            for (uint256 i = 0; i < state.transitions.length; i++) {
+
+                // Find out if the action is suppressed
+                (bool success, bytes memory response) = address(this).staticcall(
+                    abi.encodeWithSelector(
+                            this.isActionSuppressed.selector,
+                            _user,
+                            state.guardLogic,
+                            machine.name,
+                            state.name,
+                            state.transitions[i].action
+                    )
+                );
+
+                states[i] = success && !(bool(abi.decode(response, (bool))));
+
+                if (bool(states[i])) {
+                    transitions[count] = state.transitions[i];
+                    count++;
+                }
+            }
+            state.transitions = transitions;
+
+        }
+
     }
+
+    //-------------------------------------------------------
+    // INTERNAL FUNCTIONS
+    //-------------------------------------------------------
 
     /**
      * @notice Get a machine by id
@@ -179,7 +224,7 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
     }
 
     /**
- * @notice Get the current state for a given user in a given machine.
+     * @notice Get the current state for a given user in a given machine.
      *
      * Note:
      * - If the user has not interacted with the machine, the initial state
@@ -203,27 +248,88 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
         // Get the user's current state in the given machine, default to initialStateId if not found
         currentStateId = getStore().userState[_user][_machineId];
         if (currentStateId == bytes4(0)) currentStateId = machine.initialStateId;
+    }
+
+    /**
+     * @notice Is the given action contextually suppressed?
+     *
+     * Notes:
+     * - A guard contract may supply deterministically named
+     *   filter function for each of the machine states it
+     *   supports. This function takes the user's address and
+     *   an action name, and returns true if it should be
+     *   suppressed.
+     *
+     * Ex.
+     * - MachineName_StateName_Filter(address _user, string calldata _action)
+     *   external
+     *   view
+     *   returns (bool)
+     *
+     * - Enter and exit guards can store information about users
+     *   as they interact with the machine, which can be used to
+     *   contextually allow or suppress one or more pre-defined
+     *   actions for any given state.
+     *
+     * @param _user - the user address the call is being invoked for
+     * @param _guardLogic - the address of the guard logic contract
+     * @param _machineName - the name of the machine
+     * @param _stateName - the name of the state
+     *
+     * @return suppressed - list of actions to suppress
+     */
+    function isActionSuppressed(
+        address _user,
+        address _guardLogic,
+        string memory _machineName,
+        string memory _stateName,
+        string memory _action
+    )
+    public
+    returns (bool suppressed)
+    {
+        // Get the filter function selector and encode the call
+        bytes4 selector = getGuardSelector(_machineName, _stateName, Guard.Filter);
+        bytes memory guardCall = abi.encodeWithSelector(
+            selector,
+            _user,
+            _action
+        );
+
+        // Invoke the filter
+        (, bytes memory response) = _guardLogic.delegatecall(guardCall);
+
+        // if the function call did not revert, decode the response message
+        suppressed = abi.decode(response, (bool));
 
     }
 
-
     /**
-     * @notice Get the function signature for an enter or exit guard guard
+     * @notice Get the function signature for an enter, exit, or filter guard
      *
      * e.g.,
      * `NightClub_Dancefloor_Enter(address _user, string memory _priorStateName)`
+     * `NightClub_Dancefloor_Exit(address _user, string memory _priorStateName)`
+     * `NightClub_Dancefloor_Filter(address _user, string[] memory _definedActions)`
      *
      * @param _machineName - the name of the machine, e.g., `NightClub`
      * @param _stateName - the name of the state, e.g., `Dancefloor`
-     * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     * @param _guard - the type of guard (enter/exit/filter). See {FismoTypes.Guard}
      *
      * @return guardSignature - a string representation of the function signature
      */
     function getGuardSignature(string memory _machineName, string memory _stateName, Guard _guard)
     internal
     pure
-    returns (string memory guardSignature) {
-        string memory guardType = (_guard == Guard.Enter) ? "_Enter" : "_Exit";
+    returns (string memory guardSignature)
+    {
+        // Get the guard type as a string
+        string memory guardType =
+            (_guard == Guard.Filter)
+                ? "_Filter"
+                : (_guard == Guard.Enter) ? "_Enter" : "_Exit";
+
+        // Get the function name
         string memory functionName = strConcat(
             strConcat(
                 strConcat(_machineName, "_"),
@@ -241,7 +347,7 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
      *
      * @param _machineName - the name of the machine
      * @param _stateName - the name of the state
-     * @param _guard - the type of guard (enter/exit). See {FismoTypes.Guard}
+     * @param _guard - the type of guard (enter/exit/filter). See {FismoTypes.Guard}
      *
      * @return guardSelector - the function selector, e.g., `0x23b872dd`
      */
@@ -255,7 +361,6 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
 
         // Return the hashed function selector
         guardSelector = nameToId(guardSignature);
-
     }
 
     /**

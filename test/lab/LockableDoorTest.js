@@ -32,7 +32,7 @@ describe("Lockable Door Machine", function() {
     // Common vars
     let accounts, deployer, user, operator, operatorArgs, guards, tokens, keyToken;
     let fismo, example, machine, machineId, action, actionId, stateId;
-    let actionResponse, actionResponseStruct;
+    let actionResponse, actionResponseStruct, amountToMint;
     let priorState, nextState, exitMessage, enterMessage;
 
     beforeEach( async function () {
@@ -229,7 +229,8 @@ describe("Lockable Door Machine", function() {
                     actionId = nameToId(action);
 
                     // Attempt to invoke the action via the Operator, checking for the generic revert reason
-                    // Note: This guard will revert with no reason if the owner attempts to use it. (Contrived)
+                    // Note: This guard will revert with no reason if the contract owner attempts to use it.
+                    //       Yes, this is contrived, but code coverage, yo.
                     await expect(operator.connect(deployer).invokeAction(machine.id, actionId))
                         .to.revertedWith(RevertReasons.GUARD_REVERTED);
 
@@ -266,9 +267,10 @@ describe("Lockable Door Machine", function() {
                     exitMessage = "Door unlocked.";
                     stateId = nameToId(nextState);
 
-                    // Invoke the action via the Operator, checking for the custom revert reason
+                    // Invoke the action via the Operator
+                    // Action will be suppressed, since user does not have key
                     await expect(operator.connect(user).invokeAction(machine.id, actionId))
-                        .to.revertedWith(RevertReasons.USER_MUST_HAVE_KEY);
+                        .to.revertedWith(RevertReasons.NO_SUCH_ACTION);
 
                 });
 
