@@ -35,10 +35,4 @@ exports.RevertReasons = {
     CODELESS_GUARD: "Guard address not a contract",
     GUARD_REVERTED: "Guard function reverted, no reason given",
 
-    // --------------------------------------------------------
-    // LOCKABLE DOOR EXAMPLE
-    // --------------------------------------------------------
-    USER_MUST_HAVE_KEY: "User must hold key to unlock."
-
-
 };
