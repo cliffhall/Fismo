@@ -18,7 +18,7 @@ Each user's position on their journey through a state machine is recorded, and c
 ### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![89%](https://progress-bar.dev/89/?title=Progress&width=100&color=000000)
 
 Done or in progress are:
-- ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#experimentdeterministicselectorproxy) implementation
+- ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#deterministic-selector-proxy) implementation
 - ✅ A robust [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) protocol
 - ✅ Minimal clones for cheap deployments (~$50 vs ~$3000)!!!
 - ✅ Initialization and access of machine-specific storage slots
