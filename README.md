@@ -20,7 +20,7 @@ Each user's position on their journey through a state machine is recorded, and c
 Done or in progress are:
 - ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#experimentdeterministicselectorproxy) implementation
 - ✅ A robust [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) protocol
-- ✅ Minimal clones for cheap deployments ($40 vs $2000)!!!
+- ✅ Minimal clones for cheap deployments (~$50 vs ~$3000)!!!
 - ✅ Initialization and access of machine-specific storage slots
 - ✅ Clear and complete interface documentation and inline code comments
 - ✅ Separation of concerns into inheritance tree for easy comprehension and maintenance
