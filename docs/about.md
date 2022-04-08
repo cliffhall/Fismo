@@ -9,7 +9,7 @@ However, one criticism auditors and implementers have often raised is the level 
 
 > What other forms might the multiple-implementation proxy pattern take?
 
-Fismo began as an experiment in what I will call Deterministic Selecto Proxy design. The idea was that the function selectors would be determined not by calling complicated maintenance functions to associate a given function selector with its implementation, but rather by **generating the function selector on the fly** somehow, based on the execution context.
+Fismo began as an experiment in what I will call Deterministic Selector Proxy design. The idea was that the function selectors would be determined not by calling complicated maintenance functions to associate a given function selector with its implementation, but rather by **generating the function selector on the fly** somehow, based on the execution context.
 
 Nifty idea, but without a problem domain, this hypothetical deterministic selector proxy would have no context within which to formulate function selectors to be proxied. 
 
