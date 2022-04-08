@@ -289,49 +289,6 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
     }
 
     /**
-     * @notice Get the function signature for an enter, exit, or filter guard
-     *
-     * e.g.,
-     * `NightClub_Dancefloor_Enter(address _user, string calldata _action, string calldata _priorStateName)`
-     * `NightClub_Dancefloor_Exit(address _user, string calldata _action, string calldata _priorStateName)`
-     * `NightClub_Dancefloor_Filter(address _user, string[] calldata _definedActions)`
-     *
-     * @param _machineName - the name of the machine, e.g., `NightClub`
-     * @param _stateName - the name of the state, e.g., `Dancefloor`
-     * @param _guard - the type of guard (enter/exit/filter). See {FismoTypes.Guard}
-     *
-     * @return guardSignature - a string representation of the function signature
-     */
-    function getGuardSignature(string memory _machineName, string memory _stateName, Guard _guard)
-    internal
-    pure
-    returns (string memory guardSignature)
-    {
-        // Get the guard type as a string
-        string memory guardType =
-            (_guard == Guard.Filter)
-                ? "_Filter"
-                : (_guard == Guard.Enter) ? "_Enter" : "_Exit";
-
-        // Get the function name
-        string memory functionName = strConcat(
-            strConcat(
-                strConcat(_machineName, "_"),
-                _stateName
-            ),
-            guardType
-        );
-
-        // Construct signature
-        guardSignature = strConcat(
-            functionName,
-                (_guard == Guard.Filter)
-                    ? "(address,string)"
-                    : "(address,string,string)"
-        );
-    }
-
-    /**
      * @notice Get the function selector for an enter or exit guard guard
      *
      * @param _machineName - the name of the machine
@@ -345,8 +302,28 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
     pure
     returns (bytes4 guardSelector)
     {
-        // Get the signature
-        string memory guardSignature = getGuardSignature(_machineName, _stateName, _guard);
+        // Get the guard type as a string
+        string memory guardType =
+        (_guard == Guard.Filter)
+        ? "_Filter"
+        : (_guard == Guard.Enter) ? "_Enter" : "_Exit";
+
+        // Get the function name
+        string memory functionName = strConcat(
+            strConcat(
+                strConcat(_machineName, "_"),
+                _stateName
+            ),
+            guardType
+        );
+
+        // Construct signature
+        string memory guardSignature = strConcat(
+            functionName,
+            (_guard == Guard.Filter)
+            ? "(address,string)"
+            : "(address,string,string)"
+        );
 
         // Return the hashed function selector
         guardSelector = nameToId(guardSignature);

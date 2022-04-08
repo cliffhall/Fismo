@@ -158,7 +158,7 @@ contract FismoUpdate is IFismoUpdate, FismoOwner {
      * @param _state - the state to update
      */
     function updateState(bytes4 _machineId, State memory _state)
-    public
+    external
     override
     onlyOwner
     {
