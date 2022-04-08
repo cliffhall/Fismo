@@ -25,7 +25,7 @@ This is where you need to write some code and deploy a guard logic implementatio
 
 In the machine definition for the Locked state, the `exitGuarded` flag should be set to `true` and the `guardLogic` property set to this guard contract's address. When Fismo tries to transition between the Locked state and the Open state, it will attempt to execute the following function by combining machine name, state name, and guard direction.
 
-> `LockableDoor_Locked_Exit(address user, string memory _nextStateName)`
+> `LockableDoor_Locked_Exit(address user, string calldata _action, string calldata _nextStateName)`
 
 This requires a developer to write function signatures in a very specific way, but it nicely demonstrates the Deterministic Selector Proxy concept with no chance of function signature collision, since:
   - Each machine name must be unique  

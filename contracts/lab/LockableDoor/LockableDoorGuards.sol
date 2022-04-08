@@ -95,7 +95,7 @@ contract LockableDoorGuards is FismoConstants {
 
     // Locked / Exit
     // Valid next states: Closed
-    function LockableDoor_Locked_Exit(address _user, string calldata _nextStateName)
+    function LockableDoor_Locked_Exit(address _user, string calldata _action, string calldata _nextStateName)
     external
     view
     returns(string memory)

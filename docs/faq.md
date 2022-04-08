@@ -93,8 +93,8 @@ It executes...
     - Except, function signatures on Fismo's proxied logic contracts are...
       - Deterministic. Based on the machine and the states involved in a transition.
       - Guard function signatures look like this: 
-        - `MachineName_StateName_Enter(address _user, string memory _priorStateName)` 
-        - `MachineName_StateName_Exit(address _user, string memory _nextStateName)`.
+        - `MachineName_StateName_Enter(address _user, string calldata _action, string memory _priorStateName)` 
+        - `MachineName_StateName_Exit(address _user, string calldata _action, string memory _nextStateName)`.
       - Simpler to maintain while avoiding name collisions.
 
 It emits events when...

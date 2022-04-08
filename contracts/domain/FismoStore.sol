@@ -22,9 +22,6 @@ library FismoStore {
         // Address of the contract owner
         address owner;
 
-        // Maps a deterministic guard function selector to an implementation address
-        mapping(bytes4 => address) guardLogic;
-
         // Maps machine id to a machine struct
         //      machine id => Machine struct
         mapping(bytes4 => FismoTypes.Machine) machine;

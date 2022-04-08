@@ -1054,31 +1054,6 @@ describe("Fismo", function() {
 
         context("📋 IFismoView methods", async function () {
 
-            context("👉 getGuardAddress()", async function () {
-
-                beforeEach( async function () {
-
-                    [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, LockableDoor, gasLimit);
-
-                });
-
-                it("Should return the guard address of a guarded selector", async function () {
-
-                    // The selector of the only guard function
-                    selector = nameToId("LockableDoor_Locked_Exit(address,string)");
-
-                    // Get the guard logic address
-                    expected = guards[0].contract.address;
-
-                    guardLogic = await fismo.getGuardAddress(selector);
-
-                    // Verify that the appropriate address was returned
-                    expect(guardLogic).to.equal(expected);
-
-                });
-
-            });
-
             context("👉 getLastPosition()", async function () {
 
                 beforeEach( async function () {

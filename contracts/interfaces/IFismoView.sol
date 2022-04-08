@@ -7,25 +7,11 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  * @title IFismoView
  *
  * Interface for Fismo view functions
- * The ERC-165 identifier for this interface is 0x26276912
+ * The ERC-165 identifier for this interface is 0x691b5451
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 interface IFismoView {
-
-    /**
-     * @notice Get the implementation address for a given guard selector
-     *
-     * Reverts if
-     * - guard logic implementation is not defined
-     *
-     * @param _functionSelector - the bytes4 sighash of function signature
-     * @return guardAddress - the address of the guard logic implementation contract
-     */
-    function getGuardAddress(bytes4 _functionSelector)
-    external
-    view
-    returns (address guardAddress);
 
     /**
      * @notice Get the last recorded position of the given user.

@@ -158,7 +158,7 @@ contract FismoUpdate is IFismoUpdate, FismoOwner {
      * @param _state - the state to update
      */
     function updateState(bytes4 _machineId, State memory _state)
-    public
+    external
     override
     onlyOwner
     {
@@ -325,8 +325,6 @@ contract FismoUpdate is IFismoUpdate, FismoOwner {
 
         }
 
-        // Update the the state guards
-        updateStateGuards(_machine, _state);
     }
 
     /**
@@ -341,31 +339,6 @@ contract FismoUpdate is IFismoUpdate, FismoOwner {
     {
         // Add mapping: machine id => state id => states array index
         getStore().stateIndex[_machineId][_stateId] = _index;
-    }
-
-    /**
-     * @notice Update the Gguard function selector mappings for given State.
-     *
-     * @param _machine - the machine. see {Machine}
-     * @param _state - the state. see {State}
-     */
-    function updateStateGuards(Machine memory _machine, State memory _state)
-    internal
-    {
-        // determine enter guard function signature for state
-        // Ex. keccak256 hash of: MachineName_StateName_Enter(address, string memory)
-        bytes4 enterGuardSelector = getGuardSelector(_machine.name, _state.name, Guard.Enter);
-
-        // Map the enter guard function selector to the address of the guard logic implementation for this state
-        getStore().guardLogic[enterGuardSelector] = (_state.enterGuarded) ? _state.guardLogic : address(0);
-
-        // determine exit guard function signature for state
-        // Ex. keccak256 hash of: MachineName_StateName_Exit(address, string memory)
-        bytes4 exitGuardSelector = getGuardSelector(_machine.name, _state.name, Guard.Exit);
-
-        // Map the exit guard function selector to the address of the guard logic implementation for this state
-        getStore().guardLogic[exitGuardSelector] = (_state.exitGuarded) ?  _state.guardLogic : address(0);
-
     }
 
     /**

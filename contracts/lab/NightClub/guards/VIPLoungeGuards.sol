@@ -13,7 +13,7 @@ contract VIPLoungeGuards is NightClubGuardBase {
 
     // Enter the VIP Lounge
     // Valid prior states: Dancefloor, Restroom, Bar, and Foyer
-    function NightClub_VIP_Lounge_Enter(address _user, string memory _priorStateName)
+    function NightClub_VIP_Lounge_Enter(address _user, string calldata _action, string calldata _priorStateName)
     external
     view
     returns(string memory message)
@@ -34,7 +34,7 @@ contract VIPLoungeGuards is NightClubGuardBase {
 
     // Exit the VIP Lounge
     // Valid next states: Dancefloor, Restroom, Bar, and Foyer
-    function NightClub_VIP_Lounge_Exit(address _user, string memory _nextStateName)
+    function NightClub_VIP_Lounge_Exit(address _user, string calldata _action, string calldata _nextStateName)
     external
     pure
     returns(string memory message)

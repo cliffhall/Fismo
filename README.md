@@ -15,7 +15,7 @@ Each user's position on their journey through a state machine is recorded, and c
 * 💥 Use off-chain metadata to describe states in any medium
 
 ### Status 
-### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![85%](https://progress-bar.dev/87/?title=Progress&width=100&color=000000)
+### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![89%](https://progress-bar.dev/87/?title=Progress&width=100&color=000000)
 
 Done or in progress are:
 - ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#experimentdeterministicselectorproxy) implementation
@@ -37,7 +37,8 @@ Done or in progress are:
 - ✅ Developer environment configuration template
 - ✅ High level architecture documentation
 - ✅ Contextually filter actions on guard contracts
-- 👉 Complete code coverage
+- ✅ Enable self-targeting transitions to inspect the action
+- ✅ Optimize contract size
 - 👉 Complete NPM package
 - 👉 Deploy to testnets, mainnet, sidechains
 - 👉 Write "How to create, install and operate machines on Fismo" doc

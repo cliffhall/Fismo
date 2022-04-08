@@ -13,7 +13,7 @@ contract FismoTypes {
     enum Guard {
         Enter,
         Exit,
-        Filter // only valid internally
+        Filter
     }
 
     struct Machine {
