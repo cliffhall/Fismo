@@ -13,7 +13,7 @@ contract CabGuards is NightClubGuardBase {
 
     // Enter the Cab
     // Valid prior states: Street and Home
-    function NightClub_Cab_Enter(address _user, string memory _priorStateName)
+    function NightClub_Cab_Enter(address _user, string calldata _action, string calldata _priorStateName)
     external
     pure
     returns(string memory message)
@@ -27,7 +27,7 @@ contract CabGuards is NightClubGuardBase {
 
     // Exit the Cab
     // Valid next states: Street and Home
-    function NightClub_Cab_Exit(address _user, string memory _nextStateName)
+    function NightClub_Cab_Exit(address _user, string calldata _action, string calldata _nextStateName)
     external
     pure
     returns(string memory message)

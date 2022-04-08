@@ -110,7 +110,7 @@ contract StopWatchGuards {
     // Valid prior states: Paused
     // - resets user memory
     // - emits StopWatchReset if previously paused
-    function StopWatch_Ready_Enter(address _user, string memory _priorStateName)
+    function StopWatch_Ready_Enter(address _user, string calldata _action, string calldata _priorStateName)
     external
     returns(string memory message)
     {
@@ -127,7 +127,7 @@ contract StopWatchGuards {
     // Ready / Exit
     // Valid next states: Running
     // - Stores start time
-    function StopWatch_Ready_Exit(address _user, string memory _nextStateName)
+    function StopWatch_Ready_Exit(address _user, string calldata _action, string calldata _nextStateName)
     external
     returns(string memory message)
     {
@@ -137,7 +137,7 @@ contract StopWatchGuards {
     // Running / Enter
     // Valid prior states: Ready, Paused
     // - emits StopWatchRunning if previously paused
-    function StopWatch_Running_Enter(address _user, string memory _priorStateName)
+    function StopWatch_Running_Enter(address _user, string calldata _action, string calldata _priorStateName)
     external
     returns(string memory message)
     {
@@ -150,7 +150,7 @@ contract StopWatchGuards {
     // - stores time last paused
     // - calculates & stores time elapsed
     // - emits StopWatchPaused event
-    function StopWatch_Paused_Enter(address _user, string memory _priorStateName)
+    function StopWatch_Paused_Enter(address _user, string calldata _action, string calldata _priorStateName)
     external
     returns(string memory message)
     {
@@ -165,7 +165,7 @@ contract StopWatchGuards {
     // Valid next states: Running
     // - calculates & stores total time paused
     // - calculates and stores time elapsed
-    function StopWatch_Paused_Exit(address _user, string memory _priorStateName)
+    function StopWatch_Paused_Exit(address _user, string calldata _action, string calldata _priorStateName)
     external
     returns(string memory message)
     {

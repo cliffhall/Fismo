@@ -21,22 +21,6 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
     // EXTERNAL FUNCTIONS
     //-------------------------------------------------------
 
-
-    /**
-     * @notice Get the implementation address for a given guard selector
-     *
-     * @param _functionSelector - the bytes4 sighash of function signature
-     * @return guardAddress - the address of the guard logic implementation contract
-     */
-    function getGuardAddress(bytes4 _functionSelector)
-    public
-    view
-    override
-    returns (address guardAddress)
-    {
-        guardAddress = getStore().guardLogic[_functionSelector];
-    }
-
     /**
      * @notice Get the last recorded position of the given user.
      *
@@ -308,9 +292,9 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
      * @notice Get the function signature for an enter, exit, or filter guard
      *
      * e.g.,
-     * `NightClub_Dancefloor_Enter(address _user, string memory _priorStateName)`
-     * `NightClub_Dancefloor_Exit(address _user, string memory _priorStateName)`
-     * `NightClub_Dancefloor_Filter(address _user, string[] memory _definedActions)`
+     * `NightClub_Dancefloor_Enter(address _user, string calldata _action, string calldata _priorStateName)`
+     * `NightClub_Dancefloor_Exit(address _user, string calldata _action, string calldata _priorStateName)`
+     * `NightClub_Dancefloor_Filter(address _user, string[] calldata _definedActions)`
      *
      * @param _machineName - the name of the machine, e.g., `NightClub`
      * @param _stateName - the name of the state, e.g., `Dancefloor`
@@ -339,7 +323,12 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
         );
 
         // Construct signature
-        guardSignature = strConcat(functionName, "(address,string)");
+        guardSignature = strConcat(
+            functionName,
+                (_guard == Guard.Filter)
+                    ? "(address,string)"
+                    : "(address,string,string)"
+        );
     }
 
     /**

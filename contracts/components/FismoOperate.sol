@@ -94,12 +94,12 @@ contract FismoOperate is IFismoOperate, FismoSupport  {
 
         // if there is exit guard logic for the current state, call it
         if (state.exitGuarded) {
-            response.exitMessage = invokeGuard(_user, state.guardLogic, machine.name, state.name, Guard.Exit);
+            response.exitMessage = invokeGuard(_user, state.guardLogic, machine.name, state.name, transition.action, Guard.Exit);
         }
 
         // if there is enter guard logic for the next state, call it
         if (nextState.enterGuarded) {
-            response.enterMessage = invokeGuard(_user, nextState.guardLogic, machine.name, nextState.name, Guard.Enter);
+            response.enterMessage = invokeGuard(_user, nextState.guardLogic, machine.name, nextState.name, transition.action, Guard.Enter);
         }
 
         // if we made it this far, set the new state
@@ -121,7 +121,8 @@ contract FismoOperate is IFismoOperate, FismoSupport  {
      * @param _user - the user address the call is being invoked for
      * @param _guardLogic - the address of the guard logic contract
      * @param _machineName - the name of the machine
-     * @param _stateName - the name of the state
+     * @param _action - the name of the state
+     * @param _targetStateName - the name of the target state
      * @param _guard - the guard type (enter/exit) See: {FismoTypes.Guard}
      *
      * @return guardResponse - the message (if any) returned from the guard
@@ -130,18 +131,20 @@ contract FismoOperate is IFismoOperate, FismoSupport  {
         address _user,
         address _guardLogic,
         string memory _machineName,
-        string memory _stateName,
+        string memory _targetStateName,
+        string memory _action,
         Guard _guard
     )
     internal
     returns (string memory guardResponse)
     {
         // Get the function selector and encode the call
-        bytes4 selector = getGuardSelector(_machineName, _stateName, _guard);
+        bytes4 selector = getGuardSelector(_machineName, _targetStateName, _guard);
         bytes memory guardCall = abi.encodeWithSelector(
             selector,
             _user,
-            _stateName
+            _action,
+            _targetStateName
         );
 
         // Invoke the guard

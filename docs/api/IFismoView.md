@@ -7,39 +7,9 @@
 
 ### View Fismo Storage
 * View Interface [IFismoView.sol](../../contracts/interfaces/IFismoView.sol)
-* The ERC-165 identifier for this interface is `0x26276912`
+* The ERC-165 identifier for this interface is `0x691b5451`
 
 ## Functions
-### getGuardAddress
-Get the implementation address for a given Guard selector.
-
-**Reverts if**
-- Guard logic implementation is not defined
-
-**Signature**
-```solidity
-function getGuardAddress (
-    bytes4 _functionSelector
-) 
-external 
-view
-returns (
-    address guardAddress
-);
-```
-
-**Arguments**
-
-| Name        |  Description |Type           |
-| ------------- |------------- |-------------|
-| _functionSelector | the bytes4 sighash of function signature | bytes4      |  
-
-**Return Values**
-
-| Name        | Description                                | Type           |
-| ------------- |--------------------------------------------|------------- |
-| guardAddress | the address of the guard logic implementation contract| address |
-
 ### getLastPosition
 Get the last recorded position of the given user.
 

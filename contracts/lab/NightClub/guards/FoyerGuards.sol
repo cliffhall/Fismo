@@ -13,7 +13,7 @@ contract FoyerGuards is NightClubGuardBase {
 
     // Enter the Foyer
     // Valid prior states: Street, Dancefloor, VIP Lounge, Bar, and Restroom
-    function NightClub_Foyer_Enter(address _user, string memory _priorStateName)
+    function NightClub_Foyer_Enter(address _user, string calldata _action, string calldata _priorStateName)
     external
     pure
     returns(string memory message)
@@ -33,7 +33,7 @@ contract FoyerGuards is NightClubGuardBase {
 
     // Exit the Foyer
     // Valid next states: Street, Dancefloor, VIP Lounge, Bar, and Restroom
-    function NightClub_Foyer_Exit(address _user, string memory _nextStateName)
+    function NightClub_Foyer_Exit(address _user, string calldata _action, string calldata _nextStateName)
     external
     pure
     returns(string memory message)
