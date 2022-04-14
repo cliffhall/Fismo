@@ -36,6 +36,9 @@ interface IFismoClone {
     /**
      * @notice Deploys and returns the address of a Fismo clone.
      *
+     * Emits:
+     * - FismoCloned
+     *
      * @return instance - the address of the Fismo clone instance
      */
     function cloneFismo() external returns (address instance);
