@@ -37,6 +37,11 @@ contract FismoClone is IFismoClone, FismoOperate  {
         setIsFismo(false);
     }
 
+    /**
+     * @notice Deploys and returns the address of a Fismo clone.
+     *
+     * @return instance - the address of the Fismo clone instance
+     */
     function cloneFismo()
     external
     override
