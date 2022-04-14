@@ -40,6 +40,9 @@ contract FismoClone is IFismoClone, FismoOperate  {
     /**
      * @notice Deploys and returns the address of a Fismo clone.
      *
+     * Emits:
+     * - FismoCloned
+     *
      * @return instance - the address of the Fismo clone instance
      */
     function cloneFismo()
