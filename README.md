@@ -7,7 +7,7 @@ Fismo Machines are a way of simulating stateful things, processes, or maps of pl
 
 Fismo enforces rules about transitions between states when users invoke actions. The implementer writes custom Solidity functions that get called when transitions happen. Transitions don't always need such hooks, but when they do, anything can be queried or stored.
 
-Each user's progress through a Fismo machine is recorded and can be queried publicly by anyone. State transitions can be gated by the tokens a user holds, places the've been, or any other  accessible stored value. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
+Each user's progress through a Fismo Machine is recorded and can be queried publicly by anyone. State transitions can be gated by the tokens a user holds, places the've been, or any other  accessible stored value. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
 
 ### But wait, there's more...
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
