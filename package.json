@@ -1,6 +1,6 @@
 {
   "name": "fismo",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Fismo: The Finite State Machine Protocol for EVM Blockchains",
   "author": "Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)",
   "license": "BSD-3-Clause",
