@@ -15,7 +15,7 @@ Each user's progress through a Fismo Machine is recorded and can be queried publ
 * 💥 Deploy custom logic for controlling access to your machines
 * 💥 Deploy custom logic for any state transition
 * 💥 Deploy custom logic to contextually filter available actions
-* 💥 Use off-chain metadata to describe states in any medium
+* 💥 Use off-chain metadata to richly describe states in any medium
 
 ### Status 
 ### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![89%](https://progress-bar.dev/89/?title=Progress&width=100&color=000000)
