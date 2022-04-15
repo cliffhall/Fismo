@@ -1,24 +1,27 @@
 ![Fismo](docs/images/fismo-logo.png)
 # Status 🧪 [About](docs/about.md) 🧪 [FAQ](docs/faq.md) 🧪 [Docs](docs/intro.md)
-## A Finite State Machine Protocol for EVM Blockchains
-### What is this?
-Fismo is a way of simulating stateful things, processes, or maps of places on EVM blockchains.
+## The Finite State Machine Protocol for EVM Blockchains
+Fismo Machines are a way of simulating stateful things, processes, or maps of places.
 
-There are standards for tokens that allow us to represent things like currency, ownership, and membership. But why do we have no standard for representing a process or map and an individual's path through it?
+**Consider this:** There are standards for tokens that allow us to represent things like currency, ownership, and membership. _Why do we have no standard for representing a process or map and an individual's journey through it?_
 
-Each user's position on their journey through a state machine is recorded, and can be publicly queried by anyone. Progress can be controlled by the tokens a user holds. Likewise, tokens could be transferred to a user when they or take some action or arrive at some waypoint.
+Fismo enforces rules about the transitions between states when users invoke actions. The implementer writes custom Solidity functions that get called when transitions happen. Transitions don't always need such hooks, but when they do, anything can be queried or stored.
 
+Each user's progress through a Fismo machine is recorded and can be queried publicly by anyone. State transitions can be gated by the tokens a user holds, places the've been, or any other  accessible stored value. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
+
+### But wait, there's more...
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
 * 💥 Configure and install a virtually unlimited number of machines
-* 💥 Deploy custom logic to be triggered by any state transition
 * 💥 Deploy custom logic for controlling access to your machines
+* 💥 Deploy custom logic for any state transition
+* 💥 Deploy custom logic to contextually filter available actions
 * 💥 Use off-chain metadata to describe states in any medium
 
 ### Status 
 ### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![89%](https://progress-bar.dev/89/?title=Progress&width=100&color=000000)
 
 Done or in progress are:
-- ✅ Science! a working [Deterministic Selector Proxy](docs/about.md#deterministic-selector-proxy) implementation
+- ✅ Science! a functional [Deterministic Selector Proxy](docs/about.md#deterministic-selector-proxy) implementation
 - ✅ A robust [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) protocol
 - ✅ Minimal clones for cheap deployments (~$50 vs ~$3000)!!!
 - ✅ Initialization and access of machine-specific storage slots
