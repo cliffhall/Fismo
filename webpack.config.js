@@ -4,7 +4,7 @@ module.exports = {
     entry: "./scripts/domain/index.js",
     output: {
         filename: "fismo.js",
-        path: path.resolve("dist"),
+        path: path.resolve("sdk/browser"),
         library: 'Fismo',
         libraryTarget: 'var'
     },
