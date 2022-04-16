@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Dev Setup
-nav_order: 5
+title: Development Setup
+nav_order: 6
 ---
 ![Fismo](images/fismo-logo.png)
 

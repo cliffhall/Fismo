@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Dev Tasks
-nav_order: 6
+title: Development Tasks
+nav_order: 7
 ---
 ![Fismo](images/fismo-logo.png)
 
