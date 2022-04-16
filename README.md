@@ -1,6 +1,6 @@
 ![Fismo](docs/images/fismo-logo.png)
 # The Finite State Machine Protocol for EVM Blockchains
-## 📖 [Documentation](https://cliffhall.github.io/Fismo/)
+## 📖 [Documentation](https://docs.fismo.xyz)
 
 Fismo Machines are a way of simulating stateful things, processes, or maps of places.
 
