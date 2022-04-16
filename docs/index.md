@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Status
+title: About
 nav_order: 1
 ---
 # The Finite State Machine Protocol for EVM Blockchains
