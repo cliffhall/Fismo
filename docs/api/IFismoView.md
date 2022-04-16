@@ -4,8 +4,6 @@ title: IFismoView
 parent: Contract Interfaces
 nav_order: 6
 ---
-![Fismo](../images/fismo-logo.png)
-
 # View Fismo Storage
 * View Interface [IFismoView.sol](../../contracts/interfaces/IFismoView.sol)
 * The ERC-165 identifier for this interface is `0x691b5451`

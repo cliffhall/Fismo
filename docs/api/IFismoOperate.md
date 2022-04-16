@@ -4,8 +4,6 @@ title: IFismoOperate
 parent: Contract Interfaces
 nav_order: 2
 ---
-![Fismo](../images/fismo-logo.png)
-
 # Operate Fismo Machines
 * View Interface [IFismoOperate.sol](../../contracts/interfaces/IFismoOperate.sol)
 * The ERC-165 identifier for this interface is `0xcad6b576`

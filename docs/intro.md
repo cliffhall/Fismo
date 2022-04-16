@@ -3,8 +3,6 @@ layout: default
 title: Architecture
 nav_order: 4
 ---
-![Fismo](images/fismo-logo.png)
-
 # The Big Picture
 ![The Big Picture](images/FismoHighLevelArch.png)
 

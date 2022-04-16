@@ -5,8 +5,6 @@ nav_order: 1
 ---
 ![Fismo](images/fismo-logo.png)
 # The Finite State Machine Protocol for EVM Blockchains
-## 🖥 [GitHub Repository](https://github.com/cliffhall/Fismo/)
-
 Fismo Machines are a way of simulating stateful things, processes, or maps of places.
 
 **Consider this:** There are standards for tokens that allow us to represent things like currency, ownership, and membership. _Why do we have no standard for representing a process or map and an individual's journey through it?_

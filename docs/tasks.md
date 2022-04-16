@@ -3,8 +3,6 @@ layout: default
 title: Development Tasks
 nav_order: 7
 ---
-![Fismo](images/fismo-logo.png)
-
 # Development Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.
 * Scripts are defined in [`package.json`](../package.json).

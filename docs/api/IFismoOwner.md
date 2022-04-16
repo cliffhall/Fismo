@@ -4,8 +4,6 @@ title: IFismoOwner
 parent: Contract Interfaces
 nav_order: 3
 ---
-![Fismo](../images/fismo-logo.png)
-
 # Manage Fismo Ownership
 * View Interface [IFismoOwner.sol](../../contracts/interfaces/IFismoOwner.sol)
 * This is the ERC-173 Ownership Standard

@@ -4,8 +4,6 @@ title: IFismoSupport
 parent: Contract Interfaces
 nav_order: 4
 ---
-![Fismo](../images/fismo-logo.png)
-
 # Query Supported Interfaces
 * View Interface [IFismoSupport.sol](../../contracts/interfaces/IFismoSupport.sol)
 * This is the ERC-165 Interface Detection Standard
