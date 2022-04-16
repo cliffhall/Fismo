@@ -6,10 +6,7 @@ has_toc: true
 ---
 # Frequently Asked Questions
 
-{: .no_toc .text-alpha }
-
-1. TOC
-   {:toc}
+{:toc}
 
 ### What is a finite state machine?
 The Finite State Machine (FSM) is an abstract "machine" with various states and rules for moving between them. The primary features are:
