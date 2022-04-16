@@ -5,7 +5,7 @@ parent: Contract Interfaces
 nav_order: 1
 ---
 # Clone the Fismo Contract
-* View Interface [IFismoClone.sol](../../contracts/interfaces/IFismoClone.sol)
+* View Interface [IFismoClone.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoClone.sol)
 * The ERC-165 identifier for this interface is `0x08a9f5ec`
 
 ## Events

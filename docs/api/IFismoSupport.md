@@ -5,7 +5,7 @@ parent: Contract Interfaces
 nav_order: 4
 ---
 # Query Supported Interfaces
-* View Interface [IFismoSupport.sol](../../contracts/interfaces/IFismoSupport.sol)
+* View Interface [IFismoSupport.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoSupport.sol)
 * This is the ERC-165 Interface Detection Standard
 * The ERC-165 identifier for this interface is `0x01ffc9a7`
 

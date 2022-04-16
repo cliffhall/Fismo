@@ -5,7 +5,7 @@ parent: Contract Interfaces
 nav_order: 2
 ---
 # Operate Fismo Machines
-* View Interface [IFismoOperate.sol](../../contracts/interfaces/IFismoOperate.sol)
+* View Interface [IFismoOperate.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoOperate.sol)
 * The ERC-165 identifier for this interface is `0xcad6b576`
 
 ## Events

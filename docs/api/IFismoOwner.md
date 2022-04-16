@@ -5,7 +5,7 @@ parent: Contract Interfaces
 nav_order: 3
 ---
 # Manage Fismo Ownership
-* View Interface [IFismoOwner.sol](../../contracts/interfaces/IFismoOwner.sol)
+* View Interface [IFismoOwner.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoOwner.sol)
 * This is the ERC-173 Ownership Standard
 * The ERC-165 identifier for this interface is `0x7f5828d0`
 
