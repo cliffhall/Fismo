@@ -5,8 +5,6 @@ nav_order: 5
 has_children: true
 has_toc: false
 ---
-![Fismo](../images/fismo-logo.png)
-
 # Contract Interfaces
 The exposed functionality of the `Fismo` contract is split into several interfaces: 
 * 🔬 [`IFismoClone`](IFismoClone.md) - Clone the Fismo contract.
