@@ -4,7 +4,7 @@ title: About
 nav_order: 2
 ---
 # About the Project
-Let's say you're a hardcore Solidity nerd. You're probably going to want to stick around for want follows. If not, suffice it to say that in the process of demonstrating a somewhat esoteric concept, an incredibly [useful protocol](#a-broadly-useful-protocol) emerged.
+Let's say you're a hardcore Solidity nerd. You're probably going to want to stick around for want follows. If not, suffice it to say that in the process of demonstrating a somewhat esoteric concept, an incredibly useful protocol emerged.
 
 If you're still  here, put on your splash goggles, button up your lab coat and let's go...
 
