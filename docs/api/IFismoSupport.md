@@ -1,4 +1,10 @@
- ![Fismo](../images/fismo-logo.png)
+---
+layout: default
+title: IFismoSupport
+parent: API
+nav_order: 4
+---
+![Fismo](../images/fismo-logo.png)
 # [Status](../README.md) 🧪 [About](../about.md)  🧪 [FAQ](../faq.md) 🧪 Docs
 
 ## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API

@@ -1,3 +1,9 @@
+---
+layout: default
+title: API
+nav_order: 1
+has_children: true
+---
 ![Fismo](images/fismo-logo.png)
 # Status 🧪 [About](../about.md) 🧪 [FAQ](../faq.md) 🧪 Docs
 

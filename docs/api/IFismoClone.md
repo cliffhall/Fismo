@@ -1,3 +1,9 @@
+---
+layout: default
+title: IFismoClone
+parent: API
+nav_order: 1
+---
 ![Fismo](../images/fismo-logo.png)
 # [Status](../README.md) 🧪 [About](../about.md) 🧪 [FAQ](../faq.md) 🧪 Docs
 
