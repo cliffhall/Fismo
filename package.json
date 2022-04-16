@@ -1,6 +1,6 @@
 {
   "name": "fismo",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Fismo: The Finite State Machine Protocol for EVM Blockchains",
   "author": "Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)",
   "license": "BSD-3-Clause",
@@ -34,6 +34,8 @@
     "test": "npx hardhat test",
     "lint": "solhint 'contracts/**/*.sol'",
     "size": "npx hardhat size-contracts",
+    "npm:publish:dry-run": "npm publish --dry-run",
+    "npm:publish": "npm publish",
     "deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",
     "deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
     "deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.main.txt",

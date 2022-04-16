@@ -36,7 +36,7 @@ nav_order: 4
 
 * Fismo delegates a call to a deterministcally defined function on the configured guard logic contract for the state in question. 
 
-* The name of the function is composed of the machine name, the state name, and the guard direction (exit|enter).
+* The name of the function is composed of the machine name, the state name, and the guard direction, i.e., exit, enter.
 
 * Guard functions can revert to stop the transition or return a success message. 
 
