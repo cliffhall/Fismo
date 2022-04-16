@@ -5,8 +5,9 @@ nav_order: 3
 ---
 ![Fismo](images/fismo-logo.png)
 
-# Frequently Asked Questions
 {: .no_toc }
+
+# Frequently Asked Questions
 
 {:toc}
 
