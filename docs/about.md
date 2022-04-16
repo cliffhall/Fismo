@@ -1,5 +1,5 @@
 ![Fismo](images/fismo-logo.png)
-# [Status](../README.md) 🧪 About 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
+# [Status](README.md) 🧪 About 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
 
 ## Experiment
 ### Deterministic Selector Proxy
