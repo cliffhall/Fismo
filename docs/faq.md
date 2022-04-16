@@ -3,9 +3,13 @@ layout: default
 title: FAQ
 nav_order: 2
 ---
+{: .no_toc }
 # Frequently Asked Questions
 
-{:toc}
+{: .no_toc .text-delta }
+
+1. TOC
+   {:toc}
 
 ### What is a finite state machine?
 The Finite State Machine (FSM) is an abstract "machine" with various states and rules for moving between them. The primary features are:
