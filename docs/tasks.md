@@ -1,9 +1,11 @@
+---
+layout: default
+title: Dev Tasks
+nav_order: 6
+---
 ![Fismo](images/fismo-logo.png)
-# [Status](README.md) 🧪 [About](about.md) 🧪 [FAQ](faq.md) 🧪 Docs
 
-## [Intro](intro.md) 💥 [Setup](setup.md) 💥 Tasks 💥 [API](api/README.md)
-
-## Development Tasks
+# Development Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.
 * Scripts are defined in [`package.json`](../package.json).
 * Most late-model IDEs such as Webstorm have an NPM tab to let you view and launch these

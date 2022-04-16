@@ -1,9 +1,11 @@
+---
+layout: default
+title: Dev Setup
+nav_order: 5
+---
 ![Fismo](images/fismo-logo.png)
-# [Status](README.md) 🧪 [About](about.md) 🧪 [FAQ](faq.md) 🧪 Docs
 
-## [Intro](intro.md) 💥 Setup 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
-
-## Local Dev Environment Setup
+# Dev Environment Setup
 The stack is a simple one:
 * Solidity
 * JavaScript

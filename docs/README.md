@@ -1,3 +1,8 @@
+---
+layout: default
+title: Status
+nav_order: 1
+---
 ![Fismo](images/fismo-logo.png)
 # Status 🧪 [About](about.md) 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
 ## The Finite State Machine Protocol for EVM Blockchains

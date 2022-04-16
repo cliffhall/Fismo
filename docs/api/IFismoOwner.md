@@ -1,17 +1,12 @@
 ---
 layout: default
 title: IFismoOwner
-parent: API
+parent: Contract Interfaces
 nav_order: 3
 ---
 ![Fismo](../images/fismo-logo.png)
-# [Status](../README.md) 🧪 [About](../about.md)  🧪 [FAQ](../faq.md) 🧪 Docs
 
-## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
-
-### [IFismoClone](IFismoClone.md) 🔬 [IFismoOperate](IFismoOperate.md) 🔬 IFismoOwner 🔬 [IFismoSupport](IFismoSupport.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
-
-### Manage Fismo Ownership
+# Manage Fismo Ownership
 * View Interface [IFismoOwner.sol](../../contracts/interfaces/IFismoOwner.sol)
 * This is the ERC-173 Ownership Standard
 * The ERC-165 identifier for this interface is `0x7f5828d0`

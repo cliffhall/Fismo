@@ -1,17 +1,12 @@
 ---
 layout: default
 title: IFismoClone
-parent: API
+parent: Contract Interfaces
 nav_order: 1
 ---
 ![Fismo](../images/fismo-logo.png)
-# [Status](../README.md) 🧪 [About](../about.md) 🧪 [FAQ](../faq.md) 🧪 Docs
 
-## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
-
-### IFismoClone 🔬 [IFismoOperate](IFismoOperate.md) 🔬 [IFismoOwner](IFismoOwner.md) 🔬 [IFismoSupport](IFismoSupport.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
-
-### Clone the Fismo Contract
+# Clone the Fismo Contract
 * View Interface [IFismoClone.sol](../../contracts/interfaces/IFismoClone.sol)
 * The ERC-165 identifier for this interface is `0x08a9f5ec`
 

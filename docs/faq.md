@@ -1,7 +1,11 @@
+---
+layout: default
+title: FAQ
+nav_order: 3
+---
 ![Fismo](images/fismo-logo.png)
-# [Status](README.md) 🧪 [About](about.md) 🧪 FAQ 🧪 [Docs](intro.md)
 
-## Frequently Asked Questions
+# Frequently Asked Questions
 * [What is a finite state machine?](#what-is-a-finite-state-machine)
 * [What can they usefully map to?](#what-are-state-machines-used-for)
 * [What are some examples?](#what-are-some-examples)

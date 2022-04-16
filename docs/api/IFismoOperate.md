@@ -1,17 +1,12 @@
 ---
 layout: default
 title: IFismoOperate
-parent: API
+parent: Contract Interfaces
 nav_order: 2
 ---
 ![Fismo](../images/fismo-logo.png)
-# [Status](../README.md) 🧪 [About](../about.md) 🧪 [FAQ](../faq.md) 🧪 Docs
 
-## [Intro](../intro.md) 💥 [Setup](../setup.md) 💥 [Tasks](../tasks.md) 💥 API
-
-### [IFismoClone](IFismoClone.md) 🔬 IFismoOperate 🔬 [IFismoOwner](IFismoOwner.md) 🔬 [IFismoSupport](IFismoSupport.md) 🔬 [IFismoUpdate](IFismoUpdate.md) 🔬 [IFismoView](IFismoView.md)
-
-### Operate Fismo Machines
+# Operate Fismo Machines
 * View Interface [IFismoOperate.sol](../../contracts/interfaces/IFismoOperate.sol)
 * The ERC-165 identifier for this interface is `0xcad6b576`
 

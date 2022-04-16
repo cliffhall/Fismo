@@ -1,9 +1,11 @@
+---
+layout: default
+title: Architecture
+nav_order: 4
+---
 ![Fismo](images/fismo-logo.png)
-# [Status](README.md) 🧪 [About](about.md) 🧪 [FAQ](faq.md) 🧪 Docs
 
-## Intro 💥 [Setup](setup.md) 💥 [Tasks](tasks.md) 💥 [API](api/README.md)
-
-## The Big Picture
+# The Big Picture
 ![The Big Picture](images/FismoHighLevelArch.png)
 
 ## Actors

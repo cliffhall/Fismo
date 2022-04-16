@@ -1,11 +1,20 @@
+---
+layout: default
+title: About
+nav_order: 2
+---
 ![Fismo](images/fismo-logo.png)
-# [Status](README.md) 🧪 About 🧪 [FAQ](faq.md) 🧪 [Docs](intro.md)
 
-## Experiment
+# About the Project
+Let's say you're a hardcore Solidity nerd. You're probably going to want to stick around for want follows. If not, suffice it to say that in the process of demonstrating a somewhat esoteric concept, an incredibly [useful protocol](#a-broadly-useful-protocol) emerged. You'll want to move on and see what can be done with it. 
+
+If you're still  here, put on your splash goggles, button up your lab coat and let's go...
+
+## An Experiment
 ### Deterministic Selector Proxy
 Most extensible among Solidity contract proxy patterns is the [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond Multi-Facet Proxy specification. It allows a proxy to have more than one upgradeable implementation (logic) contract. The Diamond architecture is extremely useful for almost any non-trivial contract suite, lending a modular building approach that can place any amount of logic behind a single Ethereum address. Having built upon the Diamond architecture multiple times, I highly recommend it.
 
-However, one criticism auditors and implementers have often raised is the level of complexity involved in managing the "Facets" (how the Diamond spec refers to implementation contracts) and their function selectors. That complexity is for the most part tucked away out of sight and works flawlessly. But it does beg the question: 
+However, one criticism auditors and implementers have often raised is the level of complexity involved in managing the "Facets" (how the Diamond spec refers to implementation contracts) and their function selectors. That complexity is, for the most part, tucked away out of sight and works flawlessly. But it does beg the question: 
 
 > What other forms might the multiple-implementation proxy pattern take?
 
