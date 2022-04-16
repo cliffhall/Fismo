@@ -262,6 +262,3 @@ external;
 |-----------|-----------------------|--------|
 | _machineId | the id of the machine | bytes4 | 
 | _state | the State to update   | FismoTypes.State  |
-
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

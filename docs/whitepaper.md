@@ -64,5 +64,3 @@ approaches **$2000 USD to deploy** Fismo to Ethereum mainnet.
     * Unfortunately, like Micheal Keaton in [Multiplicity](https://en.wikipedia.org/wiki/Multiplicity_(film)), you would realize a sort of fidelity loss with each successive clone in the chain.
     * Although the logic would operate the same and the clone would store the data, each clone would be delegating the call to the clone it came from, increasing the transaction cost with each delegation.
     * To avoid this hidden expense for the unwary, the `cloneFismo` method reverts if attempting to clone a clone.
-    
-[![Created by Futurescale](images/created-by.png)](https://futurescale.com)

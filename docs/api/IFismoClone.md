@@ -87,6 +87,3 @@ external;
 | Name     | Description                          | Type    |
 |----------|--------------------------------------|---------|
 | _owner | the address of cloned Fismo instance | address |
-
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

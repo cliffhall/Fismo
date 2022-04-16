@@ -29,6 +29,3 @@ returns (bool);
 | Name           | Description                    | Type   |
 |----------------|--------------------------------|--------|
 | _interfaceId      |the sighash of the given interface  | bytes4 |
-
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

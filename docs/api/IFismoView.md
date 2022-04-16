@@ -101,6 +101,3 @@ returns (
 | Name  | Type | Description                          |
 |-------|---|--------------------------------------|
 | state | FismoTypes.State  | the user's current state in the given machine |
-
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

@@ -118,5 +118,3 @@ Typical revert reasons...
   * An exit guard function reverts during action invocation
   * An entrance guard function reverts during action invocation
   * Attempting to clone a clone
-
-[![Created by Futurescale](images/created-by.png)](https://futurescale.com)

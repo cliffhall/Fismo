@@ -69,7 +69,3 @@ external;
 | Name           | Description                    | Type    |
 |----------------|--------------------------------|---------|
 | _newOwner      | the new owner's address  | address |
-
-
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

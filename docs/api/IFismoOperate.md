@@ -71,5 +71,3 @@ returns(
 | Name        | Description                                | Type          |
 | ------------- |--------------------------------------------|-------------|
 | response | the address of the guard logic implementation contract| FismoTypes.ActionResponse |
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

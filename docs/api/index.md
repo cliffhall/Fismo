@@ -13,5 +13,3 @@ The exposed functionality of the `Fismo` contract is split into several interfac
 * 🔬 [`IFismoSupport`](IFismoSupport.md) -Query Supported Interfaces
 * 🔬 [`IFismoUpdate`](IFismoUpdate.md) - Update Fismo storage.
 * 🔬 [`IFismoView`](IFismoView.md) - View Fismo storage.
-
-[![Created by Futurescale](../images/created-by.png)](https://futurescale.com)

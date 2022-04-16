@@ -55,6 +55,3 @@ This runs the `scripts/deploy/deploy-and-verify.js` script against Ethereum main
 This runs the `scripts/deploy/deploy-and-verify.js` script against Ethereum mainnet.
 
 * ```npm run deploy:eth:main```
-
-
-[![Created by Futurescale](images/created-by.png)](https://futurescale.com)

@@ -38,6 +38,4 @@ nav_order: 4
 
 * The name of the function is composed of the machine name, the state name, and the guard direction, i.e., exit, enter.
 
-* Guard functions can revert to stop the transition or return a success message. 
-
-[![Created by Futurescale](images/created-by.png)](https://futurescale.com)
+* Guard functions can revert to stop the transition or return a success message.
