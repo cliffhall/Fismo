@@ -3,8 +3,6 @@ layout: default
 title: FAQ
 nav_order: 3
 ---
-![Fismo](images/fismo-logo.png)
-
 # Frequently Asked Questions
 
 {:toc}
