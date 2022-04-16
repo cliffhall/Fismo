@@ -5,8 +5,6 @@ nav_order: 2
 has_toc: true
 ---
 # Frequently Asked Questions
-
-## Frequently Asked Questions
 * [What is a finite state machine?](#what-is-a-finite-state-machine)
 * [What can they usefully map to?](#what-are-state-machines-used-for)
 * [What are some examples?](#what-are-some-examples)
