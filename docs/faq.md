@@ -2,11 +2,11 @@
 layout: default
 title: FAQ
 nav_order: 2
+has_toc: true
 ---
-{: .no_toc }
 # Frequently Asked Questions
 
-{: .no_toc .text-delta }
+{: .no_toc .text-alpha }
 
 1. TOC
    {:toc}
