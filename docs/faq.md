@@ -6,7 +6,13 @@ has_toc: true
 ---
 # Frequently Asked Questions
 
-{:toc}
+## Frequently Asked Questions
+* [What is a finite state machine?](#what-is-a-finite-state-machine)
+* [What can they usefully map to?](#what-are-state-machines-used-for)
+* [What are some examples?](#what-are-some-examples)
+* [How is Fismo different?](#how-is-fismo-different)
+* [What's in a machine configuration?](#whats-in-a-fismo-machine-configuration)
+* [What does Fismo.sol actually do?](#what-does-fismosol-actually-do)
 
 ### What is a finite state machine?
 The Finite State Machine (FSM) is an abstract "machine" with various states and rules for moving between them. The primary features are:
