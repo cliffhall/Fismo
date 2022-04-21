@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Position
-grand_parent: Domain Model
-parent: Entity
+parent: Domain Model
 nav_order: 3
 ---
 # Position

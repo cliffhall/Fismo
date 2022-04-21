@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Machine
-grand_parent: Domain Model
-parent: Entity
+parent: Domain Model
 nav_order: 2
 ---
 # Machine

@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Transition
-grand_parent: Domain Model
-parent: Entity
+parent: Domain Model
 nav_order: 5
 ---
 # Transition

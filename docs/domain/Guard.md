@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Guard
-grand_parent: Domain Model
-parent: Enum
+parent: Domain Model
 nav_order: 1
 ---
 # Guard
