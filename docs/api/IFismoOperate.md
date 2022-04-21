@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IFismoOperate
-parent: Contract Interfaces
+parent: Interfaces
 nav_order: 2
 ---
 # Operate Fismo Machines

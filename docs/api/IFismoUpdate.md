@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IFismoUpdate
-parent: Contract Interfaces
+parent: Interfaces
 nav_order: 5
 ---
 # Update Fismo Storage

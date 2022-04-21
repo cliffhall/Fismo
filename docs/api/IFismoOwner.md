@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IFismoOwner
-parent: Contract Interfaces
+parent: Interfaces
 nav_order: 3
 ---
 # Manage Fismo Ownership

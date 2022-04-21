@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IFismoView
-parent: Contract Interfaces
+parent: Interfaces
 nav_order: 6
 ---
 # View Fismo Storage

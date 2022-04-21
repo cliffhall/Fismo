@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IFismoSupport
-parent: Contract Interfaces
+parent: Interfaces
 nav_order: 4
 ---
 # Query Supported Interfaces

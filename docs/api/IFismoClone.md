@@ -1,7 +1,7 @@
 ---
 layout: default
 title: IFismoClone
-parent: Contract Interfaces
+parent: Interfaces
 nav_order: 1
 ---
 # Clone the Fismo Contract
