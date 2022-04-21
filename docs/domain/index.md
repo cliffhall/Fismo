@@ -8,10 +8,12 @@ has_toc: false
 # Domain Model
 ### Solidity
 
-Some methods of the Solidity contract interfaces reference structs and enums that represent Fismo's domain model which are defined in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol). 
+The [contract interfaces](../api/index.md) documentation references structs and enums that represent Fismo's domain model. 
+
+Those are all defined in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol). 
 
 ### JavaScript
-The NPM package contains self-validating, self-marshaling representations of the domain model. The entities and enums are implemented as JavaScript classes, and are available in both browser and commonjs (Node) versions.
+The [Fismo NPM package](https://www.npmjs.com/package/fismo) contains self-validating, self-marshaling representations of the domain model. The entities and enums are implemented as JavaScript classes, and are available in both browser and commonjs (Node) versions.
 
 #### Entity
 * 🔬 [`ActionResponse`](ActionResponse.md) - An invoked action's response.
