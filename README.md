@@ -33,7 +33,7 @@ Done or in progress are:
 - ✅ Enable self-targeting transitions to inspect the action
 - ✅ Optimize contract size
 - ✅ Publish [NPM package](https://www.npmjs.com/package/fismo) with contracts and domain for browser + node
-- ✅ Publish documentation 
+- ✅ Publish documentation to [Fismo website](https://fismo.xyz)
 - 👉 Deploy to testnets, mainnet, sidechains
 - 👉 Write "How to create, install and operate machines on Fismo" doc
 - 👉 Moar examples!

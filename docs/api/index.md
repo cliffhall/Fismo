@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contract Interfaces
+title: Interfaces
 nav_order: 5
 has_children: true
 has_toc: false
@@ -9,6 +9,8 @@ has_toc: false
 ### Solidity
 
 The exposed functionality of `Fismo` is split into several interfaces, all implemented by [Fismo.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/Fismo.sol): 
+
+#### Interfaces
 * 🔬 [`IFismoClone`](IFismoClone.md) - Clone the Fismo contract.
 * 🔬 [`IFismoOperate`](IFismoOperate.md) - Operate Fismo machines.
 * 🔬 [`IFismoOwner`](IFismoOwner.md) - Manage Fismo Ownership.

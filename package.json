@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "build:contracts": "npx hardhat compile",
-    "build:sdk": "webpack --mode production && cp -R scripts/domain sdk/node",
+    "build:sdk": "webpack --mode production && cp -R scripts/domain sdk/node && mv sdk/node/index.js sdk/node/fismo.js",
     "test": "npx hardhat test",
     "lint": "solhint 'contracts/**/*.sol'",
     "size": "npx hardhat size-contracts",

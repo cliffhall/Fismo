@@ -24,7 +24,7 @@ npm install
 ```
 
 ### Configure Environment
-- Copy [environments_template.js](../environments_template.js) to `environments.js` and edit to suit.
+- Copy [environments_template.js](../../environments_template.js) to `environments.js` and edit to suit.
 - API keys are only needed for deploying to public networks.
 - `environments.js` is included in `.gitignore` and will not be committed to the repo.
 - For your target Ethereum network environment, set:
