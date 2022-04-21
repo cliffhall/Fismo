@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Development Tasks
-nav_order: 7
+nav_order: 8
 ---
 # Development Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.

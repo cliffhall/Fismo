@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Development Setup
-nav_order: 6
+nav_order: 7
 ---
 # Dev Environment Setup
 The stack is a simple one:
