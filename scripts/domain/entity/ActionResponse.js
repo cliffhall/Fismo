@@ -1,9 +1,13 @@
-/**
- * Fismo Domain Entity: ActionResponse
- * @author Cliff Hall <cliff@futurescale.com>
- */
 const { validateNameStrict, validateNameLax } = require("../util/name-utils");
 
+/**
+ * Fismo Domain Entity: ActionResponse
+ *
+ * The response from a successful state transition.
+ * May include messages from Enter and/or Exit guard code.
+ *
+ * @author Cliff Hall <cliff@futurescale.com>
+ */
 class ActionResponse {
 
     /*
@@ -17,6 +21,16 @@ class ActionResponse {
         }
     */
 
+    /**
+     * Constructor
+     *
+     * @param machineName - name of machine
+     * @param action - name of action that triggered the transition
+     * @param priorStateName - name of prior state
+     * @param nextStateName - name of new state
+     * @param exitMessage - response from the prior state's exit guard
+     * @param enterMessage -  response from the new state's enter guard
+     */
     constructor (machineName, action, priorStateName, nextStateName, exitMessage, enterMessage) {
         this.machineName = machineName;
         this.action = action;
@@ -24,11 +38,6 @@ class ActionResponse {
         this.nextStateName = nextStateName;
         this.exitMessage = exitMessage;
         this.enterMessage = enterMessage;
-    }
-
-    static validateStruct( struct ) {
-        const instance = new ActionResponse( ...struct );
-        return instance.isValid();
     }
 
     /**
@@ -39,6 +48,26 @@ class ActionResponse {
     static fromObject(o) {
         const {machineName, action, priorStateName, nextStateName, exitMessage, enterMessage} = o;
         return new ActionResponse(machineName, action, priorStateName, nextStateName, exitMessage, enterMessage);
+    }
+
+    /**
+     * Get a new ActionResponse instance from a struct representation
+     * @param struct
+     * @returns {*}
+     */
+    static fromStruct(struct) {
+        let machineName, action, priorStateName, nextStateName, exitMessage, enterMessage;
+
+        // destructure struct
+        [machineName, action, priorStateName, nextStateName, exitMessage, enterMessage] = struct;
+        return ActionResponse.fromObject({
+            machineName,
+            action,
+            priorStateName,
+            nextStateName,
+            exitMessage,
+            enterMessage
+        });
     }
 
     /**
@@ -58,7 +87,23 @@ class ActionResponse {
     }
 
     /**
-     * Clone this ActionResponse
+     * Get a struct representation of this ActionResponse instance
+     * @returns {*[]}
+     */
+    toStruct() {
+        const {machineName, action, priorStateName, nextStateName, exitMessage, enterMessage} = this;
+        return [
+            machineName,
+            action,
+            priorStateName,
+            nextStateName,
+            exitMessage,
+            enterMessage
+        ];
+    }
+
+    /**
+     * Clone this ActionResponse instance.
      * @returns {ActionResponse}
      */
     clone () {

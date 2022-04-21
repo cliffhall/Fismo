@@ -16,11 +16,11 @@ Those are all defined in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blo
 The [Fismo NPM package](https://www.npmjs.com/package/fismo) contains self-validating, self-marshaling representations of the domain model. The entities and enums are implemented as JavaScript classes, and are available in both ES6 (browser) and commonjs (Node) versions.
 
 #### Entity
-* 🔬 [`ActionResponse`](ActionResponse.md) - An invoked action's response.
-* 🔬 [`Machine`](Machine.md) - States + Transitions = Machine.
-* 🔬 [`Position`](Position.md) - Machine + State =  Position, for recording history.
-* 🔬 [`State`](State.md) - Name + Transitions + guard code = State.
-* 🔬 [`Transition`](Transition.md) - Action + target State = Transition.
+* 🦠 [`ActionResponse`](ActionResponse.md) - An invoked action's response.
+* 🦠 [`Machine`](Machine.md) - The complete on-chain definition of a Machine.
+* 🦠 [`Position`](Position.md) - A unique combination of Machine and State.
+* 🦠 [`State`](State.md) - Name + Transitions + guard code = State.
+* 🦠 [`Transition`](Transition.md) - Action + target State = Transition.
 
 #### Enum
-* 🔬 [`Guard`](Guard.md) - Types of Transition Guards ( Enter / Exit )
+* 🦠 [`Guard`](Guard.md) - Types of Transition Guards ( Enter / Exit )

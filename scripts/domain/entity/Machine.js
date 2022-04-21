@@ -1,11 +1,11 @@
-/**
- * Fismo Domain Entity: Machine
- * @author Cliff Hall <cliff@futurescale.com>
- */
 const {nameToId, validateNameStrict, validateId} = require("../util/name-utils");
 const State = require("./State");
 const eip55 = require("eip55");
 
+/**
+ * Fismo Domain Entity: Machine
+ * @author Cliff Hall <cliff@futurescale.com>
+ */
 class Machine {
 
     /*
@@ -19,6 +19,15 @@ class Machine {
         }
     */
 
+    /**
+     * Constructor
+     *
+     * @param operator - address of approved operator contract
+     * @param name - keccak256 hash of machine name
+     * @param states - all of the valid states for this machine
+     * @param initialStateId - keccak256 hash of initial state
+     * @param uri - off-chain URI of metadata describing the machine
+     */
     constructor (operator, name, states, initialStateId, uri) {
         this.operator = operator ? eip55.encode(operator) : null;
         this.id = name ? nameToId(name) : name;

@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { ActionResponse } = require("../../scripts/domain");
+const { ActionResponse, Machine} = require("../../scripts/domain");
 
 /**
  *  Test the ActionResponse domain object
@@ -9,7 +9,7 @@ const { ActionResponse } = require("../../scripts/domain");
 describe("ActionResponse", function() {
 
     // Suite-wide scope
-    let actionResponse, object, dehydrated, rehydrated, clone;
+    let actionResponse, object, dehydrated, rehydrated, clone, struct;
     let machineName, priorStateName, nextStateName, action, exitMessage, enterMessage
 
     beforeEach( async function () {
@@ -252,13 +252,23 @@ describe("ActionResponse", function() {
                     exitMessage,
                     enterMessage
             );
-                object = { machineName,
+                object = {
+                    machineName,
                     action,
                     priorStateName,
                     nextStateName,
                     exitMessage,
                     enterMessage
                 };
+
+                struct = [
+                    machineName,
+                    action,
+                    priorStateName,
+                    nextStateName,
+                    exitMessage,
+                    enterMessage
+                ]
 
             });
 
@@ -274,6 +284,16 @@ describe("ActionResponse", function() {
                 for (const [key, value] of Object.entries(actionResponse)) {
                     expect(JSON.stringify(promoted[key]) === JSON.stringify(value)).is.true;
                 }
+
+            });
+
+            it("ActionResponse.fromStruct() should return a ActionResponse instance from a struct representation", async function () {
+
+                // Get struct from instance
+                actionResponse = ActionResponse.fromStruct(struct);
+
+                // Ensure it is valid
+                expect(actionResponse.isValid()).to.be.true;
 
             });
 

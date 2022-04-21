@@ -11,6 +11,12 @@ class Position {
         }
     */
 
+    /**
+     * Constructor
+     *
+     * @param machineId
+     * @param stateId
+     */
     constructor (machineId, stateId) {
         this.machineId = machineId;
         this.stateId = stateId;

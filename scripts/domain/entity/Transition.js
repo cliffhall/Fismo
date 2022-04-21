@@ -1,9 +1,9 @@
+const { nameToId, validateNameStrict, validateNameLax, validateId } = require("../util/name-utils");
+
 /**
  * Fismo Domain Entity: Transition
  * @author Cliff Hall <cliff@futurescale.com>
  */
-const { nameToId, validateNameStrict, validateNameLax, validateId } = require("../util/name-utils");
-
 class Transition {
 
     /*

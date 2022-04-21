@@ -1,12 +1,12 @@
-/**
- * Fismo Domain Entity: State
- * @author Cliff Hall <cliff@futurescale.com>
- */
 const { nameToId, validateNameStrict, validateId } = require("../util/name-utils");
 const Transition = require("./Transition");
 const eip55 = require("eip55");
 const ethers = require("ethers");
 
+/**
+ * Fismo Domain Entity: State
+ * @author Cliff Hall <cliff@futurescale.com>
+ */
 class State {
 
     /*
@@ -20,6 +20,15 @@ class State {
         }
     */
 
+    /**
+     * Constructor
+     *
+     * @param name - name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _
+     * @param exitGuarded - is there an exit guard?
+     * @param enterGuarded - is there an enter guard?
+     * @param transitions - all of the valid transitions from this state
+     * @param guardLogic - address of guard logic contract
+     */
     constructor (name, exitGuarded, enterGuarded, transitions, guardLogic) {
         this.name = name;
         this.id = name ? nameToId(name) : name;
