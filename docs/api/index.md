@@ -5,7 +5,7 @@ nav_order: 5
 has_children: true
 has_toc: false
 ---
-# Contract Interfaces
+# Interfaces
 ### Solidity
 
 The exposed functionality of `Fismo` is split into several interfaces, all implemented by [Fismo.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/Fismo.sol): 
