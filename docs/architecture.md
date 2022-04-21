@@ -3,7 +3,7 @@ layout: default
 title: Architecture
 nav_order: 4
 ---
-# The Big Picture
+# Architecture
 ![The Big Picture](images/FismoHighLevelArch.png)
 
 ## Actors
