@@ -1,23 +1,38 @@
 ---
 layout: default
-title: Developers
-nav_order: 7
+title: SDK
+nav_order: 8
 has_children: true
 has_toc: false
 ---
 # SDK
 The Fismo SDK
-### Package
-[Fismo NPM package](https://www.npmjs.com/package/fismo)
-### Browser
-Do you want to use Fismo to experiment with new ways of representing interaction with the blockchain? Building adventure game, or a new DeFi operation pipeline, say. If so, this is you.
+### NPM Package
+💾 [`Fismo`](https://www.npmjs.com/package/fismo)
+```shell
+npm install fismo
+```
 
-You'll find the [SDK](sdk.md) has everything you need communicate with a Fismo contract instance from both the browser and Node.js.
+### Browser (ES6)
+```html
+<head>
+    <script src="node_modules/Fismo/browser/fismo.js"></script>
+</head>
+```
 
-### Working in the Fismo repo
-Are you interested in the nuts and bolts of how Fismo works, fixing bugs or making improvements, or otherwise monkeying around with the core project? This could be you.
+### Node (commonjs)
+```javascript
+const { 
+    ActionResponse, 
+    Guard,
+    Machine,
+    Position,
+    State,
+    Transition,
+    nameToId,
+    validateId,
+    validateNameLax,
+    validateNameStrict
+} = require("fismo");
 
-You'll want to clone the repo and then check out:
-
-* 🔬 [`Environment Setup`](setup.md) - Setup your local development environment.
-* 🔬 [`Tasks`](tasks.md) - Common dev tasks implemented as NPM scripts.
+```
