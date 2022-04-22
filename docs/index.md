@@ -18,10 +18,10 @@ The builder writes custom Solidity functions that get called when state transiti
 State transitions can be gated by the tokens a user holds, places the've been, or any other accessible value, be it stored or derived. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
 
 #### But wait, there's more...
-* 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
-* 💥 Configure and install a virtually unlimited number of machines
-* 💥 Use off-chain metadata to richly describe states in any 
-* 💥 Deploy custom logic for
+* 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM.
+* 💥 Configure and install a virtually unlimited number of machines.
+* 💥 Use off-chain metadata to richly describe states in any medium.
+* 💥 Deploy custom logic for:
   - 👉 Controlling access to your machines
   - 👉 Initializing storage for newly installed machines
   - 👉 Responding to any state transition
