@@ -50,7 +50,7 @@ This requires a developer to write function signatures in a very specific way, b
   - [Chatbots or non-player characters in games](https://www.hamidadelyar.com/blog/finite-state-machine-chatbot/)
   - [Software architecture](https://www.amazon.com/Modeling-Software-Finite-State-Machines/dp/0849380863)
   - [The behavior of living creatures](https://mind-simulation.com/en/blog/tech/using-finite-state-machines-to-model-behavior.html)
-  - [Adventure game worlds with blockchain-native assets](https://www.mecs-press.org/ijieeb/ijieeb-v13-n4/IJIEEB-V13-N4-5.pdf)
+  - Adventure game worlds with blockchain-native assets 🤔
 
 * ... just to name a few. What will you build?
 
