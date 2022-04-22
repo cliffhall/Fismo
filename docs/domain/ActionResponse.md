@@ -29,12 +29,12 @@ nav_order: 1
 
 | Name           | Description                                  | Type   |
 |----------------|----------------------------------------------|--------|
-| machineName    | name of machine                              | string |
-| action         | name of action that triggered the transition | string |
-| priorStateName | name of prior state                          | string |
-| nextStateName  | name of new state                            | string |
-| exitMessage    | response from the prior state's exit guard   | string |
-| enterMessage   | response from the new state's enter guard    | string |
+| machineName    | name of machine                              | `string` |
+| action         | name of action that triggered the transition | `string` |
+| priorStateName | name of prior state                          | `string` |
+| nextStateName  | name of new state                            | `string` |
+| exitMessage    | response from the prior state's exit guard   | `string` |
+| enterMessage   | response from the new state's enter guard    | `string` |
 
 ## Static Methods
 
@@ -49,7 +49,7 @@ ActionResponse.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | object | 
+| o        | the plain object | `object` | 
 
 **Returns**
 
@@ -68,7 +68,7 @@ ActionResponse.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | Array | 
+| struct | the struct  | `Array` | 
 
 **Returns**
 
@@ -88,9 +88,9 @@ instance.toObject()
 
 **Returns**
 
-| Name    | Description      | Type   |
-|--------|
-| the plain object | object | 
+| Description      | Type   |
+|------------------|--------|
+| the plain object | `object` | 
 
 ### toString
 Get a string representation of this `ActionResponse` instance.
@@ -104,7 +104,7 @@ instance.toString()
 
 | Description              | Type   |
 |--------------------------|--------|
-| the JSON representation | string | 
+| the JSON representation | `string` | 
 
 ### toStruct
 Get a struct representation of this `ActionResponse` instance.
@@ -118,7 +118,7 @@ instance.toStruct()
 
 | Description | Type  |
 |-------------|-------|
-| the struct  | Array | 
+| the struct  | `Array` | 
 
 ### clone
 Clone this `ActionResponse` instance.
@@ -132,7 +132,7 @@ instance.clone()
 
 | Description  | Type           |
 |--------------|----------------|
-| the instance | ActionResponse | 
+| the instance | `ActionResponse` | 
 
 
 ### isValid
@@ -147,4 +147,4 @@ instance.isValid()
 
 | Description                   | Type    |
 |-------------------------------|---------|
-| true if the instance is valid | boolean | 
+| true if the instance is valid | `boolean` | 

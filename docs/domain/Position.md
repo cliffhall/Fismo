@@ -24,8 +24,8 @@ constructor (
 
 | Name           | Description                                  | Type   |
 |----------------|----------------------------------------------|--------|
-| machineId      | keccak256 hash of machine name   | string |
-| name           | keccak256 hash of state name | string |
+| machineId      | keccak256 hash of machine name   | `string` |
+| name           | keccak256 hash of state name | `string` |
 
 ## Static Methods
 
@@ -40,7 +40,7 @@ Position.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | object | 
+| o        | the plain object | `object` | 
 
 **Returns**
 
@@ -59,7 +59,7 @@ Position.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | Array | 
+| struct | the struct  | `Array` | 
 
 **Returns**
 
@@ -81,7 +81,7 @@ instance.toObject()
 
 | Description | Type   |
 |-------------|--------|
-| the object  | object | 
+| the object  | `object` | 
 
 ### toString
 Get a string representation of this `Position` instance.
@@ -95,7 +95,7 @@ instance.toString()
 
 | Description             | Type   |
 |-------------------------|--------|
-| the JSON representation | string | 
+| the JSON representation | `string` | 
 
 ### toStruct
 Get a struct representation of this `Position` instance.
@@ -109,7 +109,7 @@ instance.toStruct()
 
 | Description | Type  |
 |-------------|-------|
-| the struct  | Array | 
+| the struct  | `Array` | 
 
 ### clone
 Clone this `Position` instance.
@@ -123,7 +123,7 @@ instance.clone()
 
 | Description         | Type           |
 |---------------------|----------------|
-| the cloned instance | Position | 
+| the cloned instance | `Position` | 
 
 ### isValid
 Is this `Position` instance valid?
@@ -137,4 +137,4 @@ instance.isValid()
 
 | Description                   | Type    |
 |-------------------------------|---------|
-| true if the instance is valid | boolean | 
+| true if the instance is valid | `boolean` | 

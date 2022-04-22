@@ -26,11 +26,11 @@ constructor (
 
 | Name          | Description                                                       | Type    |
 |---------------|-------------------------------------------------------------------|---------|
-| name          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | string  |
-| exitGuarded   | is there an exit guard?                                           | boolean |
-| enterGuarded  | is there an enter guard?                                          | boolean |
-| transitions   | all of the valid Transitions from this state                      | Array   |
-| guardLogic    | address of guard logic contract  | string  |
+| name          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`  |
+| exitGuarded   | is there an exit guard?                                           | `boolean` |
+| enterGuarded  | is there an enter guard?                                          | `boolean` |
+| transitions   | all of the valid Transitions from this state                      | `Array`   |
+| guardLogic    | address of guard logic contract  | `string`  |
 
 ## Static Methods
 
@@ -45,7 +45,7 @@ State.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | object | 
+| o        | the plain object | `object` | 
 
 **Returns**
 
@@ -64,7 +64,7 @@ State.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | Array | 
+| struct | the struct  | `Array` | 
 
 **Returns**
 
@@ -86,7 +86,7 @@ instance.toObject()
 
 | Description       | Type   |
 |-------------------|--------|
-|  the plain object | object | 
+|  the plain object | `object` | 
 
 ### toString
 Get a string representation of this `State` instance.
@@ -100,7 +100,7 @@ instance.toString()
 
 | Description              | Type   |
 |--------------------------|--------|
-| the JSON representation | string | 
+| the JSON representation | `string` | 
 
 ### toStruct
 Get a struct representation of this `State` instance.
@@ -114,7 +114,7 @@ instance.toStruct()
 
 | Description | Type  |
 |-------------|-------|
-| the struct  | Array | 
+| the struct  | `Array` | 
 
 ### clone
 Clone this `State` instance.
@@ -128,7 +128,7 @@ instance.clone()
 
 | Description         | Type           |
 |---------------------|----------------|
-| the cloned instance | State | 
+| the cloned instance | `State` | 
 
 ### isValid
 Is this `State` instance valid?
@@ -142,4 +142,4 @@ instance.isValid()
 
 | Description                   | Type    |
 |-------------------------------|---------|
-| true if the instance is valid | boolean | 
+| true if the instance is valid | `boolean` | 

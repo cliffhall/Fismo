@@ -12,43 +12,35 @@ nav_order: 1
 ## Static Members
 
 ### ENTER
-Enter mode
 
-**Signature**
+**Constant**
 ```javascript
 Guard.ENTER
 ```
-**Ordinal**
 
 | Value | Type   |
 |-------|--------|
-| 0     | number | 
+| 0     | `number` | 
 
 ### EXIT
-Exit mode
-
-**Ordinal**
-
-| Value | Type   |
-|-------|--------|
-| 1     | number | 
-
-
-**Signature**
+**Constant**
 ```javascript
 Guard.EXIT
 ```
 
+
+| Value | Type   |
+|-------|--------|
+| 1     | `number` | 
+
 ### Modes
 Guard modes. 
 
-**Signature**
+**Constant**
 ```javascript
 Guard.Modes
 ```
 
-**Collection**
-
 | Value                       | Type  |
 |-----------------------------|-------|
-| [ Guard.ENTER, Guard.EXIT ] | Array | 
+| [ `Guard.ENTER`, `Guard.EXIT` ] | `Array` | 

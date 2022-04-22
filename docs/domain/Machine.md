@@ -26,11 +26,11 @@ constructor (
 
 | Name           | Description                                      | Type   |
 |----------------|--------------------------------------------------|--------|
-| operator    | address of approved operator contract            | string |
-| name         | keccak256 hash of machine name                   | string |
-| states | all of the valid States for this machine         | Array  |
-| initialStateId  | keccak256 hash of initial state name             | string |
-| uri    | off-chain URI of metadata describing the machine | string |
+| operator    | address of approved operator contract            | `string` |
+| name         | keccak256 hash of machine name                   | `string` |
+| states | all of the valid States for this machine         | `Array`  |
+| initialStateId  | keccak256 hash of initial state name             | `string` |
+| uri    | off-chain URI of metadata describing the machine | `string` |
 
 ## Static Methods
 
@@ -45,7 +45,7 @@ Machine.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | object | 
+| o        | the plain object | `object` | 
 
 **Returns**
 
@@ -64,7 +64,7 @@ Machine.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | Array | 
+| struct | the struct  | `Array` | 
 
 **Returns**
 
@@ -86,7 +86,7 @@ instance.toObject()
 
 | Description      | Type   |
 |------------------|--------|
-| the plain object | object | 
+| the plain object | `object` | 
 
 ### toString
 Get a string representation of this `Machine` instance.
@@ -100,7 +100,7 @@ instance.toString()
 
 | Description              | Type   |
 |--------------------------|--------|
-| the flattened JSON | string | 
+| the flattened JSON | `string` | 
 
 ### toStruct
 Get a struct representation of this `Machine` instance.
@@ -114,7 +114,7 @@ instance.toStruct()
 
 | Description | Type  |
 |-------------|-------|
-| the struct  | Array | 
+| the struct  | `Array` | 
 
 ### clone
 Clone this `Machine` instance.
@@ -128,7 +128,7 @@ instance.clone()
 
 | Description         | Type           |
 |---------------------|----------------|
-| the cloned instance | Machine | 
+| the cloned instance | `Machine` | 
 
 ### isValid
 Is this `Machine` instance valid?
@@ -142,6 +142,6 @@ instance.isValid()
 
 | Description                   | Type    |
 |-------------------------------|---------|
-| true if the instance is valid | boolean | 
+| true if the instance is valid | `boolean` | 
 
 
