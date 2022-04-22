@@ -13,7 +13,7 @@ nav_order: 6
 * [`getPositionHistory`](#getpositionhistory)
 * [`getUserState`](#getuserstate)
 
-### 🦠 `getLastPosition`
+## 🦠 `getLastPosition`
 Get the last recorded position of the given user.
 
 #### Signature
@@ -42,7 +42,7 @@ returns (
 | `success` |  whether any history exists for the user | `bool` |
 | `position` | the last recorded position of the given user| [`FismoTypes.Position`](../domain/Position.md) |
 
-### 🦠 `getPositionHistory`
+## 🦠 `getPositionHistory`
 Get the entire position history for a given user.
 
 #### Signature
@@ -71,7 +71,7 @@ returns (
 | `success` |  whether any history exists for the user | `bool`                                           |
 | `history` | an array of Position structs  | [`FismoTypes.Position[]`](../domain/Position.md) |
 
-### 🦠 `getUserState`
+## 🦠 `getUserState`
 Get the current state for a given user in a given machine.
 
 #### Reverts if
