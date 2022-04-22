@@ -1,10 +1,10 @@
 ---
 layout: default
 parent: Developers
-title: Dev Environment Setup
+title: Environment Setup
 nav_order: 1
 ---
-# Dev Environment Setup
+# Environment Setup
 The stack is a simple one:
 * Solidity
 * JavaScript
