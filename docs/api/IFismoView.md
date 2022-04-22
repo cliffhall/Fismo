@@ -6,7 +6,7 @@ nav_order: 6
 ---
 # View Fismo Storage
 * View Interface [IFismoView.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoView.sol)
-* The ERC-165 identifier for this interface is `0x691b5451`
+* The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x691b5451`
 
 ## Methods
 * [getLastPosition](#getlastposition)

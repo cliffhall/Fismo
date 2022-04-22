@@ -6,7 +6,7 @@ nav_order: 5
 ---
 # Update Fismo Storage
 * View Interface [IFismoUpdate.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoUpdate.sol)
-* The ERC-165 identifier for this interface is `0xf8ebd091`
+* The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0xf8ebd091`
 
 ## Events
 * [MachineInstalled](#machineinstalled)
