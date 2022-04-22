@@ -6,7 +6,7 @@ nav_order: 1
 # The Finite State Machine Protocol for EVM Blockchains
 Fismo Machines are a way of simulating processes, branching narratives, maps of places, or nearly any stateful thing you can imagine.
 
-**Consider this:** There are standards for tokens that allow us to represent things like currency, ownership, and membership. _Why do we have no standard for representing a process or map and an individual's journey through it?_
+**Consider this:** There are standards for tokens that allow us to represent things like currency, ownership, and membership. _Why do we have no standard for representing a journey and an individual's path through it?_
 
 Fismo enforces rules about transitions between states when users invoke actions. The implementer writes custom Solidity functions that get called when transitions happen. Transitions don't always need such hooks, but when they do, anything can be queried or stored.
 
