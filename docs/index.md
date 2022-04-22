@@ -19,7 +19,7 @@ The builder writes custom Solidity functions that get called when state transiti
 
 Each user's progress through a Fismo Machine is recorded and can be queried publicly by anyone. Hmm, _Proof of Quest Protocol?_ 🤔
 
-State transitions can be gated by the tokens a user holds, places the've been, or any other  accessible stored or derivable value. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
+State transitions can be gated by the tokens a user holds, places the've been, or any other accessible value, be it stored or derived. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
 
 #### But wait, there's more...
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
