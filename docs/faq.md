@@ -7,7 +7,7 @@ has_toc: true
 # Frequently Asked Questions
 * [What is a finite state machine?](#what-is-a-finite-state-machine)
 * [What can they usefully map to?](#what-are-state-machines-used-for)
-* [What are some examples?](#what-are-some-examples)
+* [What are some examples?](#what-do-states-represent)
 * [How is Fismo different?](#how-is-fismo-different)
 * [What's in a machine configuration?](#whats-in-a-fismo-machine-configuration)
 * [What does Fismo.sol actually do?](#what-does-fismosol-actually-do)
@@ -25,12 +25,12 @@ As a software pattern, they are frequently used to map processes. A couple of co
   * The myriad steps in a commercial home loan process, each of which has rules about moving to the next.
   * Regular expression parsing.
   * Linquistic morphology.
-  * Trading algorithms.
-  * Positions in a tournament bracket.
   * Issue management and workflow systems.
 
-### What are some examples?
-Practically anything that can be described with a directed graph could be modeled as an FSM. States can represent...
+### What do states represent?
+Practically anything that can be described with a directed graph could be modeled as states.
+  * Positions in a tournament bracket.
+  * Signal-controlled sets of crypto trading strategies. e.g., When in strategy X signal Y will trigger a transition to strategy Z.
   * A player's health, e.g., While in hungry state, eating is required before moving to other states except death.
   * A stateful object such as a door, which could be opened, closed, or locked.
   
