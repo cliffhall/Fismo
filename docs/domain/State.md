@@ -26,18 +26,18 @@ constructor (
 
 | Name          | Description                                                       | Type    |
 |---------------|-------------------------------------------------------------------|---------|
-| name          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`  |
-| exitGuarded   | is there an exit guard?                                           | `boolean` |
-| enterGuarded  | is there an enter guard?                                          | `boolean` |
-| transitions   | all of the valid Transitions from this state                      | `Array`   |
-| guardLogic    | address of guard logic contract  | `string`  |
+| `name`          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`  |
+| `exitGuarded`   | is there an exit guard?                                           | `boolean` |
+| `enterGuarded`  | is there an enter guard?                                          | `boolean` |
+| `transitions`   | all of the valid Transitions from this state                      | `Array`   |
+| `guardLogic`    | address of guard logic contract  | `string`  |
 
 ## Static Members
 #### Methods
-* [fromObject](#fromobject)
-* [fromStruct](#fromstruct)
+* [`fromObject`](#-fromobject)
+* [`fromStruct`](#-fromstruct)
 
-### fromObject
+## 🦠 `fromObject`
 Get a new `State` instance from an object representation.
 
 #### Signature
@@ -48,7 +48,7 @@ State.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | `object` | 
+| `o`        | the plain object | `object` | 
 
 #### Returns
 
@@ -56,7 +56,7 @@ State.fromObject(o)
 |-------------------|----------------|
 | the instance | `State` | 
 
-### fromStruct
+## 🦠 `fromStruct`
 Get a new `State` instance from a struct representation.
 
 #### Signature
@@ -67,7 +67,7 @@ State.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | `Array` | 
+| `struct` | the struct  | `Array` | 
 
 #### Returns
 
@@ -85,13 +85,13 @@ State.fromStruct(struct)
 * guardLogic
 
 #### Methods
-* [toObject](#toobject)
-* [toString](#tostring)
-* [toStruct](#tostruct)
-* [clone](#clone)
-* [isValid](#isvalid)
+* [`toObject`](#-toobject)
+* [`toString`](#-tostring)
+* [`toStruct`](#-tostruct)
+* [`clone`](#-clone)
+* [`isValid`](#-isvalid)
 
-### toObject
+## 🦠 `toObject`
 Get a plain object representation of this `State` instance.
 
 #### Signature
@@ -105,7 +105,7 @@ instance.toObject()
 |-------------------|--------|
 |  the plain object | `object` | 
 
-### toString
+## 🦠 `toString`
 Get a string representation of this `State` instance.
 
 #### Signature
@@ -119,7 +119,7 @@ instance.toString()
 |--------------------------|--------|
 | the JSON representation | `string` | 
 
-### toStruct
+## 🦠 `toStruct`
 Get a struct representation of this `State` instance.
 
 #### Signature
@@ -133,7 +133,7 @@ instance.toStruct()
 |-------------|-------|
 | the struct  | `Array` | 
 
-### clone
+## 🦠 `clone`
 Clone this `State` instance.
 
 #### Signature
@@ -147,7 +147,7 @@ instance.clone()
 |---------------------|----------------|
 | the cloned instance | `State` | 
 
-### isValid
+## 🦠 `isValid`
 Is this `State` instance valid?
 
 #### Signature

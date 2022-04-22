@@ -24,15 +24,15 @@ constructor (
 
 | Name           | Description                                  | Type   |
 |----------------|----------------------------------------------|--------|
-| machineId      | keccak256 hash of machine name   | `string` |
-| name           | keccak256 hash of state name | `string` |
+| `machineId`      | keccak256 hash of machine name   | `string` |
+| `name`           | keccak256 hash of state name | `string` |
 
 ## Static Members
 #### Methods
-* [fromObject](#fromobject)
-* [fromStruct](#fromstruct)
+* [`fromObject`](#-fromobject)
+* [`fromStruct`](#-fromstruct)
 
-### fromObject
+## 🦠 `fromObject`
 Get a new `Position` instance from an object representation.
 
 #### Signature
@@ -43,7 +43,7 @@ Position.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | `object` | 
+| `o`        | the plain object | `object` | 
 
 #### Returns
 
@@ -51,7 +51,7 @@ Position.fromObject(o)
 |-------------------|----------------|
 | the instance | `Position` | 
 
-### fromStruct
+## 🦠 `fromStruct`
 Get a new `Position` instance from a struct representation.
 
 #### Signature
@@ -62,7 +62,7 @@ Position.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | `Array` | 
+| `struct` | the struct  | `Array` | 
 
 #### Returns
 
@@ -76,13 +76,13 @@ Position.fromStruct(struct)
 * stateId
 
 #### Methods
-* [toObject](#toobject)
-* [toString](#tostring)
-* [toStruct](#tostruct)
-* [clone](#clone)
-* [isValid](#isvalid)
+* [`toObject`](#-toobject)
+* [`toString`](#-tostring)
+* [`toStruct`](#-tostruct)
+* [`clone`](#-clone)
+* [`isValid`](#-isvalid)
 
-### toObject
+## 🦠 `toObject`
 Get a plain object representation of this `Position` instance.
 
 #### Signature
@@ -96,7 +96,7 @@ instance.toObject()
 |-------------|--------|
 | the object  | `object` | 
 
-### toString
+## 🦠 `toString`
 Get a string representation of this `Position` instance.
 
 #### Signature
@@ -110,7 +110,7 @@ instance.toString()
 |-------------------------|--------|
 | the JSON representation | `string` | 
 
-### toStruct
+## 🦠 `toStruct`
 Get a struct representation of this `Position` instance.
 
 #### Signature
@@ -124,7 +124,7 @@ instance.toStruct()
 |-------------|-------|
 | the struct  | `Array` | 
 
-### clone
+## 🦠 `clone`
 Clone this `Position` instance.
 
 #### Signature
@@ -138,7 +138,7 @@ instance.clone()
 |---------------------|----------------|
 | the cloned instance | `Position` | 
 
-### isValid
+## 🦠 `isValid`
 Is this `Position` instance valid?
 
 #### Signature

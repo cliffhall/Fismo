@@ -28,19 +28,19 @@ constructor (
 
 | Name           | Description                                  | Type   |
 |----------------|----------------------------------------------|--------|
-| machineName    | name of machine                              | `string` |
-| action         | name of action that triggered the transition | `string` |
-| priorStateName | name of prior state                          | `string` |
-| nextStateName  | name of new state                            | `string` |
-| exitMessage    | response from the prior state's exit guard   | `string` |
-| enterMessage   | response from the new state's enter guard    | `string` |
+| `machineName`    | name of machine                              | `string` |
+| `action`         | name of action that triggered the transition | `string` |
+| `priorStateName` | name of prior state                          | `string` |
+| `nextStateName`  | name of new state                            | `string` |
+| `exitMessage`    | response from the prior state's exit guard   | `string` |
+| `enterMessage`   | response from the new state's enter guard    | `string` |
 
 ## Static Members
 #### Methods
-* [fromObject](#fromobject)
-* [fromStruct](#fromstruct)
+* [`fromObject`](#-fromobject)
+* [`fromStruct`](#-fromstruct)
 
-### fromObject
+## 🦠 `fromObject`
 Get a new `ActionResponse` instance from an object representation.
 
 #### Signature
@@ -51,7 +51,7 @@ ActionResponse.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | `object` | 
+| `o`        | the plain object | `object` | 
 
 #### Returns
 
@@ -59,7 +59,7 @@ ActionResponse.fromObject(o)
 |-------------------|----------------|
 | the instance | `ActionResponse` | 
 
-### fromStruct
+## 🦠 `fromStruct`
 Get a new `ActionResponse` instance from a struct representation.
 
 #### Signature
@@ -70,7 +70,7 @@ ActionResponse.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | `Array` | 
+| `struct` | the struct  | `Array` | 
 
 #### Returns
 
@@ -88,13 +88,13 @@ ActionResponse.fromStruct(struct)
 * enterMessage
 
 #### Methods
-* [toObject](#toobject)
-* [toString](#tostring)
-* [toStruct](#tostruct)
-* [clone](#clone)
-* [isValid](#isvalid)
+* [`toObject`](#-toobject)
+* [`toString`](#-tostring)
+* [`toStruct`](#-tostruct)
+* [`clone`](#-clone)
+* [`isValid`](#-isvalid)
 
-## toObject
+## 🦠 `toObject`
 Get a plain object representation of this `ActionResponse` instance.
 
 #### Signature
@@ -108,7 +108,7 @@ instance.toObject()
 |------------------|--------|
 | the plain object | `object` | 
 
-### toString
+## 🦠 `toString`
 Get a string representation of this `ActionResponse` instance.
 
 #### Signature
@@ -122,7 +122,7 @@ instance.toString()
 |--------------------------|--------|
 | the JSON representation | `string` | 
 
-### toStruct
+## 🦠 `toStruct`
 Get a struct representation of this `ActionResponse` instance.
 
 #### Signature
@@ -136,7 +136,7 @@ instance.toStruct()
 |-------------|-------|
 | the struct  | `Array` | 
 
-### clone
+## 🦠 `clone`
 Clone this `ActionResponse` instance.
 
 #### Signature
@@ -151,7 +151,7 @@ instance.clone()
 | the instance | `ActionResponse` | 
 
 
-### isValid
+## 🦠 `isValid`
 Is this `ActionResponse` instance valid?
 
 #### Signature

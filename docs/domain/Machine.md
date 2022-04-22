@@ -26,18 +26,18 @@ constructor (
 
 | Name           | Description                                      | Type   |
 |----------------|--------------------------------------------------|--------|
-| operator    | address of approved operator contract            | `string` |
-| name         | keccak256 hash of machine name                   | `string` |
-| states | all of the valid States for this machine         | `Array`  |
-| initialStateId  | keccak256 hash of initial state name             | `string` |
-| uri    | off-chain URI of metadata describing the machine | `string` |
+| `operator`    | address of approved operator contract            | `string` |
+| `name`         | keccak256 hash of machine name                   | `string` |
+| `states` | all of the valid States for this machine         | `Array`  |
+| `initialStateId`  | keccak256 hash of initial state name             | `string` |
+| `uri`    | off-chain URI of metadata describing the machine | `string` |
 
 ## Static Members
 #### Methods
-* [fromObject](#fromobject)
-* [fromStruct](#fromstruct)
+* [`fromObject`](#-fromobject)
+* [`fromStruct`](#-fromstruct)
 
-### fromObject
+## 🦠 `fromObject`
 Get a new `Machine` instance from an object representation.
 
 #### Signature
@@ -48,7 +48,7 @@ Machine.fromObject(o)
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
-| o        | the plain object | `object` | 
+| `o`        | the plain object | `object` | 
 
 #### Returns
 
@@ -56,7 +56,7 @@ Machine.fromObject(o)
 |-------------------|----------------|
 | the instance | `Machine` | 
 
-### fromStruct
+## 🦠 `fromStruct`
 Get a new `Machine` instance from a struct representation.
 
 #### Signature
@@ -67,7 +67,7 @@ Machine.fromStruct(struct)
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
-| struct | the struct  | `Array` | 
+| `struct` | the struct  | `Array` | 
 
 #### Returns
 
@@ -85,13 +85,13 @@ Machine.fromStruct(struct)
 * uri
 
 #### Methods
-* [toObject](#toobject)
-* [toString](#tostring)
-* [toStruct](#tostruct)
-* [clone](#clone)
-* [isValid](#isvalid)
+* [`toObject`](#-toobject)
+* [`toString`](#-tostring)
+* [`toStruct`](#-tostruct)
+* [`clone`](#-clone)
+* [`isValid`](#-isvalid)
 
-### toObject
+## 🦠 `toObject`
 Get a plain object representation of this `Machine` instance.
 
 #### Signature
@@ -105,7 +105,7 @@ instance.toObject()
 |------------------|--------|
 | the plain object | `object` | 
 
-### toString
+## 🦠 `toString`
 Get a string representation of this `Machine` instance.
 
 #### Signature
@@ -119,7 +119,7 @@ instance.toString()
 |--------------------------|--------|
 | the flattened JSON | `string` | 
 
-### toStruct
+## 🦠 `toStruct`
 Get a struct representation of this `Machine` instance.
 
 #### Signature
@@ -133,7 +133,7 @@ instance.toStruct()
 |-------------|-------|
 | the struct  | `Array` | 
 
-### clone
+## 🦠 `clone`
 Clone this `Machine` instance.
 
 #### Signature
@@ -147,7 +147,7 @@ instance.clone()
 |---------------------|----------------|
 | the cloned instance | `Machine` | 
 
-### isValid
+## 🦠 `isValid`
 Is this `Machine` instance valid?
 
 #### Signature
