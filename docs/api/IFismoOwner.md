@@ -26,8 +26,8 @@ event OwnershipTransferred (
 
 | Name         | Description                              | Type    |
 |--------------|------------------------------------------|---------|
-| previousOwner    | the previous owner of the Fismo instance | address |
-| newOwner    | the new owner of the Fismo instance      | address |
+| previousOwner    | the previous owner of the Fismo instance | `address` |
+| newOwner    | the new owner of the Fismo instance      | `address` |
 
 ## Methods
 * [owner](#owner)
@@ -47,7 +47,7 @@ returns (address);
 
 | Name          | Description                   | Type    |
 |---------------|-------------------------------|---------|
-|       | the owner's address  | address |
+|       | the owner's address  | `address` |
 
 ### transferOwnership
 Transfer ownership of the Fismo instance to another address.
@@ -71,4 +71,4 @@ external;
 
 | Name           | Description                    | Type    |
 |----------------|--------------------------------|---------|
-| _newOwner      | the new owner's address  | address |
+| _newOwner      | the new owner's address  | `address` |

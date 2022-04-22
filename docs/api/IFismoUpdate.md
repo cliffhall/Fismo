@@ -28,8 +28,8 @@ event MachineInstalled (
 
 | Name         | Description             | Type   |
 |--------------|-------------------------|--------|
-| machineId    | the machine's id        | bytes4 | 
-| machineName | the name of the machine | string |
+| machineId    | the machine's id        | `bytes4` | 
+| machineName | the name of the machine | `string` |
 
 ### StateAdded
 Emitted when a new State is added to a Fismo Machine.
@@ -50,9 +50,9 @@ event StateAdded (
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
-| machineId | the machine's id      | bytes4 | 
-| stateId   | the state's id        | bytes4 | 
-| stateName | the name of the state | string |
+| machineId | the machine's id      | `bytes4` | 
+| stateId   | the state's id        | `bytes4` | 
+| stateName | the name of the state | `string` |
 
 ### StateUpdated
 Emitted when an existing State is updated. 
@@ -70,9 +70,9 @@ event StateUpdated (
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
-| machineId | the machine's id      | bytes4 | 
-| stateId   | the state's id        | bytes4 | 
-| stateName | the name of the state | string |
+| machineId | the machine's id      | `bytes4` | 
+| stateId   | the state's id        | `bytes4` | 
+| stateName | the name of the state | `string` |
 
 ### TransitionAdded
 Emitted when a new Transition is added to an existing State. 
@@ -94,10 +94,10 @@ event TransitionAdded (
 
 | Name      | Description                  | Type   |
 |-----------|------------------------------|--------|
-| machineId | the machine's id             | bytes4 | 
-| stateId   | the state's id               | bytes4 | 
-| action | the name of the action       | string | 
-| targetStateName | the name of the target state | string |
+| machineId | the machine's id             | `bytes4` | 
+| stateId   | the state's id               | `bytes4` | 
+| action | the name of the action       | `string` | 
+| targetStateName | the name of the target state | `string` |
 
 ## Methods
 * [installMachine](#installmachine)
@@ -165,8 +165,8 @@ external;
 | Name    | Description                       | Type  |
 | --------- |-----------------------------------|-------|
 | _machine | the machine definition to install | [FismoTypes.Machine](../domain/Machine.md) | 
-| _initializer | the address of the initializer contract | address | 
-| _calldata | the encoded function and args to pass in delegatecall | bytes |
+| _initializer | the address of the initializer contract | `address` | 
+| _calldata | the encoded function and args to pass in delegatecall | `bytes` |
 
 ### addState
 Add a State to an existing Machine.
@@ -198,7 +198,7 @@ external;
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
-| _machineId | the id of the machine | bytes4 | 
+| _machineId | the id of the machine | `bytes4` | 
 | _state | the State to add      | [FismoTypes.State](../domain/State.md)  |
 
 ### updateState
@@ -236,7 +236,7 @@ external;
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
-| _machineId | the id of the machine | bytes4 | 
+| _machineId | the id of the machine | `bytes4` | 
 | _state | the state to update   | [FismoTypes.State](../domain/State.md)  |
 
 ### addTransition
@@ -269,6 +269,6 @@ external;
 
 | Name        | Description            | Type                                        |
 |-------------|------------------------|---------------------------------------------|
-| _machineId  | the id of the machine  | bytes4                                      | 
-| _stateId    | the id of the state to update | bytes4                                      |
+| _machineId  | the id of the machine  | `bytes4`                                      | 
+| _stateId    | the id of the state to update | `bytes4`                                      |
 | _transition | the transition to add  | [FismoTypes.Transition](../domain/Transition.md) |

@@ -29,4 +29,4 @@ returns (bool);
 
 | Name           | Description                    | Type   |
 |----------------|--------------------------------|--------|
-| _interfaceId      |the sighash of the given interface  | bytes4 |
+| _interfaceId      |the sighash of the given interface  | `bytes4` |

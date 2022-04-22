@@ -25,8 +25,8 @@ event FismoCloned(
 
 | Name     | Description               | Type                     |
 |----------|---------------------------|--------------------------|
-| owner    | the owner's wallet        | address                  | 
-| instance | the cloned Fismo instance | address                  |
+| owner    | the owner's wallet        | `address`                  | 
+| instance | the cloned Fismo instance | `address`                  |
 
 ## Methods
 * [cloneFismo](#clonefismo)
@@ -64,7 +64,7 @@ returns (
 
 | Name     | Description                          | Type    |
 |----------|--------------------------------------|---------|
-| instance | the address of cloned Fismo instance | address |
+| instance | the address of cloned Fismo instance | `address` |
 
 ### init
 Initialize this Fismo instance.
@@ -88,4 +88,4 @@ external;
 
 | Name     | Description                          | Type    |
 |----------|--------------------------------------|---------|
-| _owner | the address of cloned Fismo instance | address |
+| _owner | the address of cloned Fismo instance | `address` |

@@ -9,9 +9,9 @@ nav_order: 6
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x691b5451`
 
 ## Methods
-* [getLastPosition](#getlastposition)
-* [getPositionHistory](#getpositionhistory)
-* [getUserState](#getuserstate)
+* [`getLastPosition`](#getlastposition)
+* [`getPositionHistory`](#getpositionhistory)
+* [`getUserState`](#getuserstate)
 
 ### getLastPosition
 Get the last recorded position of the given user.
@@ -33,14 +33,14 @@ returns (
 
 | Name       | Description                              | Type    |
 | ----------- |------------------------------------------|---------|
-| _user | the address of the user | address | 
+| `_user` | the address of the user | `address` | 
 
 #### Returns
 
 | Name        | Description                                | Type                |
 | ------------- |--------------------------------------------|---------------------|
-| success |  whether any history exists for the user | bool |
-| position | the last recorded position of the given user| [FismoTypes.Position](../domain/Position.md) |
+| `success` |  whether any history exists for the user | `bool` |
+| `position` | the last recorded position of the given user| [`FismoTypes.Position`](../domain/Position.md) |
 
 ### getPositionHistory
 Get the entire position history for a given user.
@@ -62,14 +62,14 @@ returns (
 
 | Name       | Description                              | Type    |
 | ----------- |------------------------------------------|---------|
-| _user | the address of the user | address | 
+| `_user` | the address of the user | `address` | 
 
 #### Returns
 
-| Name    | Description                   | Type |
-| ------- |-------------------------------|------|
-| success |  whether any history exists for the user | bool |
-| history | an array of Position structs  | [FismoTypes.Position](../domain/Position.md)[] |
+| Name    | Description                   | Type                                             |
+| ------- |-------------------------------|--------------------------------------------------|
+| `success` |  whether any history exists for the user | `bool`                                           |
+| `history` | an array of Position structs  | [`FismoTypes.Position[]`](../domain/Position.md) |
 
 ### getUserState
 Get the current state for a given user in a given machine.
@@ -97,11 +97,11 @@ returns (
 
 | Name      | Description           | Type    |
 | ---------- |-----------------------|---------|
-| _user | the address of the user | address | 
-| _machineId | the id of the machine | bytes4 | 
+| `_user` | the address of the user | `address` | 
+| `_machineId` | the id of the machine | `bytes4` | 
 
 #### Returns
 
 | Name  | Type | Description                          |
 |-------|---|--------------------------------------|
-| state | [FismoTypes.State](../domain/State.md)  | the user's current state in the given machine |
+| `state` | [`FismoTypes.State`](../domain/State.md)  | the user's current state in the given machine |

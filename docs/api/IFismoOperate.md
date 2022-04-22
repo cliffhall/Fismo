@@ -27,9 +27,9 @@ event UserTransitioned (
 
 | Name        | Description                  | Type     |
 |-------------|------------------------------|----------|
-| user        | the user's wallet address    | address  | 
-| machineId   | the machine's id             | bytes4  | 
-| actionId | the id of the action invoked | bytes4  | 
+| user        | the user's wallet address    | `address`  | 
+| machineId   | the machine's id             | `bytes4`  | 
+| actionId | the id of the action invoked | `bytes4`  | 
 | response | the id of the action invoked | [FismoTypes.ActionResponse](../domain/ActionResponse.md)  |
 
 ## Methods
@@ -64,9 +64,9 @@ returns(
 
 | Name      | Description                    | Type     |
 | ----------- |--------------------------------|----------|
-| _user | the user's wallet address      | address  | 
-| _machineId | the machine's id               | bytes4  | 
-| _actionId | the id of the action to invoke | bytes4  | 
+| _user | the user's wallet address      | `address`  | 
+| _machineId | the machine's id               | `bytes4`  | 
+| _actionId | the id of the action to invoke | `bytes4`  | 
 
 #### Returns
 
