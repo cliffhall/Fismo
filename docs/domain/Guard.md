@@ -11,11 +11,11 @@ nav_order: 1
 
 ## Static Members
 #### Constants
-* [ENTER](#enter)
-* [EXIT](#exit)
-* [Types](#types)
+* [`ENTER`](#-enter)
+* [`EXIT`](#-exit)
+* [`Types`](#-types)
 
-### ENTER
+## ⚙️ `ENTER`
 Enter guard type.
 ```javascript
 Guard.ENTER
@@ -25,18 +25,17 @@ Guard.ENTER
 |-------|--------|
 | 0     | `number` | 
 
-### EXIT
+## ⚙️ `EXIT`
 Enter guard type.
 ```javascript
 Guard.EXIT
 ```
 
-
 | Value | Type   |
 |-------|--------|
 | 1     | `number` | 
 
-### Types
+## ⚙️ `Types`
 All guard types.
 ```javascript
 Guard.Types
