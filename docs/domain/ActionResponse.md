@@ -14,13 +14,13 @@ nav_order: 1
 #### Signature
 
 ```javascript
-    constructor (
-        machineName, 
-        action, 
-        priorStateName, 
-        nextStateName,
-        exitMessage, 
-        enterMessage
+constructor (
+    machineName, 
+    action, 
+    priorStateName, 
+    nextStateName,
+    exitMessage, 
+    enterMessage
 )
 ```
 
@@ -36,7 +36,7 @@ nav_order: 1
 | enterMessage   | response from the new state's enter guard    | `string` |
 
 ## Static Members
-### Methods
+#### Methods
 * [fromObject](#fromobject)
 * [fromStruct](#fromstruct)
 
@@ -79,7 +79,7 @@ ActionResponse.fromStruct(struct)
 | the instance | `ActionResponse` |
 
 ## Instance Members
-### Properties
+#### Properties
 * machineName
 * action
 * priorStateName
@@ -87,7 +87,7 @@ ActionResponse.fromStruct(struct)
 * exitMessage
 * enterMessage
 
-### Methods
+#### Methods
 * [toObject](#toobject)
 * [toString](#tostring)
 * [toStruct](#tostruct)

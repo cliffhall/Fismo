@@ -33,7 +33,7 @@ constructor (
 | uri    | off-chain URI of metadata describing the machine | `string` |
 
 ## Static Members
-### Methods
+#### Methods
 * [fromObject](#fromobject)
 * [fromStruct](#fromstruct)
 
@@ -76,7 +76,7 @@ Machine.fromStruct(struct)
 | the instance | `Machine` |
 
 ## Instance Members
-### Properties
+#### Properties
 * operator
 * id
 * name
@@ -84,7 +84,7 @@ Machine.fromStruct(struct)
 * states
 * uri
 
-### Methods
+#### Methods
 * [toObject](#toobject)
 * [toString](#tostring)
 * [toStruct](#tostruct)

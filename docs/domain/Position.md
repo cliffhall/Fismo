@@ -28,7 +28,7 @@ constructor (
 | name           | keccak256 hash of state name | `string` |
 
 ## Static Members
-### Methods
+#### Methods
 * [fromObject](#fromobject)
 * [fromStruct](#fromstruct)
 
@@ -71,11 +71,11 @@ Position.fromStruct(struct)
 | the instance | `Position` |
 
 ## Instance Members
-### Properties
+#### Properties
 * machineId
 * stateId
 
-### Methods
+#### Methods
 * [toObject](#toobject)
 * [toString](#tostring)
 * [toStruct](#tostruct)

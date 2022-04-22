@@ -10,7 +10,7 @@ nav_order: 1
 * Transition guard types.
 
 ## Static Members
-### Constants
+#### Constants
 * [ENTER](#enter)
 * [EXIT](#exit)
 * [Types](#types)

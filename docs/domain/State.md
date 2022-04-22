@@ -33,7 +33,7 @@ constructor (
 | guardLogic    | address of guard logic contract  | `string`  |
 
 ## Static Members
-### Methods
+#### Methods
 * [fromObject](#fromobject)
 * [fromStruct](#fromstruct)
 
@@ -76,7 +76,7 @@ State.fromStruct(struct)
 | the instance | `State` |
 
 ## Instance Members
-### Properties
+#### Properties
 * name
 * id
 * enterGuarded
@@ -84,7 +84,7 @@ State.fromStruct(struct)
 * transitions
 * guardLogic
 
-### Methods
+#### Methods
 * [toObject](#toobject)
 * [toString](#tostring)
 * [toStruct](#tostruct)
