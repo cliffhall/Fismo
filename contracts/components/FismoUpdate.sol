@@ -142,6 +142,9 @@ contract FismoUpdate is IFismoUpdate, FismoOwner {
      * Note:
      * - State name and id cannot be changed.
      *
+     * Emits:
+     * - StateUpdated
+     *
      * Reverts if:
      * - Caller is not contract owner
      * - Machine does not exist

@@ -132,7 +132,7 @@ external;
 
 | Name     | Description                    | Type     |
 | ---------- |--------------------------------|----------|
-| _machine | the machine definition to add  | FismoTypes.Machine  |
+| _machine | the machine definition to add  | [FismoTypes.Machine](../domain/Machine.md)  |
 
 ### installAndInitializeMachine
 Install a Fismo Machine and initialize it.
@@ -164,7 +164,7 @@ external;
 
 | Name    | Description                       | Type  |
 | --------- |-----------------------------------|-------|
-| _machine | the machine definition to install | FismoTypes.Machine | 
+| _machine | the machine definition to install | [FismoTypes.Machine](../domain/Machine.md) | 
 | _initializer | the address of the initializer contract | address | 
 | _calldata | the encoded function and args to pass in delegatecall | bytes |
 
@@ -199,7 +199,7 @@ external;
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
 | _machineId | the id of the machine | bytes4 | 
-| _state | the State to add      | FismoTypes.State  |
+| _state | the State to add      | [FismoTypes.State](../domain/State.md)  |
 
 ### updateState
 Update an existing State in an existing Machine.
@@ -237,7 +237,7 @@ external;
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
 | _machineId | the id of the machine | bytes4 | 
-| _state | the State to update   | FismoTypes.State  |
+| _state | the state to update   | [FismoTypes.State](../domain/State.md)  |
 
 ### addTransition
 Add a Transition to an existing State of an existing Machine.
@@ -267,7 +267,8 @@ external;
 
 #### Arguments
 
-| Name      | Description           | Type   |
-|-----------|-----------------------|--------|
-| _machineId | the id of the machine | bytes4 | 
-| _state | the State to update   | FismoTypes.State  |
+| Name        | Description            | Type                                        |
+|-------------|------------------------|---------------------------------------------|
+| _machineId  | the id of the machine  | bytes4                                      | 
+| _stateId    | the id of the state to update | bytes4                                      |
+| _transition | the transition to add  | [FismoTypes.Transition](../domain/Transition.md) |
