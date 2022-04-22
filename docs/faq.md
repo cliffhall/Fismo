@@ -7,7 +7,7 @@ has_toc: true
 # Frequently Asked Questions
 * [What is a finite state machine?](#what-is-a-finite-state-machine)
 * [What can they usefully map to?](#what-are-state-machines-used-for)
-* [What are some examples?](#what-do-states-represent)
+* [What do states represent?](#what-do-states-represent)
 * [How is Fismo different?](#how-is-fismo-different)
 * [What's in a machine configuration?](#whats-in-a-fismo-machine-configuration)
 * [What does Fismo.sol actually do?](#what-does-fismosol-actually-do)
