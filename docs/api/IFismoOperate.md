@@ -30,7 +30,7 @@ event UserTransitioned (
 | user        | the user's wallet address    | address  | 
 | machineId   | the machine's id             | bytes4  | 
 | actionId | the id of the action invoked | bytes4  | 
-| response | the id of the action invoked | FismoTypes.ActionResponse  |
+| response | the id of the action invoked | [FismoTypes.ActionResponse](../domain/ActionResponse.md)  |
 
 ## Methods
 * [invokeAction](#invokeaction)
@@ -72,4 +72,4 @@ returns(
 
 | Name        | Description                                | Type          |
 | ------------- |--------------------------------------------|-------------|
-| response | the address of the guard logic implementation contract| FismoTypes.ActionResponse |
+| response | the address of the guard logic implementation contract| [FismoTypes.ActionResponse](../domain/ActionResponse.md) |
