@@ -26,14 +26,13 @@ As a software pattern, they are frequently used to map processes. A couple of co
   * Regular expression parsing.
   * Linquistic morphology.
   * Trading algorithms.
+  * Positions in a tournament bracket.
   * Issue management and workflow systems.
 
 ### What are some examples?
 Practically anything that can be described with a directed graph could be modeled as an FSM. States can represent...
-  * Rooms in an dungeon, which an adventurer wanders through, being met with challenges.
-  * Positions in a tournament bracket.
-  * A player's health, such as in hungry state, eating is required before moving to another state.
-  * An object such as a door, which could be opened, closed, or locked.
+  * A player's health, e.g., While in hungry state, eating is required before moving to other states except death.
+  * A stateful object such as a door, which could be opened, closed, or locked.
   
 #### Locking Door Example FSM 
 ![Lockable Door FSM example](images/LockableDoorFSM.png)
@@ -57,13 +56,13 @@ The other, much more interesting part is "guard code"...
   * Each state can have an entrance guard; a function that will be called when a user enters a state
   * Each state can have an exit guard; a function that will be called when a user exits a state
   * Passing out of one state and into another, then, could trigger zero through two functions
-  * Guard code can do anything, but is so-called because it is a chance to revert the transaction
+  * Guard code can do anything, but is so-called because it is a chance to revert the transaction.
     - _An adventurer is chained to a post in the middle of the room_
       - They were chained there by a troll when they came into the room. (This happened in the entrance guard logic.)
       - The exit guard for the room can revert if the user's state for the machine representing the chain is "shackled".
       - Some action a user takes in that machine could switch them to the "unshackled" state.
       - Once unshackled, the user can attempt the transition to the other room again.
-      - Now the exit guard lets the user pass, and _maybe_ the entrance guard to the next room does as well - who knows?
+      - Now the guard lets the user exit, but who knows what the entrance guard to the next room has in store?
 
 ### What's in a Fismo Machine configuration?
 * The address of an operator contract which is used to invoke actions.
