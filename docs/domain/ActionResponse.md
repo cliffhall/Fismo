@@ -36,7 +36,10 @@ nav_order: 1
 | exitMessage    | response from the prior state's exit guard   | `string` |
 | enterMessage   | response from the new state's enter guard    | `string` |
 
-## Static Methods
+## Static Members
+### Methods
+* [fromObject](#fromobject)
+* [fromStruct](#fromstruct)
 
 ### fromObject
 Get a new `ActionResponse` instance from an object representation.
@@ -76,9 +79,23 @@ ActionResponse.fromStruct(struct)
 |-------------------|----------------|
 | the instance | `ActionResponse` |
 
-## Instance Methods
+## Instance Members
+### Properties
+* machineName
+* action
+* priorStateName
+* nextStateName
+* exitMessage
+* enterMessage
 
-### toObject
+### Methods
+* [toObject](#toobject)
+* [toString](#tostring)
+* [toStruct](#tostruct)
+* [clone](#clone)
+* [isValid](#isvalid)
+
+## toObject
 Get a plain object representation of this `ActionResponse` instance.
 
 **Signature**

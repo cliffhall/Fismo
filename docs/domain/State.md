@@ -32,7 +32,10 @@ constructor (
 | transitions   | all of the valid Transitions from this state                      | `Array`   |
 | guardLogic    | address of guard logic contract  | `string`  |
 
-## Static Methods
+## Static Members
+### Methods
+* [fromObject](#fromobject)
+* [fromStruct](#fromstruct)
 
 ### fromObject
 Get a new `State` instance from an object representation.
@@ -72,7 +75,21 @@ State.fromStruct(struct)
 |-------------------|----------------|
 | the instance | `State` |
 
-## Instance Methods
+## Instance Members
+### Properties
+* name
+* id
+* enterGuarded
+* exitGuarded
+* transitions
+* guardLogic
+
+### Methods
+* [toObject](#toobject)
+* [toString](#tostring)
+* [toStruct](#tostruct)
+* [clone](#clone)
+* [isValid](#isvalid)
 
 ### toObject
 Get a plain object representation of this `State` instance.

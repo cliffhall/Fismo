@@ -27,7 +27,10 @@ constructor (
 | machineId      | keccak256 hash of machine name   | `string` |
 | name           | keccak256 hash of state name | `string` |
 
-## Static Methods
+## Static Members
+### Methods
+* [fromObject](#fromobject)
+* [fromStruct](#fromstruct)
 
 ### fromObject
 Get a new `Position` instance from an object representation.
@@ -67,7 +70,17 @@ Position.fromStruct(struct)
 |-------------------|----------------|
 | the instance | `Position` |
 
-## Instance Methods
+## Instance Members
+### Properties
+* machineId
+* stateId
+
+### Methods
+* [toObject](#toobject)
+* [toString](#tostring)
+* [toStruct](#tostruct)
+* [clone](#clone)
+* [isValid](#isvalid)
 
 ### toObject
 Get a plain object representation of this `Position` instance.

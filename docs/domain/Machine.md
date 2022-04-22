@@ -32,7 +32,10 @@ constructor (
 | initialStateId  | keccak256 hash of initial state name             | `string` |
 | uri    | off-chain URI of metadata describing the machine | `string` |
 
-## Static Methods
+## Static Members
+### Methods
+* [fromObject](#fromobject)
+* [fromStruct](#fromstruct)
 
 ### fromObject
 Get a new `Machine` instance from an object representation.
@@ -72,7 +75,21 @@ Machine.fromStruct(struct)
 |-------------------|----------------|
 | the instance | `Machine` |
 
-## Instance Methods
+## Instance Members
+### Properties
+* operator
+* id
+* name
+* initialStateId
+* states
+* uri
+
+### Methods
+* [toObject](#toobject)
+* [toString](#tostring)
+* [toStruct](#tostruct)
+* [clone](#clone)
+* [isValid](#isvalid)
 
 ### toObject
 Get a plain object representation of this `Machine` instance.
