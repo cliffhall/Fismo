@@ -6,7 +6,7 @@ nav_order: 2
 ---
 # Development Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.
-* Scripts are defined in [`package.json`](../../package.json).
+* Scripts are defined in [`package.json`](https://github.com/cliffhall/Fismo/blob/main/package.json#L31).
 * Most late-model IDEs such as Webstorm have an NPM tab to let you view and launch these
 tasks with a double-click.
 * If you don't have an NPM launch window, you can run them from the command line.
