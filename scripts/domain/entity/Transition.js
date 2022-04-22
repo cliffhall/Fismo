@@ -2,6 +2,7 @@ const { nameToId, validateNameStrict, validateNameLax, validateId } = require(".
 
 /**
  * Fismo Domain Entity: Transition
+ * The complete on-chain definition of a Transition.
  * @author Cliff Hall <cliff@futurescale.com>
  */
 class Transition {

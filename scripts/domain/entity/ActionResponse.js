@@ -2,10 +2,8 @@ const { validateNameStrict, validateNameLax } = require("../util/name-utils");
 
 /**
  * Fismo Domain Entity: ActionResponse
- *
  * The response from a successful state transition.
  * May include messages from Enter and/or Exit guard code.
- *
  * @author Cliff Hall <cliff@futurescale.com>
  */
 class ActionResponse {

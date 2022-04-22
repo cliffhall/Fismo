@@ -7,7 +7,7 @@ nav_order: 2
 # Machine
 * View Struct in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L19)
 * View Class [Machine.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/entity/Machine.js)
-* Fismo Domain Entity: Machine
+* The complete on-chain definition of a Machine.
 
 ## Constructor
 

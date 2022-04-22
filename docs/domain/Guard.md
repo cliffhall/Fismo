@@ -7,7 +7,7 @@ nav_order: 1
 # Guard
 * View Enum in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L13)
 * View Class [Guard.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/enum/Guard.js)
-* Fismo Domain Enum: `Guard`
+* Transition Guard modes.
 
 ## Static Members
 

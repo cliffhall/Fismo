@@ -7,7 +7,7 @@ nav_order: 5
 # Transition
 * View Struct in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L42)
 * View Class [Transition.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/entity/Transition.js)
-* Fismo Domain Entity: `Transition`
+* The complete on-chain definition of a State.
 
 ## Constructor
 

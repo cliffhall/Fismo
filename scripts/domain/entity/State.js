@@ -5,6 +5,7 @@ const ethers = require("ethers");
 
 /**
  * Fismo Domain Entity: State
+ * The complete on-chain definition of a State.
  * @author Cliff Hall <cliff@futurescale.com>
  */
 class State {

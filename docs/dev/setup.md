@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Development Setup
+title: Developers
 nav_order: 7
 ---
 # Dev Environment Setup

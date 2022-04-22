@@ -1,5 +1,7 @@
 /**
  * Fismo Domain Entity: Position
+ * A machine-qualified state id.
+ * For recording history and reporting current position of a user.
  * @author Cliff Hall <cliff@futurescale.com>
  */
 class Position {

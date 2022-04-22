@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Development Tasks
+title: Developers
 nav_order: 8
 ---
 # Development Tasks

@@ -4,6 +4,7 @@ const eip55 = require("eip55");
 
 /**
  * Fismo Domain Entity: Machine
+ * The complete on-chain definition of a Machine.
  * @author Cliff Hall <cliff@futurescale.com>
  */
 class Machine {

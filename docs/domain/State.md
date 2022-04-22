@@ -7,8 +7,7 @@ nav_order: 4
 # State
 * View Struct in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L28)
 * View Class [State.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/entity/State.js)
-* The response from a successful state transition. 
-* May include messages from Enter and/or Exit guard code.
+* The complete on-chain definition of a State.
 
 ## Constructor
 

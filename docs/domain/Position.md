@@ -7,7 +7,7 @@ nav_order: 3
 # Position
 * View Struct in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L37)
 * View Class [Position.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/entity/Position.js)
-* Fismo Domain Entity: Position
+* A machine-qualified state id.
 * For recording history and reporting current position of a user.
 
 ## Constructor
