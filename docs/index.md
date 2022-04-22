@@ -11,9 +11,9 @@ nav_order: 1
 > _But why do we have no standard for representing a world and an individual's dynamic path through it?_
 
 #### A Humble Solution
-In a nutshell, Fismo enforces rules about transitions between states when users invoke actions.
-
 Fismo Machines are a way of simulating processes, branching narratives, maps of places, or nearly any stateful thing you can imagine.
+
+In a nutshell, Fismo enforces rules about transitions between states when users invoke actions.
 
 The builder writes custom Solidity functions that get called when state transitions happen. Transitions don't always need such hooks, but when they do, anything can be queried or stored, and the transaction can be reverted if your conditions aren't met.
 
