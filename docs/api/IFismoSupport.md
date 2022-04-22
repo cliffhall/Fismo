@@ -10,7 +10,7 @@ nav_order: 4
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x01ffc9a7`
 
 ## Methods
-* [supportsInterface](#supportsinterface)
+* [`supportsInterface`](#supportsinterface)
 
 ### supportsInterface
 Query whether Fismo supports a given interface
@@ -29,4 +29,4 @@ returns (bool);
 
 | Name           | Description                    | Type   |
 |----------------|--------------------------------|--------|
-| _interfaceId      |the sighash of the given interface  | `bytes4` |
+| `_interfaceId` |the sighash of the given interface  | `bytes4` |

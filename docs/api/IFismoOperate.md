@@ -9,7 +9,7 @@ nav_order: 2
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0xcad6b576`
 
 ## Events
-* [UserTransitioned](#usertransitioned)
+* [`UserTransitioned`](#usertransitioned)
 
 ### UserTransitioned
 Emitted when a user transitions from one State to another.
@@ -27,13 +27,13 @@ event UserTransitioned (
 
 | Name        | Description                  | Type     |
 |-------------|------------------------------|----------|
-| user        | the user's wallet address    | `address`  | 
-| machineId   | the machine's id             | `bytes4`  | 
-| actionId | the id of the action invoked | `bytes4`  | 
-| response | the id of the action invoked | [FismoTypes.ActionResponse](../domain/ActionResponse.md)  |
+| `user`        | the user's wallet address    | `address`  | 
+| `machineId`   | the machine's id             | `bytes4`  | 
+| `actionId` | the id of the action invoked | `bytes4`  | 
+| `response` | the id of the action invoked | [`FismoTypes.ActionResponse`](../domain/ActionResponse.md)  |
 
 ## Methods
-* [invokeAction](#invokeaction)
+* [`invokeAction`](#invokeaction)
 
 ### invokeAction
 Invoke an action on a configured Machine.
@@ -64,12 +64,12 @@ returns(
 
 | Name      | Description                    | Type     |
 | ----------- |--------------------------------|----------|
-| _user | the user's wallet address      | `address`  | 
-| _machineId | the machine's id               | `bytes4`  | 
-| _actionId | the id of the action to invoke | `bytes4`  | 
+| `_user` | the user's wallet address      | `address`  | 
+| `_machineId` | the machine's id               | `bytes4`  | 
+| `_actionId` | the id of the action to invoke | `bytes4`  | 
 
 #### Returns
 
-| Name        | Description                                | Type          |
-| ------------- |--------------------------------------------|-------------|
-| response | the address of the guard logic implementation contract| [FismoTypes.ActionResponse](../domain/ActionResponse.md) |
+| Name        | Description                         | Type          |
+| ------------- |-------------------------------------|-------------|
+| `response` | the details of the state transition | [`FismoTypes.ActionResponse`](../domain/ActionResponse.md) |
