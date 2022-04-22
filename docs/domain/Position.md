@@ -11,6 +11,7 @@ nav_order: 3
 * For recording history and reporting current position of a user.
 
 ## Constructor
+**Signature**
 
 ```javascript
 constructor (

@@ -10,6 +10,7 @@ nav_order: 5
 * The complete on-chain definition of a State.
 
 ## Constructor
+**Signature**
 
 ```javascript
 constructor (

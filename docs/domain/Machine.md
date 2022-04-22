@@ -10,6 +10,7 @@ nav_order: 2
 * The complete on-chain definition of a Machine.
 
 ## Constructor
+**Signature**
 
 ```javascript
 constructor (

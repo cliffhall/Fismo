@@ -12,6 +12,7 @@ nav_order: 1
 * May include messages from Enter and/or Exit guard code.
 
 ## Constructor
+**Signature**
 
 ```javascript
     constructor (
