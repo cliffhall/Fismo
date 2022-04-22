@@ -12,7 +12,7 @@ nav_order: 6
 ### getLastPosition
 Get the last recorded position of the given user.
 
-**Signature**
+#### Signature
 ```solidity
 function getLastPosition (
     address _user
@@ -41,7 +41,7 @@ returns (
 ### getPositionHistory
 Get the entire position history for a given user.
 
-**Signature**
+#### Signature
 ```solidity
 function getPositionHistory (
     address _user
@@ -76,7 +76,7 @@ Get the current state for a given user in a given machine.
 **Note**
 - If the user has not interacted with the machine, the initial state for the machine is returned.
 
-**Signature**
+#### Signature
 ```solidity
 function getUserState (
     address _user, 

@@ -10,7 +10,7 @@ nav_order: 2
 * The complete on-chain definition of a machine.
 
 ## Constructor
-**Signature**
+#### Signature
 
 ```javascript
 constructor (
@@ -22,7 +22,7 @@ constructor (
 )
 ```
 
-**Parameters**
+#### Parameters
 
 | Name           | Description                                      | Type   |
 |----------------|--------------------------------------------------|--------|
@@ -40,17 +40,17 @@ constructor (
 ### fromObject
 Get a new `Machine` instance from an object representation.
 
-**Signature**
+#### Signature
 ```javascript
 Machine.fromObject(o)
 ```
-**Parameters**
+#### Parameters
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
 | o        | the plain object | `object` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -59,17 +59,17 @@ Machine.fromObject(o)
 ### fromStruct
 Get a new `Machine` instance from a struct representation.
 
-**Signature**
+#### Signature
 ```javascript
 Machine.fromStruct(struct)
 ```
-**Parameters**
+#### Parameters
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
 | struct | the struct  | `Array` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -94,12 +94,12 @@ Machine.fromStruct(struct)
 ### toObject
 Get a plain object representation of this `Machine` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toObject()
 ```
 
-**Returns**
+#### Returns
 
 | Description      | Type   |
 |------------------|--------|
@@ -108,12 +108,12 @@ instance.toObject()
 ### toString
 Get a string representation of this `Machine` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toString()
 ```
 
-**Returns**
+#### Returns
 
 | Description              | Type   |
 |--------------------------|--------|
@@ -122,12 +122,12 @@ instance.toString()
 ### toStruct
 Get a struct representation of this `Machine` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toStruct()
 ```
 
-**Returns**
+#### Returns
 
 | Description | Type  |
 |-------------|-------|
@@ -136,12 +136,12 @@ instance.toStruct()
 ### clone
 Clone this `Machine` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.clone()
 ```
 
-**Returns**
+#### Returns
 
 | Description         | Type           |
 |---------------------|----------------|
@@ -150,12 +150,12 @@ instance.clone()
 ### isValid
 Is this `Machine` instance valid?
 
-**Signature**
+#### Signature
 ```javascript
 instance.isValid()
 ```
 
-**Returns**
+#### Returns
 
 | Description                   | Type    |
 |-------------------------------|---------|

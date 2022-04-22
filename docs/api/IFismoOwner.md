@@ -14,14 +14,14 @@ nav_order: 3
 ### OwnershipTransferred
 Emitted when ownership of the Fismo instance is transferred.
 
-**Signature**
+#### Signature
 ```solidity
 event OwnershipTransferred (
     address indexed previousOwner
     address indexed newOwner
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name         | Description                              | Type    |
 |--------------|------------------------------------------|---------|
@@ -33,14 +33,14 @@ event OwnershipTransferred (
 ### owner
 Get the address of the Fismo instance's owner
 
-**Signature**
+#### Signature
 ```solidity
 function owner () 
 external
 returns (address);
 ```
 
-**Returns**
+#### Returns
 
 | Name          | Description                   | Type    |
 |---------------|-------------------------------|---------|
@@ -56,7 +56,7 @@ Transfer ownership of the Fismo instance to another address.
 - Caller is not contract owner
 - New owner is zero address
 
-**Signature**
+#### Signature
 ```solidity
 function transferOwnership (
     address _newOwner

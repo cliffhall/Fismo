@@ -10,7 +10,7 @@ nav_order: 5
 * The complete on-chain definition of a transition.
 
 ## Constructor
-**Signature**
+#### Signature
 
 ```javascript
 constructor (
@@ -22,7 +22,7 @@ constructor (
 )
 ```
 
-**Parameters**
+#### Parameters
 
 | Name          | Description                                                       | Type    |
 |---------------|-------------------------------------------------------------------|---------|
@@ -40,17 +40,17 @@ constructor (
 ### fromObject
 Get a new `Transition` instance from an object representation.
 
-**Signature**
+#### Signature
 ```javascript
 Transition.fromObject(o)
 ```
-**Parameters**
+#### Parameters
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
 | o        | the plain object | `object` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -59,17 +59,17 @@ Transition.fromObject(o)
 ### fromStruct
 Get a new `Transition` instance from a struct representation.
 
-**Signature**
+#### Signature
 ```javascript
 Transition.fromStruct(struct)
 ```
-**Parameters**
+#### Parameters
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
 | struct | the struct  | `Array` | 
 
-**Returns**
+#### Returns
 
 | Name    | Description       | Type           |
 |---------|-------------------|----------------|
@@ -92,12 +92,12 @@ Transition.fromStruct(struct)
 ### toObject
 Get a plain object representation of this `Transition` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toObject()
 ```
 
-**Returns**
+#### Returns
 
 | Name    | Description      | Type   |
 |---------|------------------|--------|
@@ -106,12 +106,12 @@ instance.toObject()
 ### toString
 Get a string representation of this `Transition` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toString()
 ```
 
-**Returns**
+#### Returns
 
 | Name    | Description              | Type   |
 |---------|--------------------------|--------|
@@ -120,12 +120,12 @@ instance.toString()
 ### toStruct
 Get a struct representation of this `Transition` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toStruct()
 ```
 
-**Returns**
+#### Returns
 
 | Description | Type  |
 |-------------|-------|
@@ -134,12 +134,12 @@ instance.toStruct()
 ### clone
 Clone this `Transition` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.clone()
 ```
 
-**Returns**
+#### Returns
 
 | Description         | Type           |
 |---------------------|----------------|
@@ -148,12 +148,12 @@ instance.clone()
 ### isValid
 Is this `Transition` instance valid?
 
-**Signature**
+#### Signature
 ```javascript
 instance.isValid()
 ```
 
-**Returns**
+#### Returns
 
 | Description                   | Type    |
 |-------------------------------|---------|

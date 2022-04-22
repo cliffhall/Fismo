@@ -11,7 +11,7 @@ nav_order: 1
 * May include messages from Enter and/or Exit guard code.
 
 ## Constructor
-**Signature**
+#### Signature
 
 ```javascript
     constructor (
@@ -24,7 +24,7 @@ nav_order: 1
 )
 ```
 
-**Parameters**
+#### Parameters
 
 | Name           | Description                                  | Type   |
 |----------------|----------------------------------------------|--------|
@@ -43,17 +43,17 @@ nav_order: 1
 ### fromObject
 Get a new `ActionResponse` instance from an object representation.
 
-**Signature**
+#### Signature
 ```javascript
 ActionResponse.fromObject(o)
 ```
-**Parameters**
+#### Parameters
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
 | o        | the plain object | `object` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -62,17 +62,17 @@ ActionResponse.fromObject(o)
 ### fromStruct
 Get a new `ActionResponse` instance from a struct representation.
 
-**Signature**
+#### Signature
 ```javascript
 ActionResponse.fromStruct(struct)
 ```
-**Parameters**
+#### Parameters
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
 | struct | the struct  | `Array` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -97,12 +97,12 @@ ActionResponse.fromStruct(struct)
 ## toObject
 Get a plain object representation of this `ActionResponse` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toObject()
 ```
 
-**Returns**
+#### Returns
 
 | Description      | Type   |
 |------------------|--------|
@@ -111,12 +111,12 @@ instance.toObject()
 ### toString
 Get a string representation of this `ActionResponse` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toString()
 ```
 
-**Returns**
+#### Returns
 
 | Description              | Type   |
 |--------------------------|--------|
@@ -125,12 +125,12 @@ instance.toString()
 ### toStruct
 Get a struct representation of this `ActionResponse` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toStruct()
 ```
 
-**Returns**
+#### Returns
 
 | Description | Type  |
 |-------------|-------|
@@ -139,12 +139,12 @@ instance.toStruct()
 ### clone
 Clone this `ActionResponse` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.clone()
 ```
 
-**Returns**
+#### Returns
 
 | Description  | Type           |
 |--------------|----------------|
@@ -154,12 +154,12 @@ instance.clone()
 ### isValid
 Is this `ActionResponse` instance valid?
 
-**Signature**
+#### Signature
 ```javascript
 instance.isValid()
 ```
 
-**Returns**
+#### Returns
 
 | Description                   | Type    |
 |-------------------------------|---------|

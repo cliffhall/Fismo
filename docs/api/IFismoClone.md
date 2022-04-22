@@ -13,14 +13,14 @@ nav_order: 1
 ### FismoCloned
 Emitted when a user clones the Fismo contract.
 
-**Signature**
+#### Signature
 ```solidity
 event FismoCloned(
     address indexed owner, 
     address indexed instance
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name     | Description               | Type                     |
 |----------|---------------------------|--------------------------|
@@ -48,7 +48,7 @@ Creates and returns the address of a Fismo clone.
   * Although the logic would operate the same and the clone would store the data, each clone would be delegating the call to the clone it came from, increasing the transaction cost with each delegation.
   * To avoid this hidden expense for the unwary, the `cloneFismo` method reverts if attempting to clone a clone.
 
-**Signature**
+#### Signature
 ```solidity
 function cloneFismo() 
 external 
@@ -74,7 +74,7 @@ Initialize this Fismo instance.
 * Must be external to be called from the Fismo factory.
 * Is called immediately after cloning by `cloneFismo` and can not be called again.
 
-**Signature**
+#### Signature
 ```solidity
 function init(
     address _owner

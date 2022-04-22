@@ -14,7 +14,7 @@ nav_order: 4
 ### supportsInterface
 Query whether Fismo supports a given interface
 
-**Signature**
+#### Signature
 ```solidity
 function supportsInterface (
     bytes4 _interfaceId

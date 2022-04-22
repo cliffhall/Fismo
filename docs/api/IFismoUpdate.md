@@ -13,14 +13,14 @@ nav_order: 5
 ### MachineInstalled
 Emitted when a new Machine is installed in the Fismo instance.
 
-**Signature**
+#### Signature
 ```solidity
 event MachineInstalled (
     bytes4 indexed machineId, 
     string machineName
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name         | Description             | Type   |
 |--------------|-------------------------|--------|
@@ -33,7 +33,7 @@ Emitted when a new State is added to a Fismo Machine.
 **Note**
 * May be emitted multiple times during the installation of a Machine.
 
-**Signature**
+#### Signature
 
 ```solidity
 event StateAdded (
@@ -42,7 +42,7 @@ event StateAdded (
     string stateName
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
@@ -53,7 +53,7 @@ event StateAdded (
 ### StateUpdated
 Emitted when an existing State is updated. 
 
-**Signature**
+#### Signature
 
 ```solidity
 event StateUpdated (
@@ -62,7 +62,7 @@ event StateUpdated (
     string stateName
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
@@ -76,7 +76,7 @@ Emitted when a new Transition is added to an existing State.
 **Note**
 - May be emitted multiple times during the addition of a Machine or State.
 
-**Signature**
+#### Signature
 
 ```solidity
 event TransitionAdded (
@@ -86,7 +86,7 @@ event TransitionAdded (
     string targetStateName
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name      | Description                  | Type   |
 |-----------|------------------------------|--------|
@@ -111,7 +111,7 @@ Install a Fismo Machine that requires no initialization.
 - Machine id is not valid for Machine name
 - Machine already exists
 
-**Signature**
+#### Signature
 ```solidity
 function installMachine (
     FismoTypes.Machine memory _machine
@@ -141,7 +141,7 @@ Install a Fismo Machine and initialize it.
 - Initializer has no code
 - Initializer call reverts
 
-**Signature**
+#### Signature
 ```solidity
 function installAndInitializeMachine (
     FismoTypes.Machine memory _machine,
@@ -176,7 +176,7 @@ Add a State to an existing Machine.
 - The new state will not be reachable by any action
 - Add one or more transitions to other states, targeting the new state
 
-**Signature**
+#### Signature
 ```solidity
 function  addState (
     bytes4 _machineId, 
@@ -214,7 +214,7 @@ Update an existing State in an existing Machine.
 **Note**
 * State name and id cannot be changed.
 
-**Signature**
+#### Signature
 ```solidity
 function updateState (
     bytes4 _machineId, 
@@ -246,7 +246,7 @@ Add a Transition to an existing State of an existing Machine.
 **Use this when**
 - Adding only a single transition (use updateState for multiple)
 
-**Signature**
+#### Signature
 ```solidity
 function addTransition (
     bytes4 _machineId, 

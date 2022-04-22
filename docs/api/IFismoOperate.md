@@ -13,7 +13,7 @@ nav_order: 2
 ### UserTransitioned
 Emitted when a user transitions from one State to another.
 
-**Signature**
+#### Signature
 ```solidity
 event UserTransitioned (
     address indexed user, 
@@ -22,7 +22,7 @@ event UserTransitioned (
     FismoTypes.ActionResponse response
 );
 ```
-**Parameters**
+#### Parameters
 
 | Name        | Description                  | Type     |
 |-------------|------------------------------|----------|
@@ -45,7 +45,7 @@ Invoke an action on a configured Machine.
 - Action is not valid for the user's current State in the given Machine
 - Any invoked guard logic reverts
 
-**Signature**
+#### Signature
 ```solidity
 function invokeAction(
     address _user, 

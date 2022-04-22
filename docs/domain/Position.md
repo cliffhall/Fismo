@@ -11,7 +11,7 @@ nav_order: 3
 * For recording history and reporting current position of a user.
 
 ## Constructor
-**Signature**
+#### Signature
 
 ```javascript
 constructor (
@@ -20,7 +20,7 @@ constructor (
 )
 ```
 
-**Parameters**
+#### Parameters
 
 | Name           | Description                                  | Type   |
 |----------------|----------------------------------------------|--------|
@@ -35,17 +35,17 @@ constructor (
 ### fromObject
 Get a new `Position` instance from an object representation.
 
-**Signature**
+#### Signature
 ```javascript
 Position.fromObject(o)
 ```
-**Parameters**
+#### Parameters
 
 | Name     | Description      | Type   |
 |----------|------------------|--------|
 | o        | the plain object | `object` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -54,17 +54,17 @@ Position.fromObject(o)
 ### fromStruct
 Get a new `Position` instance from a struct representation.
 
-**Signature**
+#### Signature
 ```javascript
 Position.fromStruct(struct)
 ```
-**Parameters**
+#### Parameters
 
 | Name   | Description | Type  |
 |--------|-------------|-------|
 | struct | the struct  | `Array` | 
 
-**Returns**
+#### Returns
 
 | Description       | Type           |
 |-------------------|----------------|
@@ -85,12 +85,12 @@ Position.fromStruct(struct)
 ### toObject
 Get a plain object representation of this `Position` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toObject()
 ```
 
-**Returns**
+#### Returns
 
 | Description | Type   |
 |-------------|--------|
@@ -99,12 +99,12 @@ instance.toObject()
 ### toString
 Get a string representation of this `Position` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toString()
 ```
 
-**Returns**
+#### Returns
 
 | Description             | Type   |
 |-------------------------|--------|
@@ -113,12 +113,12 @@ instance.toString()
 ### toStruct
 Get a struct representation of this `Position` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.toStruct()
 ```
 
-**Returns**
+#### Returns
 
 | Description | Type  |
 |-------------|-------|
@@ -127,12 +127,12 @@ instance.toStruct()
 ### clone
 Clone this `Position` instance.
 
-**Signature**
+#### Signature
 ```javascript
 instance.clone()
 ```
 
-**Returns**
+#### Returns
 
 | Description         | Type           |
 |---------------------|----------------|
@@ -141,12 +141,12 @@ instance.clone()
 ### isValid
 Is this `Position` instance valid?
 
-**Signature**
+#### Signature
 ```javascript
 instance.isValid()
 ```
 
-**Returns**
+#### Returns
 
 | Description                   | Type    |
 |-------------------------------|---------|
