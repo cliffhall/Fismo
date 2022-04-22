@@ -34,8 +34,8 @@ constructor (
 
 ## Static Members
 #### Methods
-* [`fromObject`](#fromobject)
-* [`fromStruct`](#fromstruct)
+* [`fromObject`](#-fromobject)
+* [`fromStruct`](#-fromstruct)
 
 ## 🦠 `fromObject`
 Get a new `Transition` instance from an object representation.
