@@ -30,6 +30,7 @@ event FismoCloned(
 
 ## Methods
 * [cloneFismo](#clonefismo)
+* [init](#init)
 
 ### cloneFismo
 Creates and returns the address of a Fismo clone.
@@ -64,7 +65,6 @@ returns (
 | Name     | Description                          | Type    |
 |----------|--------------------------------------|---------|
 | instance | the address of cloned Fismo instance | address |
-
 
 ### init
 Initialize this Fismo instance.
