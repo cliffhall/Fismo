@@ -10,7 +10,7 @@ nav_order: 3
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x7f5828d0`
 
 ## Events
-* [`OwnershipTransferred`](#ownershiptransferred)
+* [`OwnershipTransferred`](#-ownershiptransferred)
 
 ## 💥 `OwnershipTransferred`
 Emitted when ownership of the Fismo instance is transferred.
@@ -53,7 +53,7 @@ returns (address);
 Transfer ownership of the Fismo instance to another address.
 
 #### Emits
-- [`OwnershipTransferred`](#ownershiptransferred)
+- [`OwnershipTransferred`](#-ownershiptransferred)
 
 #### Reverts if
 - Caller is not contract owner

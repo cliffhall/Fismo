@@ -9,9 +9,9 @@ nav_order: 6
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x691b5451`
 
 ## Methods
-* [`getLastPosition`](#getlastposition)
-* [`getPositionHistory`](#getpositionhistory)
-* [`getUserState`](#getuserstate)
+* [`getLastPosition`](#-getlastposition)
+* [`getPositionHistory`](#-getpositionhistory)
+* [`getUserState`](#-getuserstate)
 
 ## 🦠 `getLastPosition`
 Get the last recorded position of the given user.

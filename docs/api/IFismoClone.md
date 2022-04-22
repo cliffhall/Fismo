@@ -9,7 +9,7 @@ nav_order: 1
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x08a9f5ec`
 
 ## Events
-* [`FismoCloned`](#fismocloned)
+* [`FismoCloned`](#-fismocloned)
 
 ## 💥 `FismoCloned`
 Emitted when a user clones the Fismo contract.
@@ -29,8 +29,8 @@ event FismoCloned(
 | `instance` | the cloned Fismo instance | `address`                  |
 
 ## Methods
-* [`cloneFismo`](#clonefismo)
-* [`init`](#init)
+* [`cloneFismo`](#-clonefismo)
+* [`init`](#-init)
 
 ## 🦠 `cloneFismo`
 Creates and returns the address of a Fismo clone.
@@ -39,7 +39,7 @@ Creates and returns the address of a Fismo clone.
 * Being called on a clone 
 
 #### Emits
-* [`FismoCloned`](#fismocloned)
+* [`FismoCloned`](#-fismocloned)
 
 #### Note
 * The owner of the new instance will be the caller of the `cloneFismo` method.

@@ -9,7 +9,7 @@ nav_order: 2
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0xcad6b576`
 
 ## Events
-* [`UserTransitioned`](#usertransitioned)
+* [`UserTransitioned`](#-usertransitioned)
 
 ## 💥 `UserTransitioned`
 Emitted when a user transitions from one State to another.
@@ -33,13 +33,13 @@ event UserTransitioned (
 | `response` | the id of the action invoked | [`FismoTypes.ActionResponse`](../domain/ActionResponse.md)  |
 
 ## Methods
-* [`invokeAction`](#invokeaction)
+* [`invokeAction`](#-invokeaction)
 
 ## 🦠 `invokeAction`
 Invoke an action on a configured Machine.
 
 #### Emits
-* [`UserTransitioned`](#usertransitioned)
+* [`UserTransitioned`](#-usertransitioned)
 
 #### Reverts if
 - Caller is not the machine's Operator address
