@@ -37,9 +37,7 @@ Guard.EXIT
 | 1     | `number` | 
 
 ### Types
-All guard types. 
-
-**Constant**
+All guard types.
 ```javascript
 Guard.Types
 ```

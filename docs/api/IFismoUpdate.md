@@ -205,9 +205,9 @@ external;
 Update an existing State in an existing Machine.
 
 #### Emits
-- [`StateAdded`](#stateadded)
+- [`StateUpdated`](#stateupdated)
 - [`TransitionAdded`](#transitionadded)
-- 
+
 #### Reverts if
 - Caller is not contract owner
 - Machine does not exist
