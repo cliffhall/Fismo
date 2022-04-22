@@ -12,7 +12,7 @@ nav_order: 3
 ## Events
 * [`OwnershipTransferred`](#ownershiptransferred)
 
-### OwnershipTransferred
+### 💥 `OwnershipTransferred`
 Emitted when ownership of the Fismo instance is transferred.
 
 #### Signature
@@ -33,7 +33,7 @@ event OwnershipTransferred (
 * [owner](#owner)
 * [transferOwnership](#transferownership)
 
-### owner
+### 🦠 `owner`
 Get the address of the Fismo instance's owner
 
 #### Signature
@@ -49,7 +49,7 @@ returns (address);
 |---------------|-------------------------------|---------|
 |       | the owner's address  | `address` |
 
-### transferOwnership
+### 🦠 `transferOwnership`
 Transfer ownership of the Fismo instance to another address.
 
 #### Emits

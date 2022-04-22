@@ -11,7 +11,7 @@ nav_order: 2
 ## Events
 * [`UserTransitioned`](#usertransitioned)
 
-### UserTransitioned
+### 💥 `UserTransitioned`
 Emitted when a user transitions from one State to another.
 
 #### Signature
@@ -35,7 +35,7 @@ event UserTransitioned (
 ## Methods
 * [`invokeAction`](#invokeaction)
 
-### invokeAction
+### 🦠 `invokeAction`
 Invoke an action on a configured Machine.
 
 #### Emits

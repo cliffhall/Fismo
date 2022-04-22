@@ -14,7 +14,7 @@ nav_order: 5
 * [`StateUpdated`](#stateupdated)
 * [`TransitionAdded`](#transitionadded)
 
-### 🦠 `MachineInstalled`
+### 💥 `MachineInstalled`
 Emitted when a new Machine is installed in the Fismo instance.
 
 #### Signature
@@ -31,7 +31,7 @@ event MachineInstalled (
 | `machineId`    | the machine's id        | `bytes4` | 
 | `machineName` | the name of the machine | `string` |
 
-### 🦠 `StateAdded`
+### 💥 `StateAdded`
 Emitted when a new State is added to a Fismo Machine.
 
 #### Note
@@ -54,7 +54,7 @@ event StateAdded (
 | `stateId`   | the state's id        | `bytes4` | 
 | `stateName` | the name of the state | `string` |
 
-### 🦠 `StateUpdated`
+### 💥 `StateUpdated`
 Emitted when an existing State is updated. 
 
 #### Signature
@@ -74,7 +74,7 @@ event StateUpdated (
 | `stateId`   | the state's id        | `bytes4` | 
 | `stateName` | the name of the state | `string` |
 
-### 🦠 `TransitionAdded`
+### 💥 `TransitionAdded`
 Emitted when a new Transition is added to an existing State. 
 
 #### Note
