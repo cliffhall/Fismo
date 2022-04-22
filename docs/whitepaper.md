@@ -44,11 +44,11 @@ This requires a developer to write function signatures in a very specific way, b
 * The Deterministic Selector Proxy concept is fully demonstrated. Implementations for other problem domains wherein the expected function selector can be determined from execution context alone could follow this pattern for implementation. For instance, a geo-tagging system could have selectors based on a global coordinate scheme rather than state machines.
 
 ### A broadly useful protocol 
-* As a result of the experiment, we ended up with a Finite State Machine protocol that can be used to simulate, oh, I don't know...
+* As a result of the experiment, we ended up with a protocol that can be used to simulate, oh, I don't know...
 
   - [Nearly any describable process](https://scholar.google.com/scholar?q=process+simulation+with+finite+state+machines&hl=en&as_sdt=0&as_vis=1&oi=scholart)
   - [Chatbots or non-player characters in games](https://www.hamidadelyar.com/blog/finite-state-machine-chatbot/)
-  - [Software architecture](328717831_Modeling_Software_with_Finite_State_Machines_A_Practical_Approach)
+  - [Software architecture](https://www.amazon.com/Modeling-Software-Finite-State-Machines/dp/0849380863)
   - [The behavior of living creatures](https://mind-simulation.com/en/blog/tech/using-finite-state-machines-to-model-behavior.html)
   - [Adventure game worlds with blockchain-native assets](https://www.mecs-press.org/ijieeb/ijieeb-v13-n4/IJIEEB-V13-N4-5.pdf)
 
