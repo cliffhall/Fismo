@@ -7,13 +7,16 @@ nav_order: 1
 # Guard
 * View Enum in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L13)
 * View Class [Guard.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/enum/Guard.js)
-* Transition Guard modes.
+* Transition guard types.
 
 ## Static Members
+### Constants
+* [ENTER](#enter)
+* [EXIT](#exit)
+* [Types](#types)
 
 ### ENTER
-
-**Constant**
+Enter guard type.
 ```javascript
 Guard.ENTER
 ```
@@ -23,7 +26,7 @@ Guard.ENTER
 | 0     | `number` | 
 
 ### EXIT
-**Constant**
+Enter guard type.
 ```javascript
 Guard.EXIT
 ```
@@ -33,12 +36,12 @@ Guard.EXIT
 |-------|--------|
 | 1     | `number` | 
 
-### Modes
-Guard modes. 
+### Types
+All guard types. 
 
 **Constant**
 ```javascript
-Guard.Modes
+Guard.Types
 ```
 
 | Value                       | Type  |

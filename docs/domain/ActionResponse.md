@@ -5,10 +5,9 @@ parent: Domain Model
 nav_order: 1
 ---
 # ActionResponse
-* View Struct [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L49)
+* View Struct in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L49)
 * View Class [ActionResponse.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/entity/ActionResponse.js)
-* Fismo Domain Entity: ActionResponse
-* The response from a successful state transition. 
+* The details of a successful State transition.
 * May include messages from Enter and/or Exit guard code.
 
 ## Constructor

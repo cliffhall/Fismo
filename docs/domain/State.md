@@ -7,7 +7,7 @@ nav_order: 4
 # State
 * View Struct in [FismoTypes.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/domain/FismoTypes.sol#L28)
 * View Class [State.js](https://github.com/cliffhall/Fismo/blob/main/scripts/domain/entity/State.js)
-* The complete on-chain definition of a State.
+* The complete on-chain definition of a state.
 
 ## Constructor
 **Signature**
