@@ -21,10 +21,10 @@ State transitions can be gated by the tokens a user holds, places the've been, o
 * 💥 Cheaply clone Fismo on Ethereum or deploy to any EVM
 * 💥 Configure and install a virtually unlimited number of machines
 * 💥 Use off-chain metadata to richly describe states in any 
-* 💥 Deploy custom logic for 
-  * Controlling access to your machines
-  * Initializing storage for newly installed machines
-  * Responding to any state transition
-  * Contextually filtering available actions for any state
+* 💥 Deploy custom logic for
+  - 👉 Controlling access to your machines
+  - 👉 Initializing storage for newly installed machines
+  - 👉 Responding to any state transition
+  - 👉 Contextually filtering available actions for any state
 
 ##  [![Created by Futurescale](images/created-by.png)](https://futurescale.com)
