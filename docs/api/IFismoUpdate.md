@@ -9,10 +9,10 @@ nav_order: 5
 * The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0xf8ebd091`
 
 ## Events
-* [`MachineInstalled`](#machineinstalled)
-* [`StateAdded`](#stateadded)
-* [`StateUpdated`](#stateupdated)
-* [`TransitionAdded`](#transitionadded)
+* [`MachineInstalled`](#-machineinstalled)
+* [`StateAdded`](#-stateadded)
+* [`StateUpdated`](#-stateupdated)
+* [`TransitionAdded`](#-transitionadded)
 
 ## 💥 `MachineInstalled`
 Emitted when a new Machine is installed in the Fismo instance.
@@ -100,19 +100,19 @@ event TransitionAdded (
 | `targetStateName` | the name of the target state | `string` |
 
 ## Methods
-* [`installMachine`](#installmachine)
-* [`installAndInitializeMachine`](#installandinitializemachine)
-* [`addState`](#addstate)
-* [`updateState`](#updatestate)
-* [`addTransition`](#addtransition)
+* [`installMachine`](#-installmachine)
+* [`installAndInitializeMachine`](#-installandinitializemachine)
+* [`addState`](#-addstate)
+* [`updateState`](#-updatestate)
+* [`addTransition`](#-addtransition)
 
 ## 🦠 `installMachine`
 Install a Fismo Machine that requires no initialization.
 
 #### Emits
-- [`MachineInstalled`](#machineinstalled)
-- [`StateAdded`](#stateadded)
-- [`TransitionAdded`](#transitionadded)
+- [`MachineInstalled`](#-machineinstalled)
+- [`StateAdded`](#-stateadded)
+- [`TransitionAdded`](#-transitionadded)
 
 #### Reverts if
 - Caller is not contract owner
@@ -138,9 +138,9 @@ external;
 Install a Fismo Machine and initialize it.
 
 #### Emits
-- [`MachineInstalled`](#machineinstalled)
-- [`StateAdded`](#stateadded)
-- [`TransitionAdded`](#transitionadded)
+- [`MachineInstalled`](#-machineinstalled)
+- [`StateAdded`](#-stateadded)
+- [`TransitionAdded`](#-transitionadded)
 
 #### Reverts if
 - Caller is not contract owner
@@ -172,8 +172,8 @@ external;
 Add a State to an existing Machine.
 
 #### Emits
-- [`StateAdded`](#stateadded)
-- [`TransitionAdded`](#transitionadded)
+- [`StateAdded`](#-stateadded)
+- [`TransitionAdded`](#-transitionadded)
 
 #### Reverts if
 - Caller is not contract owner
@@ -205,8 +205,8 @@ external;
 Update an existing State in an existing Machine.
 
 #### Emits
-- [`StateUpdated`](#stateupdated)
-- [`TransitionAdded`](#transitionadded)
+- [`StateUpdated`](#-stateupdated)
+- [`TransitionAdded`](#-transitionadded)
 
 #### Reverts if
 - Caller is not contract owner
@@ -243,7 +243,7 @@ external;
 Add a Transition to an existing State of an existing Machine.
 
 #### Emits
-* [`TransitionAdded`](#transitionadded)
+* [`TransitionAdded`](#-transitionadded)
 
 #### Reverts if
 - Caller is not contract owner
