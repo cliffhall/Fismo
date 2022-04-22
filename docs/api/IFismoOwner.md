@@ -30,8 +30,8 @@ event OwnershipTransferred (
 | `newOwner`    | the new owner of the Fismo instance      | `address` |
 
 ## Methods
-* [owner](#owner)
-* [transferOwnership](#transferownership)
+* [`owner`](#owner)
+* [`transferOwnership`](#transferownership)
 
 ## 🦠 `owner`
 Get the address of the Fismo instance's owner
