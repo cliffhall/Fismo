@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Developers
-nav_order: 7
+parent: Developers
+title: Dev Environment Setup
+nav_order: 1
 ---
 # Dev Environment Setup
 The stack is a simple one:
