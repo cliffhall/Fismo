@@ -11,7 +11,7 @@ nav_order: 1
 ## Events
 * [`FismoCloned`](#fismocloned)
 
-### 💥 `FismoCloned`
+## 💥 `FismoCloned`
 Emitted when a user clones the Fismo contract.
 
 #### Signature
@@ -32,7 +32,7 @@ event FismoCloned(
 * [`cloneFismo`](#clonefismo)
 * [`init`](#init)
 
-### 🦠 `cloneFismo`
+## 🦠 `cloneFismo`
 Creates and returns the address of a Fismo clone.
 
 #### Reverts if
@@ -66,7 +66,7 @@ returns (
 |----------|--------------------------------------|---------|
 | `instance` | the address of cloned Fismo instance | `address` |
 
-### 🦠 `init`
+## 🦠 `init`
 Initialize this Fismo instance.
 
 #### Reverts if

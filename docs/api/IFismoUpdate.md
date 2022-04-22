@@ -14,7 +14,7 @@ nav_order: 5
 * [`StateUpdated`](#stateupdated)
 * [`TransitionAdded`](#transitionadded)
 
-### 💥 `MachineInstalled`
+## 💥 `MachineInstalled`
 Emitted when a new Machine is installed in the Fismo instance.
 
 #### Signature
@@ -31,7 +31,7 @@ event MachineInstalled (
 | `machineId`    | the machine's id        | `bytes4` | 
 | `machineName` | the name of the machine | `string` |
 
-### 💥 `StateAdded`
+## 💥 `StateAdded`
 Emitted when a new State is added to a Fismo Machine.
 
 #### Note
@@ -54,7 +54,7 @@ event StateAdded (
 | `stateId`   | the state's id        | `bytes4` | 
 | `stateName` | the name of the state | `string` |
 
-### 💥 `StateUpdated`
+## 💥 `StateUpdated`
 Emitted when an existing State is updated. 
 
 #### Signature
@@ -74,7 +74,7 @@ event StateUpdated (
 | `stateId`   | the state's id        | `bytes4` | 
 | `stateName` | the name of the state | `string` |
 
-### 💥 `TransitionAdded`
+## 💥 `TransitionAdded`
 Emitted when a new Transition is added to an existing State. 
 
 #### Note
@@ -106,7 +106,7 @@ event TransitionAdded (
 * [`updateState`](#updatestate)
 * [`addTransition`](#addtransition)
 
-### 🦠 `installMachine`
+## 🦠 `installMachine`
 Install a Fismo Machine that requires no initialization.
 
 #### Emits
@@ -134,7 +134,7 @@ external;
 | ---------- |--------------------------------|----------|
 | `_machine` | the machine definition to add  | [`FismoTypes.Machine`](../domain/Machine.md)  |
 
-### 🦠 `installAndInitializeMachine`
+## 🦠 `installAndInitializeMachine`
 Install a Fismo Machine and initialize it.
 
 #### Emits
@@ -168,7 +168,7 @@ external;
 | `_initializer` | the address of the initializer contract | `address` | 
 | `_calldata` | the encoded function and args to pass in delegatecall | `bytes` |
 
-### 🦠 `addState`
+## 🦠 `addState`
 Add a State to an existing Machine.
 
 #### Emits
@@ -201,7 +201,7 @@ external;
 | `_machineId` | the id of the machine | `bytes4` | 
 | `_state` | the State to add      | [`FismoTypes.State`](../domain/State.md)  |
 
-### 🦠 `updateState`
+## 🦠 `updateState`
 Update an existing State in an existing Machine.
 
 #### Emits
@@ -239,7 +239,7 @@ external;
 | `_machineId` | the id of the machine | `bytes4` | 
 | `_state` | the state to update   | [`FismoTypes.State`](../domain/State.md)  |
 
-### 🦠 `addTransition`
+## 🦠 `addTransition`
 Add a Transition to an existing State of an existing Machine.
 
 #### Emits

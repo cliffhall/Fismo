@@ -12,7 +12,7 @@ nav_order: 4
 ## Methods
 * [`supportsInterface`](#supportsinterface)
 
-### 🦠 `supportsInterface`
+## 🦠 `supportsInterface`
 Query whether Fismo supports a given interface
 
 #### Signature
