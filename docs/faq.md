@@ -23,9 +23,10 @@ The Finite State Machine (FSM) is an abstract "machine" with various states and 
 As a software pattern, they are frequently used to map processes. A couple of common examples:
   * Software installation wizards; a series of forms or choices with validation rules controlling progress.
   * The myriad steps in a commercial home loan process, each of which has rules about moving to the next.
-  * Regular expression parsers
-  * Trading algorithms
-  * Issue management and workflow systems
+  * Regular expression parsing.
+  * Linquistic morphology.
+  * Trading algorithms.
+  * Issue management and workflow systems.
 
 ### What are some examples?
 Practically anything that can be described with a directed graph could be modeled as an FSM. States can represent...
