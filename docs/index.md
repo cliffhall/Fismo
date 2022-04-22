@@ -4,7 +4,7 @@ title: About
 nav_order: 1
 ---
 # The Finite State Machine Protocol 
-## for EVM Blockchains
+## For EVM Blockchains
 
 #### Consider this
 > There are standards for tokens that allow us to represent static things like currency, ownership, membership, and participation. 
