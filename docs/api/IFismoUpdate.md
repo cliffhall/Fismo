@@ -9,6 +9,10 @@ nav_order: 5
 * The ERC-165 identifier for this interface is `0xf8ebd091`
 
 ## Events
+* [MachineInstalled](#machineinstalled)
+* [StateAdded](#stateadded)
+* [StateUpdated](#stateupdated)
+* [TransitionAdded](#transitionadded)
 
 ### MachineInstalled
 Emitted when a new Machine is installed in the Fismo instance.
@@ -30,7 +34,7 @@ event MachineInstalled (
 ### StateAdded
 Emitted when a new State is added to a Fismo Machine.
 
-**Note**
+#### Note
 * May be emitted multiple times during the installation of a Machine.
 
 #### Signature
@@ -73,7 +77,7 @@ event StateUpdated (
 ### TransitionAdded
 Emitted when a new Transition is added to an existing State. 
 
-**Note**
+#### Note
 - May be emitted multiple times during the addition of a Machine or State.
 
 #### Signature
@@ -95,17 +99,22 @@ event TransitionAdded (
 | action | the name of the action       | string | 
 | targetStateName | the name of the target state | string |
 
-## Functions
+## Methods
+* [installMachine](#installmachine)
+* [installAndInitializeMachine](#installandinitializemachine)
+* [addState](#addstate)
+* [updateState](#updatestate)
+* [addTransition](#addtransition)
 
 ### installMachine
 Install a Fismo Machine that requires no initialization.
 
-**Emits**
+#### Emits
 - [`MachineInstalled`](#machineinstalled)
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 
-**Reverts if**
+#### Reverts if
 - Caller is not contract owner
 - Operator address is zero
 - Machine id is not valid for Machine name
@@ -119,7 +128,7 @@ function installMachine (
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name     | Description                    | Type     |
 | ---------- |--------------------------------|----------|
@@ -128,12 +137,12 @@ external;
 ### installAndInitializeMachine
 Install a Fismo Machine and initialize it.
 
-**Emits**
+#### Emits
 - [`MachineInstalled`](#machineinstalled)
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 
-**Reverts if**
+#### Reverts if
 - Caller is not contract owner
 - Operator address is zero
 - Machine id is not valid for Machine name
@@ -151,7 +160,7 @@ function installAndInitializeMachine (
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name    | Description                       | Type  |
 | --------- |-----------------------------------|-------|
@@ -162,17 +171,17 @@ external;
 ### addState
 Add a State to an existing Machine.
 
-**Emits**
+#### Emits
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 
-**Reverts if**
+#### Reverts if
 - Caller is not contract owner
 - State id is invalid for State name
 - Machine does not exist
 - Any contained transition is invalid
 
-**Note**
+#### Note
 - The new state will not be reachable by any action
 - Add one or more transitions to other states, targeting the new state
 
@@ -185,7 +194,7 @@ function  addState (
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
@@ -195,24 +204,24 @@ external;
 ### updateState
 Update an existing State in an existing Machine.
 
-**Emits**
+#### Emits
 - [`StateAdded`](#stateadded)
 - [`TransitionAdded`](#transitionadded)
 - 
-**Reverts if**
+#### Reverts if
 - Caller is not contract owner
 - Machine does not exist
 - State does not exist
 - State id is invalid
 - Any contained transition is invalid
 
-**Use this when**
+#### Note
+* State name and id cannot be changed.
+
+#### Use this when
 - Adding more than one transition
 - Removing one or more transitions
 - Changing exitGuarded, enterGuarded, guardLogic params
-
-**Note**
-* State name and id cannot be changed.
 
 #### Signature
 ```solidity
@@ -223,7 +232,7 @@ function updateState (
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|
@@ -233,17 +242,17 @@ external;
 ### addTransition
 Add a Transition to an existing State of an existing Machine.
 
-**Emits**
+#### Emits
 * [`TransitionAdded`](#transitionadded)
 
-**Reverts if**
+#### Reverts if
 - Caller is not contract owner
 - Machine does not exist
 - State does not exist
 - Action id is invalid
 - Target state id is invalid
 
-**Use this when**
+#### Use this when
 - Adding only a single transition (use updateState for multiple)
 
 #### Signature
@@ -256,7 +265,7 @@ function addTransition (
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name      | Description           | Type   |
 |-----------|-----------------------|--------|

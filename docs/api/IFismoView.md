@@ -8,7 +8,11 @@ nav_order: 6
 * View Interface [IFismoView.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoView.sol)
 * The ERC-165 identifier for this interface is `0x691b5451`
 
-## Functions
+## Methods
+* [getLastPosition](#getlastposition)
+* [getPositionHistory](#getpositionhistory)
+* [getUserState](#getuserstate)
+
 ### getLastPosition
 Get the last recorded position of the given user.
 
@@ -25,13 +29,13 @@ returns (
 );
 ```
 
-**Arguments**
+#### Arguments
 
 | Name       | Description                              | Type    |
 | ----------- |------------------------------------------|---------|
 | _user | the address of the user | address | 
 
-**Return Values**
+#### Returns
 
 | Name        | Description                                | Type                |
 | ------------- |--------------------------------------------|---------------------|
@@ -54,13 +58,13 @@ returns (
 );
 ```
 
-**Arguments**
+#### Arguments
 
 | Name       | Description                              | Type    |
 | ----------- |------------------------------------------|---------|
 | _user | the address of the user | address | 
 
-**Return Values**
+#### Returns
 
 | Name    | Description                   | Type |
 | ------- |-------------------------------|------|
@@ -70,10 +74,10 @@ returns (
 ### getUserState
 Get the current state for a given user in a given machine.
 
-**Reverts if**
+#### Reverts if
 - Machine does not exist
 
-**Note**
+#### Note
 - If the user has not interacted with the machine, the initial state for the machine is returned.
 
 #### Signature
@@ -89,14 +93,14 @@ returns (
 );
 ```
 
-**Arguments**
+#### Arguments
 
 | Name      | Description           | Type    |
 | ---------- |-----------------------|---------|
 | _user | the address of the user | address | 
 | _machineId | the id of the machine | bytes4 | 
 
-**Return Values**
+#### Returns
 
 | Name  | Type | Description                          |
 |-------|---|--------------------------------------|

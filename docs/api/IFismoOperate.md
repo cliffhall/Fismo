@@ -9,6 +9,7 @@ nav_order: 2
 * The ERC-165 identifier for this interface is `0xcad6b576`
 
 ## Events
+* [UserTransitioned](#usertransitioned)
 
 ### UserTransitioned
 Emitted when a user transitions from one State to another.
@@ -31,15 +32,16 @@ event UserTransitioned (
 | actionId | the id of the action invoked | bytes4  | 
 | response | the id of the action invoked | FismoTypes.ActionResponse  |
 
-## Functions
+## Methods
+* [invokeAction](#invokeaction)
 
 ### invokeAction
 Invoke an action on a configured Machine.
 
-**Emits**
+#### Emits
 * [`UserTransitioned`](#usertransitioned)
 
-**Reverts if**
+#### Reverts if
 - Caller is not the machine's Operator address
 - Machine does not exist
 - Action is not valid for the user's current State in the given Machine
@@ -58,7 +60,7 @@ returns(
 );
 ```
 
-**Arguments**
+#### Arguments
 
 | Name      | Description                    | Type     |
 | ----------- |--------------------------------|----------|
@@ -66,7 +68,7 @@ returns(
 | _machineId | the machine's id               | bytes4  | 
 | _actionId | the id of the action to invoke | bytes4  | 
 
-**Return Values**
+#### Returns
 
 | Name        | Description                                | Type          |
 | ------------- |--------------------------------------------|-------------|

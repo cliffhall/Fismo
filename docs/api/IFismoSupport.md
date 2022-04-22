@@ -9,7 +9,8 @@ nav_order: 4
 * This is the ERC-165 Interface Detection Standard
 * The ERC-165 identifier for this interface is `0x01ffc9a7`
 
-## Functions
+## Methods
+* [supportsInterface](#supportsinterface)
 
 ### supportsInterface
 Query whether Fismo supports a given interface
@@ -24,7 +25,7 @@ view
 returns (bool);
 ```
 
-**Arguments**
+#### Arguments
 
 | Name           | Description                    | Type   |
 |----------------|--------------------------------|--------|

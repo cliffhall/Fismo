@@ -9,6 +9,7 @@ nav_order: 1
 * The ERC-165 identifier for this interface is `0x08a9f5ec`
 
 ## Events
+* [FismoCloned](#fismocloned)
 
 ### FismoCloned
 Emitted when a user clones the Fismo contract.
@@ -27,18 +28,19 @@ event FismoCloned(
 | owner    | the owner's wallet        | address                  | 
 | instance | the cloned Fismo instance | address                  |
 
-## Functions
+## Methods
+* [cloneFismo](#clonefismo)
 
 ### cloneFismo
 Creates and returns the address of a Fismo clone.
 
-**Reverts if**
+#### Reverts if
 * Being called on a clone 
 
-**Emits**
+#### Emits
 * [`FismoCloned`](#fismocloned)
 
-**Note**
+#### Note
 * The owner of the new instance will be the caller of the `cloneFismo` method.
 * No storage data from the original contract is visible to the cloned instance.
 * The instance is actually an [ERC-1167 Minimal Proxy](https://eips.ethereum.org/EIPS/eip-1167) that delegates all of its calls to the Fismo implementation contract it is cloned from, while maintaining its own storage. 
@@ -57,7 +59,7 @@ returns (
 );
 ```
 
-**Return Values**
+#### Returns
 
 | Name     | Description                          | Type    |
 |----------|--------------------------------------|---------|
@@ -67,10 +69,10 @@ returns (
 ### init
 Initialize this Fismo instance.
 
-**Reverts if**
+#### Reverts if
 * Owner is not zero address
 
-**Note**
+#### Note
 * Must be external to be called from the Fismo factory.
 * Is called immediately after cloning by `cloneFismo` and can not be called again.
 
@@ -82,7 +84,7 @@ function init(
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name     | Description                          | Type    |
 |----------|--------------------------------------|---------|

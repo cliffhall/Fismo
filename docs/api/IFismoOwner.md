@@ -10,6 +10,7 @@ nav_order: 3
 * The ERC-165 identifier for this interface is `0x7f5828d0`
 
 ## Events
+* [OwnershipTransferred](#ownershiptransferred)
 
 ### OwnershipTransferred
 Emitted when ownership of the Fismo instance is transferred.
@@ -28,7 +29,9 @@ event OwnershipTransferred (
 | previousOwner    | the previous owner of the Fismo instance | address |
 | newOwner    | the new owner of the Fismo instance      | address |
 
-## Functions
+## Methods
+* [owner](#owner)
+* [transferOwnership](#transferownership)
 
 ### owner
 Get the address of the Fismo instance's owner
@@ -49,10 +52,10 @@ returns (address);
 ### transferOwnership
 Transfer ownership of the Fismo instance to another address.
 
-**Emits**
+#### Emits
 - [`OwnershipTransferred`](#ownershiptransferred)
 
-**Reverts if**
+#### Reverts if
 - Caller is not contract owner
 - New owner is zero address
 
@@ -64,7 +67,7 @@ function transferOwnership (
 external;
 ```
 
-**Arguments**
+#### Arguments
 
 | Name           | Description                    | Type    |
 |----------------|--------------------------------|---------|
