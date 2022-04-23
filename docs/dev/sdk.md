@@ -23,7 +23,34 @@ The Fismo SDK (currently WIP) will contain everything you need to:
 npm install fismo
 ```
 
-### Browser Example (ES6)
+### Solidity Usage
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8.0;
+
+import "Fismo/contracts/IFismoView.sol";
+import "Fismo/contracts/FismoTypes.sol";
+
+contract MyFismoClient {
+    
+    IFismoView fismoView;
+    bytes4 machineId;
+    constructor(address _fismoAddress, bytes4 _machineId) {
+        fismo = IFismoView(_fismoAddress);
+        machineId = _machineId;
+    }
+
+    function getAvailableActions(address _user) external view {
+        fismoView.getUserState(_user, _machineId);
+        ...
+    }
+    
+}
+
+```
+
+### Browser (ES6) Usage
 ```html
 <html>
 <head>
@@ -59,7 +86,7 @@ npm install fismo
 </html>
 ```
 
-### Node.js Example (commonjs)
+### Node.js (commonjs) Usage
 ```javascript
 const { 
     ActionResponse, 
