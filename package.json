@@ -1,6 +1,6 @@
 {
   "name": "fismo",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "Fismo: The Finite State Machine Protocol for EVM Blockchains",
   "author": "Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)",
   "license": "BSD-3-Clause",
@@ -25,12 +25,13 @@
     "contracts/components/**/*",
     "contracts/domain/**/*",
     "contracts/interfaces/I*.sol",
+    "sdk/*",
     "sdk/**/*",
     "scripts/domain/**/*"
   ],
   "scripts": {
     "build:contracts": "npx hardhat compile",
-    "build:sdk": "webpack --mode production && rm -rf sdk/node && cp -R scripts/domain sdk/node && mv sdk/node/index.js sdk/node/fismo.js",
+    "build:sdk": "./build-sdk.sh",
     "test": "npx hardhat test",
     "lint": "solhint 'contracts/**/*.sol'",
     "size": "npx hardhat size-contracts",
