@@ -11,9 +11,9 @@ nav_order: 1
 
 ## Static Members
 #### Constants
-* [`ENTER`](#-enter)
-* [`EXIT`](#-exit)
-* [`Types`](#-types)
+* [`ENTER`](#⚙️-enter)
+* [`EXIT`](#⚙️-exit)
+* [`Types`](#⚙️-types)
 
 ## ⚙️ `ENTER`
 Enter guard type.
