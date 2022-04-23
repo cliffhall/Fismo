@@ -29,8 +29,8 @@ npm install fismo
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.0;
 
-import "Fismo/contracts/IFismoView.sol";
-import "Fismo/contracts/FismoTypes.sol";
+import "fismo/contracts/interfaces/IFismoView.sol";
+import "fismo/contracts/domain/FismoTypes.sol";
 
 contract MyFismoClient {
     
