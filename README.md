@@ -32,10 +32,10 @@ Done or in progress are:
 - ✅ Contextually filter actions on guard contracts
 - ✅ Enable self-targeting transitions to inspect the action
 - ✅ Optimize contract size
-- ✅ Publish [NPM package](https://www.npmjs.com/package/fismo) with contracts and domain for browser + node
+- ✅ Publish [NPM package](https://www.npmjs.com/package/fismo) with utilities and domain model for browser + node
 - ✅ Publish documentation to [Fismo website](https://fismo.xyz)
 - 👉 Deploy to testnets, mainnet, sidechains
-- 👉 Write "How to create, install, and operate machines on Fismo" doc
 - 👉 Moar examples!
+- 👉 Write "How to create, install, and operate machines on Fismo" doc
 
 ##  [![Created by Futurescale](docs/images/created-by.png)](https://futurescale.com)
