@@ -41,6 +41,6 @@ All guard types.
 Guard.Types
 ```
 
-| Value                       | Type  |
-|-----------------------------|-------|
-| [ `Guard.ENTER`, `Guard.EXIT` ] | `Array` | 
+| Value                                                   | Type  |
+|---------------------------------------------------------|-------|
+| [ [`Guard.ENTER`](#%EF%B8%8F-enter), [`Guard.EXIT`](#%EF%B8%8F-exit) ] | `Array` | 
