@@ -33,6 +33,6 @@ const {
     validateId,
     validateNameLax,
     validateNameStrict
-} = require("fismo");
+} = require("fismo/node/fismo.js");
 
 ```
