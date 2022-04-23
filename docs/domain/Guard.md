@@ -26,7 +26,7 @@ Guard.ENTER
 | 0     | `number` | 
 
 ## ⚙️ `EXIT`
-Enter guard type.
+Exit guard type.
 ```javascript
 Guard.EXIT
 ```
