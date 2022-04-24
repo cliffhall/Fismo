@@ -13,7 +13,7 @@ module.exports = {
         },
 
         "eth-test": {  // Ethereum Rinkeby testnet
-            "mnemonic": "rug exhibit tip arrange blind live outside reunion dignity beef hybrid cage",
+            "mnemonic": "your twelve word mnemonic phrase here...",
             "txNode": "https://rinkeby.infura.io/v3/[API_KEY_HERE]",
             "explorer": "https://rinkeby.etherscan.io/",
             "gasLimit": "5000000",
@@ -25,7 +25,7 @@ module.exports = {
         },
 
         "eth-main": {  // Ethereum Homestead mainnet
-            "mnemonic": "", 
+            "mnemonic": "your twelve word mnemonic phrase here...",
             "txNode": "https://mainnet.infura.io/v3/[API_KEY_HERE]",
             "explorer": "https://etherscan.io/",
             "gasLimit": "5000000",
@@ -37,7 +37,7 @@ module.exports = {
         },
 
         "poly-test": {   // Polygon Mumbai testnet
-            "mnemonic": "rug exhibit tip arrange blind live outside reunion dignity beef hybrid cage",
+            "mnemonic": "your twelve word mnemonic phrase here...",
             "txNode": "https://rpc-mumbai.maticvigil.com/v1/[API_KEY_HERE]",
             "explorer": "https://mumbai.polygonscan.com/",
             "gasLimit": "10000000",
@@ -49,7 +49,7 @@ module.exports = {
         },
 
         "poly-main": {   // Polygon Matic mainnet
-            "mnemonic": "",
+            "mnemonic": "your twelve word mnemonic phrase here...",
             "txNode": "https://rpc-mainnet.maticvigil.com/v1/[API_KEY_HERE]",
             "explorer": "https://polygonscan.com/",
             "gasLimit": "10000000",
