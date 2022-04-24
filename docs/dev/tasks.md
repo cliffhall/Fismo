@@ -2,7 +2,7 @@
 layout: default
 parent: Developers
 title: Development Tasks
-nav_order: 2
+nav_order: 3
 ---
 # Development Tasks
 Everything required to build, test, analyse, and deploy is available as an NPM script.

@@ -2,7 +2,7 @@
 layout: default
 parent: Developers
 title: Environment Setup
-nav_order: 1
+nav_order: 2
 ---
 # Environment Setup
 For the Fismo project, the stack is a simple one:
