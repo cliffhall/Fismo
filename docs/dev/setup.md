@@ -5,7 +5,7 @@ title: Environment Setup
 nav_order: 1
 ---
 # Environment Setup
-The stack is a simple one:
+For the Fismo project, the stack is a simple one:
 * Solidity
 * JavaScript
 * Node/NPM
@@ -13,13 +13,18 @@ The stack is a simple one:
 * Waffle
 * Ethers
 
+### Clone the Fismo repository
+```shell
+git clone https://github.com/cliffhall/Fismo.git
+```
+
 ### Install Node (also installs NPM)
 * Use the latest [LTS (long term support) version](https://nodejs.org/en/download/).
 
 ### Install required Node modules
 All NPM resources are project local. No global installs required.
 
-```
+```shell
 cd path/to/fismo
 npm install
 ```
