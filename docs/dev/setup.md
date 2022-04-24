@@ -13,7 +13,10 @@ For the Fismo project, the stack is a simple one:
 * Waffle
 * Ethers
 
-### Clone the Fismo repository
+### Download or clone the Fismo repository
+* [Download a zip file](https://github.com/cliffhall/Fismo/archive/refs/heads/main.zip) of the head of branch `main`.
+* Or clone the repo using `git`:
+
 ```shell
 git clone https://github.com/cliffhall/Fismo.git
 ```
