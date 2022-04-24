@@ -22,7 +22,7 @@ git clone https://github.com/cliffhall/Fismo.git
 * Use the latest [LTS (long term support) version](https://nodejs.org/en/download/).
 
 ### Install required Node modules
-All NPM resources are project local. No global installs required.
+* All NPM modules are project local. No global installs required.
 
 ```shell
 cd path/to/fismo
