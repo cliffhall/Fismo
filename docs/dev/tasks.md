@@ -5,6 +5,10 @@ title: Development Tasks
 nav_order: 3
 ---
 # Development Tasks
+**NOTE:** _Only applicable if working on, testing, extending, or auditing Fismo. If you just want to build cool stuff, you probably want the [SDK](sdk.md)._
+
+## NPM Scripts
+
 Everything required to build, test, analyse, and deploy is available as an NPM script.
 * Scripts are defined in [`package.json`](https://github.com/cliffhall/Fismo/blob/main/package.json#L31).
 * Most late-model IDEs such as Webstorm have an NPM tab to let you view and launch these

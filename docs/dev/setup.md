@@ -5,6 +5,9 @@ title: Environment Setup
 nav_order: 2
 ---
 # Environment Setup
+**NOTE:** _Only necessary if working on, testing, extending, or auditing Fismo. If you just want to build cool stuff, you probably want the [SDK](sdk.md)._
+
+### Stack
 For the Fismo project, the stack is a simple one:
 * Solidity
 * JavaScript
