@@ -4,9 +4,10 @@ const hre = require("hardhat");
 const ethers = hre.ethers;
 const network = hre.network.name;
 const {deployFismo} = require("./deploy-fismo");
+const {deployOperator} = require("./deploy-operator");
 const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify");
-const {NightClub, StopWatch, LockableDoor} = require("../config/lab-examples");
+const {LockableDoor} = require("../config/lab-examples");
 
 async function main() {
 
@@ -31,14 +32,22 @@ async function main() {
     [fismo] = await deployFismo(gasLimit);
     deploymentComplete('Fismo', fismo.address, [], contracts);
 
+    // Deploy basic Operator
+    [basicOperator] = await deployOperator(fismo, gasLimit);
+    deploymentComplete('Operator', basicOperator.address, [], contracts);
+
     // Deploy examples
-    const examples = [NightClub, StopWatch, LockableDoor];
+    const examples = [LockableDoor];
     for (const example of examples) {
         console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
         try {
-            [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, example, gasLimit);
-            console.log(`✅ ${machine.name} machine added to Fismo contract.`);
-            deploymentComplete(example.operator, operator.address, operatorArgs, contracts);
+            [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, example, basicOperator, gasLimit);
+            console.log(`✅  ${machine.name} machine added to Fismo contract.`);
+            if (operator) {
+                deploymentComplete(example.operator, operator.address, operatorArgs, contracts);
+            } else {
+                console.log(`👉 Basic Operator used: ${basicOperator.address}`);
+            }
             guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
         } catch (e) {
             console.log(`❌  ${e}`);

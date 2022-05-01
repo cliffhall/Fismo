@@ -12,7 +12,7 @@ function delay(ms) {
 
 function deploymentComplete(name, address, args, contracts) {
     contracts.push({name, address, args});
-    console.log(`✅ ${name} deployed to: ${address}`);
+    console.log(`✅  ${name} deployed to: ${address}`);
 }
 
 async function verifyOnEtherscan(contract) {

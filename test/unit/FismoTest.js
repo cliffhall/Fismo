@@ -48,7 +48,6 @@ describe("Fismo", function() {
         user = accounts[1];
         operator = accounts[2];   // operator can be an EOA, which helps with unit testing
         guardLogic = accounts[3]; // just need a valid address for the guard logic since we won't invoke it in units
-        user = accounts[4];
 
         // A simple, unguarded, single-state machine definition
         // The single state is the initial state, and its transitions are re-entrant

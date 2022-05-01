@@ -4,7 +4,7 @@ Fismo Machines are a way of simulating processes, branching narratives, maps of 
 
 ![Fismo](docs/images/fismo-machine.png)
 
-_Yo dawg, we heard you like machines, so we put this machine in our state machine docs._ It represents the machines you will install in our machine. Incidentally, It was created by a machine using [Midjourney](https://twitter.com/midjourney).
+_Yo dawg, we heard you like machines, so we put this machine in our state machine docs._ It represents the machines you will install in your instance of our machine. Incidentally, It was created by a machine using [Midjourney](https://twitter.com/midjourney).
 
 ## 📖 [Documentation](https://docs.fismo.xyz)
 ## 📋 Status
@@ -13,7 +13,9 @@ _Yo dawg, we heard you like machines, so we put this machine in our state machin
 Done or in progress are:
 - ✅ Science! a functional [Deterministic Selector Proxy](docs/whitepaper.md#deterministic-selector-proxy) implementation
 - ✅ A robust [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) protocol
-- ✅ Minimal clones for cheap deployments (~$50 vs ~$3000)!!!
+- ✅ Minimal clones of Fismo for cheap deployments (~$45 vs ~$2300)!!!
+- ✅ Minimal clones of basic Operator for cheap deployments (~$45 vs ~$350)!!!
+
 - ✅ Initialization and access of machine-specific storage slots
 - ✅ Clear and complete interface documentation and inline code comments
 - ✅ Separation of concerns into inheritance tree for easy comprehension and maintenance
