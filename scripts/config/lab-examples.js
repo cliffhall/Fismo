@@ -291,7 +291,6 @@ exports.NightClub = {
 
 exports.StopWatch = {
   machine: StopWatchMachine,
-  operator: "StopWatchOperator",
   guards: [
     {
       states: ["Ready", "Running", "Paused"],
@@ -303,7 +302,6 @@ exports.StopWatch = {
 
 exports.LockableDoor = {
   machine: LockableDoorMachine,
-  operator: "LockableDoorOperator",
   initializer: {
     contractName: "LockableDoorGuards",
     signature: "initialize(address)"

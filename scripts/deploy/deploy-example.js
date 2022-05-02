@@ -12,13 +12,14 @@ const { deployTransitionGuards } = require('./deploy-guards');
  * @param owner - the owner address
  * @param fismoAddress - the fismo contract
  * @param example - the example descriptor. see {lab-examples.js}
+ * @param basicOperator - the basic Operator contract (for examples with no custom operator)
  * @param gasLimit - gasLimit for transactions
  *
  * @returns {Promise<(*|*|*)[]>}
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-async function deployExample(owner, fismoAddress, example, gasLimit) {
+async function deployExample(owner, fismoAddress, example, basicOperator, gasLimit) {
 
     // Get the deployed Fismo contract
     const fismo = await ethers.getContractAt("Fismo", fismoAddress);
@@ -29,14 +30,35 @@ async function deployExample(owner, fismoAddress, example, gasLimit) {
     // Deploy operator, guards, and add machine to Fismo
     if (machine.isValid()) {
 
-        // Deploy operator
         const operatorArgs = [fismo.address];
-        const Operator = await ethers.getContractFactory(example.operator);
-        const operator = await Operator.deploy(...operatorArgs, {gasLimit});
-        await operator.deployed();
+        let operator;
 
-        // Update machine with operator address
-        machine.operator = operator.address;
+        if (example.operator) { // Deploy explicitly defined example operators
+
+            // Deploy example operator
+            const Operator = await ethers.getContractFactory(example.operator);
+            operator = await Operator.deploy(...operatorArgs, {gasLimit});
+            await operator.deployed();
+
+            // Update machine with operator address
+            machine.operator = operator.address;
+
+        } else if (!example.operator && !basicOperator) { // Deploy basic Operator
+
+            // Deploy basic Operator (for tests; real deployments will install basic Operator first)
+            const Operator = await ethers.getContractFactory("Operator");
+            operator = await Operator.deploy(...operatorArgs, {gasLimit});
+            await operator.deployed();
+
+            // Update machine with operator address
+            machine.operator = operator.address;
+
+        } else { // Standard operator has already been deployed and this example uses it
+
+            // Update machine with operator address
+            machine.operator = basicOperator.address;
+
+        }
 
         // Deploy transition guards
         const guards = await deployTransitionGuards(example, gasLimit);

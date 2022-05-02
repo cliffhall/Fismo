@@ -23,7 +23,7 @@ const { ActionResponse } = require("../../scripts/domain");
  *  Integrates:
  *  - Fismo
  *  - LockableDoorGuards (initializer and guard)
- *  - LockableDoorOperator
+ *  - Operator (basic operator contract)
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -47,14 +47,14 @@ describe("Lockable Door Machine", function() {
 
         // Deploy Example
         example = LockableDoor;
-        [operator, operatorArgs, guards, machine, tokens] = await deployExample(deployer.address, fismo.address, example, gasLimit);
+        [operator, operatorArgs, guards, machine, tokens] = await deployExample(deployer.address, fismo.address, example,null ,gasLimit);
 
         // Get the Fismo20 token, which is being used as a key
         keyToken = tokens[0];
 
     });
 
-    context("📋 LockableDoorOperator", async function () {
+    context("📋 Machine-specific Tests", async function () {
 
         beforeEach( async function () {
 
