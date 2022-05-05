@@ -31,7 +31,7 @@ describe("Operator", function() {
     let fismo, machine, machineObj, response;
     let action, stateName, stateId, actionId;
     let actionResponse, actionResponseStruct;
-    let implementation, instance, tx, event, clonedBy, IsOperator;
+    let implementation, instance, tx, event, IsOperator;
 
     beforeEach( async function () {
 
@@ -207,7 +207,7 @@ describe("Operator", function() {
 
     })
 
-    // Tests to be run against Fismo and Fismo clone
+    // Tests to be run against Operator and Operator clone
     function testOperator() {
 
         context("📋 Operating methods", async function () {

@@ -33,8 +33,8 @@ async function main() {
     deploymentComplete('Fismo', fismo.address, [], contracts);
 
     // Deploy basic Operator
-    [basicOperator] = await deployOperator(fismo, gasLimit);
-    deploymentComplete('Operator', basicOperator.address, [], contracts);
+    [basicOperator, operatorArgs] = await deployOperator(fismo, gasLimit);
+    deploymentComplete('Operator', basicOperator.address, operatorArgs, contracts);
 
     // Deploy examples
     const examples = [LockableDoor];

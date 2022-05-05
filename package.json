@@ -38,6 +38,7 @@
     "deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
     "deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.main.txt",
     "deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.txt",
+    "deploy:eth:test-2": "npx hardhat run --network eth-test-2 scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.2.txt",
     "deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.main.txt"
   },
   "devDependencies": {
