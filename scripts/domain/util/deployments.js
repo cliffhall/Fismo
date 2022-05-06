@@ -1,9 +1,10 @@
 /**
- * Deployed and cloneable Fismo project contract addresses
+ * Official deployed and cloneable Fismo project contract addresses
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
-exports.Deployments = {
+
+exports.deployments = {
 
     // Ethereum Homestead Mainnet
     "homestead": {

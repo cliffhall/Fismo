@@ -22,7 +22,7 @@
     "state machine"
   ],
   "files": [
-   "contracts/domain/**/*",
+    "contracts/domain/**/*",
     "contracts/interfaces/I*.sol",
     "sdk"
   ],

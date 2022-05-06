@@ -4,6 +4,11 @@ const Machine = require("./entity/Machine");
 const Position = require("./entity/Position");
 const State = require("./entity/State");
 const Transition = require("./entity/Transition");
+
+const {
+    deployments
+} = require("./util/deployments");
+
 const {
     nameToId,
     validateId,
@@ -21,5 +26,6 @@ module.exports = {
     nameToId,
     validateId,
     validateNameLax,
-    validateNameStrict
+    validateNameStrict,
+    deployments
 };
