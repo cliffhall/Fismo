@@ -6,7 +6,7 @@ const environments = require('../../environments');
 const gasLimit = environments.gasLimit;
 
 // Revert Reasons
-const { RevertReasons } = require("../../scripts/config/revert-reasons");
+const { RevertReasons } = require("../../scripts/domain/util/revert-reasons");
 
 // Scripts and data
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');

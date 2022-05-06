@@ -7,7 +7,7 @@ const {deployFismo} = require("./deploy-fismo");
 const {deployOperator} = require("./deploy-operator");
 const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify");
-const {LockableDoor} = require("../config/lab-examples");
+const {LockableDoor} = require("../lab/lab-examples");
 
 async function main() {
 

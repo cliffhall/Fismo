@@ -6,8 +6,16 @@ const State = require("./entity/State");
 const Transition = require("./entity/Transition");
 
 const {
-    deployments
+    InterfaceIds
+} = require("./util/supported-interfaces");
+
+const {
+    Deployments
 } = require("./util/deployments");
+
+const {
+    RevertReasons
+} = require("./util/revert-reasons");
 
 const {
     nameToId,
@@ -23,9 +31,11 @@ module.exports = {
     Position,
     State,
     Transition,
+    InterfaceIds,
+    RevertReasons,
+    Deployments,
     nameToId,
     validateId,
     validateNameLax,
-    validateNameStrict,
-    deployments
+    validateNameStrict
 };

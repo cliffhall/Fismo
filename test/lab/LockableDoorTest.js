@@ -6,10 +6,10 @@ const gasLimit = environments.gasLimit;
 const { expect } = require("chai");
 
 // Revert Reasons
-const { RevertReasons } = require("../../scripts/config/revert-reasons");
+const { RevertReasons } = require("../../scripts/domain/util/revert-reasons");
 
 // Scripts and data
-const { LockableDoor } = require("../../scripts/config/lab-examples");
+const { LockableDoor } = require("../../scripts/lab/lab-examples");
 const { deployExample } = require("../../scripts/deploy/deploy-example");
 const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
 const { nameToId } =  require('../../scripts/domain');

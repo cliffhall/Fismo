@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
 const { assert } = require("chai");
-const { InterfaceIds } = require('../../scripts/config/supported-interfaces.js');
+const { InterfaceIds } = require('../../scripts/domain/util/supported-interfaces.js');
 
 /**
  *  Test the SupportedInterfaces contract

@@ -4,7 +4,7 @@
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
 
-exports.deployments = {
+exports.Deployments = {
 
     // Ethereum Homestead Mainnet
     "homestead": {
