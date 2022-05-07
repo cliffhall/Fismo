@@ -9,7 +9,7 @@ _Yo dawg, we heard you like machines, so we put this machine in our state machin
 ## 📖 [Documentation](https://docs.fismo.xyz)
 ## 🧪 [Fismology Lab](https://github.com/cliffhall/Fismology)
 ## 📋 Status
-### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![93%](https://progress-bar.dev/94/?title=Progress&width=100&color=0c0c0c)
+### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![95%](https://progress-bar.dev/95/?title=Progress&width=100&color=0c0c0c)
 
 Done or in progress are:
 - ✅ Science! a functional [Deterministic Selector Proxy](docs/whitepaper.md#deterministic-selector-proxy) implementation
@@ -38,8 +38,7 @@ Done or in progress are:
 - ✅ Fully permissive cloneable Operator for cheap deployments (~$45 vs ~$350)!!!
 - ✅ Deploy to testnets (Rinkeby, Mumbai)
 - ✅ Add deployments to SDK
-- 👉 Standalone demo project using SDK only
+- ✅ Standalone demo project using SDK only
 - 👉 Deploy to mainnets (Homestead, Matic)
-- 👉 Write "How to" doc with demo as subject
 
 ##  [![Created by Futurescale](docs/images/created-by.png)](https://futurescale.com)
