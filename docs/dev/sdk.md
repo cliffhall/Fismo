@@ -36,7 +36,7 @@ The Fismo SDK contains everything you need to build:
     * ✅ Solidity contract ABI for each supported Fismo interface
 
 #### Other Resources
-[Fismology](https://github.com/cliffhall/Fismology) is a separate project for exploring how to build on the Fismo SDK. It uses the NPM package and uses both the included CommonJS and ES6 versions for demonstrating scripting and in-browser interaction, respectively.
+[Fismology](https://github.com/cliffhall/Fismology) is a separate project for exploring how to build on the Fismo SDK. It uses the NPM package and demonstrates both the included CommonJS and ES6 versions for scripting and in-browser interaction, respectively.
 
 ### Solidity Usage
 
