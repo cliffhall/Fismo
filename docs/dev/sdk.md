@@ -15,12 +15,12 @@ npm install fismo
 #### Open Alpha - May change frequently!
 The Fismo SDK contains everything you need to build:
 * 📜 Solidity 
-  * 📂 `fismo/contracts/interfaces/`
-    * ✅ All [supported interfaces](../api/index.md)
   * 📂 `fismo/contracts/domain/`
     * ✅ Revert reasons
     * ✅ Structs and enums
     * ✅ Fismo storage slot struct and position
+  * 📂 `fismo/contracts/interfaces/`
+    * ✅ All [supported interfaces](../api/index.md)
 * 📜 JavaScript 
   * 📂 `fismo/sdk/browser/index.js`
     * ✅ A CommonJS version for use in the browser
