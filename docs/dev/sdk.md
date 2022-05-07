@@ -6,7 +6,13 @@ nav_order: 1
 has_toc: false
 ---
 # Fismo SDK
-#### Open Alpha - May change frequently
+### Get the NPM Package
+💾 [`Fismo SDK`](https://www.npmjs.com/package/fismo)
+```shell
+npm install fismo
+```
+### Contents
+#### Open Alpha - May change frequently!
 The Fismo SDK contains everything you need to build:
 * 📜 Solidity 
   * 📂 `fismo/contracts/interfaces/`
@@ -32,12 +38,6 @@ The Fismo SDK contains everything you need to build:
 #### Other Resources
 [Fismology](https://github.com/cliffhall/Fismology) is a separate project for exploring how to build on the Fismo SDK. It uses the NPM package and uses both the included CommonJS and ES6 versions for demonstrating scripting and in-browser interaction, respectively.
 
-### Get the NPM Package
-💾 [`Fismo SDK`](https://www.npmjs.com/package/fismo)
-```shell
-npm install fismo
-```
-
 ### Solidity Usage
 
 ```solidity
@@ -57,7 +57,7 @@ contract MyFismoClient {
     }
 
     function getAvailableActions(address _user) external view {
-        fismoView.getUserState(_user, _machineId);
+        State currentState = fismoView.getUserState(_user, machineId);
         ...
     }
     
