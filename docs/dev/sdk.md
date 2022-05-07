@@ -44,10 +44,11 @@ The Fismo SDK contains everything you need to build:
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.0;
 
-import "fismo/contracts/interfaces/IFismoView.sol";
-import "fismo/contracts/domain/FismoTypes.sol";
+import {IFismoView} from "fismo/contracts/interfaces/IFismoView.sol";
+import {FismoConstants} from "fismo/contracts/domain/FismoConstants.sol";
+import {FismoTypes} from "fismo/contracts/domain/FismoTypes.sol";
 
-contract MyFismoClient {
+contract MyFismoClient is FismoTypes, FismoConstants {
     
     IFismoView fismoView;
     bytes4 machineId;
