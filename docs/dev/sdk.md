@@ -6,19 +6,34 @@ nav_order: 1
 has_toc: false
 ---
 # Fismo SDK
-#### In progress
-The Fismo SDK (currently WIP) will contain everything you need to:
-* ✅ Create Solidity contracts that communicate with Fismo
-* ✅ Interact with Fismo from a browser or Node.js.
-* ✅ Create and validate Fismo domain entities.
-* 👉 Clone a Fismo instance on a supported chain.
-* 👉 Install and optionally initialize storage for your own machines.
-* 👉 Add more states and transitions to your installed machines.
-* 👉 Invoke actions on your machines.
-* 👉 Query a user's current state, last position, and position history.
+#### Open Alpha - May change frequently
+The Fismo SDK contains everything you need to build:
+* 📜 Solidity 
+  * 📂 `fismo/contracts/interfaces/`
+    * ✅ All [supported interfaces](../api/index.md)
+    * ✅ All Fismo-specific supported interfaces
+  * 📂 `fismo/contracts/domain/`
+    * ✅ Revert reasons
+    * ✅ Structs and enums
+    * ✅ Fismo storage slot struct and position
+* 📜 JavaScript 
+  * 📂 `fismo/sdk/browser/index.js`
+    * ✅ A CommonJS version for use in the browser
+  * 📂 `fismo/sdk/node/index.js`
+    * ✅ An ES6 version for use in Node.js
+  * ✅ Self-validating domain entities in JavaScript
+  * ✅ Utilities for encoding names to IDs
+  * ✅ All Fismo contract revert reasons
+  * ✅ Official, cloneable contract addresses for supported chains
+* 📜 JSON
+  * 📂 `fismo/fismo-abi.json`
+    * ✅ Solidity contract ABI for each supported Fismo interface
+
+#### Other Resources
+[Fismology](https://github.com/cliffhall/Fismology) is a separate project for exploring how to build on the Fismo SDK. It uses the NPM package and uses both the included CommonJS and ES6 versions for demonstrating scripting and in-browser interaction, respectively.
 
 ### Get the NPM Package
-💾 [`Fismo`](https://www.npmjs.com/package/fismo)
+💾 [`Fismo SDK`](https://www.npmjs.com/package/fismo)
 ```shell
 npm install fismo
 ```
@@ -54,7 +69,7 @@ contract MyFismoClient {
 ```html
 <html>
 <head>
-    <script src="node_modules/fismo/browser/index.js"></script>
+    <script src="node_modules/fismo/sdk/browser/index.js"></script>
 </head>
 <body onload="testFismoConstructors()">
 <script>
@@ -88,18 +103,21 @@ contract MyFismoClient {
 
 ### Node.js (commonjs) Usage
 ```javascript
-const { 
-    ActionResponse, 
+const {
+    ActionResponse,
     Guard,
     Machine,
     Position,
     State,
     Transition,
+    InterfaceIds,
+    RevertReasons,
+    Deployments,
     nameToId,
     validateId,
     validateNameLax,
     validateNameStrict
-} = require("fismo/node");
+} = require("fismo/sdk/node");
 
 let a = new ActionResponse();
 console.log(a);
