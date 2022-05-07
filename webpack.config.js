@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     entry: "./scripts/domain/index.js",
     output: {
-        filename: "fismo.js",
+        filename: "index.js",
         path: path.resolve("sdk/browser"),
         library: 'Fismo',
         libraryTarget: 'var'

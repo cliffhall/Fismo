@@ -54,7 +54,7 @@ contract MyFismoClient {
 ```html
 <html>
 <head>
-    <script src="node_modules/Fismo/browser/fismo.js"></script>
+    <script src="node_modules/fismo/browser/index.js"></script>
 </head>
 <body onload="testFismoConstructors()">
 <script>
@@ -99,7 +99,7 @@ const {
     validateId,
     validateNameLax,
     validateNameStrict
-} = require("./node_modules/Fismo/node/fismo.js");
+} = require("fismo/node");
 
 let a = new ActionResponse();
 console.log(a);

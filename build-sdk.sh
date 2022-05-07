@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+# Clean sdk folder
+echo "🗑 Cleaning SDK folder..."
+rm -rf sdk 2> /dev/null
+mkdir sdk 2> /dev/null
+
 # Build contracts and extract ABI from artifacts
 npx hardhat run scripts/util/extract-abi.js
 
@@ -11,4 +16,3 @@ webpack --mode production
 echo "🏭 Copying commonjs (Node) lib..."
 rm -rf sdk/node
 cp -R scripts/domain sdk/node
-mv sdk/node/index.js sdk/node/fismo.js
