@@ -7,6 +7,7 @@ Fismo Machines are a way of simulating processes, branching narratives, maps of 
 _Yo dawg, we heard you like machines, so we put this machine in our state machine docs._ It represents your instance of our machine that you will install your machines into. Incidentally, It was created by a machine using [Midjourney](https://twitter.com/midjourney).
 
 ## 📖 [Documentation](https://docs.fismo.xyz)
+## 🧪 [Fismology Lab](https://docs.fismo.xyz/dev/sdk.html)
 ## 📋 Status
 ### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![93%](https://progress-bar.dev/94/?title=Progress&width=100&color=0c0c0c)
 
