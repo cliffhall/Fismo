@@ -17,7 +17,6 @@ The Fismo SDK contains everything you need to build:
 * 📜 Solidity 
   * 📂 `fismo/contracts/interfaces/`
     * ✅ All [supported interfaces](../api/index.md)
-    * ✅ All Fismo-specific supported interfaces
   * 📂 `fismo/contracts/domain/`
     * ✅ Revert reasons
     * ✅ Structs and enums
