@@ -4,7 +4,7 @@ Fismo machines are a way of simulating processes, branching narratives, maps of 
 
 ![Fismo](docs/images/fismo-machine.png)
 
-_Yo dawg, we heard you like machines, so we put this machine in our state machine docs._ It is the machine that you will clone and install your own machines into. Bristling with potential, innit? Incidentally, It was created by another machine, using [Midjourney](https://twitter.com/midjourney). 🤖
+_Yo dawg, we heard you like machines, so we put this machine in our state machine docs._ It is the machine that you will clone and install your own machines into. Practically _bristling_ with potential, amirite? Incidentally, It was created by another machine, using [Midjourney](https://twitter.com/midjourney). 🤖
 
 ## 📖 [Documentation](https://docs.fismo.xyz)
 ## 🧪 [Fismology Lab](https://github.com/cliffhall/Fismology)
