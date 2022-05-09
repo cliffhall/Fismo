@@ -61,8 +61,8 @@ class Machine {
         [operator, id, name, initialStateId, uri, states] = struct;
         return Machine.fromObject({
             operator,
-            id,
-            initialStateId: initialStateId,
+            id: id.toString(),
+            initialStateId: initialStateId.toString(),
             name,
             uri,
             states: states.map(state => State.fromStruct(state))

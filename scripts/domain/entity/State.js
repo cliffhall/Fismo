@@ -58,11 +58,10 @@ class State {
     static fromStruct(struct) {
         let id, name, exitGuarded, enterGuarded, guardLogic, transitions;
 
-
         // destructure struct
         [id, name, exitGuarded, enterGuarded, guardLogic, transitions] = struct;
         return State.fromObject({
-            id,
+            id: id.toString(),
             name,
             exitGuarded,
             enterGuarded,
