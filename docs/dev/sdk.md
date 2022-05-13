@@ -15,6 +15,8 @@ npm install fismo
 #### Open Alpha - May change frequently!
 The Fismo SDK contains everything you need to build:
 * 📜 Solidity 
+  * 📂 `fismo/contracts/components/`
+    * ✅ The functional components of Fismo
   * 📂 `fismo/contracts/domain/`
     * ✅ Revert reasons
     * ✅ Structs and enums
