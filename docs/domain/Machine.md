@@ -24,13 +24,13 @@ constructor (
 
 #### Parameters
 
-| Name           | Description                                      | Type   |
-|----------------|--------------------------------------------------|--------|
-| `operator`    | address of approved operator contract            | `string` |
-| `name`         | keccak256 hash of machine name                   | `string` |
-| `states` | all of the valid States for this machine         | `Array`  |
-| `initialStateId`  | keccak256 hash of initial state name             | `string` |
-| `uri`    | off-chain URI of metadata describing the machine | `string` |
+| Name           | Description                                                        | Type      |
+|----------------|--------------------------------------------------------------------|-----------|
+| `operator`    | address of approved operator contract                              | `string`  |
+| `name`         | name of machine. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`  |
+| `states` | all of the valid States for this machine                           | `State[]` |
+| `initialStateId`  | keccak256 hash of initial state name                               | `string`  |
+| `uri`    | off-chain URI of metadata describing the machine                   | `string`  |
 
 ## Static Members
 #### Methods

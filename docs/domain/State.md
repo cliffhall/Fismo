@@ -24,13 +24,13 @@ constructor (
 
 #### Parameters
 
-| Name          | Description                                                       | Type    |
-|---------------|-------------------------------------------------------------------|---------|
-| `name`          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`  |
-| `exitGuarded`   | is there an exit guard?                                           | `boolean` |
-| `enterGuarded`  | is there an enter guard?                                          | `boolean` |
-| `transitions`   | all of the valid Transitions from this state                      | `Array`   |
-| `guardLogic`    | address of guard logic contract  | `string`  |
+| Name          | Description                                                       | Type           |
+|---------------|-------------------------------------------------------------------|----------------|
+| `name`          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`       |
+| `exitGuarded`   | is there an exit guard?                                           | `boolean`      |
+| `enterGuarded`  | is there an enter guard?                                          | `boolean`      |
+| `transitions`   | all of the valid Transitions from this state                      | `Transition[]` |
+| `guardLogic`    | address of guard logic contract  | `string`       |
 
 ## Static Members
 #### Methods

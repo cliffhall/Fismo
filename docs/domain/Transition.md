@@ -14,23 +14,17 @@ nav_order: 5
 
 ```javascript
 constructor (
-    name, 
-    exitGuarded, 
-    enterGuarded, 
-    transitions, 
-    guardLogic
+    action,
+    targetStateName
 )
 ```
 
 #### Parameters
 
-| Name          | Description                                                       | Type    |
-|---------------|-------------------------------------------------------------------|---------|
-| `name`          | name of state. begin with letter, no spaces, a-z, A-Z, 0-9, and _ | `string`  |
-| `exitGuarded`   | is there an exit guard?                                           | `boolean` |
-| `enterGuarded`  | is there an enter guard?                                          | `boolean` |
-| `transitions`   | all of the valid Transitions from this state                      | `Array`   |
-| `guardLogic`    | address of guard logic contract  | `string`  |
+| Name               | Description                                                       | Type    |
+|--------------------|-------------------------------------------------------------------|---------|
+| `action`           | Action name. no spaces, only a-z, A-Z, 0-9, and _ | `string`  |
+| `targetStateName`  | Target State name. begin with letter, no spaces, a-z, A-Z, 0-9, and _      | `string` |
 
 ## Static Members
 #### Methods
