@@ -4,8 +4,9 @@ const fs = require("fs");
 async function main() {
 
     // Sup?
-    let err, interfaces = {};
-    let artifactPath = "artifacts/contracts/interfaces";
+    let err, target, artifact, contracts = {};
+    let artifactPath = "artifacts/contracts";
+    let interfacePath = artifactPath+"/interfaces";
     let sdkFile = "sdk/fismo-abi.json"
 
     // Compile everything (in case run by node)
@@ -16,20 +17,27 @@ async function main() {
     console.log(`\n⛏  Extracting ABI for Fismo interfaces...`);
 
     // Folders in this path are named <filename>.sol and contain .dbg.json and .json files
-    fs.readdirSync(artifactPath).forEach(folder => {
+    fs.readdirSync(interfacePath).forEach(folder => {
 
         // In each .sol folder, read the .json file and extract the abi
         if (folder.endsWith('.sol')) {
-            const target = `${artifactPath}/${folder}/${folder.split('.')[0]+".json"}`;
-            const artifact = JSON.parse(fs.readFileSync(target, "utf8"));
-            interfaces[artifact.contractName] = artifact.abi;
+            target = `${interfacePath}/${folder}/${folder.split('.')[0]+".json"}`;
+            artifact = JSON.parse(fs.readFileSync(target, "utf8"));
+            contracts[artifact.contractName] = artifact.abi;
             console.log(`✅  ${artifact.contractName}`);
         }
     });
 
+    // Get Operator contract
+    console.log(`\n⛏  Extracting ABI for Operator contract...`);
+    target = `${artifactPath}/Operator.sol/Operator.json`;
+    artifact = JSON.parse(fs.readFileSync(target, "utf8"));
+    contracts[artifact.contractName] = artifact.abi;
+    console.log(`✅  ${artifact.contractName}`);
+
     // Flatten interface abi object to JSON
     console.log(`💾 Writing ABI to SDK...`);
-    const abi = JSON.stringify(interfaces);
+    const abi = JSON.stringify(contracts);
     fs.writeFileSync(sdkFile, abi, (response) => err = response);
     console.log((err) ? `❌ ${err}` : `✅  ABI extracted!`);
 }

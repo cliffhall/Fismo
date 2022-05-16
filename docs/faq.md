@@ -9,8 +9,10 @@ has_toc: true
 * [What can they usefully map to?](#what-are-state-machines-used-for)
 * [What do states represent?](#what-do-states-represent)
 * [How is Fismo different?](#how-is-fismo-different)
+* [What is a Fismo Machine?](#what-is-a-fismo-machine)
 * [What's in a machine configuration?](#whats-in-a-fismo-machine-configuration)
 * [What does Fismo.sol actually do?](#what-does-fismosol-actually-do)
+
 
 ### What is a finite state machine?
 The Finite State Machine (FSM) is an abstract "machine" with various states and rules for moving between them. The primary features are:
@@ -38,13 +40,19 @@ Practically anything that can be described with a directed graph could be modele
 ![Lockable Door FSM example](images/LockableDoorFSM.png)
 
 ### How is Fismo different?
-Most FSM implementations are set up to track state for a single machine.
+Most FSM implementations are set up to track state for a thing, not those who interact with the thing.
+
 For instance, even though multiple people may interact with an FSM-based auction contract, it is the current state of 
 the auction that's being tracked (pending, open, closed). What the users are allowed to do is based on the state of 
 the machine. The user has no "state" to speak of.
 
-Fismo flips all this on its head. It tracks the state of _each user in every machine they interact with_.
+Fismo flips all this on its head. It tracks the state of _each user in every machine they interact with_. 
 
+So, Anna can be in state A of the machine while Bob is in state B. Each user's path through the machine is tracked and their current position in any machine can be queried as well as the last machine and state they visited.
+
+Just as token-gating allows any contract to make decisions based on a user's token holdings, they can now also make decisions based upon the states of the machines that a user has visited or is currently in.
+
+### What is a Fismo Machine
 A Machine is a combination of static configuration and guard logic that governs the current state of a user on that machine.
 
 One part is purely configuration...
