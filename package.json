@@ -34,6 +34,7 @@
     "test": "npx hardhat test",
     "lint": "solhint 'contracts/**/*.sol'",
     "size": "npx hardhat size-contracts",
+    "coverage": "npx hardhat coverage",
     "npm:publish:dry-run": "npm publish --dry-run",
     "npm:publish": "npm publish",
     "deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",

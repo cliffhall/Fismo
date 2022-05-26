@@ -15,7 +15,7 @@ const { deployFismo } = require('../../scripts/deploy/deploy-fismo');
 const { nameToId } =  require('../../scripts/domain');
 
 // Domain entities
-const { ActionResponse } = require("../../scripts/domain");
+const { ActionResponse, State } = require("../../scripts/domain");
 
 /**
  *  Test interacting with the LockableDoor machine
@@ -32,7 +32,7 @@ describe("Lockable Door Machine", function() {
     // Common vars
     let accounts, deployer, user, operator, operatorArgs, guards, tokens, keyToken;
     let fismo, example, machine, machineId, action, actionId, stateId;
-    let actionResponse, actionResponseStruct, amountToMint;
+    let actionResponse, actionResponseStruct, amountToMint, stateStruct, state;
     let priorState, nextState, exitMessage, enterMessage;
 
     beforeEach( async function () {
@@ -66,7 +66,7 @@ describe("Lockable Door Machine", function() {
 
         });
 
-        context("👉 invokeAction()", async function () {
+        context("👉 Operator.invokeAction()", async function () {
 
             it("Should invoke action 'Open' for initial state 'Closed'", async function () {
 
@@ -273,6 +273,101 @@ describe("Lockable Door Machine", function() {
                         .to.revertedWith(RevertReasons.NO_SUCH_ACTION);
 
                 });
+
+            });
+
+        });
+
+        context("👉 Fismo.getUserState()", async function () {
+
+            it("Should not suppress any actions when user is in the 'Closed' state", async function () {
+
+                // ---------------------------------------------------------------------------------------------
+                // DEFAULT STATE IS LOCKED. ACTIONS ARE LOCK AND OPEN.
+                // ---------------------------------------------------------------------------------------------
+
+                // Request the user state for the LockedDoor machine
+                stateStruct = await fismo.getUserState(user.address, machine.id);
+                state = State.fromStruct(stateStruct);
+                expect(state.isValid()).is.true;
+
+                // Should have two actions
+                expect(state.transitions.length).equals(2);
+
+            });
+
+            it("Should suppress the 'Unlock' action if caller does not have a key token balance", async function () {
+
+                // ---------------------------------------------------------------------------------------------
+                // LOCK THE DOOR FIRST
+                // ---------------------------------------------------------------------------------------------
+
+                // Initial state is "Closed", action is "Lock", target state is "Locked"
+                action = "Lock";
+                actionId = nameToId(action);
+                priorState = "Closed";
+                nextState = "Locked";
+
+                // Invoke the action via the Operator
+                await operator.connect(user).invokeAction(machine.id, actionId);
+
+                // ---------------------------------------------------------------------------------------------
+                // DO NOT GIVE USER THE KEY
+                // ---------------------------------------------------------------------------------------------
+
+                // ---------------------------------------------------------------------------------------------
+                // NOW CHECK THE USER STATE
+                // ---------------------------------------------------------------------------------------------
+
+                // Request the user state for the LockedDoor machine
+                stateStruct = await fismo.getUserState(user.address, machine.id);
+                state = State.fromStruct(stateStruct);
+                expect(state.isValid()).is.true;
+
+                // Expect that the Lock action has been suppressed
+                // In this case Lock is the only action, so length should be 0
+                expect(state.transitions.length).equals(0);
+
+            });
+
+            it("Should not suppress the 'Unlock' action if caller has a key token balance", async function () {
+
+                // ---------------------------------------------------------------------------------------------
+                // LOCK THE DOOR FIRST
+                // ---------------------------------------------------------------------------------------------
+
+                // Initial state is "Closed", action is "Lock", target state is "Locked"
+                action = "Lock";
+                actionId = nameToId(action);
+                priorState = "Closed";
+                nextState = "Locked";
+
+                // Invoke the action via the Operator
+                await operator.connect(user).invokeAction(machine.id, actionId);
+
+                // ---------------------------------------------------------------------------------------------
+                // GIVE USER THE KEY
+                // ---------------------------------------------------------------------------------------------
+
+                // One key
+                amountToMint = "1";
+
+                // Mint the key token and check for the event
+                await expect(keyToken.connect(user).mintSample(user.address, amountToMint))
+                    .to.emit(keyToken, 'Transfer')
+                    .withArgs(ethers.constants.AddressZero, user.address, amountToMint);
+
+                // ---------------------------------------------------------------------------------------------
+                // NOW CHECK THE USER STATE
+                // ---------------------------------------------------------------------------------------------
+
+                // Request the user state for the LockedDoor machine
+                stateStruct = await fismo.getUserState(user.address, machine.id);
+                state = State.fromStruct(stateStruct);
+                expect(state.isValid()).is.true;
+
+                // Expect that the Lock transition has been suppressed
+                expect(state.transitions.reduce((ok, transition) => ok && transition.action === "Unlock", true)).is.true;
 
             });
 

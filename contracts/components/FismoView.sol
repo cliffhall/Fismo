@@ -102,13 +102,16 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
         // If state is guarded, it may filter
         if (state.exitGuarded || state.enterGuarded) {
 
-            // Remove any contextually suppressed actions
-            bool[] memory states;
+            // Visit each transition
             uint256 count;
-            Transition[] memory transitions;
-            for (uint256 i = 0; i < state.transitions.length; i++) {
+            uint256 numTransitions = state.transitions.length;
+            bool[] memory states = new bool[](numTransitions);
+            Transition[] memory outgoing = new Transition[](numTransitions);
+            for (uint256 i = 0; i < numTransitions; i++) {
 
                 // Find out if the action is suppressed
+                // N.B. Done as a static call so this check be done in a view method, because
+                //      the isActionSuppressed method makes a delegate call so it cannot be view
                 (bool success, bytes memory response) = address(this).staticcall(
                     abi.encodeWithSelector(
                             this.isActionSuppressed.selector,
@@ -120,14 +123,24 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
                     )
                 );
 
-                states[i] = success && !(bool(abi.decode(response, (bool))));
+                // Interpret response
+                bool isSuppressed = success && (bool(abi.decode(response, (bool))));
+                states[i] = isSuppressed;
 
-                if (bool(states[i])) {
-                    transitions[count] = state.transitions[i];
+                // Add unsuppressed actions to outgoing list
+                if (!isSuppressed) {
+                    outgoing[count] = state.transitions[i];
                     count++;
                 }
+
             }
-            state.transitions = transitions;
+
+            // Replace the state's transition list with the filtered list if needed
+            if (numTransitions > count) {
+                Transition[] memory filtered = new Transition[](count);
+                for (uint256 i = 0; i < count; i++) { filtered[i] = outgoing[i]; }
+                state.transitions = filtered;
+            }
 
         }
 
