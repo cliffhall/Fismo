@@ -38,3 +38,29 @@ for verification on the block explorer. Waiting for verification result...
 
 Successfully verified contract Operator on Etherscan.
 https://rinkeby.etherscan.io/address/0x352821Dfe89651c52f4037ca84c6C87aa0523D10#code
+
+Compiling 41 files with 0.8.9
+Solidity compilation finished successfully
+Nothing to compile
+--------------------------------------------------------------------------------
+💥 Deploy Fismo and Examples
+--------------------------------------------------------------------------------
+⛓  Network: eth-test
+📅 Fri May 27 2022 11:42:02 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+✅  Fismo deployed to: 0x96Aa224465F038784F05C70fE45ea5802e4F790C
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+Nothing to compile
+Compiling 1 file with 0.8.9
+Successfully submitted source code for contract
+contracts/Fismo.sol:Fismo at 0x96Aa224465F038784F05C70fE45ea5802e4F790C
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Fismo on Etherscan.
+https://rinkeby.etherscan.io/address/0x96Aa224465F038784F05C70fE45ea5802e4F790C#code
+
+

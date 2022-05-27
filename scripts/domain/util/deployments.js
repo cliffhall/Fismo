@@ -14,7 +14,7 @@ exports.Deployments = {
 
     // Rinkeby Ethereum Testnet
     "rinkeby": {
-        "Fismo": "0xBe9abF280110A73eE6969a906DB6b51eF7C8d2D2",
+        "Fismo": "0x96Aa224465F038784F05C70fE45ea5802e4F790C",
         "Operator": "0x352821Dfe89651c52f4037ca84c6C87aa0523D10"
     },
 
@@ -32,8 +32,8 @@ exports.Deployments = {
 
     // Polygon Mumbai Testnet
     "mumbai": {
-        "Fismo": "0x607A97Aa9f523c20c0cd5B49EF8C1450F8678b67",
-        "Operator": "0xc763AdBb1a274787b7404f20E9a7590F76f368AE"
+        "Fismo": "0x14c61D163920CD8d5923dE78BC15d20181fB4915",
+        "Operator": "0x11dB48D91DD4CC6d69858557b55DADa7F45e562D"
     }
 
 };
