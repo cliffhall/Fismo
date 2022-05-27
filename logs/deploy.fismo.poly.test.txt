@@ -1,28 +1,15 @@
-Compiling 55 files with 0.8.9
-Solidity compilation finished successfully
-Nothing to compile
 --------------------------------------------------------------------------------
-💥 Deploy Fismo and Examples
+💥 Deploy and verify Fismo / Operator pair
 --------------------------------------------------------------------------------
-⛓  Network: poly-test
-📅 Thu May 05 2022 18:44:47 GMT-0400 (Eastern Daylight Time)
+⛓ Network: poly-test (mumbai)
+📅 Fri May 27 2022 14:07:48 GMT-0400 (Eastern Daylight Time)
 🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
 --------------------------------------------------------------------------------
-Nothing to compile
---------------------------------------------------------------------------------
-💥 Deploy Fismo and Examples
---------------------------------------------------------------------------------
-⛓  Network: poly-test
-📅 Thu May 05 2022 19:08:31 GMT-0400 (Eastern Daylight Time)
-🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
---------------------------------------------------------------------------------
-✅  Fismo deployed to: 0x607A97Aa9f523c20c0cd5B49EF8C1450F8678b67
-✅  Operator deployed to: 0xc763AdBb1a274787b7404f20E9a7590F76f368AE
-
-📦 EXAMPLE: LockableDoor
-✅  LockableDoor machine added to Fismo contract.
-👉 Basic Operator used: 0xc763AdBb1a274787b7404f20E9a7590F76f368AE
-✅  LockableDoorGuards deployed to: 0xa5947FED4e0D88bAF12559e55D4903d59CC7dDD1
+✅ Fismo deployed to: 0xaBF03a7c6fd22d5661aFb27940AC3f7C74e59D30
+✅ Operator deployed to: 0x4158D41Cc1E4C1962E0f9FEbEDf85679989D351A
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.mumbai.Fismo to "0xaBF03a7c6fd22d5661aFb27940AC3f7C74e59D30"
+➡️ Set Deployments.mumbai.Operator to "0x4158D41Cc1E4C1962E0f9FEbEDf85679989D351A"
 ⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
 🔍 Verifying contracts on Etherscan...
 
@@ -30,68 +17,20 @@ Nothing to compile
 Nothing to compile
 Compiling 1 file with 0.8.9
 Successfully submitted source code for contract
-contracts/Fismo.sol:Fismo at 0x607A97Aa9f523c20c0cd5B49EF8C1450F8678b67
+contracts/Fismo.sol:Fismo at 0xaBF03a7c6fd22d5661aFb27940AC3f7C74e59D30
 for verification on the block explorer. Waiting for verification result...
 
 Successfully verified contract Fismo on Etherscan.
-https://mumbai.polygonscan.com/address/0x607A97Aa9f523c20c0cd5B49EF8C1450F8678b67#code
-
-📋 Verifying Operator
-Compiling 55 files with 0.8.9
-Solidity compilation finished successfully
-Compiling 1 file with 0.8.9
-Successfully submitted source code for contract
-contracts/Operator.sol:Operator at 0xc763AdBb1a274787b7404f20E9a7590F76f368AE
-for verification on the block explorer. Waiting for verification result...
-
-Successfully verified contract Operator on Etherscan.
-https://mumbai.polygonscan.com/address/0xc763AdBb1a274787b7404f20E9a7590F76f368AE#code
-
-📋 Verifying LockableDoorGuards
-Nothing to compile
-Compiling 1 file with 0.8.9
-Successfully submitted source code for contract
-contracts/lab/LockableDoor/LockableDoorGuards.sol:LockableDoorGuards at 0xa5947FED4e0D88bAF12559e55D4903d59CC7dDD1
-for verification on the block explorer. Waiting for verification result...
-
-Successfully verified contract LockableDoorGuards on Etherscan.
-https://mumbai.polygonscan.com/address/0xa5947FED4e0D88bAF12559e55D4903d59CC7dDD1#code
-
-
-
-Compiling 41 files with 0.8.9
-Solidity compilation finished successfully
-Nothing to compile
---------------------------------------------------------------------------------
-💥 Deploy Fismo and Examples
---------------------------------------------------------------------------------
-⛓  Network: poly-test
-📅 Fri May 27 2022 11:26:22 GMT-0400 (Eastern Daylight Time)
-🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
---------------------------------------------------------------------------------
-✅  Fismo deployed to: 0x14c61D163920CD8d5923dE78BC15d20181fB4915
-✅  Operator deployed to: 0x11dB48D91DD4CC6d69858557b55DADa7F45e562D
-⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
-🔍 Verifying contracts on Etherscan...
-
-📋 Verifying Fismo
-Nothing to compile
-Compiling 1 file with 0.8.9
-Successfully submitted source code for contract
-contracts/Fismo.sol:Fismo at 0x14c61D163920CD8d5923dE78BC15d20181fB4915
-for verification on the block explorer. Waiting for verification result...
-
-Successfully verified contract Fismo on Etherscan.
-https://mumbai.polygonscan.com/address/0x14c61D163920CD8d5923dE78BC15d20181fB4915#code
+https://mumbai.polygonscan.com/address/0xaBF03a7c6fd22d5661aFb27940AC3f7C74e59D30#code
 
 📋 Verifying Operator
 Compiling 41 files with 0.8.9
 Solidity compilation finished successfully
 Compiling 1 file with 0.8.9
 Successfully submitted source code for contract
-contracts/Operator.sol:Operator at 0x11dB48D91DD4CC6d69858557b55DADa7F45e562D
+contracts/Operator.sol:Operator at 0x4158D41Cc1E4C1962E0f9FEbEDf85679989D351A
 for verification on the block explorer. Waiting for verification result...
 
 Successfully verified contract Operator on Etherscan.
-https://mumbai.polygonscan.com/address/0x11dB48D91DD4CC6d69858557b55DADa7F45e562D#code
+https://mumbai.polygonscan.com/address/0x4158D41Cc1E4C1962E0f9FEbEDf85679989D351A#code
 

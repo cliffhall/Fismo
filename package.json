@@ -1,6 +1,6 @@
 {
   "name": "fismo",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Fismo: The Finite State Machine Protocol for EVM Blockchains",
   "author": "Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)",
   "license": "BSD-3-Clause",
@@ -37,12 +37,12 @@
     "coverage": "npx hardhat coverage",
     "npm:publish:dry-run": "npm publish --dry-run",
     "npm:publish": "npm publish",
-    "deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-all.js",
-    "deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.test.txt",
-    "deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.poly.main.txt",
-    "deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.txt",
-    "deploy:eth:test-2": "npx hardhat run --network eth-test-2 scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.test.2.txt",
-    "deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy/deploy-and-verify-all.js >> logs/deploy.fismo.eth.main.txt"
+    "deploy:local": "npx hardhat run --network hardhat scripts/deploy/deploy-and-verify-labs.js",
+    "deploy:poly:test": "npx hardhat run --network poly-test scripts/deploy/deploy-and-verify-pair.js >> logs/deploy.fismo.poly.test.txt",
+    "deploy:poly:main": "npx hardhat run --network poly-main scripts/deploy/deploy-and-verify-pair.js >> logs/deploy.fismo.poly.main.txt",
+    "deploy:eth:test": "npx hardhat run --network eth-test scripts/deploy/deploy-and-verify-pair.js >> logs/deploy.fismo.eth.test.txt",
+    "deploy:eth:test-2": "npx hardhat run --network eth-test-2 scripts/deploy/deploy-and-verify-pair.js >> logs/deploy.fismo.eth.test.2.txt",
+    "deploy:eth:main": "npx hardhat run --network eth-main scripts/deploy/deploy-and-verify-pair.js >> logs/deploy.fismo.eth.main.txt"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

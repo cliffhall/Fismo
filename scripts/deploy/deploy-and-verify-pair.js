@@ -3,16 +3,12 @@ const gasLimit = environments.gasLimit;
 const hre = require("hardhat");
 const ethers = hre.ethers;
 const network = hre.network.name;
+const chain = environments.network[network].chain;
 const {deployFismo} = require("./deploy-fismo");
 const {deployOperator} = require("./deploy-operator");
-const {deployExample} = require("./deploy-example");
 const {delay, deploymentComplete, verifyOnEtherscan} = require("./report-verify");
-const {LockableDoor} = require("../lab/lab-examples");
 
 async function main() {
-
-    // Compile everything (in case run by node)
-    await hre.run('compile');
 
     // Deployed contracts
     let contract, contracts = [];
@@ -23,36 +19,25 @@ async function main() {
 
     // Report header
     const divider = "-".repeat(80);
-    console.log(`${divider}\n💥 Deploy Fismo and Examples\n${divider}`);
-    console.log(`⛓  Network: ${network}\n📅 ${new Date()}`);
+    console.log(`${divider}\n💥 Deploy and verify Fismo / Operator pair\n${divider}`);
+    console.log(`⛓  Network: ${network} (${chain.name})\n📅 ${new Date()}`);
     console.log("🔱 Deployer account: ", deployer ? deployer.address : "not found" && process.exit() );
     console.log(divider);
+
+    // Compile everything
+    await hre.run('compile');
 
     // Deploy Fismo
     [fismo] = await deployFismo(gasLimit);
     deploymentComplete('Fismo', fismo.address, [], contracts);
 
     // Deploy basic Operator
-    [basicOperator, operatorArgs] = await deployOperator(fismo, gasLimit);
-    deploymentComplete('Operator', basicOperator.address, operatorArgs, contracts);
+    [operator, operatorArgs] = await deployOperator(fismo, gasLimit);
+    deploymentComplete('Operator', operator.address, operatorArgs, contracts);
 
-    // Deploy examples
-    const examples = [LockableDoor];
-    for (const example of examples) {
-        console.log(`\n📦 EXAMPLE: ${example.machine.name}`);
-        try {
-            [operator, operatorArgs, guards, machine] = await deployExample(deployer.address, fismo.address, example, basicOperator, gasLimit);
-            console.log(`✅  ${machine.name} machine added to Fismo contract.`);
-            if (operator) {
-                deploymentComplete(example.operator, operator.address, operatorArgs, contracts);
-            } else {
-                console.log(`👉 Basic Operator used: ${basicOperator.address}`);
-            }
-            guards.forEach(guard => deploymentComplete(guard.contractName, guard.contract.address, [], contracts));
-        } catch (e) {
-            console.log(`❌  ${e}`);
-        }
-    }
+    console.log(`✋ Be sure to update scripts/domain/util/deployments.js`);
+    console.log(`➡️ Set Deployments.${chain.name}.Fismo to "${fismo.address}"`);
+    console.log(`➡️ Set Deployments.${chain.name}.Operator to "${operator.address}"`);
 
     // Bail now if deploying locally
     if (hre.network.name === 'hardhat') process.exit();

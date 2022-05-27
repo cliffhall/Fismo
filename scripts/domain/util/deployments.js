@@ -14,8 +14,8 @@ exports.Deployments = {
 
     // Rinkeby Ethereum Testnet
     "rinkeby": {
-        "Fismo": "0x96Aa224465F038784F05C70fE45ea5802e4F790C",
-        "Operator": "0x352821Dfe89651c52f4037ca84c6C87aa0523D10"
+        "Fismo": "0x29f74438e3bd01bfee8b5dEa04cDf37f29C68fcF",
+        "Operator": "0x2eaa6Aa5D3585CD0dA03F0201B5CEbeD19DbF71D"
     },
 
     // Ropsten Ethereum Testnet
@@ -32,8 +32,8 @@ exports.Deployments = {
 
     // Polygon Mumbai Testnet
     "mumbai": {
-        "Fismo": "0x14c61D163920CD8d5923dE78BC15d20181fB4915",
-        "Operator": "0x11dB48D91DD4CC6d69858557b55DADa7F45e562D"
+        "Fismo": "0xaBF03a7c6fd22d5661aFb27940AC3f7C74e59D30",
+        "Operator": "0x4158D41Cc1E4C1962E0f9FEbEDf85679989D351A"
     }
 
 };
