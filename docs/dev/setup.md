@@ -5,7 +5,7 @@ title: Environment Setup
 nav_order: 2
 ---
 # Environment Setup
-_Only necessary if working on, testing, or auditing Fismo. If you just want to build cool stuff, you probably want the [SDK](sdk.md)._
+_Only necessary if directly working on, testing, or auditing the Fismo protocol. If you just want to build cool stuff, you probably want to visit the [Fismology Lab](https://lab.fismo.xyz)._
 
 ### Stack
 For the Fismo project, the stack is a simple one:
@@ -31,7 +31,7 @@ git clone https://github.com/cliffhall/Fismo.git
 * All NPM modules are project local. No global installs required.
 
 ```shell
-cd path/to/fismo
+cd path/to/Fismo
 npm install
 ```
 
@@ -43,5 +43,5 @@ npm install
     * `txNode`: the endpoint for sending ethereum transactions
     * `mnemonic`: a valid ethereum HD wallet seed phrase
 - For verifying code and running the gas reporter, set:
-    * `etherscan.apiKey`: your etherscan API key
+    * `block_explorer.apiKey`: your etherscan/poloygonscan/etc API key
     * `coinmarketcap.apiKey`: your coinmarketcap API key

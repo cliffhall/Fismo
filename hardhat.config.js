@@ -41,7 +41,7 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: environments.apiKey.etherscan
+    apiKey: environments.apiKey.block_explorer
   },
   solidity: {
     version: "0.8.9",
