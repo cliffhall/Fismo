@@ -1,6 +1,8 @@
 remote_theme: just-the-docs/just-the-docs
 logo: "images/fismo-logo.png"
 aux_links:
+  "Lab":
+    - "//lab.fismo.xyz"
   "NPM":
     - "//www.npmjs.com/package/fismo"
   "GitHub":
