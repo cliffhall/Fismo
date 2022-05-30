@@ -6,12 +6,13 @@ nav_order: 6
 ---
 # View Fismo Storage
 * View Interface [IFismoView.sol](https://github.com/cliffhall/Fismo/blob/main/contracts/interfaces/IFismoView.sol)
-* The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x691b5451`
+* The [ERC-165](https://eips.ethereum.org/EIPS/eip-165) identifier for this interface is `0x77c5632f`
 
 ## Methods
 * [`getLastPosition`](#-getlastposition)
 * [`getPositionHistory`](#-getpositionhistory)
 * [`getUserState`](#-getuserstate)
+* * [`getMachineURI`](#-getmachineuri)
 
 ## 🦠 `getLastPosition`
 Get the last recorded position of the given user.
@@ -105,3 +106,29 @@ returns (
 | Name  | Type | Description                          |
 |-------|---|--------------------------------------|
 | `state` | [`FismoTypes.State`](../domain/State.md)  | the user's current state in the given machine |
+
+## 🦠 `getMachineURI`
+Get the off-chain metadata URI for the given machine.
+
+#### Reverts if
+- Machine does not exist
+
+#### Signature
+```solidity
+function getMachineURI(bytes4 _machineId)
+external
+view
+returns (string memory uri);
+```
+
+#### Arguments
+
+| Name       | Description                              | Type    |
+| ----------- |------------------------------------------|---------|
+| `_machineId` | the id of the machine | `bytes4` | 
+
+#### Returns
+
+| Name  | Description                                | Type     |
+|-------|--------------------------------------------|----------|
+| `uri` |  the URI for the given machine | `string` |

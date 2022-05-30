@@ -146,6 +146,26 @@ contract FismoView is IFismoView, FismoTypes, FismoConstants {
 
     }
 
+    /**
+     * @notice Get the off-chain metadata URI for the given machine.
+     *
+     * Reverts if:
+     * - Machine does not exist
+     *
+     * @param _machineId - the id of the machine
+     * @return uri - the URI for the given machine
+     */
+    function getMachineURI(bytes4 _machineId)
+    external
+    view
+    override
+    returns (string memory uri)
+    {
+        // Get the machine
+        Machine storage machine = getMachine(_machineId);
+        uri = machine.uri;
+    }
+
     //-------------------------------------------------------
     // INTERNAL FUNCTIONS
     //-------------------------------------------------------

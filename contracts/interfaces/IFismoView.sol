@@ -7,7 +7,7 @@ import { FismoTypes } from "../domain/FismoTypes.sol";
  * @title IFismoView
  *
  * Interface for Fismo view functions
- * The ERC-165 identifier for this interface is 0x691b5451
+ * The ERC-165 identifier for this interface is 0x77c5632f
  *
  * @author Cliff Hall <cliff@futurescale.com> (https://twitter.com/seaofarrows)
  */
@@ -61,5 +61,19 @@ interface IFismoView {
     external
     view
     returns (FismoTypes.State memory state);
+
+    /**
+     * @notice Get the off-chain metadata URI for the given machine.
+     *
+     * Reverts if:
+     * - Machine does not exist
+     *
+     * @param _machineId - the id of the machine
+     * @return uri - the URI for the given machine
+     */
+    function getMachineURI(bytes4 _machineId)
+    external
+    view
+    returns (string memory uri);
 
 }
