@@ -5,10 +5,10 @@ nav_order: 1
 ---
 # The Finite State Machine Protocol
 
-##### Consider this
+#### Consider this
 > There are standards for tokens that allow us to represent static things like currency, ownership, membership, and participation. _But why do we have no standard for representing the structure of a map or process and an individual's dynamic path through it?_
 
-##### A Humble Solution
+#### A Humble Solution
 Fismo Machines are a way of simulating processes, branching narratives, maps of places, or nearly any stateful thing you can imagine.
 
 In a nutshell, Fismo enforces rules about transitions between states when users invoke actions.
