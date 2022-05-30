@@ -12,7 +12,7 @@ nav_order: 6
 * [`getLastPosition`](#-getlastposition)
 * [`getPositionHistory`](#-getpositionhistory)
 * [`getUserState`](#-getuserstate)
-* * [`getMachineURI`](#-getmachineuri)
+* [`getMachineURI`](#-getmachineuri)
 
 ## 🦠 `getLastPosition`
 Get the last recorded position of the given user.
