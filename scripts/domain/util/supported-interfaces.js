@@ -9,7 +9,7 @@ exports.InterfaceIds = {
     IFismoOwner:    "0x7f5828d0",
     IFismoSupport:  "0x01ffc9a7",
     IFismoUpdate:   "0xf8ebd091",
-    IFismoView:     "0x691b5451",
+    IFismoView:     "0x77c5632f",
 
     IInvalidRandom: "0xdeadfeed",  // for negative test
 };

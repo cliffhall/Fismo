@@ -37,7 +37,7 @@ describe("Fismo", function() {
     let accounts, deployer, user, operator, guardLogic, operatorArgs, guards, expected;
     let fismo, machine, machineObj, response, targetStateName, targetStateId, selector;
     let state, transition, action, stateName, stateId, actionId, success, support;
-    let actionResponse, actionResponseStruct, position, positionStruct;
+    let actionResponse, actionResponseStruct, position, positionStruct, uri;
     let implementation, instance, tx, event, owner, isFismo, tokens, initArgs;
 
     beforeEach( async function () {
@@ -53,10 +53,12 @@ describe("Fismo", function() {
         // The single state is the initial state, and its transitions are re-entrant
         stateName = "Be";
         stateId = nameToId(stateName);
+        uri = "ipfs://QmQgg8yFUArWnE9KWMATEpf4ukPRzgy9Z2QWubL357eReA";
         machineObj = {
             "name": "Meditate",
             "operator": operator.address,
             "initialStateId": stateId,
+            "uri": uri,
             "states": [
                 {
                     "name": stateName,
@@ -1242,6 +1244,30 @@ describe("Fismo", function() {
 
                     // Compare state name to state name
                     expect(state.name === expected).to.be.true;
+
+                });
+
+            });
+
+            context("👉 getMachineURI()", async function () {
+
+                beforeEach( async function () {
+
+                    machine = Machine.fromObject(machineObj);
+                    expect(machine.isValid()).is.true;
+
+                    // Add machine to Fismo
+                    await fismo.installMachine(machine.toObject());
+
+                });
+
+                it("Should return the URI for a given machine", async function () {
+
+                    // Request the URI for the given machine
+                    response = await fismo.getMachineURI(machine.id);
+
+                    // Compare state to state
+                    expect(response === uri).to.be.true;
 
                 });
 
