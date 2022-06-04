@@ -9,7 +9,7 @@ _Yo dawg, we heard you like machines, so we put this machine in our state machin
 ## 📖 [Documentation](https://docs.fismo.xyz)
 ## 🧪 [Fismology Lab](https://github.com/cliffhall/Fismology)
 ## 📋 Status
-### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) 🔬 ![97%](https://progress-bar.dev/97/?title=Progress&width=100&color=0c0c0c)
+### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) ![97%](https://progress-bar.dev/97/?title=Progress&width=100&color=0c0c0c)
 
 Done or in progress are:
 - ✅ Science! a functional [Deterministic Selector Proxy](docs/whitepaper.md#deterministic-selector-proxy) implementation
