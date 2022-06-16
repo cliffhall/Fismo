@@ -13,7 +13,7 @@ Fismo Machines are a way of simulating processes, branching narratives, maps of 
 
 In a nutshell, Fismo enforces rules about transitions between states when users invoke actions.
 
-The builder writes custom Solidity functions that get called when state transitions happen. Transitions don't always need such hooks, but when they do, anything can be queried or stored, and the transaction can be reverted if your conditions aren't met. Further, each user's progress through a Fismo Machine is recorded and can be queried publicly by anyone. Hmm, _Proof of Quest Protocol?_ 🤔
+The builder writes custom Solidity functions that get called when state transitions happen. Transitions don't always need such hooks, but when they do, anything can be queried or stored, and the transaction can be reverted if your conditions aren't met. Further, each user's progress through a Fismo Machine is recorded and can be queried publicly by anyone, even another contract. Hmm, _Proof of Quest Protocol?_ 🤔
 
 State transitions can be gated by the tokens a user holds, places the've been, or any other accessible value, be it stored or derived. Likewise, new values could be stored or tokens transferred to a user when they take some action or arrive at some waypoint.
 
