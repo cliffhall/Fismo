@@ -34,3 +34,42 @@ for verification on the block explorer. Waiting for verification result...
 Successfully verified contract Operator on Etherscan.
 https://mumbai.polygonscan.com/address/0x4158D41Cc1E4C1962E0f9FEbEDf85679989D351A#code
 
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (mumbai)
+📅 Sat Jun 25 2022 13:38:20 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0x6b9360daA123B6ed97e4dD07E23BAE7e73325a25
+✅  Operator deployed to: 0x9A95a33f0E7f810F6d7597992524D0Ead57f5ed4
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.mumbai.Fismo to "0x6b9360daA123B6ed97e4dD07E23BAE7e73325a25"
+➡️ Set Deployments.mumbai.Operator to "0x9A95a33f0E7f810F6d7597992524D0Ead57f5ed4"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+Nothing to compile
+Compiling 1 file with 0.8.9
+Successfully submitted source code for contract
+contracts/Fismo.sol:Fismo at 0x6b9360daA123B6ed97e4dD07E23BAE7e73325a25
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Fismo on Etherscan.
+https://mumbai.polygonscan.com/address/0x6b9360daA123B6ed97e4dD07E23BAE7e73325a25#code
+
+📋 Verifying Operator
+Compiling 41 files with 0.8.9
+Solidity compilation finished successfully
+Compiling 1 file with 0.8.9
+Successfully submitted source code for contract
+contracts/Operator.sol:Operator at 0x9A95a33f0E7f810F6d7597992524D0Ead57f5ed4
+for verification on the block explorer. Waiting for verification result...
+
+❌ Failed to verify Operator on etherscan. The Etherscan API responded with a failure status.
+The verification may still succeed but should be checked manually.
+Reason: Already Verified
+
+
