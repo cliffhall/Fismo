@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Whitepaper
+title: Litepaper
 nav_order: 3
 ---
-# Whitepaper
+# Litepaper
 Let's say you're a hardcore Solidity nerd. You're probably going to want to stick around for want follows. If not, suffice it to say that in the process of demonstrating a somewhat esoteric concept, an incredibly useful protocol emerged.
 
 If you're still  here, put on your splash goggles, button up your lab coat and let's go...

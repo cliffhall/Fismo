@@ -12,7 +12,7 @@ _Yo dawg, we heard you like machines, so we put this machine in our state machin
 ### [![Node.js CI](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml/badge.svg)](https://github.com/cliffhall/Fismo/actions/workflows/node.js.yml) ![97%](https://progress-bar.dev/97/?title=Progress&width=100&color=0c0c0c)
 
 Done or in progress are:
-- ✅ Science! a functional [Deterministic Selector Proxy](docs/whitepaper.md#deterministic-selector-proxy) implementation
+- ✅ Science! a functional [Deterministic Selector Proxy](docs/litepaper.md#deterministic-selector-proxy) implementation
 - ✅ A robust [Finite State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) protocol
 - ✅ Minimal clones of Fismo for cheap deployments (~$45 vs ~$2300)!!!
 - ✅ Initialization and access of machine-specific storage slots
