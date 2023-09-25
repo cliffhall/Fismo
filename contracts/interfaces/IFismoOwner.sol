@@ -22,7 +22,7 @@ interface IFismoOwner {
      *
      * @return The address of the owner.
      */
-    function owner() view external returns(address);
+    function owner() external view returns(address);
 
     /**
      * @notice Transfer ownership of the Fismo instance to another address.
