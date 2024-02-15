@@ -22,6 +22,13 @@ contract Operator is FismoConstants {
         address indexed fismo
     );
 
+    /// Emitted when a user invokes an action
+    event ActionInvoked(
+        bytes4 indexed machineId,
+        bytes4 indexed actionId,
+        FismoTypes.ActionResponse response
+    );
+
     /// The Fismo instance to invoke actions upon
     IFismoOperate private fismo;
 
@@ -86,6 +93,9 @@ contract Operator is FismoConstants {
     external
     returns(FismoTypes.ActionResponse memory response) {
         response = fismo.invokeAction(msg.sender, _machineId, _actionId);
+
+        // Notify watchers of state change
+        emit ActionInvoked(_machineId, _actionId, response);
     }
 
     /**

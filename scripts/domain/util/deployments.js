@@ -20,8 +20,8 @@ exports.Deployments = {
 
     // Polygon Mumbai Testnet
     "mumbai": {
-        "Fismo": "0x6b9360daA123B6ed97e4dD07E23BAE7e73325a25",
-        "Operator": "0x9A95a33f0E7f810F6d7597992524D0Ead57f5ed4"
+        "Fismo": "0x9Fb547B17500F2E25873Ff740B460DD69ACa2f3B",
+        "Operator": "0x645C8A7c78aa2778C5C3D1d9F24C949b107dEf99"
     }
 
 };

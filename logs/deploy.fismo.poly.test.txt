@@ -73,3 +73,80 @@ The verification may still succeed but should be checked manually.
 Reason: Already Verified
 
 
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (mumbai)
+📅 Thu Feb 15 2024 11:08:47 GMT-0500 (Eastern Standard Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (mumbai)
+📅 Thu Feb 15 2024 11:13:53 GMT-0500 (Eastern Standard Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0xbfeB955b7F97b526fF902308c7Ade1817dFd8d53
+✅  Operator deployed to: 0x816fd663e5D6874452bFB90Cbd1d032D9E335fEe
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.mumbai.Fismo to "0xbfeB955b7F97b526fF902308c7Ade1817dFd8d53"
+➡️ Set Deployments.mumbai.Operator to "0x816fd663e5D6874452bFB90Cbd1d032D9E335fEe"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+❌ Failed to verify Fismo on etherscan. request to https://polygon-mumbai.g.alchemy.com/v2/VOc3Nl_n7QXstLqLMKxJCn_znqNZQetp failed, reason: Socket connection timeout
+
+📋 Verifying Operator
+Nothing to compile
+Compiling 1 file with 0.8.9
+Successfully submitted source code for contract
+contracts/Operator.sol:Operator at 0x816fd663e5D6874452bFB90Cbd1d032D9E335fEe
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Operator on Etherscan.
+https://mumbai.polygonscan.com/address/0x816fd663e5D6874452bFB90Cbd1d032D9E335fEe#code
+
+
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (mumbai)
+📅 Thu Feb 15 2024 11:18:27 GMT-0500 (Eastern Standard Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0x9Fb547B17500F2E25873Ff740B460DD69ACa2f3B
+✅  Operator deployed to: 0x645C8A7c78aa2778C5C3D1d9F24C949b107dEf99
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.mumbai.Fismo to "0x9Fb547B17500F2E25873Ff740B460DD69ACa2f3B"
+➡️ Set Deployments.mumbai.Operator to "0x645C8A7c78aa2778C5C3D1d9F24C949b107dEf99"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+Nothing to compile
+Compiling 1 file with 0.8.9
+Successfully submitted source code for contract
+contracts/Fismo.sol:Fismo at 0x9Fb547B17500F2E25873Ff740B460DD69ACa2f3B
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Fismo on Etherscan.
+https://mumbai.polygonscan.com/address/0x9Fb547B17500F2E25873Ff740B460DD69ACa2f3B#code
+
+📋 Verifying Operator
+Compiling 41 files with 0.8.9
+Solidity compilation finished successfully
+Compiling 1 file with 0.8.9
+Successfully submitted source code for contract
+contracts/Operator.sol:Operator at 0x645C8A7c78aa2778C5C3D1d9F24C949b107dEf99
+for verification on the block explorer. Waiting for verification result...
+
+❌ Failed to verify Operator on etherscan. The Etherscan API responded with a failure status.
+The verification may still succeed but should be checked manually.
+Reason: Already Verified
+
+
