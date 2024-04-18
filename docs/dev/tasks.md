@@ -60,7 +60,7 @@ Mainly used to test the deployment script.
 
 * ```npm run deploy:local```
 
-### Deploy to Polygon Mumbai Testnet
+### Deploy to Polygon Amoy Testnet
 This runs the `scripts/deploy/deploy-and-verify-pair.js` script against Polygon testnet. It deploys Fismo and a paired Operator.
 
 * ```npm run deploy:poly:test```

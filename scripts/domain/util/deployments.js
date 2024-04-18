@@ -18,10 +18,10 @@ exports.Deployments = {
         "Operator": ""
     },
 
-    // Polygon Mumbai Testnet
-    "mumbai": {
-        "Fismo": "0x9Fb547B17500F2E25873Ff740B460DD69ACa2f3B",
-        "Operator": "0x645C8A7c78aa2778C5C3D1d9F24C949b107dEf99"
+    // Polygon Amoy Testnet
+    "amoy": {
+        "Fismo": "0x677524aaD90FfE895688521A3870781bf297beB7",
+        "Operator": "0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3"
     }
 
 };

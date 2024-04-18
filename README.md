@@ -36,7 +36,7 @@ Done or in progress are:
 - ✅ Publish [NPM package](https://www.npmjs.com/package/fismo) with utilities and domain model for browser + node
 - ✅ Publish documentation to [Fismo website](https://fismo.xyz)
 - ✅ Fully permissive cloneable Operator for cheap deployments (~$45 vs ~$350)!!!
-- ✅ Deploy to testnets (Rinkeby, Mumbai)
+- ✅ Deploy to testnets (Rinkeby, Mumbai, Amoy)
 - ✅ Add deployments to SDK
 - ✅ Standalone demo project using SDK only
 - 👉 Deploy to mainnets (Homestead, Matic)

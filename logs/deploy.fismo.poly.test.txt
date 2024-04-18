@@ -150,3 +150,156 @@ The verification may still succeed but should be checked manually.
 Reason: Already Verified
 
 
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 11:53:38 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 12:02:00 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0x607A97Aa9f523c20c0cd5B49EF8C1450F8678b67
+✅  Operator deployed to: 0xc763AdBb1a274787b7404f20E9a7590F76f368AE
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.amoy.Fismo to "0x607A97Aa9f523c20c0cd5B49EF8C1450F8678b67"
+➡️ Set Deployments.amoy.Operator to "0xc763AdBb1a274787b7404f20E9a7590F76f368AE"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+❌ Failed to verify Fismo on etherscan. Unsupported network ("poly-test", chainId: 80002).
+
+📋 Verifying Operator
+❌ Failed to verify Operator on etherscan. Unsupported network ("poly-test", chainId: 80002).
+
+
+
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 12:09:02 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0xa5947FED4e0D88bAF12559e55D4903d59CC7dDD1
+✅  Operator deployed to: 0x048495eFA896ecbec56060C99C2dbF43B649352A
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.amoy.Fismo to "0xa5947FED4e0D88bAF12559e55D4903d59CC7dDD1"
+➡️ Set Deployments.amoy.Operator to "0x048495eFA896ecbec56060C99C2dbF43B649352A"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+❌ Failed to verify Fismo on etherscan. Trying to verify a contract in a network with chain id 80002, but the plugin doesn't recognize it as a supported chain.
+
+You can manually add support for it by following these instructions: https://hardhat.org/verify-custom-networks
+
+To see the list of supported networks, run this command:
+
+  npx hardhat verify --list-networks
+
+📋 Verifying Operator
+❌ Failed to verify Operator on etherscan. Trying to verify a contract in a network with chain id 80002, but the plugin doesn't recognize it as a supported chain.
+
+You can manually add support for it by following these instructions: https://hardhat.org/verify-custom-networks
+
+To see the list of supported networks, run this command:
+
+  npx hardhat verify --list-networks
+
+
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 12:21:25 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 12:22:38 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0x677524aaD90FfE895688521A3870781bf297beB7
+✅  Operator deployed to: 0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.amoy.Fismo to "0x677524aaD90FfE895688521A3870781bf297beB7"
+➡️ Set Deployments.amoy.Operator to "0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+❌ Failed to verify Fismo on etherscan. Trying to verify a contract in a network with chain id 80002, but the plugin doesn't recognize it as a supported chain.
+
+You can manually add support for it by following these instructions: https://hardhat.org/verify-custom-networks
+
+To see the list of supported networks, run this command:
+
+  npx hardhat verify --list-networks
+
+📋 Verifying Operator
+❌ Failed to verify Operator on etherscan. Trying to verify a contract in a network with chain id 80002, but the plugin doesn't recognize it as a supported chain.
+
+You can manually add support for it by following these instructions: https://hardhat.org/verify-custom-networks
+
+To see the list of supported networks, run this command:
+
+  npx hardhat verify --list-networks
+
+
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 12:32:35 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+--------------------------------------------------------------------------------
+💥 Deploy and verify Fismo / Operator pair
+--------------------------------------------------------------------------------
+⛓  Network: poly-test (amoy)
+📅 Thu Apr 18 2024 12:40:45 GMT-0400 (Eastern Daylight Time)
+🔱 Deployer account:  0xAc59a3da0E748b29e43FfaAEEa731E17250a4C47
+--------------------------------------------------------------------------------
+Nothing to compile
+✅  Fismo deployed to: 0x677524aaD90FfE895688521A3870781bf297beB7
+✅  Operator deployed to: 0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3
+✋ Be sure to update scripts/domain/util/deployments.js
+➡️ Set Deployments.amoy.Fismo to "0x677524aaD90FfE895688521A3870781bf297beB7"
+➡️ Set Deployments.amoy.Operator to "0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3"
+⏲ Pause one minute, allowing deployments to propagate to Etherscan backend...
+🔍 Verifying contracts on Etherscan...
+
+📋 Verifying Fismo
+Successfully submitted source code for contract
+contracts/Fismo.sol:Fismo at 0x677524aaD90FfE895688521A3870781bf297beB7
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Fismo on the block explorer.
+https://amoy.polygonscan.com/address/0x677524aaD90FfE895688521A3870781bf297beB7#code
+
+
+📋 Verifying Operator
+Successfully submitted source code for contract
+contracts/Operator.sol:Operator at 0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract Operator on the block explorer.
+https://amoy.polygonscan.com/address/0x8D67A676A5Ace2C9FFa0758A454d771F2af57bb3#code
+
+
+

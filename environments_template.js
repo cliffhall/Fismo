@@ -1,11 +1,12 @@
 module.exports = {
 
     "apiKey": {
-        "block_explorer": "YOUR_POLYGONSCAN_API_KEY", // POLYGONSCAN
-//        "block_explorer": "YOUR_ETHERSCAN_API_KEY",   // ETHERSCAN
+        "block_explorer": {
+            "poly-test": "YOUR_POLYGONSCAN_API_KEY",
+            "eth-main": "YOUR_ETHERSCAN_API_KEY"
+        },
         "coinmarketcap": "YOUR_COINMARKETCAP_API_KEY"
     },
-
     "network": {
 
         "hardhat": {  // hardhat local network
@@ -36,15 +37,15 @@ module.exports = {
             }
         },
 
-        "poly-test": {   // Polygon Mumbai testnet
+        "poly-test": {   // Polygon Amoy testnet
             "mnemonic": "your twelve word mnemonic phrase here...",
-            "txNode": "https://rpc-mumbai.maticvigil.com/v1/[API_KEY_HERE]",
-            "explorer": "https://mumbai.polygonscan.com/",
+            "txNode": "https://rpc-amoy.polygon.technology/[API_KEY_HERE]",
+            "explorer": "https://amoy.polygonscan.com/",
             "gasLimit": "10000000",
             "chain": {
-                "title": "Polygon Mumbai Testnet",
-                "name": "mumbai",
-                "chainId": 80001
+                "title": "Polygon Amoy Testnet",
+                "name": "amoy",
+                "chainId": 80002
             }
         },
 
